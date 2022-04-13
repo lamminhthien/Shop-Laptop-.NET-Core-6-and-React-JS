@@ -42,7 +42,7 @@
   - ma_chuc_vu
   - id_tai_khoan
   - dia_chi
- * Table **[tai_khoan]**
+* Table **[tai_khoan]**
   - id
   - username
   - password
