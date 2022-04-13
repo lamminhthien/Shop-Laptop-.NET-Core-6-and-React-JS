@@ -36,3 +36,27 @@
   - ma_danh_gia
   - ma_nhan_vien
   - noi_dung
+* Table **[nhan_vien]**
+  - ma_nhan_vien
+  - ten_nhan_vien
+  - ma_chuc_vu
+  - id_tai_khoan
+  - dia_chi
+ * Table **[tai_khoan]**
+  - id
+  - username
+  - password
+  - email
+  - ngay_tao
+  - so_dien_thoai
+  - ngay_sinh
+  - gioi_tinh
+  - so_lan_canh_cao
+  - trang_thai
+  - ma_quyen
+* Table **[phan_quyen]**
+  - ma_quyen
+  - ten_quyen
+* Table **[chuc_vu]**
+  - ma_chuc_vu
+  - ten_chuc_vu
