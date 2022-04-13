@@ -16,7 +16,7 @@
   - ma_khach_hang
   - ma_san_pham
   - noi_dung
- * Table [hang_san_xuat]
+* Table [hang_san_xuat]
   - ma_hang_sx
   - ten_hang_sx
   - logo_hang_sx
