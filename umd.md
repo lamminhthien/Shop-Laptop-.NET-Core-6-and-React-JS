@@ -7,6 +7,7 @@
   - man_hinh
   - bo_nho_luu_tru
   - gia
+  - mo_ta_khac
 * Table **[anh_san_pham]**
   - ma_anh
   - ma_san_pham
