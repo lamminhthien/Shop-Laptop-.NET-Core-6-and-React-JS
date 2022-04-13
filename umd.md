@@ -31,7 +31,7 @@
   - ma_khach_hang
   - ma_san_pham
   - so_luong
- * Table  **[phan_hoi_binh_luan_sp]**
+* Table  **[phan_hoi_binh_luan_sp]**
   - ma_phan_hoi
   - ma_danh_gia
   - ma_nhan_vien
