@@ -24,7 +24,7 @@
   - ma_loai_sp
   - ten_loai_sp
   - anh_minh_hoa
- * Table **[san_pham_yeu_thich]**
+* Table **[san_pham_yeu_thich]**
   - ma_khach_hang
   - ma_san_pham
  
