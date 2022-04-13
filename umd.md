@@ -11,4 +11,12 @@
   - ma_anh
   - ma_san_pham
   - anh
- 
+ * Table [binh_luan_san_pham]
+  - ma_danh_gia
+  - ma_khach_hang
+  - ma_san_pham
+  - noi_dung
+  * Table [hang_san_xuat]
+  - ma_hang_sx
+  - ten_hang_sx
+  - logo_hang_sx
