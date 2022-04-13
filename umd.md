@@ -60,3 +60,14 @@
 * Table **[chuc_vu]**
   - ma_chuc_vu
   - ten_chuc_vu
+* Table **[dat_hang]**
+  - ma_dat_hang
+  - ma_khach_hang
+  - ngay_dat
+  - tong_tien
+* Table **[chi_tiet_dat_hang]**
+  - ma_dat_hang
+  - ma_san_pham
+  - so_luong
+  - ngay_nhan_hang
+
