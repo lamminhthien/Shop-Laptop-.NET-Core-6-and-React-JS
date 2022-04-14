@@ -41,7 +41,7 @@
   - ma_nhan_vien
   - ten_nhan_vien
   - ma_chuc_vu
-  - id_tai_khoan
+  - ma_tai_khoan
   - dia_chi
 * Table **[tai_khoan]**
   - id
@@ -75,7 +75,7 @@
   - ma_khach_hang
   - ho_ten
   - dia_chi
-  - id_tai_khoan
+  - ma_tai_khoan
   - so_dien_thoai
 
 
