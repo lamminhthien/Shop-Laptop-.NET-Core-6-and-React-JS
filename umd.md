@@ -13,7 +13,7 @@
   - ma_san_pham
   - anh
 * Table **[binh_luan_san_pham]**
-  - ma_danh_gia
+  - ma_binh_luan
   - ma_khach_hang
   - ma_san_pham
   - noi_dung
@@ -34,7 +34,7 @@
   - so_luong
 * Table  **[phan_hoi_binh_luan_sp]**
   - ma_phan_hoi
-  - ma_danh_gia
+  - ma_binh_luan
   - ma_nhan_vien
   - noi_dung
 * Table **[nhan_vien]**
