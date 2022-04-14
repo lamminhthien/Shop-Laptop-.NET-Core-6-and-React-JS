@@ -8,6 +8,8 @@
   - bo_nho_luu_tru
   - gia
   - mo_ta_khac
+  - ma_loai_sp
+  - ma_hang_sx
 * Table **[anh_san_pham]**
   - ma_anh
   - ma_san_pham
@@ -41,7 +43,7 @@
   - ma_nhan_vien
   - ten_nhan_vien
   - ma_chuc_vu
-  - ma_tai_khoan
+  - id_tai_khoan
   - dia_chi
 * Table **[tai_khoan]**
   - id
@@ -75,7 +77,7 @@
   - ma_khach_hang
   - ho_ten
   - dia_chi
-  - ma_tai_khoan
+  - id_tai_khoan
   - so_dien_thoai
 
 
