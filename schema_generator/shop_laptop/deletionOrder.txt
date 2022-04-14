@@ -1,0 +1,15 @@
+phan_hoi_binh_luan_sp
+san_pham_yeu_thich
+gio_hang
+dat_hang
+chi_tiet_dat_hang
+anh_san_pham
+nhan_vien
+binh_luan_san_pham
+khach_hang
+tai_khoan
+san_pham
+phan_quyen
+loai_san_pham
+hang_san_xuat
+chuc_vu
