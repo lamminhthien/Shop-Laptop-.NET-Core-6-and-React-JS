@@ -71,4 +71,11 @@
   - ma_san_pham
   - so_luong
   - ngay_nhan_hang
+* Table **[khach_hang]**
+  - ma_khach_hang
+  - ho_ten
+  - dia_chi
+  - id_tai_khoan
+  - so_dien_thoai
+
 
