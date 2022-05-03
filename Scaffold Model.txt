@@ -1,0 +1,1 @@
+dotnet ef dbcontext scaffold "Server=localhost\SQLEXPRESS;Database=shop_laptop;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer --context-dir .\Data --output-dir .\Models  
