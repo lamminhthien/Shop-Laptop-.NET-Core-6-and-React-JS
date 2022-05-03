@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace ContosoPizza.Models
 {
@@ -26,6 +27,7 @@ namespace ContosoPizza.Models
         public string AnhMinhHoa { get; set; } = null!;
 
         [InverseProperty("MaLoaiSpNavigation")]
+        [JsonIgnore]
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

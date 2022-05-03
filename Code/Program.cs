@@ -15,8 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
-//builder.Services.AddDbContext<shop_laptopContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
+builder.Services.AddDbContext<shop_laptopContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
 builder.Services.AddCors();
 
 
