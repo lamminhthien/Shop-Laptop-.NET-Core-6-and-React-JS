@@ -1,0 +1,28 @@
++ Cần bổ sung thông tin mô tả cho giỏ hàng và chi tiết đặt hàng
++ Gợi ý: Trạng thái giỏ hàng (đã đặt hay chưa đặt )
++ Hoặc giỏ hàng chỉ là nơi lưu trữ tạm thời
++ Sau khi xác nhận --> nó sẽ thành chi tiết  hóa đơn. Những thông tin 
+trong giở hàng bị xóa đi
++ Lưu thông tin ngày nhận, ngày đặt, khách hàng, sản phẩm thành don_hang
++ Liên kết với bảng chi tiết đơn hàng để lấy thông tin từng sản phẩm.
++ Giở hàng luuw trữ các mặt hàng tạm thời mà khách hàng xác nhận,
++ Khi đã xác nhận hóa đơn thì sẽ có ngày nhận trong bảng đặt hàng.'
++ Đơn hàng có nhiều sản phẩm, khi giao hàng sẽ có từng 
++ Cần sửa cơ sở dữ liệu để tất cả sản phẩm trong đơn đặt hàng giao một lần
++ 2 Loại nhân viên: nhân viên bán hàng, người quản trị
++ Nhân viên bán hàng: xác nhận đơn hàng (trạng thái đang giao, đã giao,....)
+, phản hồi bình luận, Ai sẽ là người xác nhận đơn hàng của khách hàng, đăng tải thông tin
++ Không cần table chức vụ
++ Có 1 thuộc tính phân biệt người quản trị, nhân viên bán hàng.
++ Xem lại thuộc tính giới tính, ngày sinh của bảng tài khoản.
++ Lưu giới tính để nhân viên biết anh hay chị và phản hồi bình luận
++ Đừng lưu giới tính, ngày sinh ở bảng tài khoản. Lưu ở bảng khách hàng để dễ truy vấn
++ Tùy mục đích thiết kế chức năng mà ta chọn những thuộc tính phù hợp
++ Để hạn chế truy vấn nhiều bảng, có thể đặt username, password trong khách hàng.
++ Thêm thuộc tính username, password cho nhân viên.
++ Nối phân quyền với bảng nhân viên.
++ Cần thêm bản chi_tiet_san_pham
++ Bảng sản phẩm lưu giá gốc tại thời điểm hiện tại, tỉ lệ chiết khấu
++ Giá bán tính dựa theo giá gốc và tỉ lệ chiết khấu để hiển thị.
++ tính tổng tiền, giá nhập * soluong + ...chiết khấu
++ Bảng biến động sẽ lưu giá thay đổi khi có khuyến mãi.

@@ -1,0 +1,31 @@
+Microsoft (R) SQL Server Installer
+Copyright (c) 2019 Microsoft.  All rights reserved.
+|
+Operation finished with result: Success
+
+Installation has completed successfully!
+  INSTANCE NAME
+      SQLEXPRESS
+
+  SQL ADMINISTRATORS
+      DESKTOP-HHU5MDD\lammi
+
+  FEATURES INSTALLED
+      SQLENGINE
+
+  VERSION
+      15.0.2000.5, RTM
+
+  CONNECTION STRING
+      Server=localhost\SQLEXPRESS;Database=master;Trusted_Connection=True;
+
+  SQL SERVER INSTALL LOG FOLDER
+      C:\Program Files\Microsoft SQL Server\150\Setup Bootstrap\Log\20220503_063143
+
+  INSTALLATION MEDIA FOLDER
+      C:\SQL2019\Express_ENU
+
+  INSTALLATION RESOURCES FOLDER
+      C:\Program Files\Microsoft SQL Server\150\SSEI\Resources
+
+Successfully installed

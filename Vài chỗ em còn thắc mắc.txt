@@ -1,0 +1,2 @@
+Dạ cô ơi, như username và password em không còn lưu chung bảng nữa, mà lưu riêng ra trong table Khách Hàng, Table Nhân viên có được không cô?
+Vì cửa hàng nhỏ, chỉ vài nhân viên nên em không có phân quyền.
