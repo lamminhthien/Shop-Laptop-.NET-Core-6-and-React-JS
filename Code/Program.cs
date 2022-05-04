@@ -19,6 +19,9 @@ builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
 builder.Services.AddDbContext<shop_laptopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
 builder.Services.AddCors();
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
 
 
@@ -51,5 +54,12 @@ app.MapControllers();
 
 // Add the CreateDbIfNotExists method call
 app.CreateDbIfNotExists();
+
+app.UseRouting();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=SanPhams1}/{action=Index}/{id?}");
+
 
 app.Run();
