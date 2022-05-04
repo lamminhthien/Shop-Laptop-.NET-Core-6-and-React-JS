@@ -10,7 +10,7 @@ import {
   FcFolder,
   FcSettings
 } from 'react-icons/fc';
-const App = () => {
+const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const Menus = [
     { title: "Dashboard", icon: <FcOrganization size={30} />},
@@ -73,4 +73,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default Sidebar;
