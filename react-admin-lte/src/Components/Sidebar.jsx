@@ -1,13 +1,19 @@
 import React from "react";
-import {RiHome2Line} from "react-icons/ri"
-const Sidebar = () => {
+import {
+    RiHome2Line,
+    RiShoppingCart2Line,
+    RiNewspaperLine,
+    RiPhoneLine,
+    RiInformationLine
+} from "react-icons/ri"
+const Sidebar = ({Sidebar}) => {
     return (
-        <div className="sidebar">
-            <li><RiHome2Line/>Home</li>
-            <li>Products</li>
-            <li>Carrer</li>
-            <li>Contact Us</li>
-            <li>About Us</li>
+        <div className={Sidebar?"sidebar sidebar--open":"sidebar"}>
+            <li> <RiHome2Line/> Home</li>
+            <li> <RiShoppingCart2Line/> Products</li>
+            <li> <RiNewspaperLine/>  Carrer</li>
+            <li> <RiPhoneLine/>  Contact Us</li>
+            <li> <RiInformationLine/>  About Us</li>
             <li></li>
         </div>
     )
