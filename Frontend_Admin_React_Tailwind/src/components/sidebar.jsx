@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FcPrevious,
   FcOrganization,
@@ -11,7 +11,9 @@ import {
   FcSettings
 } from 'react-icons/fc';
 const Sidebar = () => {
+  // Set state for button to open sidebar
   const [open, setOpen] = useState(true);
+  // List of menu items
   const Menus = [
     { title: "Dashboard", icon: <FcOrganization size={30} />},
     { title: "Inbox", icon: <FcAssistant size={30}/> },
@@ -22,7 +24,19 @@ const Sidebar = () => {
     { title: "Files ", icon: <FcFolder size={30}/>},
     { title: "Setting", icon: <FcSettings size={30}/> },
   ];
+  // Auto close menu when on mobile
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  }
 
+  useEffect(() => {
+    window.addEventListener("resize",handleResize)
+  })
+  
   return (
     <div className="flex">
       <div
