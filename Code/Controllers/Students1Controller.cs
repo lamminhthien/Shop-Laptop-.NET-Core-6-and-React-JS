@@ -6,54 +6,54 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ContosoPizza.Data;
-using ContosoPizza.Models;
+using ShopLaptop_EFCore.Data;
+using ShopLaptop_EFCore.Models;
 
-namespace ContosoPizza.Controllers
+namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoaiSanPhamsController : ControllerBase
+    public class Students1Controller : ControllerBase
     {
-        private readonly shop_laptopContext _context;
+        private readonly studentContext _context;
 
-        public LoaiSanPhamsController(shop_laptopContext context)
+        public Students1Controller(studentContext context)
         {
             _context = context;
         }
 
-        // GET: api/LoaiSanPhams
+        // GET: api/Students1
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhams()
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            return await _context.LoaiSanPhams.ToListAsync();
+            return await _context.Students.Include(s => s.ClassCodeNavigation).ToListAsync();
         }
 
-        // GET: api/LoaiSanPhams/5
+        // GET: api/Students1/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<LoaiSanPham>> GetLoaiSanPham(string id)
+        public async Task<ActionResult<Student>> GetStudent(string id)
         {
-            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
+            var student = await _context.Students.FindAsync(id);
 
-            if (loaiSanPham == null)
+            if (student == null)
             {
                 return NotFound();
             }
 
-            return loaiSanPham;
+            return student;
         }
 
-        // PUT: api/LoaiSanPhams/5
+        // PUT: api/Students1/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoaiSanPham(string id, LoaiSanPham loaiSanPham)
+        public async Task<IActionResult> PutStudent(string id, Student student)
         {
-            if (id != loaiSanPham.MaLoaiSp)
+            if (id != student.StudentId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(loaiSanPham).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace ContosoPizza.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LoaiSanPhamExists(id))
+                if (!StudentExists(id))
                 {
                     return NotFound();
                 }
@@ -74,19 +74,19 @@ namespace ContosoPizza.Controllers
             return NoContent();
         }
 
-        // POST: api/LoaiSanPhams
+        // POST: api/Students1
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPham(LoaiSanPham loaiSanPham)
+        public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-            _context.LoaiSanPhams.Add(loaiSanPham);
+            _context.Students.Add(student);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (LoaiSanPhamExists(loaiSanPham.MaLoaiSp))
+                if (StudentExists(student.StudentId))
                 {
                     return Conflict();
                 }
@@ -96,28 +96,28 @@ namespace ContosoPizza.Controllers
                 }
             }
 
-            return CreatedAtAction("GetLoaiSanPham", new { id = loaiSanPham.MaLoaiSp }, loaiSanPham);
+            return CreatedAtAction("GetStudent", new { id = student.StudentId }, student);
         }
 
-        // DELETE: api/LoaiSanPhams/5
+        // DELETE: api/Students1/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoaiSanPham(string id)
+        public async Task<IActionResult> DeleteStudent(string id)
         {
-            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
-            if (loaiSanPham == null)
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
             {
                 return NotFound();
             }
 
-            _context.LoaiSanPhams.Remove(loaiSanPham);
+            _context.Students.Remove(student);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool LoaiSanPhamExists(string id)
+        private bool StudentExists(string id)
         {
-            return _context.LoaiSanPhams.Any(e => e.MaLoaiSp == id);
+            return _context.Students.Any(e => e.StudentId == id);
         }
     }
 }

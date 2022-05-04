@@ -2,6 +2,10 @@ using ContosoPizza.Services;
 using ContosoPizza.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using ShopLaptop_EFCore.Data;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+
+
 
 
 
@@ -11,12 +15,13 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
-builder.Services.AddDbContext<shop_laptopContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
+builder.Services.AddDbContext<studentContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcstudentContext")));
 builder.Services.AddCors();
 
 
