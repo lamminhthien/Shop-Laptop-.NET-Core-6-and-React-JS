@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShopLaptop_EFCore.Models.Student>
+﻿@model IEnumerable<ShopLaptop_EFCore.Models.AnhSanPham>
 
 @{
     Layout = null;
@@ -19,10 +19,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StudentName)
+                @Html.DisplayNameFor(model => model.FileAnh)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClassCodeNavigation)
+                @Html.DisplayNameFor(model => model.MaSanPhamNavigation)
             </th>
             <th></th>
         </tr>
@@ -31,15 +31,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.StudentName)
+                @Html.DisplayFor(modelItem => item.FileAnh)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClassCodeNavigation.ClassName)
+                @Html.DisplayFor(modelItem => item.MaSanPhamNavigation.MaSanPham)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.MaAnh">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaAnh">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaAnh">Delete</a>
             </td>
         </tr>
 }

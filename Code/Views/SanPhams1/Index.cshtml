@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ShopLaptop_EFCore.Models.SanPham>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenSanPham)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThaiSp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHangSxNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLoaiSpNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenSanPham)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThaiSp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHangSxNavigation.MaHangSx)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaLoaiSpNavigation.MaLoaiSp)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaSanPham">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaSanPham">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaSanPham">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

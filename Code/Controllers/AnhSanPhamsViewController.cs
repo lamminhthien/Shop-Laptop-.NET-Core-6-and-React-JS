@@ -11,23 +11,23 @@ using ShopLaptop_EFCore.Models;
 
 namespace ShopLaptop_EFCore.Controllers
 {
-    public class StudentsController : Controller
+    public class AnhSanPhamsViewController : Controller
     {
-        private readonly studentContext _context;
+        private readonly shop_laptopContext _context;
 
-        public StudentsController(studentContext context)
+        public AnhSanPhamsViewController(shop_laptopContext context)
         {
             _context = context;
         }
 
-        // GET: Students
+        // GET: AnhSanPhams
         public async Task<IActionResult> Index()
         {
-            var studentContext = _context.Students.Include(s => s.ClassCodeNavigation);
-            return View(await studentContext.ToListAsync());
+            var shop_laptopContext = _context.AnhSanPhams.Include(a => a.MaSanPhamNavigation);
+            return View(await shop_laptopContext.ToListAsync());
         }
 
-        // GET: Students/Details/5
+        // GET: AnhSanPhams/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -35,42 +35,42 @@ namespace ShopLaptop_EFCore.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .Include(s => s.ClassCodeNavigation)
-                .FirstOrDefaultAsync(m => m.StudentId == id);
-            if (student == null)
+            var anhSanPham = await _context.AnhSanPhams
+                .Include(a => a.MaSanPhamNavigation)
+                .FirstOrDefaultAsync(m => m.MaAnh == id);
+            if (anhSanPham == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(anhSanPham);
         }
 
-        // GET: Students/Create
+        // GET: AnhSanPhams/Create
         public IActionResult Create()
         {
-            ViewData["ClassCode"] = new SelectList(_context.Classes, "ClassCode", "ClassCode");
+            ViewData["MaSanPham"] = new SelectList(_context.SanPhams, "MaSanPham", "MaSanPham");
             return View();
         }
 
-        // POST: Students/Create
+        // POST: AnhSanPhams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentId,StudentName,ClassCode")] Student student)
+        public async Task<IActionResult> Create([Bind("MaAnh,MaSanPham,FileAnh")] AnhSanPham anhSanPham)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(student);
+                _context.Add(anhSanPham);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClassCode"] = new SelectList(_context.Classes, "ClassCode", "ClassCode", student.ClassCode);
-            return View(student);
+            ViewData["MaSanPham"] = new SelectList(_context.SanPhams, "MaSanPham", "MaSanPham", anhSanPham.MaSanPham);
+            return View(anhSanPham);
         }
 
-        // GET: Students/Edit/5
+        // GET: AnhSanPhams/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -78,23 +78,23 @@ namespace ShopLaptop_EFCore.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var anhSanPham = await _context.AnhSanPhams.FindAsync(id);
+            if (anhSanPham == null)
             {
                 return NotFound();
             }
-            ViewData["ClassCode"] = new SelectList(_context.Classes, "ClassCode", "ClassCode", student.ClassCode);
-            return View(student);
+            ViewData["MaSanPham"] = new SelectList(_context.SanPhams, "MaSanPham", "MaSanPham", anhSanPham.MaSanPham);
+            return View(anhSanPham);
         }
 
-        // POST: Students/Edit/5
+        // POST: AnhSanPhams/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentId,StudentName,ClassCode")] Student student)
+        public async Task<IActionResult> Edit(string id, [Bind("MaAnh,MaSanPham,FileAnh")] AnhSanPham anhSanPham)
         {
-            if (id != student.StudentId)
+            if (id != anhSanPham.MaAnh)
             {
                 return NotFound();
             }
@@ -103,12 +103,12 @@ namespace ShopLaptop_EFCore.Controllers
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(anhSanPham);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.StudentId))
+                    if (!AnhSanPhamExists(anhSanPham.MaAnh))
                     {
                         return NotFound();
                     }
@@ -119,11 +119,11 @@ namespace ShopLaptop_EFCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClassCode"] = new SelectList(_context.Classes, "ClassCode", "ClassCode", student.ClassCode);
-            return View(student);
+            ViewData["MaSanPham"] = new SelectList(_context.SanPhams, "MaSanPham", "MaSanPham", anhSanPham.MaSanPham);
+            return View(anhSanPham);
         }
 
-        // GET: Students/Delete/5
+        // GET: AnhSanPhams/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -131,31 +131,31 @@ namespace ShopLaptop_EFCore.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .Include(s => s.ClassCodeNavigation)
-                .FirstOrDefaultAsync(m => m.StudentId == id);
-            if (student == null)
+            var anhSanPham = await _context.AnhSanPhams
+                .Include(a => a.MaSanPhamNavigation)
+                .FirstOrDefaultAsync(m => m.MaAnh == id);
+            if (anhSanPham == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(anhSanPham);
         }
 
-        // POST: Students/Delete/5
+        // POST: AnhSanPhams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var student = await _context.Students.FindAsync(id);
-            _context.Students.Remove(student);
+            var anhSanPham = await _context.AnhSanPhams.FindAsync(id);
+            _context.AnhSanPhams.Remove(anhSanPham);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(string id)
+        private bool AnhSanPhamExists(string id)
         {
-            return _context.Students.Any(e => e.StudentId == id);
+            return _context.AnhSanPhams.Any(e => e.MaAnh == id);
         }
     }
 }

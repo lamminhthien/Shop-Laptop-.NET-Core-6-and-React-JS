@@ -13,47 +13,47 @@ namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassesController : ControllerBase
+    public class LoaiSanPhamsController : ControllerBase
     {
-        private readonly studentContext _context;
+        private readonly shop_laptopContext _context;
 
-        public ClassesController(studentContext context)
+        public LoaiSanPhamsController(shop_laptopContext context)
         {
             _context = context;
         }
 
-        // GET: api/Classes
+        // GET: api/LoaiSanPhams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Class>>> GetClasses()
+        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhams()
         {
-            return await _context.Classes.ToListAsync();
+            return await _context.LoaiSanPhams.ToListAsync();
         }
 
-        // GET: api/Classes/5
+        // GET: api/LoaiSanPhams/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Class>> GetClass(string id)
+        public async Task<ActionResult<LoaiSanPham>> GetLoaiSanPham(string id)
         {
-            var @class = await _context.Classes.FindAsync(id);
+            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
 
-            if (@class == null)
+            if (loaiSanPham == null)
             {
                 return NotFound();
             }
 
-            return @class;
+            return loaiSanPham;
         }
 
-        // PUT: api/Classes/5
+        // PUT: api/LoaiSanPhams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClass(string id, Class @class)
+        public async Task<IActionResult> PutLoaiSanPham(string id, LoaiSanPham loaiSanPham)
         {
-            if (id != @class.ClassCode)
+            if (id != loaiSanPham.MaLoaiSp)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@class).State = EntityState.Modified;
+            _context.Entry(loaiSanPham).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace ShopLaptop_EFCore.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClassExists(id))
+                if (!LoaiSanPhamExists(id))
                 {
                     return NotFound();
                 }
@@ -74,19 +74,19 @@ namespace ShopLaptop_EFCore.Controllers
             return NoContent();
         }
 
-        // POST: api/Classes
+        // POST: api/LoaiSanPhams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Class>> PostClass(Class @class)
+        public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPham(LoaiSanPham loaiSanPham)
         {
-            _context.Classes.Add(@class);
+            _context.LoaiSanPhams.Add(loaiSanPham);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ClassExists(@class.ClassCode))
+                if (LoaiSanPhamExists(loaiSanPham.MaLoaiSp))
                 {
                     return Conflict();
                 }
@@ -96,28 +96,28 @@ namespace ShopLaptop_EFCore.Controllers
                 }
             }
 
-            return CreatedAtAction("GetClass", new { id = @class.ClassCode }, @class);
+            return CreatedAtAction("GetLoaiSanPham", new { id = loaiSanPham.MaLoaiSp }, loaiSanPham);
         }
 
-        // DELETE: api/Classes/5
+        // DELETE: api/LoaiSanPhams/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClass(string id)
+        public async Task<IActionResult> DeleteLoaiSanPham(string id)
         {
-            var @class = await _context.Classes.FindAsync(id);
-            if (@class == null)
+            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
+            if (loaiSanPham == null)
             {
                 return NotFound();
             }
 
-            _context.Classes.Remove(@class);
+            _context.LoaiSanPhams.Remove(loaiSanPham);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClassExists(string id)
+        private bool LoaiSanPhamExists(string id)
         {
-            return _context.Classes.Any(e => e.ClassCode == id);
+            return _context.LoaiSanPhams.Any(e => e.MaLoaiSp == id);
         }
     }
 }
