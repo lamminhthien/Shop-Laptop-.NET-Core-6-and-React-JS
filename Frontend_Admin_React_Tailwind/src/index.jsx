@@ -1,20 +1,18 @@
 import reactDom from "react-dom";
 import "./Styles/tailwind.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch,useParams } from "react-router-dom";
 import Home from "./Pages/Home";
 import TableTailwind from "./Pages/TableTest";
 
+// https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/">
+            <Route exact path="/" children={Home}/>
+            <Route exact path="/table" children={TableTailwind}/>
+            <Route exact path={`/detail/:id`}>
                 <div>
-                    <h2>Testing</h2>
-                </div>
-            </Route>
-            <Route path="/table">
-                <div>
-                    <h3>Table</h3>
+                    <h3>Path have id</h3>
                 </div>
             </Route>
         </Switch>
