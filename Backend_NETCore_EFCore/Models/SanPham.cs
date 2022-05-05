@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace ShopLaptop_EFCore.Models
@@ -38,21 +39,29 @@ namespace ShopLaptop_EFCore.Models
 
         [ForeignKey("MaHangSx")]
         [InverseProperty("SanPhams")]
+        [JsonIgnore(Condition =JsonIgnoreCondition.WhenWritingNull)]
         public virtual HangSanXuat MaHangSxNavigation { get; set; } = null!;
         [ForeignKey("MaLoaiSp")]
         [InverseProperty("SanPhams")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual LoaiSanPham MaLoaiSpNavigation { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual BienDongGium BienDongGium { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ChiTietSanPham ChiTietSanPham { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<AnhSanPham> AnhSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<BinhLuanSanPham> BinhLuanSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<GioHang> GioHangs { get; set; }
     }
 }

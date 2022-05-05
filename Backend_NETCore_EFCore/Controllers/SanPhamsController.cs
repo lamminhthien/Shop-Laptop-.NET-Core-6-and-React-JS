@@ -29,6 +29,7 @@ namespace ShopLaptop_EFCore.Controllers
             return await _context.SanPhams.Include(s => s.MaHangSxNavigation).Include(s => s.MaLoaiSpNavigation).ToListAsync();
         }
 
+
         // GET: api/SanPhams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SanPham>> GetSanPham(string id)
