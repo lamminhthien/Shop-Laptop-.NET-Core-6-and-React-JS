@@ -1,5 +1,23 @@
 import reactDom from "react-dom";
-import Sidebar from "./components/sidebar";
-import "./styles/index.css";
+import "./Styles/tailwind.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./Pages/Home";
+import TableTailwind from "./Pages/TableTest";
 
-reactDom.render(<Sidebar />, document.getElementById("root"));
+reactDom.render(
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/">
+                <div>
+                    <h2>Testing</h2>
+                </div>
+            </Route>
+            <Route path="/table">
+                <div>
+                    <h3>Table</h3>
+                </div>
+            </Route>
+        </Switch>
+    </BrowserRouter>, document.getElementById("root"));
+
+
