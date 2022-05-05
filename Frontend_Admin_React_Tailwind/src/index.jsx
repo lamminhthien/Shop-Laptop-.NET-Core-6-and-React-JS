@@ -7,6 +7,7 @@ import Details from "./Pages/Details";
 import NotFoundPage from "./Pages/404ErrorPage";
 import QueryParameters from "./Pages/QueryParameters";
 import ListSanPham from "./Pages/ListSanPham";
+import PersonList from "./Pages/ListSanPham";
 
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
@@ -21,7 +22,7 @@ reactDom.render(
 
             <Route exact path="/queryparams" children={<QueryParameters/>} />
 
-            <Route exact path="/list_san_pham" children={<ListSanPham/>} />
+            <Route exact path="/list_san_pham" children={<PersonList/>} />
 
             <Route path="*" children={<NotFoundPage/>}  / >
             
