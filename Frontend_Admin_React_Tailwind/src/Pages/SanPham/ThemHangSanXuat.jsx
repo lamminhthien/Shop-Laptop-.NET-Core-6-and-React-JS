@@ -1,67 +1,96 @@
-import React from 'react';
-import axios from 'axios';
+import React,{ Component } from 'react'
 
-export default class CreateBrand extends React.Component {
-  state = {
-    maHangSx: '',
-    tenHangSx: '',
-    logo: '',
-  }
-
-  // Xử lý
-  handleSubmit = event => {
-    event.preventDefault();
-  // {
-  //   "maHangSx": "HSX005",
-  //   "tenHangSx": "MSI",
-  //   "logo": "msi.png",
-  // }
-    const brand = {
-      maHangSx: this.state.maHangSx,
-      tenHangSx: this.state.tenHangSx,
-      logo: this.state.logo
-    };
-
-    axios.post(`https://localhost:44372/api/HangSanXuats`, { brand })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
-
-  // Render form
-  render() {
-    return (
-      <div className='rounded-t-lg overflow-hidden border-t border-l border-r border-gray-400 flex justify-center p-8'>
-        <form onSubmit={this.handleSubmit} className="w-full max-w-lg">
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                Brand Code:
-              </label>
-              <input type="text" name="maHangSx" 
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-            </div>
-            <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                Brand Name
-              </label>
-              <input type="text" name='tenHangSx' 
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-            </div>
-          </div>
-          <div className='flex flex-wrap -mx-3 mb-6'>
-            <div className='w-full px-3'>
-              <label className='block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'>
-                Brand Logo
-              </label>
-              <input type="text" name='logo' 
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-            </div>
-          </div>
-          <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>Add Brand</button>
-        </form>
-      </div>
-    )
-  }
+class Form extends Component{
+constructor(props){
+	super(props)
+	this.state = { email:'',name:'', age:null, address:'',phoneNo:''}
+	this.handleChange = this.handleChange.bind(this)
+	this.handleSubmit = this.handleSubmit.bind(this)
 }
+
+// Form submitting logic, prevent default page refresh
+handleSubmit(event){
+	const { email, name, age, address, phoneNo } = this.state
+	event.preventDefault()
+	alert(`
+	____Your Details____\n
+	Email : ${email}
+	Name : ${name}
+	Age : ${age}
+	Address : ${address}
+	Phone No : ${phoneNo}
+	`)
+}
+
+// Method causes to store all the values of the
+// input field in react state single method handle
+// input changes of all the input field using ES6
+// javascript feature computed property names
+handleChange(event){
+	this.setState({
+	// Computed property names
+	// keys of the objects are computed dynamically
+	[event.target.name] : event.target.value
+	})
+}
+
+// Return a controlled form i.e. values of the
+// input field not stored in DOM values are exist
+// in react component itself as state
+render(){
+	return(
+	<form onSubmit={this.handleSubmit}>
+		<div>
+		<label htmlFor='email'>Email</label>
+		<input
+			name='email'
+			placeholder='Email'
+			value = {this.state.email}
+			onChange={this.handleChange}
+		/>
+		</div>
+		<div>
+		<label htmlFor='name'>Name</label>
+		<input
+			name='name'
+			placeholder='Name'
+			value={this.state.name}
+			onChange={this.handleChange}
+		/>
+		</div>
+		<div>
+		<label htmlFor='age'>Age</label>
+		<input
+			name='age'
+			placeholder='Age'
+			value={this.state.age}
+			onChange={this.handleChange}
+		/>
+		</div>
+		<div>
+		<label htmlFor='address'>Address</label>
+		<input
+			name='address'
+			placeholder='Address'
+			value={this.state.address}
+			onChange={this.handleChange}
+		/>
+		</div>
+		<div>
+		<label htmlFor='phoneNo'>Phone Number</label>
+		<input
+			name='phoneNo'
+			placeholder='Phone No'
+			value={this.state.phoneNo}
+			onChange={this.handleChange}
+		/>
+		</div>
+		<div>
+		<button>Create Account</button>
+		</div>
+	</form>
+	)
+}
+}
+
+export default Form
