@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace ShopLaptop_EFCore.Models
 {
@@ -26,6 +27,7 @@ namespace ShopLaptop_EFCore.Models
         public string Logo { get; set; } = null!;
 
         [InverseProperty("MaHangSxNavigation")]
+        [JsonIgnore(Condition =JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

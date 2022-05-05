@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-export default class brandList extends React.Component {
+export default class BrandList extends React.Component {
   state = {
     brands: []
   }

@@ -6,8 +6,9 @@ import TableTailwind from "./Pages/TableTest";
 import Details from "./Pages/Details";
 import NotFoundPage from "./Pages/404ErrorPage";
 import QueryParameters from "./Pages/QueryParameters";
-import ListSanPham from "./Pages/ListSanPham";
-import PersonList from "./Pages/ListSanPham";
+import PersonList from "./Pages/SanPham/ListHangSanXuat";
+import BrandList from "./Pages/SanPham/ListHangSanXuat";
+import CreateBrand from "./Pages/SanPham/ThemHangSanXuat";
 
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
@@ -22,7 +23,9 @@ reactDom.render(
 
             <Route exact path="/queryparams" children={<QueryParameters/>} />
 
-            <Route exact path="/list_san_pham" children={<PersonList/>} />
+            <Route exact path="/list_san_pham" children={<BrandList/>} />
+
+            <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
             <Route path="*" children={<NotFoundPage/>}  / >
             
