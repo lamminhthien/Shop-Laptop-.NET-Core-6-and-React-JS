@@ -17,7 +17,9 @@ using System.Threading.Tasks;
 
 namespace ShopLaptop_EFCore.Controllers
 {
-    public class LoginController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginController : ControllerBase
     {
         private IConfiguration _config;
 
