@@ -11,9 +11,10 @@ using ShopLaptop_EFCore.Models;
 
 namespace ShopLaptop_EFCore.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
-
         [HttpGet("Admins")]
         [Authorize(Roles = "Administrator")]
         public IActionResult AdminsEndpoint()
