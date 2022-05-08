@@ -9,6 +9,7 @@ import QueryParameters from "./Pages/QueryParameters";
 import PersonList from "./Pages/SanPham/ListHangSanXuat";
 import BrandList from "./Pages/SanPham/ListHangSanXuat";
 import CreateBrand from "./Pages/SanPham/ThemHangSanXuat";
+import Welcome from "./Components/TestProps";
 
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
@@ -26,6 +27,8 @@ reactDom.render(
             <Route exact path="/list_san_pham" children={<BrandList/>} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
+
+            <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
 
             <Route path="*" children={<NotFoundPage/>}  / >
             
