@@ -11,6 +11,7 @@ import BrandList from "./Pages/SanPham/ListHangSanXuat";
 import CreateBrand from "./Pages/SanPham/ThemHangSanXuat";
 import Welcome from "./Components/TestProps";
 import LoginCreateJWT from "./Pages/Login"
+import AuthorizedJWT_ProtectedPage from "./Pages/AuthorizeProtectedPage"
 
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
@@ -32,6 +33,8 @@ reactDom.render(
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
 
             <Route exact path="/login" children={<LoginCreateJWT/>}/>
+
+            <Route exact path="/admin" children={<AuthorizedJWT_ProtectedPage/>}/>
 
             <Route path="*" children={<NotFoundPage/>}  / >
 
