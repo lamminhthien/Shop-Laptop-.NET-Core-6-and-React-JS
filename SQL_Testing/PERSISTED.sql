@@ -1,3 +1,8 @@
+CREATE Database shop_laptop
+use shop_laptop
+
+
+
 CREATE TABLE Student
 (StudentID AS 'ST' + CAST(AutoIncrement AS VARCHAR(8)) PERSISTED,
  StudentName VARCHAR(20),
