@@ -13,8 +13,9 @@ namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
+
         [HttpGet("Admins")]
         [Authorize(Roles = "Administrator")]
         public IActionResult AdminsEndpoint()
@@ -52,6 +53,7 @@ namespace ShopLaptop_EFCore.Controllers
         private UserModel GetCurrentUser()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
+            Console.WriteLine("Overhere Read Header");
 
             if (identity != null)
             {

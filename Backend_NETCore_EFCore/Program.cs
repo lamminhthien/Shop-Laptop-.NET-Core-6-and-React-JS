@@ -111,6 +111,8 @@ app.UseRouting();
 // Use CORS for axios in front end
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

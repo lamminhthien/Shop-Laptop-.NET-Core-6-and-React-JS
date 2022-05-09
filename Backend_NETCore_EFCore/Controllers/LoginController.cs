@@ -45,6 +45,9 @@ namespace ShopLaptop_EFCore.Controllers
 
         private string Generate(UserModel user)
         {
+            Console.WriteLine(_config["Jwt:Issuer"]);
+            Console.WriteLine(_config["JWT:Key"]);
+            Console.WriteLine(_config["JWT:Audience"]);
             var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
