@@ -2,15 +2,12 @@ import React from 'react';
 import axios from 'axios';
 
 export default class AuthorizedJWT_ProtectedPage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { authorized: "False"}
-  }
+  state = {}
 
 componentDidMount() {
     const config = {
         headers : {
-            Authorization : 'Beare' + localStorage.getItem('token')
+            Authorization : 'Bearer ' + localStorage.getItem('token')
         }
     };
 
@@ -26,7 +23,7 @@ componentDidMount() {
 
   // Render form
   render() {
-    if (this.state.authorized == true) {
+    if (this.state.authorized) {
         return(
             <h1>You are authorized</h1>
         )
