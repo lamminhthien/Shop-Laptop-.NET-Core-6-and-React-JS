@@ -27,6 +27,7 @@ builder.Services.AddEndpointsApiExplorer();
 // Thêm SwaggerUI (công cụ theo dõi và test API nền web), và thêm phương thức xác thực route bằng JWT (Json Web Token) trên Swagger UI
 builder.Services.AddSwaggerGen(c =>
 {
+    // Thêm định nghĩa phương thức xác thực JWT
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,

@@ -17,6 +17,7 @@ namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "Nhân viên")]
     public class NhanViensController : ControllerBase
     {
         private IConfiguration _config;
@@ -134,8 +135,8 @@ namespace ShopLaptop_EFCore.Controllers
         }
 
         // Route đăng nhập và lấy jwt token
-        [AllowAnonymous]
-        [HttpPost]
+        //[AllowAnonymous]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] NhanVien nhanVien)
         {
             // Lấy username và password từ request payload
