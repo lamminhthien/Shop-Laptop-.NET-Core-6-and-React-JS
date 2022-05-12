@@ -133,7 +133,7 @@ namespace ShopLaptop_EFCore.Controllers
         // Route đăng nhập và lấy jwt token
         [AllowAnonymous]
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] UserLogin userLogin)
+        public  IActionResult Login([FromBody] UserLogin userLogin)
         {
             // Lấy username và password từ request payload
             var username = userLogin.Username;
@@ -161,8 +161,9 @@ namespace ShopLaptop_EFCore.Controllers
                   claims,
                   expires: DateTime.Now.AddMinutes(30),
                   signingCredentials: credentials);
-
-                return Ok(token);
+                // Mã hóa thành chuỗi token và trả về status 200 kèm token để React lưu vào LocalStorage
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                return Ok(tokenString);
             }
             else
             {
