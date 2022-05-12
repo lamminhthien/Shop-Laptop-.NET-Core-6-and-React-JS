@@ -170,5 +170,18 @@ namespace ShopLaptop_EFCore.Controllers
                 return NotFound("Tài khoản nhân viên không hợp lệ");
             }
         }
+        // Lấy thông tin tài khoản nhân viên từ JWT Token
+        private string GetCurrentUser()
+        {
+            // Đọc các Claims từ Header của Request
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            // Nếu tồn tại, lấy tên của nhân viên
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+                return userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Name)?.Value;
+            }
+            return null;
+        }
     }
 }
