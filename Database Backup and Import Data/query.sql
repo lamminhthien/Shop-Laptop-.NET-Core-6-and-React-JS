@@ -1,4 +1,3 @@
-SELECT * FROM hang_san_xuat
+SELECT * FROM chi_tiet_san_pham
 
-INSERT INTO HangSanXuat(ten_hang_sx,logo) Select ten_hang_sx,logo FROM hang_san_xuat
-INSERT INTO HangSanXuat values ('DELL','dell.png')
+INSERT INTO ChiTietSanPham Select * FROM chi_tiet_san_pham

@@ -1,0 +1,4 @@
+-1: ngừng bán
+0: tạm hết hàng
+1: đang bán (còn hàng)
+=IF(LEFT(A2,FIND(" ",A2))="Laptop","2","0")
