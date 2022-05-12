@@ -17,22 +17,18 @@ namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Nhân viên")]
+    [Authorize(Roles ="Nhân viên")]
     public class NhanViensController : ControllerBase
     {
         private IConfiguration _config;
-
-        public NhanViensController(IConfiguration config)
-        {
-            _config = config;
-        }
-
         private readonly shop_laptopContext _context;
 
-        public NhanViensController(shop_laptopContext context)
+        public NhanViensController(IConfiguration config, shop_laptopContext context)
         {
+            _config = config;
             _context = context;
         }
+
 
         // GET: api/NhanViens
         [HttpGet]
@@ -135,16 +131,16 @@ namespace ShopLaptop_EFCore.Controllers
         }
 
         // Route đăng nhập và lấy jwt token
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] NhanVien nhanVien)
+        public IActionResult Login([FromBody] UserLogin userLogin)
         {
             // Lấy username và password từ request payload
-            var username = nhanVien.Username;
-            var password = nhanVien.Password;
+            var username = userLogin.Username;
+            var password = userLogin.Password;
 
             // Kiểm tra username và password có tồn tại trong database không?
-            var currentUser = _context.NhanViens.FirstOrDefault(o => o.Username == username && o.Password == password);
+            var currentUser =  _context.NhanViens.FirstOrDefault(o => o.Username == username && o.Password == password);
 
             // Nếu tồn tại tài khoản, trả về JWT Token để React lưu vào LocalStorage
             if (currentUser != null)
@@ -154,10 +150,10 @@ namespace ShopLaptop_EFCore.Controllers
 
                 var claims = new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, nhanVien.Username),
-                    new Claim(ClaimTypes.MobilePhone, nhanVien.SoDienThoai),
-                    new Claim(ClaimTypes.Name, nhanVien.TenNhanVien),
-                    new Claim(ClaimTypes.Role, "Nhân Viên")
+                    new Claim(ClaimTypes.NameIdentifier, currentUser.Username),
+                    new Claim(ClaimTypes.MobilePhone, currentUser.SoDienThoai),
+                    new Claim(ClaimTypes.Name, currentUser.TenNhanVien),
+                    new Claim(ClaimTypes.Role, "Nhân viên")
                  };
 
                 var token = new JwtSecurityToken(_config["Jwt:Issuer"],
