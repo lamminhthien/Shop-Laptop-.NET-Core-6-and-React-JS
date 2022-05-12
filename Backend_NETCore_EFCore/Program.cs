@@ -1,32 +1,30 @@
-using ContosoPizza.Services;
+﻿using ContosoPizza.Services;
 using ContosoPizza.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using ShopLaptop_EFCore.Data;
+
 using System.Text;
 using Microsoft.OpenApi.Models;
 
 
-// Configure for recognize react front end host
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-// Additional using declarations
+
 var builder = WebApplication.CreateBuilder(args);
-// Add CORS
+// Thêm CORS để React JS sử dụng được API
 builder.Services.AddCors(c =>
 {
     c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
      .AllowAnyHeader());
 });
 
-// Add  Json Serializer Handling
+// Thêm chức năng xử lý json 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 builder.Services.AddEndpointsApiExplorer();
-// Add SwaggerUI Generator
+// Thêm SwaggerUI (công cụ theo dõi và test API nền web), và thêm phương thức xác thực route bằng JWT (Json Web Token) trên Swagger UI
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -53,17 +51,17 @@ builder.Services.AddSwaggerGen(c =>
         }
     }); 
 });
-
+// Thêm SQL Lite (Mục đích chỉ test)
 builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
-// Add Database Context and connection
-builder.Services.AddDbContext<shop_laptopContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
-// Add Controller with views and razor page to test
+// Thêm Database Context và cấu hình đọc chuỗi kết nối SQL Server trong appsettings.json
+//builder.Services.AddDbContext<shop_laptopContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
+// Thêm khả năng hỗ trợ Views để test trong razor page (nếu cần thiết)
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
-// Add JWT Authentication
+// Thêm chức năng xác thực bằng JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -79,10 +77,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
-// Add the PizzaContext
-
-// Add the PromotionsContext
 
 builder.Services.AddScoped<PizzaService>();
 

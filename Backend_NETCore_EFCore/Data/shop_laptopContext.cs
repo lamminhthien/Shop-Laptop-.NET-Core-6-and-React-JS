@@ -44,11 +44,10 @@ namespace ShopLaptop_EFCore.Data
         {
             modelBuilder.Entity<AnhSanPham>(entity =>
             {
-                entity.Property(e => e.MaAnh).IsFixedLength();
+                entity.HasKey(e => e.MaAnh)
+                    .HasName("PK__AnhSanPh__06C6A4630B7103A0");
 
                 entity.Property(e => e.FileAnh).IsFixedLength();
-
-                entity.Property(e => e.MaSanPham).IsFixedLength();
 
                 entity.HasOne(d => d.MaSanPhamNavigation)
                     .WithMany(p => p.AnhSanPhams)
@@ -59,22 +58,17 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<BienDongGium>(entity =>
             {
-                entity.Property(e => e.MaSanPham).IsFixedLength();
-
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithOne(p => p.BienDongGium)
-                    .HasForeignKey<BienDongGium>(d => d.MaSanPham)
+                    .WithMany()
+                    .HasForeignKey(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BienDongGia_SanPham");
             });
 
             modelBuilder.Entity<BinhLuanSanPham>(entity =>
             {
-                entity.Property(e => e.MaBinhLuan).IsFixedLength();
-
-                entity.Property(e => e.MaKhachHang).IsFixedLength();
-
-                entity.Property(e => e.MaSanPham).IsFixedLength();
+                entity.HasKey(e => e.MaBinhLuan)
+                    .HasName("PK__BinhLuan__300DD2D85FA64E47");
 
                 entity.HasOne(d => d.MaKhachHangNavigation)
                     .WithMany(p => p.BinhLuanSanPhams)
@@ -92,41 +86,27 @@ namespace ShopLaptop_EFCore.Data
             modelBuilder.Entity<ChiTietHoaDon>(entity =>
             {
                 entity.HasKey(e => e.MaChiTietHoaDon)
-                    .HasName("PK_dbo.ChiTietHoaDon");
-
-                entity.Property(e => e.MaChiTietHoaDon).IsFixedLength();
-
-                entity.Property(e => e.MaHoaDon).IsFixedLength();
-
-                entity.Property(e => e.MaSanPham).IsFixedLength();
+                    .HasName("PK__ChiTietH__051D20008926D693");
 
                 entity.HasOne(d => d.MaHoaDonNavigation)
                     .WithMany(p => p.ChiTietHoaDons)
                     .HasForeignKey(d => d.MaHoaDon)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_dbo.ChiTietHoaDon_HoaDon");
+                    .HasConstraintName("FK_ChiTietHoaDon_HoaDon");
 
                 entity.HasOne(d => d.MaSanPhamNavigation)
                     .WithMany(p => p.ChiTietHoaDons)
                     .HasForeignKey(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_dbo.ChiTietHoaDon_SanPham");
+                    .HasConstraintName("FK_ChiTietHoaDon_SanPham");
             });
 
             modelBuilder.Entity<ChiTietSanPham>(entity =>
             {
-                entity.Property(e => e.MaSanPham).IsFixedLength();
-
-                entity.Property(e => e.CardDoHoa).IsFixedLength();
-
-                entity.Property(e => e.Cpu).IsFixedLength();
-
-                entity.Property(e => e.HeDieuHanh).IsFixedLength();
-
-                entity.Property(e => e.MoTaThem).IsFixedLength();
+                entity.Property(e => e.KichThuoc).IsFixedLength();
 
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithOne(p => p.ChiTietSanPham)
+                    .WithOne()
                     .HasForeignKey<ChiTietSanPham>(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChiTietSanPham_SanPham");
@@ -134,12 +114,10 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<GioHang>(entity =>
             {
-                entity.Property(e => e.MaKhachHang).IsFixedLength();
-
-                entity.Property(e => e.MaSanPham).IsFixedLength();
+                entity.Property(e => e.MaKhachHang).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithMany(p => p.GioHangs)
+                    .WithMany()
                     .HasForeignKey(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GioHang_SanPham");
@@ -147,18 +125,16 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<HangSanXuat>(entity =>
             {
-                entity.Property(e => e.MaHangSx).IsFixedLength();
+                entity.HasKey(e => e.MaHangSx)
+                    .HasName("PK__HangSanX__44ECD7A2B5969013");
 
                 entity.Property(e => e.Logo).IsFixedLength();
             });
 
             modelBuilder.Entity<HoaDon>(entity =>
             {
-                entity.Property(e => e.MaHoaDon).IsFixedLength();
-
-                entity.Property(e => e.MaKhachHang).IsFixedLength();
-
-                entity.Property(e => e.MaNhanVien).IsFixedLength();
+                entity.HasKey(e => e.MaHoaDon)
+                    .HasName("PK__HoaDon__DBE2D9E3C547A2C2");
 
                 entity.HasOne(d => d.MaKhachHangNavigation)
                     .WithMany(p => p.HoaDons)
@@ -175,7 +151,8 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<KhachHang>(entity =>
             {
-                entity.Property(e => e.MaKhachHang).IsFixedLength();
+                entity.HasKey(e => e.MaKhachHang)
+                    .HasName("PK__KhachHan__C9817AF6341ED6CB");
 
                 entity.Property(e => e.Email).IsFixedLength();
 
@@ -188,14 +165,14 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<LoaiSanPham>(entity =>
             {
-                entity.Property(e => e.MaLoaiSp).IsFixedLength();
-
-                entity.Property(e => e.AnhMinhHoa).IsFixedLength();
+                entity.HasKey(e => e.MaLoaiSp)
+                    .HasName("PK__LoaiSanP__1E1E581AE2366A70");
             });
 
             modelBuilder.Entity<NhanVien>(entity =>
             {
-                entity.Property(e => e.MaNhanVien).IsFixedLength();
+                entity.HasKey(e => e.MaNhanVien)
+                    .HasName("PK__NhanVien__6781B7B9CFD71863");
 
                 entity.Property(e => e.Password).IsFixedLength();
 
@@ -206,11 +183,8 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<PhanHoiBinhLuanSp>(entity =>
             {
-                entity.Property(e => e.MaPhanHoi).IsFixedLength();
-
-                entity.Property(e => e.MaBinhLuan).IsFixedLength();
-
-                entity.Property(e => e.MaNhanVien).IsFixedLength();
+                entity.HasKey(e => e.MaPhanHoi)
+                    .HasName("PK__PhanHoiB__36D78DA93574E074");
 
                 entity.HasOne(d => d.MaBinhLuanNavigation)
                     .WithMany(p => p.PhanHoiBinhLuanSps)
@@ -227,13 +201,8 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<SanPham>(entity =>
             {
-                entity.Property(e => e.MaSanPham).IsFixedLength();
-
-                entity.Property(e => e.MaHangSx).IsFixedLength();
-
-                entity.Property(e => e.MaLoaiSp).IsFixedLength();
-
-                entity.Property(e => e.TrangThaiSp).IsFixedLength();
+                entity.HasKey(e => e.MaSanPham)
+                    .HasName("PK__SanPham__9D25990C847C7047");
 
                 entity.HasOne(d => d.MaHangSxNavigation)
                     .WithMany(p => p.SanPhams)
