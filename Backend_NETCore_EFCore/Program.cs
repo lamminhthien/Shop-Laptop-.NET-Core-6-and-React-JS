@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-
+using ShopLaptop_EFCore.Data;
 using System.Text;
 using Microsoft.OpenApi.Models;
 
@@ -54,8 +54,8 @@ builder.Services.AddSwaggerGen(c =>
 // Thêm SQL Lite (Mục đích chỉ test)
 builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
 // Thêm Database Context và cấu hình đọc chuỗi kết nối SQL Server trong appsettings.json
-//builder.Services.AddDbContext<shop_laptopContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
+builder.Services.AddDbContext<shop_laptopContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
 // Thêm khả năng hỗ trợ Views để test trong razor page (nếu cần thiết)
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
