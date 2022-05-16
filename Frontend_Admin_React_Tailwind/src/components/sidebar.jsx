@@ -11,8 +11,7 @@ import {
 } from 'react-icons/fc';
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-// UseLocation lấy đường dẫn của trang đang xem
-let location = useLocation();
+
 const Sidebar = (props) => {
   // Set state for button to open sidebar
   const [open, setOpen] = useState(true);
@@ -38,6 +37,8 @@ const Sidebar = (props) => {
     window.addEventListener("resize", handleResize)
   })
 
+  // UseLocation lấy đường dẫn của trang đang xem
+  let location = useLocation();
   return (
     <div
       className={` ${open ? "w-72" : "w-20 "
@@ -66,7 +67,7 @@ const Sidebar = (props) => {
           <li
             key={index}
             className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${index == props.index && "bg-light-white"
+              ${Menu.gap ? "mt-9" : "mt-2"} ${location.pathname == Menu.href && "bg-light-white"
               } `}
           >
             {Menu.icon}
