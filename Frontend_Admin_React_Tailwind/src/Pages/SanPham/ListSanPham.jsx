@@ -4,8 +4,9 @@ import Sidebar from '../../Components/Sidebar';
 export default class ListSanPham extends Component {
   state = {
     brands: [],
-    tableHeaders: ["Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Hãng sãn xuất",
-      "Tình trạng", "Giá niêm yết"
+    tableHeaders: ["Mã sản phẩm", "Tên sản phẩm", 
+    "Loại sản phẩm", "Hãng sãn xuất",
+      "Tình trạng", "Giá niêm yết","Chức năng"
     ],
     tableDatas: [
       { maSanPham: "ABC", tenSanPham: "xyz", loaiSanPham: "xyz", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
@@ -55,7 +56,11 @@ export default class ListSanPham extends Component {
                   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="w-4 p-4">
                       <div class="flex items-center">
-                        <input id="checkbox-table-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input id="checkbox-table-1" type="checkbox" class="w-4 h-4
+                         text-blue-600 bg-gray-100 border-gray-300 rounded
+                          focus:ring-blue-500 dark:focus:ring-blue-600 
+                          dark:ring-offset-gray-800 focus:ring-2 
+                          dark:bg-gray-700 dark:border-gray-600" />
                         <label for="checkbox-table-1" class="sr-only">checkbox</label>
                       </div>
                     </td>
@@ -64,7 +69,7 @@ export default class ListSanPham extends Component {
                     </th>
                     {
                       [item.tenSanPham, item.loaiSanPham,
-                      item.loaiSanPham, item.hangSanXuat]
+                      item.loaiSanPham, item.hangSanXuat,item.giaNiemYet]
                         .map((element) =>
                           <td class="px-6 py-4">
                             {element}
@@ -72,22 +77,18 @@ export default class ListSanPham extends Component {
                         )
                     }
                     <td class="px-6 py-4 text-right">
-                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Sữa</a>
-                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Xóa</a>
-                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Chi tiết</a>
+                      {["Sữa","Xóa","Chi tiết"].map((item)=> 
+                          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">{item}</a>
+                      )}
                     </td>
 
                   </tr>
                 )}
-
-
               </tbody>
             </table>
           </div>
         </div>
       </div>
-
-
       // <ul>
       //   { this.state.brands.map(brand => <li>{brand.tenHangSx}</li>)}
       // </ul>
