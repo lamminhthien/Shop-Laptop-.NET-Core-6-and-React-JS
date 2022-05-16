@@ -1,5 +1,6 @@
 
 import { useParams, useRouteMatch } from "react-router-dom";
+import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
 export default function ChiTietSanPham() {
   // We can use the `useParams` hook here to access
@@ -41,7 +42,10 @@ export default function ChiTietSanPham() {
     }
   ]
 
-
+  if (data[id] == null)
+    return (
+      <NotFoundPage />
+    )
   return (
     <div className="flex">
       <Sidebar />
@@ -58,6 +62,72 @@ export default function ChiTietSanPham() {
                 </th>
                 <td className="pl-3 bg-slate-100">
                   {data[id].cpu}
+                </td>
+              </tr>
+              : ""}
+
+            {data[id].he_dieu_hanh ?
+              <tr>
+                <th className="border-collapse bg-slate-200">
+                  Hệ điều hành
+                </th>
+                <td className="pl-3 bg-slate-100">
+                  {data[id].he_dieu_hanh}
+                </td>
+              </tr>
+              : ""}
+
+            {data[id].kich_thuoc ?
+              <tr>
+                <th className="border-collapse bg-slate-200">
+                  Kích thước
+                </th>
+                <td className="pl-3 bg-slate-100">
+                  {data[id].kich_thuoc}
+                </td>
+              </tr>
+              : ""}
+
+            {data[id].mo_ta_them ?
+              <tr>
+                <th className="border-collapse bg-slate-200">
+                  Mô tả thêm
+                </th>
+                <td className="pl-3 bg-slate-100">
+                  {data[id].mo_ta_them}
+                </td>
+              </tr>
+              : ""}
+
+            {data[id].o_cung ?
+              <tr>
+                <th className="border-collapse bg-slate-200">
+                  Ổ cứng
+                </th>
+                <td className="pl-3 bg-slate-100">
+                  {data[id].o_cung}
+                </td>
+              </tr>
+              : ""}
+
+            {data[id].pin ?
+              <tr>
+                <th className="border-collapse bg-slate-200">
+                  PIN
+                </th>
+                <td className="pl-3 bg-slate-100">
+                  {data[id].pin}
+                </td>
+              </tr>
+              : ""}
+
+            {data[id].thiet_ke ?
+              <tr>
+                <th className="border-collapse bg-slate-200">
+                  PIN
+                </th>
+                <td className="pl-3 bg-slate-100">
+                  {data[id].thiet_ke}
                 </td>
               </tr>
               : ""}
