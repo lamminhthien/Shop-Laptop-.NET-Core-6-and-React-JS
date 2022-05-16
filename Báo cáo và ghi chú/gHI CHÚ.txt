@@ -1,0 +1,2 @@
+Dị là đừng tạo route cho login component, ta chỉ gọi login component 
+khi bị lỗi xác thực mà thôi. OK

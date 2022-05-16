@@ -9,13 +9,13 @@ export default class ListSanPham extends Component {
       "Tình trạng", "Giá niêm yết","Chức năng"
     ],
     tableDatas: [
-      { maSanPham: "ABC", tenSanPham: "xyz", loaiSanPham: "xyz", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
-      { maSanPham: "ABC2", tenSanPham: "xyz3", loaiSanPham: "xyz44", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
-      { maSanPham: "ABC4", tenSanPham: "xyz4", loaiSanPham: "xyzf", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
-      { maSanPham: "ABC5", tenSanPham: "xyz5", loaiSanPham: "xyzfas", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
-      { maSanPham: "ABC6", tenSanPham: "xyz6", loaiSanPham: "xyzfsa", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
-      { maSanPham: "ABC7", tenSanPham: "xyz7", loaiSanPham: "xyzfsa", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
-      { maSanPham: "ABC8", tenSanPham: "xyz8", loaiSanPham: "xyzfa", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz" },
+      { maSanPham: "ABC", tenSanPham: "xyz", loaiSanPham: "xyz", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:1 },
+      { maSanPham: "ABC2", tenSanPham: "xyz3", loaiSanPham: "xyz44", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:2 },
+      { maSanPham: "ABC4", tenSanPham: "xyz4", loaiSanPham: "xyzf", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:3 },
+      { maSanPham: "ABC5", tenSanPham: "xyz5", loaiSanPham: "xyzfas", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:4 },
+      { maSanPham: "ABC6", tenSanPham: "xyz6", loaiSanPham: "xyzfsa", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:5 },
+      { maSanPham: "ABC7", tenSanPham: "xyz7", loaiSanPham: "xyzfsa", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:6 },
+      { maSanPham: "ABC8", tenSanPham: "xyz8", loaiSanPham: "xyzfa", hangSanXuat: "xyz", tinhTrang: "xyz", giaNiemYet: "xyz",id:7 },
     ],
     tableFunction: ["Sữa", "Xem chi tiết"]
   }
@@ -77,9 +77,9 @@ export default class ListSanPham extends Component {
                         )
                     }
                     <td class="px-6 py-4 text-right">
-                      {["Sữa","Xóa","Chi tiết"].map((item)=> 
-                          <a href="#" class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">{item}</a>
-                      )}
+                          <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Chi tiết</a>
+                          <a href={"/chi-tiet-san-pham/"+item.id}class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Sữa</a>
+                          <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Xóa</a>
                     </td>
 
                   </tr>

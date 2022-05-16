@@ -10,7 +10,7 @@ import QueryParameters from "./Pages/QueryParameters";
 import ListSanPham from "./Pages/SanPham/ListSanPham";
 import CreateBrand from "./Pages/SanPham/ThemSanPham";
 import Welcome from "./Components/TestProps";
-import LoginCreateJWT from "./Pages/Login"
+import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
 
 
 
@@ -22,7 +22,7 @@ reactDom.render(
 
             <Route exact path="/table" children={<TableTailwind />} />
 
-            <Route exact path="/details/:id" children={<Details />} />
+            <Route exact path="/chi-tiet-san-pham/:id" children={<ChiTietSanPham />} />
 
             <Route exact path="/queryparams" children={<QueryParameters/>} />
 
@@ -32,7 +32,6 @@ reactDom.render(
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
 
-            <Route exact path="/login" children={<LoginCreateJWT/>}/>
 
 
             <Route path="*" children={<NotFoundPage/>}  / >
