@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch,useParams } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import TableTailwind from "./Pages/TableTest";
 import Details from "./Pages/Details";
-import NotFoundPage from "./Pages/404ErrorPage";
+import NotFoundPage from "./Components/404ErrorPage";
 import QueryParameters from "./Pages/QueryParameters";
 
 import BrandList from "./Pages/SanPham/ListSanPham";
