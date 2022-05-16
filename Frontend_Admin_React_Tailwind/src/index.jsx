@@ -7,7 +7,7 @@ import Details from "./Pages/Details";
 import NotFoundPage from "./Components/404ErrorPage";
 import QueryParameters from "./Pages/QueryParameters";
 
-import BrandList from "./Pages/SanPham/ListSanPham";
+import ListSanPham from "./Pages/SanPham/ListSanPham";
 import CreateBrand from "./Pages/SanPham/ThemSanPham";
 import Welcome from "./Components/TestProps";
 import LoginCreateJWT from "./Pages/Login"
@@ -26,7 +26,7 @@ reactDom.render(
 
             <Route exact path="/queryparams" children={<QueryParameters/>} />
 
-            <Route exact path="/list_san_pham" children={<BrandList/>} />
+            <Route exact path="/san-pham" children={<ListSanPham/>} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
