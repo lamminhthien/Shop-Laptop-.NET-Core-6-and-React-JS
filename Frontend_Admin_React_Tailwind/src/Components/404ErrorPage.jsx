@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import Sidebar from "./sidebar";
+import Sidebar from "./Sidebar";
 export default function NotFoundPage() {
   let location = useLocation();
 
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar index="1"/>
       <div className="
       h-screen flex-1 
       p-7
@@ -35,7 +35,7 @@ export default function NotFoundPage() {
               </p>
 
               <a
-                href="#"
+                href="/"
                 class="px-6 py-2 text-sm font-semibold text-blue-800 bg-blue-100"
               >Go home</a
               >

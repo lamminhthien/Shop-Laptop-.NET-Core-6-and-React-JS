@@ -1,12 +1,12 @@
-import Sidebar from "../Components/sidebar"
+import Sidebar from "../Components/Sidebar";
 import isAuthorized from "../Helpers/Authentication";
 import { Redirect } from "react-router-dom"
 
 export default function Dashboard() {
     // Nếu chưa đăng nhập
-    if (!isAuthorized()) {
-        return <Redirect to="/login" />;
-      }
+    // if (!isAuthorized()) {
+    //     return <Redirect to="/login" />;
+    //   }
     return (
         <div className="flex">
             <Sidebar/>

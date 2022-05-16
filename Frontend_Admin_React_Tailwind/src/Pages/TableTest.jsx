@@ -1,4 +1,4 @@
-import Sidebar from "../Components/sidebar"
+import Sidebar from "../Components/Sidebar"
 export default function TableTailwind() {
     return (
         <div className="flex">
