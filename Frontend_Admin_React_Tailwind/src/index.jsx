@@ -11,6 +11,7 @@ import ListSanPham from "./Pages/SanPham/ListSanPham";
 import CreateBrand from "./Pages/SanPham/ThemSanPham";
 import Welcome from "./Components/TestProps";
 import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
+import 'flowbite';
 
 
 
