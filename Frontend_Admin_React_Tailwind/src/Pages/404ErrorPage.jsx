@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../Components/sidebar";
 export default function NotFoundPage() {
     let location = useLocation();
   

@@ -1,24 +1,24 @@
 import reactDom from "react-dom";
 import "./Styles/tailwind.css";
 import { BrowserRouter, Route, Switch,useParams } from "react-router-dom";
-import Home from "./Pages/Home";
+import Dashboard from "./Pages/Dashboard";
 import TableTailwind from "./Pages/TableTest";
 import Details from "./Pages/Details";
 import NotFoundPage from "./Pages/404ErrorPage";
 import QueryParameters from "./Pages/QueryParameters";
-import PersonList from "./Pages/SanPham/ListHangSanXuat";
-import BrandList from "./Pages/SanPham/ListHangSanXuat";
-import CreateBrand from "./Pages/SanPham/ThemHangSanXuat";
+
+import BrandList from "./Pages/SanPham/ListSanPham";
+import CreateBrand from "./Pages/SanPham/ThemSanPham";
 import Welcome from "./Components/TestProps";
 import LoginCreateJWT from "./Pages/Login"
-import AuthorizedJWT_ProtectedPage from "./Pages/AuthorizeProtectedPage"
+
 
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" children={<Home />} />
+            <Route exact path="/" children={<Dashboard />} />
 
             <Route exact path="/table" children={<TableTailwind />} />
 
@@ -34,7 +34,6 @@ reactDom.render(
 
             <Route exact path="/login" children={<LoginCreateJWT/>}/>
 
-            <Route exact path="/admin" children={<AuthorizedJWT_ProtectedPage/>}/>
 
             <Route path="*" children={<NotFoundPage/>}  / >
 
