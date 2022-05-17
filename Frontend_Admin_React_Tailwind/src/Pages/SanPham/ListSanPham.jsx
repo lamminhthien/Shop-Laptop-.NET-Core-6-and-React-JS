@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Sidebar from '../../Components/Sidebar';
+import isAuthorized from "../../Helpers/Authentication";
+import LoginCreateJWT from "../Login"
 export default class ListSanPham extends Component {
   state = {
     brands: [],
@@ -30,6 +32,11 @@ export default class ListSanPham extends Component {
   }
 
   render() {
+       //Nếu chưa đăng nhập, hoặc tài khoản hết hạn
+    if (!isAuthorized()) {
+        return <LoginCreateJWT />;
+      }
+      // Nếu đã đăng nhập
     return (
       <div className='flex'>
         <Sidebar />

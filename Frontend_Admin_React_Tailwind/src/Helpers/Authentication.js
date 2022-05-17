@@ -10,8 +10,10 @@ export default function isAuthorized() {
     };
     // Truy cập vào trang có bảo mật, ví dụ trang danh sách sản phẩm đang quản lý của nhân viên
     axios.get("https://localhost:44372/api/User/Admins", config).then(res => {
+        alert('ok')
         return true
     }, err => {
+        alert('false')
         return false
     })
 }

@@ -17,6 +17,7 @@ import ThemSanPham from "./Pages/SanPham/ThemSanPham";
 
 
 
+
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
     <BrowserRouter>
@@ -38,6 +39,8 @@ reactDom.render(
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
+
+        
 
 
 
