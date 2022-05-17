@@ -1,5 +1,6 @@
 
 import { useParams, useRouteMatch } from "react-router-dom";
+import { useEffect, useState } from "react";
 import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
 export default function ChiTietSanPham() {
@@ -10,9 +11,9 @@ export default function ChiTietSanPham() {
 
   // img
   const imgSRC = [
-    "https://cdn.tgdd.vn/Products/Images/44/231244/macbook-air-m1-2020-gray-600x600.jpg",
+    "https://cdn.tgdd.vn/Files/2019/08/22/1190454/laptop-vien-man-hinh-mong-co-nhung-uu-va-nhuoc-diem-gi--4.jpg",
     "https://ben.com.vn/Content/Images/Products/205930.1.jpg",
-    ""
+    "https://vlink.com.vn/uploads/laptop_la_gi.jpg"
   ]
 
 
@@ -49,7 +50,21 @@ export default function ChiTietSanPham() {
       mo_ta_them: "123"
     }
   ]
+  // Set state for button to open sidebar
+  const [responsive, setResponsive] = useState(true);
 
+  // Responsive content when on mobile
+  const handleResize = () => {
+    if (window.innerWidth < 900) {
+      setResponsive(false)
+    } else {
+      setResponsive(true)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  })
 
 
   if (data[id] == null)
@@ -63,83 +78,94 @@ export default function ChiTietSanPham() {
       <div className="h-screen flex-1 p-7">
 
         {/* // Khu vực thông tin chi tiết sản phẩm */}
-        <div class="grid grid-cols-4 shadow-2xl border rounded-2xl bg-slate-300">
-          {/* Mô tả thêm */}
-          <div class="flex items-center justify-center border-r-2 border-b-2  align-middle ">
-            <div class="m-2 inline-flex leading-3">
-              <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-              <h1>Mô tả thêm</h1>
+        <div class={` ${responsive ? "grid grid-cols-3 mt-3" : "mt-3"}`}>
+          <div class="col-span-1 bg-transparent text-2xl rounded-xl mr-2 ml-4">
+            <div>
+              <div className="flex items-center justify-center">
+                <div className="place-items-center bg-slate-400">
+                  <img src="https://www.w3schools.com/w3css/img_lights.jpg" />
+                </div>
+              </div>
+              <div class="flex items-center justify-center">
+                <div class=" bg-slate-200">
+                  <img src="https://www.w3schools.com/w3css/img_lights.jpg" height="100px" width="100px" />
+                </div>
+                <div class=" bg-slate-700">
+                  <img src="https://www.w3schools.com/w3css/img_lights.jpg" height="100px" width="100px" />
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-span-3 border-b-2 bg-white rounded-tr-2xl ">
-            <div class="px-3 leading-7 ">abc.</div>
-          </div>
-          {/*Kết thúc Mô tả thêm */}
-          {/* Mô tả thêm */}
-          <div class="flex items-center justify-center border-r-2 border-b-2  align-middle">
-            <div class="m-2 inline-flex leading-3">
-              <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-              <h1>Mô tả thêm</h1>
-            </div>
-          </div>
-          <div class="col-span-3 border-b-2 bg-white ">
-            <div class="px-3 leading-7">abc.</div>
-          </div>
-          {/*Kết thúc Mô tả thêm */}
-          {/* Mô tả thêm */}
-          <div class="flex items-center justify-center border-r-2 border-b-2  align-middle">
-            <div class="m-2 inline-flex leading-3">
-              <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-              <h1>Mô tả thêm</h1>
-            </div>
-          </div>
-          <div class="col-span-3 border-b-2 bg-white">
-            <div class="px-3 leading-7 ">abc.</div>
-          </div>
-          {/*Kết thúc Mô tả thêm */}
-          {/* Mô tả thêm */}
-          <div class="flex items-center justify-center border-r-2 border-b-2  align-middle">
-            <div class="m-2 inline-flex leading-3">
-              <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-              <h1>Mô tả thêm</h1>
-            </div>
-          </div>
-          <div class="col-span-3 border-b-2 bg-white">
-            <div class="px-3 leading-7 ">abc.</div>
-          </div>
-          {/*Kết thúc Mô tả thêm */}
-          {/* Mô tả thêm */}
-          <div class="flex items-center justify-center border-r-2 border-b-2  align-middle">
-            <div class="m-2 inline-flex leading-3">
-              <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-              <h1>Mô tả thêm</h1>
-            </div>
-          </div>
-          <div class="col-span-3 border-b-2 bg-white">
-            <div class="px-3 leading-7">abc.</div>
-          </div>
-          {/*Kết thúc Mô tả thêm */}
-          {/* Mô tả thêm */}
-          <div class="flex items-center justify-center border-r-2 border-b-2  align-middle">
-            <div class="m-2 inline-flex leading-3">
-              <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-              <h1>Mô tả thêm</h1>
-            </div>
-          </div>
-          <div class="col-span-3 border-b-2 bg-white rounded-br-xl">
-            <div class="px-3 leading-7">abc.</div>
-          </div>
-          {/*Kết thúc Mô tả thêm */}
 
+          <div class="col-span-2 grid grid-cols-4 rounded-2xl border bg-slate-300 shadow-2xl mr-8">
+            <div class="flex items-center justify-center border-r-2 border-b-2 align-middle">
+              <div class="m-2 inline-flex leading-normal">
+                <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                <h1>Mô tả thêm</h1>
+              </div>
+            </div>
+            <div class="col-span-3 rounded-tr-2xl border-b-2 bg-white">
+              <div class="px-3 leading-7">abc.</div>
+            </div>
+
+            <div class="flex items-center justify-center border-r-2 border-b-2 align-middle">
+              <div class="m-2 inline-flex leading-3">
+                <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                <h1>Mô tả thêm</h1>
+              </div>
+            </div>
+            <div class="col-span-3 border-b-2 bg-white">
+              <div class="px-3 leading-7">abc.</div>
+            </div>
+
+            <div class="flex items-center justify-center border-r-2 border-b-2 align-middle">
+              <div class="m-2 inline-flex leading-3">
+                <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                <h1>Mô tả thêm</h1>
+              </div>
+            </div>
+            <div class="col-span-3 border-b-2 bg-white">
+              <div class="px-3 leading-7">abc.</div>
+            </div>
+
+            <div class="flex items-center justify-center border-r-2 border-b-2 align-middle">
+              <div class="m-2 inline-flex leading-3">
+                <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                <h1>Mô tả thêm</h1>
+              </div>
+            </div>
+            <div class="col-span-3 border-b-2 bg-white">
+              <div class="px-3 leading-7">abc.</div>
+            </div>
+
+            <div class="flex items-center justify-center border-r-2 border-b-2 align-middle">
+              <div class="m-2 inline-flex leading-3">
+                <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                <h1>Mô tả thêm</h1>
+              </div>
+            </div>
+            <div class="col-span-3 border-b-2 bg-white">
+              <div class="px-3 leading-7">abc.</div>
+            </div>
+
+            <div class="flex items-center justify-center border-r-2 border-b-2 align-middle">
+              <div class="m-2 inline-flex leading-3">
+                <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+                <h1>Mô tả thêm</h1>
+              </div>
+            </div>
+            <div class="col-span-3 rounded-br-xl border-b-2 bg-white">
+              <div class="px-3 leading-7">abc.</div>
+            </div>
+          </div>
         </div>
+
         {/* //Kết thúc  Khu vực thông tin chi tiết sản phẩm */}
 
 
 
 
       </div>
-
-      <script src="./node_modules/flowbite/dist/flowbite.js"></script>
     </div>
   );
 
