@@ -1,5 +1,6 @@
 
 import { useParams, useRouteMatch } from "react-router-dom";
+import { useState,useEffect } from "react";
 import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
 export default function EditSanPham() {
@@ -22,37 +23,40 @@ export default function EditSanPham() {
       id: 1, cpu: "ABcxaxsa", pin: 128, o_cung: 256,
       he_dieu_hanh: "Windows 10", thiet_ke: "abcxyz",
       kich_thuoc: "xyz",
-      mo_ta_them: "123"
+      mo_ta_them: "123",ten_san_pham:"XYA41241212412"
     },
     {
       id: 2, cpu: "ABcaaaaaaaaaaaaaaaaa", pin: 128, o_cung: 256,
       he_dieu_hanh: "Windows 10", thiet_ke: "abcxyz",
       kich_thuoc: "xyz",
       mo_ta_them: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+      ,ten_san_pham:"XYA"
     },
     {
       id: 3, cpu: "ABc", pin: 128, o_cung: 256,
       he_dieu_hanh: "Windows 10", thiet_ke: "abcxyz",
       kich_thuoc: "xyz",
-      mo_ta_them: "123"
+      mo_ta_them: "123",ten_san_pham:"XYA"
     },
     {
       id: 4, cpu: "ABc", pin: 128, o_cung: 256,
       he_dieu_hanh: "Windows 10", thiet_ke: "abcxyz",
       kich_thuoc: "xyz",
-      mo_ta_them: "123"
+      mo_ta_them: "123",ten_san_pham:"XYA"
     },
     {
       id: 5, cpu: "ABc", pin: 128, o_cung: 256,
       he_dieu_hanh: "Windows 10", thiet_ke: "abcxyz",
       kich_thuoc: "xyz",
-      mo_ta_them: "123"
+      mo_ta_them: "123",ten_san_pham:"XYA"
     }
   ]
+// Manager state of all input
+const [tenSanPham,setTenSanPham] = useState(data[id-1].ten_san_pham)
 
 
 
-  if (data[id] == null)
+  if (data[id-1] == null)
     return (
       <NotFoundPage />
     )
@@ -60,12 +64,12 @@ export default function EditSanPham() {
     <div className="flex">
       <Sidebar />
       <div className="h-screen flex-1 p-7">
-        <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm sản phẩm mới</h1></div>
+        <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00"> {data[id-1].ten_san_pham}</h1></div>
         <form className="mt-2 rounded-xl bg-gradient-to-r bg-white  border border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain">
           <div className="grid xl:grid-cols-3 xl:gap-6">
             <div className="relative z-0 w-full mb-6 group">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên sản phẩm</label>
-              <input type="email" name="floating_email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+              <input type="email" name="floating_email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ab"  value={tenSanPham} onChange={(e) => setTenSanPham(e.target.value)} required />
             </div>
             <div className="relative z-0 w-full mb-6 group">
               <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Hãng sản xuất</label>

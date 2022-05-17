@@ -8,11 +8,12 @@ import NotFoundPage from "./Components/404ErrorPage";
 import QueryParameters from "./Pages/QueryParameters";
 
 import ListSanPham from "./Pages/SanPham/ListSanPham";
-import CreateBrand from "./Pages/SanPham/ThemSanPham";
+import CreateBrand from "./Pages/SanPham/BackupThemSanPham";
 import Welcome from "./Components/TestProps";
 import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
 import EditSanPham from "./Pages/SanPham/EdiSanPham";
 import 'flowbite';
+import ThemSanPham from "./Pages/SanPham/ThemSanPham";
 
 
 
@@ -31,6 +32,8 @@ reactDom.render(
             <Route exact path="/san-pham" children={<ListSanPham/>} />
 
             <Route exact path="/edit-san-pham/:id" children={<EditSanPham   />} />
+
+            <Route exact path="/them-san-pham/" children={<ThemSanPham   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
