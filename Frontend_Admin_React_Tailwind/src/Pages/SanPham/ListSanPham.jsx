@@ -78,8 +78,8 @@ export default class ListSanPham extends Component {
                     }
                     <td class="px-6 py-4 text-right">
                           <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Chi tiết</a>
-                          <a href={"/chi-tiet-san-pham/"+item.id}class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Sữa</a>
-                          <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Xóa</a>
+                          <a href={"/edit-san-pham/"+item.id}class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Sữa</a>
+                          <a href={"/delete-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Xóa</a>
                     </td>
 
                   </tr>

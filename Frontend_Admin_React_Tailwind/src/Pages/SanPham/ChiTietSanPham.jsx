@@ -10,9 +10,9 @@ export default function ChiTietSanPham() {
 
   // img
   const imgSRC = [
-    "https://i.ytimg.com/vi/DRQ6FbvjThY/maxresdefault.jpg",
-    "https://i.ytimg.com/vi/ig_XPIkcKrQ/maxresdefault.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtP42FIsG8O16Hla0Dc259QAFn9WTGFWMLpg&usqp=CAU"
+    "https://cdn.tgdd.vn/Products/Images/44/231244/macbook-air-m1-2020-gray-600x600.jpg",
+    "https://ben.com.vn/Content/Images/Products/205930.1.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVv2hwfaWKKX5HY3y1Wn3xykM-9ex8Km3WqkXpjOzsoDqtJfdSpNm5G-vftNgVJtymG8M&usqp=CAU"
   ]
 
 
@@ -64,7 +64,7 @@ export default function ChiTietSanPham() {
         <h4>Current path = {path}</h4>
         <h4>Current url = {url}</h4>
         <div class="bg-stripes-violet mt-2 flex gap-4 rounded-lg font-mono text-sm font-bold leading-6 text-white">
-          <div class="h-17  w-1/3 flex-none items-center justify-center rounded-lg bg-violet-300 p-4  dark:text-violet-400">
+          <div class="h-17  w-1/3 flex-none items-center justify-center rounded-lg bg-purple-300 p-4  dark:text-violet-400">
 
             <div id="default-carousel" class="relative" data-carousel="static">
 
@@ -105,11 +105,11 @@ export default function ChiTietSanPham() {
             </div>
 
           </div>
-          <div class="flex w-2/3 flex-auto items-center justify-center rounded-lg bg-violet-500 p-4 shadow-lg">
+          <div class="flex w-2/3 flex-auto items-center justify-center rounded-lg bg-purple-300 p-4 shadow-lg">
             <table className=" text-sm text-left text-gray-500 dark:text-gray-400">
               {data[id].cpu ?
-                <tr>
-                  <th className="border-collapse bg-slate-200 px-6 py-3">
+                <tr className="">
+                  <th className="border-collapse  bg-slate-200 px-6 py-3">
                     Vi xử lý
                   </th>
                   <td className="pl-3 bg-slate-100 px-6 py-3">

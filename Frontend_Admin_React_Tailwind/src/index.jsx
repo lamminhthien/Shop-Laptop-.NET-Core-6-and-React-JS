@@ -11,6 +11,7 @@ import ListSanPham from "./Pages/SanPham/ListSanPham";
 import CreateBrand from "./Pages/SanPham/ThemSanPham";
 import Welcome from "./Components/TestProps";
 import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
+import EditSanPham from "./Pages/SanPham/EdiSanPham";
 import 'flowbite';
 
 
@@ -28,6 +29,8 @@ reactDom.render(
             <Route exact path="/queryparams" children={<QueryParameters/>} />
 
             <Route exact path="/san-pham" children={<ListSanPham/>} />
+
+            <Route exact path="/edit-san-pham/:id" children={<EditSanPham   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
