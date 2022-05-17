@@ -33,15 +33,15 @@ export default class ListSanPham extends Component {
 
   render() {
        //Nếu chưa đăng nhập, hoặc tài khoản hết hạn
-    if (!isAuthorized()) {
-        return <LoginCreateJWT />;
-      }
+    // if (!isAuthorized()) {
+    //     return <LoginCreateJWT />;
+    //   }
       // Nếu đã đăng nhập
     return (
       <div className='flex'>
         <Sidebar />
         <div className='h-screen flex-1 p-7'>
-        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <button type="button" class="hover:scale-125 ease-in-out duration-150 ease-in-out text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
           <a href='/them-san-pham'>Thêm sản phẩm</a>
         </button>
         <div class="flex items-center"><h1 class="mb-3 inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Danh sách sản phẩm</h1></div>
