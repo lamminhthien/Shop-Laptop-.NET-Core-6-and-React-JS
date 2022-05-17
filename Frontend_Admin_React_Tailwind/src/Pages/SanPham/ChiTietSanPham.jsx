@@ -50,8 +50,10 @@ export default function ChiTietSanPham() {
       mo_ta_them: "123"
     }
   ]
-  // Set state for button to open sidebar
+  // Set state for responsive
   const [responsive, setResponsive] = useState(true);
+  // Set state for change picture
+  const [imageSlide, setImageSlide] = useState(imgSRC[0]);
 
   // Responsive content when on mobile
   const handleResize = () => {
@@ -83,15 +85,18 @@ export default function ChiTietSanPham() {
             <div>
               <div className="flex items-center justify-center">
                 <div className="place-items-center bg-slate-400">
-                  <img src="https://www.w3schools.com/w3css/img_lights.jpg" />
+                  <img src={imageSlide} />
                 </div>
               </div>
               <div class="flex items-center justify-center">
                 <div class=" bg-slate-200">
-                  <img src="https://www.w3schools.com/w3css/img_lights.jpg" height="100px" width="100px" />
+                  <img src={imgSRC[0]} height="100px" width="100px" onClick={() => setImageSlide(imgSRC[0])} />
+                </div>
+                <div class=" bg-slate-200">
+                  <img src={imgSRC[1]} height="100px" width="100px" onClick={() => setImageSlide(imgSRC[1])} />
                 </div>
                 <div class=" bg-slate-700">
-                  <img src="https://www.w3schools.com/w3css/img_lights.jpg" height="100px" width="100px" />
+                  <img src={imgSRC[2]} height="100px" width="100px" onClick={() => setImageSlide(imgSRC[2])} />
                 </div>
               </div>
             </div>
