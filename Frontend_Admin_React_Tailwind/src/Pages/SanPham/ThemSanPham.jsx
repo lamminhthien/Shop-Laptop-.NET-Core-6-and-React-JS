@@ -119,6 +119,12 @@ export default function ThemSanPham() {
                 <option>Germany</option>
               </select>
             </div>
+            <div className="relative z-0 w-full mb-6 group">
+
+              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="multiple_files">Upload nhiều ảnh</label>
+              <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" multiple/>
+
+            </div>
           </div>
           {/* Kết thúc Màn hình, kích thước, trọng lượng  */}
           {/* Mô tả thêm */}
@@ -130,7 +136,7 @@ export default function ThemSanPham() {
           </div>
           {/* Khu vực nút bấm */}
           <div className="flex justify-center">
-          <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Thêm</button>
+            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Thêm</button>
             <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ml-3 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Kiểm tra</button>
           </div>
         </form>

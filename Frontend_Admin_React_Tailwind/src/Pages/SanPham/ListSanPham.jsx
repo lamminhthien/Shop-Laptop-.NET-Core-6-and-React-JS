@@ -33,9 +33,9 @@ export default class ListSanPham extends Component {
 
   render() {
       // Nếu chưa đăng nhập, hoặc tài khoản hết hạn
-    if (!isAuthorized()) {
-        return <LoginCreateJWT />;
-      }
+    // if (!isAuthorized()) {
+    //     return <LoginCreateJWT />;
+    //   }
       // Nếu đã đăng nhập
     return (
       <div className='flex'>
