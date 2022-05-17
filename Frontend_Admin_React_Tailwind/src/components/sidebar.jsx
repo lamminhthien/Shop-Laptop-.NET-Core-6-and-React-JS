@@ -41,8 +41,8 @@ const Sidebar = (props) => {
   let location = useLocation();
   return (
     <div
-      className={` ${open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+      className={` ${open ? "w-72" : "w-20"
+        } bg-slate-600  overscroll-y-contain p-5  pt-8 relative duration-300`}
     >
       <FcPrevious size={70}
         className={`absolute cursor-pointer right-1 top-7 w-10 border-light-green
