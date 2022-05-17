@@ -12,7 +12,7 @@ export default function ChiTietSanPham() {
   const imgSRC = [
     "https://cdn.tgdd.vn/Products/Images/44/231244/macbook-air-m1-2020-gray-600x600.jpg",
     "https://ben.com.vn/Content/Images/Products/205930.1.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVv2hwfaWKKX5HY3y1Wn3xykM-9ex8Km3WqkXpjOzsoDqtJfdSpNm5G-vftNgVJtymG8M&usqp=CAU"
+    ""
   ]
 
 
@@ -60,9 +60,6 @@ export default function ChiTietSanPham() {
     <div className="flex">
       <Sidebar />
       <div className="h-screen flex-1 p-7">
-        <h3>ID: {id}</h3>
-        <h4>Current path = {path}</h4>
-        <h4>Current url = {url}</h4>
         <div class="bg-stripes-violet mt-2 flex gap-4 rounded-lg font-mono text-sm font-bold leading-6 text-white">
           <div class="h-17  w-1/3 flex-none items-center justify-center rounded-lg bg-purple-300 p-4  dark:text-violet-400">
 

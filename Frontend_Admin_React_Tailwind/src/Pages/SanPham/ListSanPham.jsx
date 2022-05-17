@@ -34,10 +34,11 @@ export default class ListSanPham extends Component {
       <div className='flex'>
         <Sidebar />
         <div className='h-screen flex-1 p-7'>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="flex items-center"><h1 class="mb-3 inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Danh sách sản phẩm</h1></div>
+          <div class="relative overflow-x-auto shadow-2xl rounded-2xl">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
+                <tr className='bg-slate-300'>
                   <th scope="col" class="p-4">
                     <div class="flex items-center">
                       <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
@@ -76,7 +77,7 @@ export default class ListSanPham extends Component {
                           </td>
                         )
                     }
-                    <td class="px-6 py-4 text-right">
+                    <td class="px-3 py-4 text-left">
                           <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Chi tiết</a>
                           <a href={"/edit-san-pham/"+item.id}class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Sữa</a>
                           <a href={"/delete-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Xóa</a>
