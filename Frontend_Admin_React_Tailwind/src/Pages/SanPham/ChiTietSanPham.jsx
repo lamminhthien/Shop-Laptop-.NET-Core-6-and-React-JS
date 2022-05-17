@@ -80,7 +80,7 @@ export default function ChiTietSanPham() {
       <div className="h-screen flex-1 p-7">
 
         {/* // Khu vực thông tin chi tiết sản phẩm */}
-        <div class={` ${responsive ? "grid grid-cols-3 mt-3" : "mt-3"}`}>
+        <div class={` ${responsive ? "grid grid-cols-3 mt-3 duration-150" : "mt-3 duration-150"}`}>
           <div class="col-span-1 bg-transparent text-2xl rounded-xl mr-2 ml-4">
             <div>
               <div className="flex items-center justify-center">

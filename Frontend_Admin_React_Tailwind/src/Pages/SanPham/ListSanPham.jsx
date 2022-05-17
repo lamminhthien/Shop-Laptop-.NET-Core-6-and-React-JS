@@ -32,10 +32,10 @@ export default class ListSanPham extends Component {
   }
 
   render() {
-       //Nếu chưa đăng nhập, hoặc tài khoản hết hạn
-    // if (!isAuthorized()) {
-    //     return <LoginCreateJWT />;
-    //   }
+      // Nếu chưa đăng nhập, hoặc tài khoản hết hạn
+    if (!isAuthorized()) {
+        return <LoginCreateJWT />;
+      }
       // Nếu đã đăng nhập
     return (
       <div className='flex'>
@@ -87,10 +87,13 @@ export default class ListSanPham extends Component {
                           </td>
                         )
                     }
-                    <td class="px-3 py-4 text-left">
-                          <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Chi tiết</a>
-                          <a href={"/edit-san-pham/"+item.id}class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Sữa</a>
-                          <a href={"/delete-san-pham/"+item.id} class="font-medium text-blue-600 dark:text-blue-500 p-2 hover:underline">Xóa</a>
+                    <td class="px-5 py-4 text-left">
+                          <a href={"/chi-tiet-san-pham/"+item.id} class="font-medium text-blue-600
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-blue-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150 ">Chi tiết</a>
+                          <a href={"/edit-san-pham/"+item.id}class="font-medium text-blue-600
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
+                          <a href={"/delete-san-pham/"+item.id} class="font-medium text-blue-600
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</a>
                     </td>
 
                   </tr>
