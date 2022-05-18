@@ -1,12 +1,12 @@
 
 {
-  "tenSanPham": "Macbook Air 2021421414124124",
+  "tenSanPham": "Macbook Air Update name",
   "maLoaiSp": 1,
   "maHangSx": 2,
   "trangThaiSp": 1,
   "gia":29900000,
   "cpu": "Apple M1",
-  "cardDoHoa": "Meta GPU Apple 6 Core",
+  "cardDoHoa": "Meta GPU Apple 6 Core Update chi tiet san pham",
   "doPhanGiai": "1600x900",
   "oCung": 256,
   "heDieuHanh": "Mac OS Monetery",
@@ -14,5 +14,5 @@
   "kichThuoc": "Ngang 15mm, dọc 16mm, cao 17mm",
   "trongLuong": 2.3,
   "moTaThem": "Macbook chuyên đồ họa, mạnh mẽ, mỏng nhẹ, mượt mà",
-  "ram": 8
+  "ram": 99
 }

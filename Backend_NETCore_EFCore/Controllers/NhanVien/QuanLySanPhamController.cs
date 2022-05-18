@@ -9,25 +9,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ShopLaptop_EFCore.Controllers.NhanVien
 {
+    // Tên route /api/{tên controller}
     [Route("api/[controller]")]
+    // Chỉ định đây là API sử dụng các phương thức của HTTP
     [ApiController]
+    // ControllerBase (Mô hình MVC không cần đến View
     public class QuanLySanPhamController : ControllerBase
     {
+        // Database context, giúp tương tác truy vấn đến database
         private readonly shop_laptopContext _context;
         public QuanLySanPhamController(shop_laptopContext context)
         {
             _context = context;
         }
         // GET: api/<QuanLySanPhamController>
-        
+        // Authorize: Xác thực danh tính, sai danh tính hoặc hết hạn tài khoản React sẽ đẩy component Login cho Client
         [HttpGet("ListSanPham")]
         [Authorize(Roles = "Nhân viên")]
         public async Task<ActionResult<IEnumerable<SanPham>>> DanhSachSanPham()
         {
+            // Nêu không có sản phẩm nào
             if (_context.SanPhams == null)
             {
                 return NotFound();
-            }
+            } // Trả về danh sách sản phẩm
             return await _context.SanPhams.ToListAsync();
         }
 
@@ -39,6 +44,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             {
                 return NotFound();
             }
+            // Lấy danh sách sản phẩm, nhưng bao gồm Loại sản phẩm và hãng sản xuất thông qua  Virtual Icollection
             var sanPham = await _context.SanPhams.Include(s => s.MaHangSxNavigation)
                 .Include(s => s.MaLoaiSpNavigation)
                 .FirstOrDefaultAsync(m => m.MaSanPham == id);
@@ -47,7 +53,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             {
                 return NotFound();
             }
-
+            // Trả về sản phẩm
             return sanPham;
         }
 
@@ -90,7 +96,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công");
         }
 
-        // Check trùng lăp tên sản phẩm trong table sản phẩm
+        // Check trùng lắp tên sản phẩm trong table sản phẩm
         private bool SanPhamExists(string tenSanPham)
         {
             return (_context.SanPhams?.Any(e => e.TenSanPham == tenSanPham)).GetValueOrDefault();
@@ -109,7 +115,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
                  .FirstOrDefaultAsync(m => m.MaSanPham == id);
             if (sanPhamExist != null)
             {
-                // Cập nhật lại sản phẩm đã tồn tại
+                // Cập nhật lại thông tin cho sản phẩm đã tồn tại
                 sanPhamExist.TenSanPham = sanPhamModel.TenSanPham;
                 sanPhamExist.MaLoaiSp = sanPhamModel.MaLoaiSp;
                 sanPhamExist.MaHangSx = sanPhamModel.MaHangSx;
@@ -118,14 +124,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
 
 
                 // Tạo đối tượng con cho chi tiết sản phẩm
-               // ChiTietSanPham chiTietSanPham = new ChiTietSanPham(id, sanPhamModel.Cpu, sanPhamModel.CardDoHoa, sanPhamModel.DoPhanGiai, sanPhamModel.OCung,
-               //sanPhamModel.HeDieuHanh, sanPhamModel.ManHinh, sanPhamModel.KichThuoc, sanPhamModel.TrongLuong,
-               //sanPhamModel.MoTaThem, sanPhamModel.Ram);
+                ChiTietSanPham chiTietSanPham = new ChiTietSanPham(id, sanPhamModel.Cpu, sanPhamModel.CardDoHoa, sanPhamModel.DoPhanGiai, sanPhamModel.OCung,
+               sanPhamModel.HeDieuHanh, sanPhamModel.ManHinh, sanPhamModel.KichThuoc, sanPhamModel.TrongLuong,
+               sanPhamModel.MoTaThem, sanPhamModel.Ram);
 
                 // Cập nhật sản phẩm
                 _context.Entry(sanPhamExist).State = EntityState.Modified;
-                //// Cập nhật chi tiết sản phẩm
-                //_context.Entry(chiTietSanPham).State = EntityState.Modified;
+                // Cập nhật chi tiết sản phẩm
+                _context.Entry(chiTietSanPham).State = EntityState.Modified;
 
                 // Thử update vào database và bắt lỗi tiêp
                 try
@@ -141,7 +147,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
                 return Ok("Tìm thấy sản phẩm có id = " + id);
 
             }
-            return Ok("Không tìm thấy sản phẩm");
+            return BadRequest("Không tìm thấy sản phẩm");
         }
 
         //// DELETE api/<QuanLySanPhamController>/5
