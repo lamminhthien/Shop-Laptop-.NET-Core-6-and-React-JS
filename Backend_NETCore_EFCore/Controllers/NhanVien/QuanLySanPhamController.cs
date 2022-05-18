@@ -192,9 +192,18 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
                         // ĐẶt lệnh chờ xóa cho từng cái
                          _context.BienDongGia.Remove(item);
                     }
-                }    
+                }   
+                // Má quên lệnh lưu save change vô db
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.InnerException.Message);
+                }
             }
-            return NoContent();
+            return BadRequest("Không tìm thấy sản phẩm này");
 
         }
     }
