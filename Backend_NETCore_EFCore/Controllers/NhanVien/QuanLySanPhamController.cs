@@ -13,7 +13,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
     [Route("api/[controller]")]
     // Chỉ định đây là API sử dụng các phương thức của HTTP
     [ApiController]
-    // ControllerBase (Mô hình MVC không cần đến View
+    // ControllerBase (Mô hình MVC không cần đến View )
     public class QuanLySanPhamController : ControllerBase
     {
         // Database context, giúp tương tác truy vấn đến database
@@ -69,7 +69,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             //Tạo đối tượng con cho sản phẩm
             SanPham sanPham = new SanPham(sanPhamModelPlus.TenSanPham, sanPhamModelPlus.MaLoaiSp,
                 sanPhamModelPlus.MaHangSx, sanPhamModelPlus.TrangThaiSp, sanPhamModelPlus.Gia);
-             
+
             // Lưu sản phẩm
             _context.SanPhams.Add(sanPham);
             // Thử lưu vào database và bắt lỗi nào (Ví dụ lỗi trùng tên sản phẩm bởi ràng buộc UNIQUE bên SQL)
@@ -77,7 +77,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             {
                 await _context.SaveChangesAsync();
             }
-            catch(DbUpdateException dbExcept)
+            catch (DbUpdateException dbExcept)
             {
                 // Băt theo message lỗi
                 // Check thử Message 
@@ -91,14 +91,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             int ma_san_pham = sanPham.MaSanPham;
 
             // Tạo đối tượng con cho biến động giá
-            BienDongGium bienDongGia = new BienDongGium(ma_san_pham,sanPhamModelPlus.Gia, 1, DateTime.Now);
-   
+            BienDongGium bienDongGia = new BienDongGium(ma_san_pham, sanPhamModelPlus.Gia, 1, DateTime.Now);
+
             // Taọ đối ượng con cho chiTietSanPham
-            ChiTietSanPham chiTietSanPham = new ChiTietSanPham(ma_san_pham,sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
+            ChiTietSanPham chiTietSanPham = new ChiTietSanPham(ma_san_pham, sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
                 sanPhamModelPlus.HeDieuHanh, sanPhamModelPlus.ManHinh, sanPhamModelPlus.KichThuoc, sanPhamModelPlus.TrongLuong,
                 sanPhamModelPlus.MoTaThem, sanPhamModelPlus.Ram);
 
-         
+
             // Lưu Chi tiêt sản phẩm với id sản phẩm trên
             _context.ChiTietSanPhams.Add(chiTietSanPham);
             // Lưu biến động giá với id sản phẩm trên
@@ -114,7 +114,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
         {
             return (_context.SanPhams?.Any(e => e.TenSanPham == tenSanPham)).GetValueOrDefault();
         }
- 
+
 
         // Hàm cập nhật sản phẩm và chi tiết sản phẩm (theo id sản phẩm)
         // PUT api/<QuanLySanPhamController>/5
@@ -151,22 +151,52 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
                 {
                     await _context.SaveChangesAsync();
                 }
-                catch(DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException)
                 {
                     return BadRequest("Có lỗi!");
                 }
-                
-
                 return Ok("Tìm thấy sản phẩm có id = " + id);
-
             }
             return BadRequest("Không tìm thấy sản phẩm");
         }
 
-        //// DELETE api/<QuanLySanPhamController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
+        // Xóa sản phẩm, sẽ xóa cả chi tiết sản  phẩm, duyệt vòng lặp tất cả các biến động giá có cùng mã sản phẩm và xóa chúng đi
+        // DELETE api/<QuanLySanPhamController>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> XoaSanPham(int id)
+        {
+            Console.WriteLine(id);
+            // Kiểm tra xem id sản phẩm có tồn tại hay ko dựa theo id
+            var sanPham = await _context.SanPhams.FindAsync(id);
+            // Tìm thấy, tiến hành xóa... thôi:
+            if (sanPham != null)
+            {
+                // Xóa  record  trong table sản phẩm
+                _context.SanPhams.Remove(sanPham);
+
+                // Tìm 1 chi tiết sản phẩm cần xóa theo id 
+                var chiTietSanPham = await _context.ChiTietSanPhams.FindAsync(id);
+                    //Nếu tìm thấy, đặt lệnh sẵn sàng xóa (chưa xóa trong database liền)
+                if (chiTietSanPham != null)
+                {
+                    _context.ChiTietSanPhams.Remove(chiTietSanPham);
+                }
+                // Tìm nhiều biến động giá của cùnng 1 sản phẩm
+                var bienDongGia = await _context.BienDongGia.Where(o => o.MaSanPham == id).ToListAsync();
+                // Nếu tìm thấy, đặt lệnh sẵn sàng xóa (chưa xóa trong database liền)
+                if (bienDongGia  != null)
+                {
+                    // Duyệt từng record có cùng id sản phẩm'
+                    foreach (var item in bienDongGia)
+                    {
+                        // ĐẶt lệnh chờ xóa cho từng cái
+                         _context.BienDongGia.Remove(item);
+                    }
+                }    
+            }
+            return NoContent();
+
+        }
     }
 }
 

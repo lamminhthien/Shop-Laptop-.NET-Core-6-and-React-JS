@@ -101,6 +101,7 @@ namespace ShopLaptop_EFCore.Controllers.ReferenceOnly
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSanPham(int id)
         {
+            // Nếu sản phẩm cần xóa không tìm thấy
             if (_context.SanPhams == null)
             {
                 return NotFound();
