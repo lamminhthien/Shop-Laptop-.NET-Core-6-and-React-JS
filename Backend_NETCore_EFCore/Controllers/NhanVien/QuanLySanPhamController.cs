@@ -95,23 +95,23 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
         {
             return (_context.SanPhams?.Any(e => e.TenSanPham == tenSanPham)).GetValueOrDefault();
         }
-        // Check thử id sản phẩm có tồn tại hay không
-        private bool IDSanPhamExists(int maSanPham)
-        {
-            return (_context.SanPhams?.Any(e => e.MaSanPham == maSanPham)).GetValueOrDefault();
-        }
+ 
 
         // Hàm cập nhật sản phẩm và chi tiết sản phẩm (theo id sản phẩm)
         // PUT api/<QuanLySanPhamController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> EditSanPham(int id, SanPhamModelPlus sanPhamModel)
         {
+            Console.WriteLine(id);
             // Kiểm tra xem id sản phẩm có tồn tại hay ko 
-            if (IDSanPhamExists(id))
+            var sanPham = await _context.SanPhams.Include(s => s.MaHangSxNavigation)
+                 .Include(s => s.MaLoaiSpNavigation)
+                 .FirstOrDefaultAsync(m => m.MaSanPham == id);
+            if (sanPham != null)
             {
-                return BadRequest("Sản phẩm không tồn tại");
+                return Ok("Tìm thấy sản phẩm có id = " + id);
             }
-            return Ok("Làm tiêp update sản phẩm thôi");
+            return Ok("Không tìm thấy sản phẩm");
         }
 
         //// DELETE api/<QuanLySanPhamController>/5
