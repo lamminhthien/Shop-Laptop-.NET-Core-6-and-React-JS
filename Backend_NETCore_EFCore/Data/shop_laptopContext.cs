@@ -58,9 +58,11 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<BienDongGium>(entity =>
             {
+                entity.Property(e => e.MaSanPham).ValueGeneratedNever();
+
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.MaSanPham)
+                    .WithOne(p => p.BienDongGium)
+                    .HasForeignKey<BienDongGium>(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_BienDongGia_SanPham");
             });
@@ -103,10 +105,12 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<ChiTietSanPham>(entity =>
             {
+                entity.Property(e => e.MaSanPham).ValueGeneratedNever();
+
                 entity.Property(e => e.KichThuoc).IsFixedLength();
 
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithOne()
+                    .WithOne(p => p.ChiTietSanPham)
                     .HasForeignKey<ChiTietSanPham>(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChiTietSanPham_SanPham");
@@ -114,10 +118,8 @@ namespace ShopLaptop_EFCore.Data
 
             modelBuilder.Entity<GioHang>(entity =>
             {
-                entity.Property(e => e.MaKhachHang).ValueGeneratedOnAdd();
-
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithMany()
+                    .WithMany(p => p.GioHangs)
                     .HasForeignKey(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GioHang_SanPham");

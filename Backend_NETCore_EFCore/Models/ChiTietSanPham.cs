@@ -3,14 +3,29 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-
+using System.Text.Json.Serialization;
 namespace ShopLaptop_EFCore.Models
 {
-    [Keyless]
     [Table("ChiTietSanPham")]
     [Index("MaSanPham", Name = "UQ__ChiTietS__9D25990DDADFB156", IsUnique = true)]
     public partial class ChiTietSanPham
     {
+        public ChiTietSanPham(int maSanPham, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram)
+        {
+            MaSanPham = maSanPham;
+            Cpu = cpu;
+            CardDoHoa = cardDoHoa;
+            DoPhanGiai = doPhanGiai;
+            OCung = oCung;
+            HeDieuHanh = heDieuHanh;
+            ManHinh = manHinh;
+            KichThuoc = kichThuoc;
+            TrongLuong = trongLuong;
+            MoTaThem = moTaThem;
+            Ram = ram;
+        }
+
+        [Key]
         [Column("ma_san_pham")]
         public int MaSanPham { get; set; }
         [Column("cpu")]
@@ -40,6 +55,8 @@ namespace ShopLaptop_EFCore.Models
         public int? Ram { get; set; }
 
         [ForeignKey("MaSanPham")]
+        [InverseProperty("ChiTietSanPham")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
     }
 }

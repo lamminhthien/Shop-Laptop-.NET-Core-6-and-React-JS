@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
-
 namespace ShopLaptop_EFCore.Models
 {
     [Table("SanPham")]
@@ -17,11 +16,11 @@ namespace ShopLaptop_EFCore.Models
             AnhSanPhams = new HashSet<AnhSanPham>();
             BinhLuanSanPhams = new HashSet<BinhLuanSanPham>();
             ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
+            GioHangs = new HashSet<GioHang>();
         }
 
         [Key]
         [Column("ma_san_pham")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int MaSanPham { get; set; }
         [Column("ten_san_pham")]
         [StringLength(50)]
@@ -37,23 +36,29 @@ namespace ShopLaptop_EFCore.Models
 
         [ForeignKey("MaHangSx")]
         [InverseProperty("SanPhams")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual HangSanXuat MaHangSxNavigation { get; set; } = null!;
         [ForeignKey("MaLoaiSp")]
         [InverseProperty("SanPhams")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual LoaiSanPham MaLoaiSpNavigation { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
-
+        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual BienDongGium BienDongGium { get; set; } = null!;
+        [InverseProperty("MaSanPhamNavigation")]
+        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual ChiTietSanPham ChiTietSanPham { get; set; } = null!;
+        [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<AnhSanPham> AnhSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<BinhLuanSanPham> BinhLuanSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual ICollection<GioHang> GioHangs { get; set; }
     }
 }
