@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+
 
 namespace ShopLaptop_EFCore.Models
 {
@@ -19,6 +21,7 @@ namespace ShopLaptop_EFCore.Models
 
         [Key]
         [Column("ma_san_pham")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Always)]
         public int MaSanPham { get; set; }
         [Column("ten_san_pham")]
         [StringLength(50)]
@@ -34,15 +37,23 @@ namespace ShopLaptop_EFCore.Models
 
         [ForeignKey("MaHangSx")]
         [InverseProperty("SanPhams")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public virtual HangSanXuat MaHangSxNavigation { get; set; } = null!;
         [ForeignKey("MaLoaiSp")]
         [InverseProperty("SanPhams")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+
         public virtual LoaiSanPham MaLoaiSpNavigation { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
+
         public virtual ICollection<AnhSanPham> AnhSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+
         public virtual ICollection<BinhLuanSanPham> BinhLuanSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
     }
 }
