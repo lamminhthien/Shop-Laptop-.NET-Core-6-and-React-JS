@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-
-namespace ShopLaptop_EFCore.Models
+namespace ShopLaptop_EFCore.Models.NhanVienModel
 {
-    [Table("ChiTietSanPham")]
-    [Index("MaSanPham", Name = "UQ__ChiTietS__9D25990DDADFB156", IsUnique = true)]
-    public partial class ChiTietSanPham
+    [Table("SanPham")]
+    [Index("TenSanPham", Name = "UQ__SanPham__BA66C031EDFC9119", IsUnique = true)]
+    public class SanPhamModelPlus
     {
-        public ChiTietSanPham(int maSanPham, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram)
+        public SanPhamModelPlus(int maSanPham, string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp, long gia, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram)
         {
             MaSanPham = maSanPham;
+            TenSanPham = tenSanPham;
+            MaLoaiSp = maLoaiSp;
+            MaHangSx = maHangSx;
+            TrangThaiSp = trangThaiSp;
+            Gia = gia;
             Cpu = cpu;
             CardDoHoa = cardDoHoa;
             DoPhanGiai = doPhanGiai;
@@ -28,8 +30,17 @@ namespace ShopLaptop_EFCore.Models
         [Key]
         [Column("ma_san_pham")]
         public int MaSanPham { get; set; }
-        [Column("cpu")]
-        [StringLength(40)]
+        [Column("ten_san_pham")]
+        [StringLength(50)]
+        public string TenSanPham { get; set; } = null!;
+        [Column("ma_loai_sp")]
+        public int MaLoaiSp { get; set; }
+        [Column("ma_hang_sx")]
+        public int MaHangSx { get; set; }
+        [Column("trang_thai_sp")]
+        public int TrangThaiSp { get; set; }
+        [Column("gia")]
+        public long Gia { get; set; }
         public string? Cpu { get; set; }
         [Column("card_do_hoa")]
         [StringLength(40)]
@@ -53,9 +64,5 @@ namespace ShopLaptop_EFCore.Models
         public string MoTaThem { get; set; } = null!;
         [Column("ram")]
         public int? Ram { get; set; }
-
-        [ForeignKey("MaSanPham")]
-        [InverseProperty("ChiTietSanPham")]
-        public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
     }
 }

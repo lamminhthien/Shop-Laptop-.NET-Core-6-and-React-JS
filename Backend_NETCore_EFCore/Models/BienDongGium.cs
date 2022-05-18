@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 namespace ShopLaptop_EFCore.Models
 {
@@ -29,7 +28,6 @@ namespace ShopLaptop_EFCore.Models
 
         [ForeignKey("MaSanPham")]
         [InverseProperty("BienDongGium")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
     }
 }

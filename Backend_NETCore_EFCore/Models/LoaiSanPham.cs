@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 namespace ShopLaptop_EFCore.Models
 {
@@ -20,13 +19,13 @@ namespace ShopLaptop_EFCore.Models
         [Column("ma_loai_sp")]
         public int MaLoaiSp { get; set; }
         [Column("ten_loai_sp")]
-        public string TenLoaiSp { get; set; }
+        [StringLength(50)]
+        public string TenLoaiSp { get; set; } = null!;
         [Column("anh_minh_hoa")]
-        [JsonIgnore]
-        public string AnhMinhHoa { get; set; }
+        [StringLength(50)]
+        public string AnhMinhHoa { get; set; } = null!;
 
         [InverseProperty("MaLoaiSpNavigation")]
-        [JsonIgnore]
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }
 }

@@ -6,7 +6,5 @@
             public string Username { get; set; }
             public string Password { get; set; }
      
-            [JsonIgnore(Condition =JsonIgnoreCondition.WhenWritingNull)]
-            public string Tada { get; set; }
     }
 }

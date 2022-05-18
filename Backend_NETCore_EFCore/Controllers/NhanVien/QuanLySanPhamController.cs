@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
+using ShopLaptop_EFCore.Models.NhanVienModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,21 +53,25 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
 
         // POST api/<QuanLySanPhamController>
         [HttpPost]
-        public async Task<ActionResult<SanPham>> ThemSanPham(SanPham sanPham)
+        public async Task<ActionResult<SanPham>> ThemSanPham(SanPhamModelPlus sanPhamModelPlus)
         {
             // Kiểm tra tất cả các trường dữ liệu của SanPham, kể cả Icollection ảo
             if (_context.SanPhams == null)
             {
                 return Problem("Entity set 'shop_laptopContext.SanPhams'  is null.");
             }
+            //Tạo đối tượng con cho sản phẩm
+            SanPham sanPham = new SanPham(sanPhamModelPlus.MaSanPham, sanPhamModelPlus.TenSanPham, sanPhamModelPlus.MaLoaiSp,
+                sanPhamModelPlus.MaHangSx, sanPhamModelPlus.TrangThaiSp, sanPhamModelPlus.Gia);
+
             // Tạo đối tượng con cho biến động giá
-            BienDongGium bienDongGia = new BienDongGium(sanPham.MaSanPham, sanPham.Gia, 1, DateTime.Now);
+            BienDongGium bienDongGia = new BienDongGium(sanPhamModelPlus.MaSanPham, sanPhamModelPlus.Gia, 1, DateTime.Now);
    
             // Taọ đối ượng con cho chiTietSanPham
-            ChiTietSanPham chiTietSanPham = new ChiTietSanPham(sanPham.MaSanPham,
-                sanPham.ChiTietSanPham.Cpu, sanPham.ChiTietSanPham.CardDoHoa, sanPham.ChiTietSanPham.DoPhanGiai, sanPham.ChiTietSanPham.OCung,
-                sanPham.ChiTietSanPham.HeDieuHanh, sanPham.ChiTietSanPham.ManHinh, sanPham.ChiTietSanPham.KichThuoc, sanPham.ChiTietSanPham.TrongLuong,
-                sanPham.ChiTietSanPham.MoTaThem, sanPham.ChiTietSanPham.Ram);
+            ChiTietSanPham chiTietSanPham = new ChiTietSanPham(sanPhamModelPlus.MaSanPham,
+                sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
+                sanPhamModelPlus.HeDieuHanh, sanPhamModelPlus.ManHinh, sanPhamModelPlus.KichThuoc, sanPhamModelPlus.TrongLuong,
+                sanPhamModelPlus.MoTaThem, sanPhamModelPlus.Ram);
 
             // Lưu sản phẩm
             _context.SanPhams.Add(sanPham);
@@ -77,8 +82,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
 
             await _context.SaveChangesAsync();
    
-
-
             return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công");
         }
 

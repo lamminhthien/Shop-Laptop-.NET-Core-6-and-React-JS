@@ -1,19 +1,36 @@
 {
-    "tenSanPham": "yes",
-    "maLoaiSp": 1,
-    "maHangSx": 2,
-    "trangThaiSp": 0,
-    "gia": 23769031,
-    "chiTietSanPham": {
-      "cpu": "intel core i8",
-      "cardDoHoa": "rtx3088",
-      "doPhanGiai": "Full HD",
-      "oCung": 512,
-      "heDieuHanh": "Windows 11 Pro",
-      "manHinh": 15.3,
-      "kichThuoc": "Dài 300 mm, Rộng 100mm, Dày 10mm ",
-      "trongLuong": 2.5,
-      "moTaThem": "Laptop chuyên đồ họa, mượt mà, cho trải nghiệm giải trí đỉnh cao",
-      "ram": 16
-    }
+  "tenSanPham": "Macbook Air 2021",
+  "maLoaiSp": 1,
+  "maHangSx": 2,
+  "trangThaiSp": 1,
+  "gia": 29900000,
+  "chiTietSanPham": {
+    "cpu": "Apple M1",
+    "cardDoHoa": "Meta GPU Apple 6 Core",
+    "doPhanGiai": "1600x900",
+    "oCung": 256,
+    "heDieuHanh": "Mac OS Monetery",
+    "manHinh": 15.3,
+    "kichThuoc": "Ngang 15mmn, dọc 16mm, cao 17mm",
+    "trongLuong": 2.3,
+    "moTaThem": "Macbook chuyên đồ họa, mạnh mẽ, mỏng nhẹ, mượt mà",
+    "ram": 8
   }
+}
+{
+  "tenSanPham": "Macbook Air 2021",
+  "maLoaiSp": 1,
+  "maHangSx": 2,
+  "trangThaiSp": 1,
+  "gia":29900000,
+  "cpu": "Apple M1",
+  "cardDoHoa": "Meta GPU Apple 6 Core",
+  "doPhanGiai": "1600x900",
+  "oCung": 256,
+  "heDieuHanh": "Mac OS Monetery",
+  "manHinh": 15.3,
+  "kichThuoc": "Ngang 15mm, dọc 16mm, cao 17mm",
+  "trongLuong": 2.3,
+  "moTaThem": "Macbook chuyên đồ họa, mạnh mẽ, mỏng nhẹ, mượt mà",
+  "ram": 8
+}
