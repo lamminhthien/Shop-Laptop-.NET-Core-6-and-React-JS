@@ -61,27 +61,34 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
                 return Problem("Entity set 'shop_laptopContext.SanPhams'  is null.");
             }
             //Tạo đối tượng con cho sản phẩm
-            SanPham sanPham = new SanPham(sanPhamModelPlus.MaSanPham, sanPhamModelPlus.TenSanPham, sanPhamModelPlus.MaLoaiSp,
+            SanPham sanPham = new SanPham(sanPhamModelPlus.TenSanPham, sanPhamModelPlus.MaLoaiSp,
                 sanPhamModelPlus.MaHangSx, sanPhamModelPlus.TrangThaiSp, sanPhamModelPlus.Gia);
+             
+            // Lưu sản phẩm
+            _context.SanPhams.Add(sanPham);
+            await _context.SaveChangesAsync();
+
+            // Lấy mã sản phẩm của sản phẩm vừa tạo ra
+            int ma_san_pham = sanPham.MaSanPham;
 
             // Tạo đối tượng con cho biến động giá
-            BienDongGium bienDongGia = new BienDongGium(sanPhamModelPlus.MaSanPham, sanPhamModelPlus.Gia, 1, DateTime.Now);
+            BienDongGium bienDongGia = new BienDongGium(ma_san_pham,sanPhamModelPlus.Gia, 1, DateTime.Now);
    
             // Taọ đối ượng con cho chiTietSanPham
-            ChiTietSanPham chiTietSanPham = new ChiTietSanPham(sanPhamModelPlus.MaSanPham,
-                sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
+            ChiTietSanPham chiTietSanPham = new ChiTietSanPham(ma_san_pham,sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
                 sanPhamModelPlus.HeDieuHanh, sanPhamModelPlus.ManHinh, sanPhamModelPlus.KichThuoc, sanPhamModelPlus.TrongLuong,
                 sanPhamModelPlus.MoTaThem, sanPhamModelPlus.Ram);
 
-            // Lưu sản phẩm
-            _context.SanPhams.Add(sanPham);
-            // Lưu Chi tiêt sản phẩm
+         
+            // Lưu Chi tiêt sản phẩm với id sản phẩm trên
             _context.ChiTietSanPhams.Add(chiTietSanPham);
-            // Lưu biến động giá
+            // Lưu biến động giá với id sản phẩm trên
             _context.BienDongGia.Add(bienDongGia);
-
+            // Lưu ChiTietSanPham và BienDongGia vào database
             await _context.SaveChangesAsync();
-   
+
+
+
             return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công");
         }
 

@@ -19,9 +19,8 @@ namespace ShopLaptop_EFCore.Models
             GioHangs = new HashSet<GioHang>();
         }
 
-        public SanPham(int maSanPham, string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp, long gia)
+        public SanPham( string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp, long gia)
         {
-            MaSanPham = maSanPham;
             TenSanPham = tenSanPham;
             MaLoaiSp = maLoaiSp;
             MaHangSx = maHangSx;
