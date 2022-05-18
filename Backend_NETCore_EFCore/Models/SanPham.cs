@@ -21,11 +21,14 @@ namespace ShopLaptop_EFCore.Models
 
         [Key]
         [Column("ma_san_pham")]
+        [JsonIgnore]
         public int MaSanPham { get; set; }
         [Column("ten_san_pham")]
         [StringLength(50)]
+        [JsonIgnore]
         public string TenSanPham { get; set; } = null!;
         [Column("ma_loai_sp")]
+        [JsonIgnore]
         public int MaLoaiSp { get; set; }
         [Column("ma_hang_sx")]
         public int MaHangSx { get; set; }
@@ -43,7 +46,7 @@ namespace ShopLaptop_EFCore.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual LoaiSanPham MaLoaiSpNavigation { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
-        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore]
         public virtual BienDongGium BienDongGium { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
         //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

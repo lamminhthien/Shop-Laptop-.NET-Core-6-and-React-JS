@@ -27,6 +27,7 @@ namespace ShopLaptop_EFCore.Models
 
         [Key]
         [Column("ma_san_pham")]
+        [JsonIgnore(Condition =JsonIgnoreCondition.WhenWritingNull)]
         public int MaSanPham { get; set; }
         [Column("cpu")]
         [StringLength(40)]
