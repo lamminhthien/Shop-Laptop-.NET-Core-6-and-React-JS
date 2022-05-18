@@ -72,7 +72,20 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
              
             // Lưu sản phẩm
             _context.SanPhams.Add(sanPham);
-            await _context.SaveChangesAsync();
+            // Thử lưu vào database và bắt lỗi nào (Ví dụ lỗi trùng tên sản phẩm bởi ràng buộc UNIQUE bên SQL)
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateException dbExcept)
+            {
+                // Băt theo message lỗi
+                // Check thử Message 
+                if (dbExcept.InnerException.Message.Contains("Violation of UNIQUE KEY constraint"))
+                    return BadRequest("Tên sản phẩm bị trùng");
+                // Cho dừng chương trình chỗ này !!!
+            }
+
 
             // Lấy mã sản phẩm của sản phẩm vừa tạo ra
             int ma_san_pham = sanPham.MaSanPham;
