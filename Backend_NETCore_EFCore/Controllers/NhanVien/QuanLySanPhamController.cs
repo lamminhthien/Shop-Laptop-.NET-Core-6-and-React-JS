@@ -104,12 +104,42 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
         {
             Console.WriteLine(id);
             // Kiểm tra xem id sản phẩm có tồn tại hay ko 
-            var sanPham = await _context.SanPhams.Include(s => s.MaHangSxNavigation)
+            var sanPhamExist = await _context.SanPhams.Include(s => s.MaHangSxNavigation)
                  .Include(s => s.MaLoaiSpNavigation)
                  .FirstOrDefaultAsync(m => m.MaSanPham == id);
-            if (sanPham != null)
+            if (sanPhamExist != null)
             {
+                // Cập nhật lại sản phẩm đã tồn tại
+                sanPhamExist.TenSanPham = sanPhamModel.TenSanPham;
+                sanPhamExist.MaLoaiSp = sanPhamModel.MaLoaiSp;
+                sanPhamExist.MaHangSx = sanPhamModel.MaHangSx;
+                sanPhamExist.TrangThaiSp = sanPhamModel.TrangThaiSp;
+                sanPhamExist.Gia = sanPhamModel.Gia;
+
+
+                // Tạo đối tượng con cho chi tiết sản phẩm
+               // ChiTietSanPham chiTietSanPham = new ChiTietSanPham(id, sanPhamModel.Cpu, sanPhamModel.CardDoHoa, sanPhamModel.DoPhanGiai, sanPhamModel.OCung,
+               //sanPhamModel.HeDieuHanh, sanPhamModel.ManHinh, sanPhamModel.KichThuoc, sanPhamModel.TrongLuong,
+               //sanPhamModel.MoTaThem, sanPhamModel.Ram);
+
+                // Cập nhật sản phẩm
+                _context.Entry(sanPhamExist).State = EntityState.Modified;
+                //// Cập nhật chi tiết sản phẩm
+                //_context.Entry(chiTietSanPham).State = EntityState.Modified;
+
+                // Thử update vào database và bắt lỗi tiêp
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch(DbUpdateConcurrencyException)
+                {
+                    return BadRequest("Có lỗi!");
+                }
+                
+
                 return Ok("Tìm thấy sản phẩm có id = " + id);
+
             }
             return Ok("Không tìm thấy sản phẩm");
         }

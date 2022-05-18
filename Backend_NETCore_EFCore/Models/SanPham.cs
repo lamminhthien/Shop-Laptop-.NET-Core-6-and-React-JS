@@ -28,6 +28,7 @@ namespace ShopLaptop_EFCore.Models
             Gia = gia;
         }
 
+
         [Key]
         [Column("ma_san_pham")]
         public int MaSanPham { get; set; }
