@@ -87,36 +87,37 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             // Lưu ChiTietSanPham và BienDongGia vào database
             await _context.SaveChangesAsync();
 
-
-
             return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công");
         }
 
-        // Check trùng lắp id sản phẩm trong chi tiết sản phẩm
-        private bool ChiTietSanPhamExists(int id)
+        // Check trùng lăp tên sản phẩm trong table sản phẩm
+        private bool SanPhamExists(string tenSanPham)
         {
-            return (_context.ChiTietSanPhams?.Any(e => e.MaSanPham == id)).GetValueOrDefault();
+            return (_context.SanPhams?.Any(e => e.TenSanPham == tenSanPham)).GetValueOrDefault();
         }
-        // Check trùng lăp id sản phẩm trong table sản phẩm
-        private bool SanPhamExists(int id)
+        // Check thử id sản phẩm có tồn tại hay không
+        private bool IDSanPhamExists(int maSanPham)
         {
-            return (_context.SanPhams?.Any(e => e.MaSanPham == id)).GetValueOrDefault();
+            return (_context.SanPhams?.Any(e => e.MaSanPham == maSanPham)).GetValueOrDefault();
         }
 
-        private bool BienDongGiumExists(int id)
+        // Hàm cập nhật sản phẩm và chi tiết sản phẩm (theo id sản phẩm)
+        // PUT api/<QuanLySanPhamController>/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditSanPham(int id, SanPhamModelPlus sanPhamModel)
         {
-            return (_context.BienDongGia?.Any(e => e.MaSanPham == id)).GetValueOrDefault();
+            // Kiểm tra xem id sản phẩm có tồn tại hay ko 
+            if (IDSanPhamExists(id))
+            {
+                return BadRequest("Sản phẩm không tồn tại");
+            }
+            return Ok("Làm tiêp update sản phẩm thôi");
         }
-        //// PUT api/<QuanLySanPhamController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
 
         //// DELETE api/<QuanLySanPhamController>/5
         //[HttpDelete("{id}")]
         //public void Delete(int id)
         //{
     }
- }
+}
 

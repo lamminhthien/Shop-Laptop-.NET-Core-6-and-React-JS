@@ -55,6 +55,7 @@ namespace ShopLaptop_EFCore.Controllers.ReferenceOnly
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSanPham(int id, SanPham sanPham)
         {
+            // Kiểm tra xem id sản phẩm có tồn tại hay ko 
             if (id != sanPham.MaSanPham)
             {
                 return BadRequest();
