@@ -69,8 +69,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                              tinhTrang = a.TrangThaiSp,
                              giaNiemYet = d.GiaNhap * (1 + d.ChietKhau)
                          }).Skip(5*(page-1)).Take(5);
-            return  Ok(new {tongSoSanPham=productQuantity,soTrang=numberOfPageInteger,ketqua});
-
+            return  Ok(new {
+                tongSoSanPham=productQuantity,
+                soTrang=numberOfPageInteger,
+                ketqua});
         }
 
 

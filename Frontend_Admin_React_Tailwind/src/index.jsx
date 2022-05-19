@@ -31,7 +31,7 @@ reactDom.render(
 
             <Route exact path="/queryparams" children={<QueryParameters/>} />
 
-            <Route exact path="/san-pham" children={<ListSanPham/>} />
+            <Route exact path="/san-pham/:pageNumber" children={<ListSanPham/>} />
 
             <Route exact path="/edit-san-pham/:id" children={<EditSanPham   />} />
 
@@ -42,10 +42,6 @@ reactDom.render(
             <Route exact path="/them-anh-test" children={<UploadImage/>} />
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
-
-        
-
-
 
             <Route path="*" children={<NotFoundPage/>}  / >
 
