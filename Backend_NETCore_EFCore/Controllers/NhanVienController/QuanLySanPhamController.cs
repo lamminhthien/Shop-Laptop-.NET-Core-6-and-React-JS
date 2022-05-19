@@ -33,18 +33,22 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 return NotFound();
             } // Trả về danh sách sản phẩm
-            //return await _context.SanPhams.ToListAsync();
-            // Ghi chú đây là trả về kiểu dữ liệu vô danh
-                 // Vì vậy cần có ToListAsync() thay vì ToList()
-            var ketqua = await _context.SanPhams.Join(_context.LoaiSanPhams,
-                    a => a.MaLoaiSp, b => b.MaLoaiSp,
-                    (a, b) => new 
-                    {
-                       MaSanPham =  a.MaSanPham,
-                       TenSanPham = a.TenSanPham,
-                        TenLoaiSp = b.TenLoaiSp
-                    }
-                  ).ToListAsync();
+              //return await _context.SanPhams.ToListAsync();
+              // Ghi chú đây là trả về kiểu dữ liệu vô danh
+              // Vì vậy cần có ToListAsync() thay vì ToList()
+            var ketqua = from a in _context.SanPhams
+                         join b in _context.LoaiSanPhams on
+                         a.MaLoaiSp equals b.MaLoaiSp
+                         join c in _context.HangSanXuats on
+                         a.MaHangSx equals c.MaHangSx
+                         select new
+                         {
+                             maSanPham = a.MaSanPham,
+                             tenSanPham = a.TenSanPham,
+                             loaiSanPham = b.TenLoaiSp,
+                             hangSanXuat = c.TenHangSx,
+                             tinhTrang = a.TrangThaiSp
+                         };
             return  Ok(ketqua);
 
         }

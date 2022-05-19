@@ -80,8 +80,8 @@ export default class ListSanPham extends Component {
                       {item.maSanPham}
                     </th>
                     {
-                      [item.tenSanPham, item.maLoaiSp,
-                      item.maHangSx, item.trangThaiSp,item.giaNiemYet]
+                      [item.tenSanPham, item.loaiSanPham,
+                      item.hangSanXuat, item.tinhTrang,item.giaNiemYet]
                         .map((element) =>
                           <td class="px-6 py-4">
                             {element}
