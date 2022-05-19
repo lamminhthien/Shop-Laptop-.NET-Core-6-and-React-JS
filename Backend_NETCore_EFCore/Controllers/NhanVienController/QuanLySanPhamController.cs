@@ -41,13 +41,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                          a.MaLoaiSp equals b.MaLoaiSp
                          join c in _context.HangSanXuats on
                          a.MaHangSx equals c.MaHangSx
+                         join d in _context.BienDongGia on
+                         a.MaSanPham equals d.MaSanPham
                          select new
                          {
                              maSanPham = a.MaSanPham,
                              tenSanPham = a.TenSanPham,
                              loaiSanPham = b.TenLoaiSp,
                              hangSanXuat = c.TenHangSx,
-                             tinhTrang = a.TrangThaiSp
+                             tinhTrang = a.TrangThaiSp,
+                             giaNiemYet = d.GiaNhap * (1 + d.ChietKhau)
                          };
             return  Ok(ketqua);
 
