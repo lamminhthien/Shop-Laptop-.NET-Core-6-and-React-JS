@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
 
-namespace ShopLaptop_EFCore.Controllers.NhanVien
+namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     [Route("api/[controller]")]
     [ApiController]

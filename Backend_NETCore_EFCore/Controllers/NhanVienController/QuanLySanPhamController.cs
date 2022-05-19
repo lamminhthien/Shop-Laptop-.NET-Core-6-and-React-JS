@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace ShopLaptop_EFCore.Controllers.NhanVien
+namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     // Tên route /api/{tên controller}
     [Route("api/[controller]")]
