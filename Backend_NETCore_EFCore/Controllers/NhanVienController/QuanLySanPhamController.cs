@@ -34,6 +34,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 return NotFound();
             } // Trả về danh sách sản phẩm
             //return await _context.SanPhams.ToListAsync();
+            // Ghi chú đây là trả về kiểu dữ liệu vô danh
+                 // Vì vậy cần có ToListAsync() thay vì ToList()
             var ketqua = await _context.SanPhams.Join(_context.LoaiSanPhams,
                     a => a.MaLoaiSp, b => b.MaLoaiSp,
                     (a, b) => new 
@@ -46,6 +48,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return  Ok(ketqua);
 
         }
+
 
         // GET api/<QuanLySanPhamController>/5
         [HttpGet("DetailSanPham/{id}")]
