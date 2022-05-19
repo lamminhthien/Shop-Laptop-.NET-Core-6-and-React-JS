@@ -8,15 +8,18 @@ namespace ShopLaptop_EFCore.Models
 {
     public partial class BienDongGium
     {
-        public BienDongGium(int maSanPham, long giaNhap, int lanThayDoiGia, DateTime thoiGian)
+        public BienDongGium(int maSanPham, long giaNhap, int lanThayDoiGia, DateTime thoiGian, double chietKhau)
         {
             MaSanPham = maSanPham;
             GiaNhap = giaNhap;
             LanThayDoiGia = lanThayDoiGia;
             ThoiGian = thoiGian;
+            ChietKhau = chietKhau;
         }
 
         [Key]
+        [Column("ma_bien_dong")]
+        public int MaBienDong { get; set; }
         [Column("ma_san_pham")]
         public int MaSanPham { get; set; }
         [Column("gia_nhap")]
@@ -25,9 +28,11 @@ namespace ShopLaptop_EFCore.Models
         public int LanThayDoiGia { get; set; }
         [Column("thoi_gian", TypeName = "date")]
         public DateTime ThoiGian { get; set; }
+        [Column("chiet_khau")]
+        public double ChietKhau { get; set; }
 
         [ForeignKey("MaSanPham")]
-        [InverseProperty("BienDongGium")]
+        [InverseProperty("BienDongGia")]
         public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
     }
 }

@@ -14,20 +14,19 @@ namespace ShopLaptop_EFCore.Models
         public SanPham()
         {
             AnhSanPhams = new HashSet<AnhSanPham>();
+            BienDongGia = new HashSet<BienDongGium>();
             BinhLuanSanPhams = new HashSet<BinhLuanSanPham>();
             ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
             GioHangs = new HashSet<GioHang>();
         }
 
-        public SanPham( string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp, long gia)
+        public SanPham(string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp)
         {
             TenSanPham = tenSanPham;
             MaLoaiSp = maLoaiSp;
             MaHangSx = maHangSx;
             TrangThaiSp = trangThaiSp;
-            Gia = gia;
         }
-
 
         [Key]
         [Column("ma_san_pham")]
@@ -41,8 +40,6 @@ namespace ShopLaptop_EFCore.Models
         public int MaHangSx { get; set; }
         [Column("trang_thai_sp")]
         public int TrangThaiSp { get; set; }
-        [Column("gia")]
-        public long Gia { get; set; }
 
         [ForeignKey("MaHangSx")]
         [InverseProperty("SanPhams")]
@@ -51,11 +48,11 @@ namespace ShopLaptop_EFCore.Models
         [InverseProperty("SanPhams")]
         public virtual LoaiSanPham MaLoaiSpNavigation { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
-        public virtual BienDongGium BienDongGium { get; set; } = null!;
-        [InverseProperty("MaSanPhamNavigation")]
         public virtual ChiTietSanPham ChiTietSanPham { get; set; } = null!;
         [InverseProperty("MaSanPhamNavigation")]
         public virtual ICollection<AnhSanPham> AnhSanPhams { get; set; }
+        [InverseProperty("MaSanPhamNavigation")]
+        public virtual ICollection<BienDongGium> BienDongGia { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
         public virtual ICollection<BinhLuanSanPham> BinhLuanSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]

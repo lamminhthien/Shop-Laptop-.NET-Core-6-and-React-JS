@@ -52,18 +52,14 @@ namespace ShopLaptop_EFCore.Data
                 entity.HasOne(d => d.MaSanPhamNavigation)
                     .WithMany(p => p.AnhSanPhams)
                     .HasForeignKey(d => d.MaSanPham)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AnhSanPham_SanPham");
             });
 
             modelBuilder.Entity<BienDongGium>(entity =>
             {
-                entity.Property(e => e.MaSanPham).ValueGeneratedNever();
-
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithOne(p => p.BienDongGium)
-                    .HasForeignKey<BienDongGium>(d => d.MaSanPham)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .WithMany(p => p.BienDongGia)
+                    .HasForeignKey(d => d.MaSanPham)
                     .HasConstraintName("FK_BienDongGia_SanPham");
             });
 
@@ -112,7 +108,6 @@ namespace ShopLaptop_EFCore.Data
                 entity.HasOne(d => d.MaSanPhamNavigation)
                     .WithOne(p => p.ChiTietSanPham)
                     .HasForeignKey<ChiTietSanPham>(d => d.MaSanPham)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ChiTietSanPham_SanPham");
             });
 

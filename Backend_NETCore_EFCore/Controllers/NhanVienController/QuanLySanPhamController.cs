@@ -58,7 +58,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // POST api/<QuanLySanPhamController>
-        [HttpPost]
+        [HttpPost("ThemSanPham")]
         public async Task<ActionResult<SanPham>> ThemSanPham(SanPhamModelPlus sanPhamModelPlus)
         {
             // Kiểm tra tất cả các trường dữ liệu của SanPham, kể cả Icollection ảo
@@ -68,7 +68,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             }
             //Tạo đối tượng con cho sản phẩm
             SanPham sanPham = new SanPham(sanPhamModelPlus.TenSanPham, sanPhamModelPlus.MaLoaiSp,
-                sanPhamModelPlus.MaHangSx, sanPhamModelPlus.TrangThaiSp, sanPhamModelPlus.Gia);
+                sanPhamModelPlus.MaHangSx, sanPhamModelPlus.TrangThaiSp);
 
             // Lưu sản phẩm
             _context.SanPhams.Add(sanPham);
@@ -87,11 +87,11 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             }
 
 
-            // Lấy mã sản phẩm của sản phẩm vừa tạo ra
+            // Lấy mã sản phẩm của sản phẩm vừa tạo 
             int ma_san_pham = sanPham.MaSanPham;
 
             // Tạo đối tượng con cho biến động giá
-            BienDongGium bienDongGia = new BienDongGium(ma_san_pham, sanPhamModelPlus.Gia, 1, DateTime.Now);
+            BienDongGium bienDongGia = new BienDongGium(ma_san_pham, sanPhamModelPlus.Gia, 1, DateTime.Now,sanPhamModelPlus.ChietKhau);
 
             // Taọ đối ượng con cho chiTietSanPham
             ChiTietSanPham chiTietSanPham = new ChiTietSanPham(ma_san_pham, sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
@@ -106,7 +106,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             // Lưu ChiTietSanPham và BienDongGia vào database
             await _context.SaveChangesAsync();
 
-            return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công");
+            return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công: mã sản phẩm mới là" + ma_san_pham);
         }
 
         // Check trùng lắp tên sản phẩm trong table sản phẩm
@@ -118,7 +118,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // Hàm cập nhật sản phẩm và chi tiết sản phẩm (theo id sản phẩm)
         // PUT api/<QuanLySanPhamController>/5
-        [HttpPut("{id}")]
+        [HttpPut("CapNhatSanPham/{id}")]
         public async Task<IActionResult> EditSanPham(int id, SanPhamModelPlus sanPhamModel)
         {
             Console.WriteLine(id);
@@ -133,8 +133,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 sanPhamExist.MaLoaiSp = sanPhamModel.MaLoaiSp;
                 sanPhamExist.MaHangSx = sanPhamModel.MaHangSx;
                 sanPhamExist.TrangThaiSp = sanPhamModel.TrangThaiSp;
-                sanPhamExist.Gia = sanPhamModel.Gia;
-
+                
+                // Cập nhật lại giá sản phẩm bằng cách tạo thêm record cho biến động giá
+                // Tìm số lần thay đổi giá của sản phẩm đang xét
+                // Săp xếp kết quả giảm dần theo lần thay đổi giá
+                var soLanThayDoiGia = _context.BienDongGia.Where(o => o.MaSanPham == id)
+                    .OrderByDescending(o => o.LanThayDoiGia)
+                    .Select(o => o.LanThayDoiGia).First();
+                Console.WriteLine("Số lần thay đổi giá hiện tại " + soLanThayDoiGia);
+                // Tăng số lần thay đổi giá lên 1 đơn vị
+                BienDongGium bienDongGium = new BienDongGium(id, sanPhamModel.Gia, soLanThayDoiGia + 1, DateTime.Now,sanPhamModel.ChietKhau);
 
                 // Tạo đối tượng con cho chi tiết sản phẩm
                 ChiTietSanPham chiTietSanPham = new ChiTietSanPham(id, sanPhamModel.Cpu, sanPhamModel.CardDoHoa, sanPhamModel.DoPhanGiai, sanPhamModel.OCung,
@@ -145,6 +153,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 _context.Entry(sanPhamExist).State = EntityState.Modified;
                 // Cập nhật chi tiết sản phẩm
                 _context.Entry(chiTietSanPham).State = EntityState.Modified;
+                 // Thêm record mới cho biến động giá
+                 _context.Entry(bienDongGium).State = EntityState.Modified;
 
                 // Thử update vào database và bắt lỗi tiêp
                 try
@@ -162,7 +172,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // Xóa sản phẩm, sẽ xóa cả chi tiết sản  phẩm, duyệt vòng lặp tất cả các biến động giá có cùng mã sản phẩm và xóa chúng đi
         // DELETE api/<QuanLy   anPhamController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("XoaSanPham/{id}")]
         public async Task<IActionResult> XoaSanPham(int id)
         {
             Console.WriteLine(id);
