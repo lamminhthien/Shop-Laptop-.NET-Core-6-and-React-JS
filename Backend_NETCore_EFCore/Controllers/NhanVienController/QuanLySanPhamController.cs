@@ -67,15 +67,13 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                              loaiSanPham = b.TenLoaiSp,
                              hangSanXuat = c.TenHangSx,
                              tinhTrang = a.TrangThaiSp,
-                             giaNiemYet = d.GiaNhap * (1 + d.ChietKhau)
+                             giaNiemYet = Math.Ceiling(d.GiaNhap * (1 + d.ChietKhau))
                          }).Skip(5*(page-1)).Take(5);
             return  Ok(new {
                 tongSoSanPham=productQuantity,
                 soTrang=numberOfPageInteger,
                 ketqua});
         }
-
-
         // GET api/<QuanLySanPhamController>/5
         [HttpGet("DetailSanPham/{id}")]
         public async Task<ActionResult<SanPham>> SanPhamByID(int id)
