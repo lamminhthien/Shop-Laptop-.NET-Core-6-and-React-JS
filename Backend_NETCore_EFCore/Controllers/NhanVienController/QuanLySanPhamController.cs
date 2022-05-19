@@ -26,14 +26,25 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         // Authorize: Xác thực danh tính, sai danh tính hoặc hết hạn tài khoản React sẽ đẩy component Login cho Client
         [HttpGet("ListSanPham")]
         //[Authorize(Roles = "Nhân viên")]
-        public async Task<ActionResult<IEnumerable<SanPham>>> DanhSachSanPham()
+        public async Task<ActionResult<List<dynamic>>> DanhSachSanPham()
         {
             // Nêu không có sản phẩm nào
             if (_context.SanPhams == null)
             {
                 return NotFound();
             } // Trả về danh sách sản phẩm
-            return await _context.SanPhams.ToListAsync();
+            //return await _context.SanPhams.ToListAsync();
+            var ketqua = await _context.SanPhams.Join(_context.LoaiSanPhams,
+                    a => a.MaLoaiSp, b => b.MaLoaiSp,
+                    (a, b) => new 
+                    {
+                       MaSanPham =  a.MaSanPham,
+                       TenSanPham = a.TenSanPham,
+                        TenLoaiSp = b.TenLoaiSp
+                    }
+                  ).ToListAsync();
+            return  Ok(ketqua);
+
         }
 
         // GET api/<QuanLySanPhamController>/5

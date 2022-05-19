@@ -5,7 +5,7 @@ import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
 export default class ListSanPham extends Component {
   state = {
-    brands: [],
+    listSanPhams: [],
     tableHeaders: ["Mã sản phẩm", "Tên sản phẩm", 
     "Loại sản phẩm", "Hãng sãn xuất",
       "Tình trạng", "Giá niêm yết","Chức năng"
@@ -23,10 +23,11 @@ export default class ListSanPham extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://localhost:44372/api/HangSanXuats`)
+    axios.get(`https://localhost:7216/api/QuanLySanPham/ListSanPham`)
       .then(res => {
-        const brands = res.data;
-        this.setState({ brands });
+        const listSanPhams = res.data;
+        this.setState({ listSanPhams });
+        console.log(listSanPhams);
       })
       .catch(error => console.log(error));
   }
@@ -63,7 +64,7 @@ export default class ListSanPham extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.tableDatas.map((item) =>
+                {this.state.listSanPhams.map((item) =>
                   <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="w-4 p-4">
                       <div class="flex items-center">
@@ -79,8 +80,8 @@ export default class ListSanPham extends Component {
                       {item.maSanPham}
                     </th>
                     {
-                      [item.tenSanPham, item.loaiSanPham,
-                      item.loaiSanPham, item.hangSanXuat,item.giaNiemYet]
+                      [item.tenSanPham, item.maLoaiSp,
+                      item.maHangSx, item.trangThaiSp,item.giaNiemYet]
                         .map((element) =>
                           <td class="px-6 py-4">
                             {element}
@@ -104,7 +105,7 @@ export default class ListSanPham extends Component {
         </div>
       </div>
       // <ul>
-      //   { this.state.brands.map(brand => <li>{brand.tenHangSx}</li>)}
+      //   { this.state.listSanPhams.map(brand => <li>{brand.tenHangSx}</li>)}
       // </ul>
     )
   }

@@ -29,6 +29,8 @@ namespace ShopLaptop_EFCore.Models
         [Column("thoi_gian", TypeName = "date")]
         public DateTime ThoiGian { get; set; }
         [Column("chiet_khau")]
+        // Ràng buộc phạm vi chiết khấu
+        [Range(0.1, 1)]
         public double ChietKhau { get; set; }
 
         [ForeignKey("MaSanPham")]

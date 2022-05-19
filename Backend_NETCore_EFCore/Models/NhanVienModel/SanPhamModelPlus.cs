@@ -59,6 +59,8 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
         [StringLength(170)]
         public string? KichThuoc { get; set; }
         [Column("trong_luong")]
+        // Ràng buộc phạm vi kich thươc laptop
+        [Range(0.1,5)]
         public double? TrongLuong { get; set; }
         [Column("mo_ta_them", TypeName = "text")]
         public string MoTaThem { get; set; } = null!;
