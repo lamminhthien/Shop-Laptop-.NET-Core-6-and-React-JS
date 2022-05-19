@@ -66,6 +66,8 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
         public int? Ram { get; set; }
 
         [Column("chiet_khau")]
+        // Ràng buộc phạm vi chiết khấu
+        [Range(0.1,1)]
         public double ChietKhau { get; set; }
     }
 }

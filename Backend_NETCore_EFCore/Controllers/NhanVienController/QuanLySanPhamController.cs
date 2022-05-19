@@ -105,7 +105,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             _context.BienDongGia.Add(bienDongGia);
             // Lưu ChiTietSanPham và BienDongGia vào database
             await _context.SaveChangesAsync();
-
             return Ok("Đã tạo sản phẩm và chi tiết sản phẩm thành công: mã sản phẩm mới là" + ma_san_pham);
         }
 
