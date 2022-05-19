@@ -25,7 +25,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         // GET: api/<QuanLySanPhamController>
         // Authorize: Xác thực danh tính, sai danh tính hoặc hết hạn tài khoản React sẽ đẩy component Login cho Client
         [HttpGet("ListSanPham")]
-        [Authorize(Roles = "Nhân viên")]
+        //[Authorize(Roles = "Nhân viên")]
         public async Task<ActionResult<IEnumerable<SanPham>>> DanhSachSanPham()
         {
             // Nêu không có sản phẩm nào
@@ -161,9 +161,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 {
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException error)
                 {
-                    return BadRequest("Có lỗi!");
+                    return BadRequest("Có lỗi! " + error.InnerException.Message.ToString());
                 }
                 return Ok("Tìm thấy sản phẩm có id = " + id);
             }

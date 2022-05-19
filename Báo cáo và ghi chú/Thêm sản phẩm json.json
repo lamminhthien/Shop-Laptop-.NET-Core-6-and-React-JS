@@ -14,5 +14,7 @@
   "kichThuoc": "Ngang 15mm, dọc 16mm, cao 17mm",
   "trongLuong": 2.3,
   "moTaThem": "Macbook chuyên đồ họa, mạnh mẽ, mỏng nhẹ, mượt mà",
-  "ram": 99
+  "ram": 99,
+  //Cho chietKhau âm thử xem nào
+  "chietKhau": -1
 }
