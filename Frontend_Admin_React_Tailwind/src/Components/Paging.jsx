@@ -25,11 +25,11 @@ const highLightCurrentPage = () => {
                 {/* Tạo  dãy phân trang */}
                 {Array.from({ length: props.pages }, (val, ind) =>
                     <li>
+                        {/* Styling cho nút bâm của trang hiện tại đang xem */}
                         <a href={(ind + 1).toString()} class={`${  ind + 1 == parseInt(props.currentPage) ? 
                             "text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 "  : 
                             "text-gray-500 bg-white border hover:bg-gray-100 hover:text-gray-700 "
                     } py-2 px-3 leading-tight ` }
-                        
                         >{ind + 1}</a>
                     </li>
                 )}

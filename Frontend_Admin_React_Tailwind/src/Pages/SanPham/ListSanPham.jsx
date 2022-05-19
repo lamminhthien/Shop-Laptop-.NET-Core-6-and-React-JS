@@ -96,11 +96,11 @@ export default function ListSanPham() {
                       )
                   }
                   <td class="px-5 py-4 text-left">
-                    <a href={"/chi-tiet-san-pham/" + item.id} class="font-medium text-blue-600
+                    <a href={"/chi-tiet-san-pham/" + item.maSanPham} class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-blue-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150 ">Chi tiết</a>
-                    <a href={"/edit-san-pham/" + item.id} class="font-medium text-blue-600
+                    <a href={"/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
-                    <a href={"/delete-san-pham/" + item.id} class="font-medium text-blue-600
+                    <a href={"/delete-san-pham/" + item.maSanPham} class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</a>
                   </td>
 
