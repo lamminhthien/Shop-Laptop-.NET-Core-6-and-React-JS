@@ -149,7 +149,7 @@ export default function ChiTietSanPham() {
             {/*Kết thúc khu vực hiển thị ảnh */}
           </div>
 
-          <div class="col-span-2 grid grid-cols-4 rounded-2xl border bg-slate-300 shadow-2xl mr-8">
+          <div class="max-h-screen max-w-screen-sm overflow-auto col-span-2 grid grid-cols-4 rounded-2xl border bg-slate-300 shadow-2xl mr-8">
             {/* Chỗ này xuất thông tin chi tiết sản phẩm thôi */}
             {/* Dựa theo độ dài của mảng dataLabel mà xuất dữ liệu ra giao diện */}
             {Array.from({ length: dataLabel.length }, (val, ind) =>
