@@ -58,6 +58,32 @@ export default function ChiTietSanPham() {
       })
   }, [])
 
+  // Hàm này dùng để render data đúng theo thư tự nhãn trong data Label
+  const renderDataBySwtichCase = (param) => {
+    // eslint-disable-next-line default-case
+    switch (param) {
+      case 0:
+        return dataChiTietSanPham.maSanPham
+        break;
+      case 1:
+        return dataChiTietSanPham.tenSanPham
+        break;
+      case 2:
+        return dataChiTietSanPham.maLoaiSpNavigation.tenLoaiSp
+        break;
+      case 3:
+        return dataChiTietSanPham.maHangSxNavigation.tenHangSx
+        break;
+      case 4:
+        return dataChiTietSanPham.trangThaiSp
+        break;
+      // case 5:
+      //   break;
+      // case 6:
+      //   break;
+    
+    }
+  } 
 
   return (
     <div className="flex">
@@ -98,11 +124,13 @@ export default function ChiTietSanPham() {
                 <div class="rounded-tr-2xl border-b-2 bg-white">
                   <div class="m-2 inline-flex leading-normal">
                     <svg class="mr-2 h-auto w-4 fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
-                    <h1>Mô tả thêm</h1>
+                    {/* Hiển thị label dựa theo array dataLabel */}
+                    <h1>{dataLabel[ind]}</h1>
                   </div>
                 </div>
                 <div class="col-span-3  flex items-center justify-center border-r-2 border-b-2 align-middle">
-                  <div class="px-3 leading-7">abc.</div>
+                  {/* Hiển thị dữ liệu lấy từ api */}
+                  <div class="px-3 leading-7">{renderDataBySwtichCase(ind)}</div>
                 </div>
               </>
             )}
