@@ -85,6 +85,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             // Lấy danh sách sản phẩm, nhưng bao gồm Loại sản phẩm và hãng sản xuất thông qua  Virtual Icollection
             var sanPham = await _context.SanPhams.Include(s => s.MaHangSxNavigation)
                 .Include(s => s.MaLoaiSpNavigation)
+                .Include(s => s.ChiTietSanPham)
                 .FirstOrDefaultAsync(m => m.MaSanPham == id);
 
             if (sanPham == null)
