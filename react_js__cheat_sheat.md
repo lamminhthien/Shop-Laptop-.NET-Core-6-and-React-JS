@@ -43,3 +43,17 @@ export default function Dashboard() {
 }
 ```
 
+# ES6, JSX Range Between Two number
+```js
+//es6
+console.log(
+   Array.from({length:5},(val,ind)=>ind)
+)
+
+//also es6
+console.log(
+	[...Array(5),keys()];
+)
+```
+
+
