@@ -44,7 +44,7 @@ export default function ChiTietSanPham() {
   }
 
   useEffect(() => {
-    
+
     // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
     window.addEventListener("resize", handleResize)
     // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params
@@ -53,11 +53,11 @@ export default function ChiTietSanPham() {
         // Tìm thấy thì lưu dữ liệu
         alert("Hey")
         setDataChiTietSanPham(res.data)
-        
+
       })
       // Không tìm thấy thì trả về trang lỗi
       .catch(error => {
-        
+
         return (
           <NotFoundPage />
         )
@@ -69,7 +69,7 @@ export default function ChiTietSanPham() {
     // eslint-disable-next-line default-case
     switch (param) {
       case 0:
-        return dataChiTietSanPham.maSanPham
+        return "SP0" + dataChiTietSanPham.maSanPham
         break;
       case 1:
         return dataChiTietSanPham.tenSanPham
@@ -81,35 +81,39 @@ export default function ChiTietSanPham() {
         return dataChiTietSanPham.maHangSxNavigation.tenHangSx
         break;
       case 4:
-        return dataChiTietSanPham.chiTietSanPham.cpu
+        return dataChiTietSanPham.trangThaiSp
         break;
       case 5:
-        return dataChiTietSanPham.chiTietSanPham.cardDoHoa
+        return dataChiTietSanPham.chiTietSanPham.cpu
         break;
       case 6:
-        return dataChiTietSanPham.chiTietSanPham.doPhanGiai
+        return dataChiTietSanPham.chiTietSanPham.cardDoHoa
         break;
       case 7:
-        return dataChiTietSanPham.chiTietSanPham.oCung
+        return dataChiTietSanPham.chiTietSanPham.doPhanGiai
         break;
       case 8:
-        return dataChiTietSanPham.chiTietSanPham.heDieuHanh
+        return dataChiTietSanPham.chiTietSanPham.oCung
         break;
       case 9:
-        return dataChiTietSanPham.chiTietSanPham.manHinh
+        return dataChiTietSanPham.chiTietSanPham.heDieuHanh
         break;
       case 10:
-        return dataChiTietSanPham.chiTietSanPham.kichThuoc
+        return dataChiTietSanPham.chiTietSanPham.manHinh
         break;
       case 11:
-        return dataChiTietSanPham.chiTietSanPham.trongLuong
+        return dataChiTietSanPham.chiTietSanPham.kichThuoc
         break;
       case 12:
-        return dataChiTietSanPham.chiTietSanPham.ram
+        return dataChiTietSanPham.chiTietSanPham.trongLuong
         break;
       case 13:
+        return dataChiTietSanPham.chiTietSanPham.ram
+        break;
+      case 14:
         return dataChiTietSanPham.chiTietSanPham.moTaThem
         break;
+
 
     }
   }
