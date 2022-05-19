@@ -38,9 +38,11 @@ export default function ListSanPham() {
 
   return (
     <div className='flex'>
+      {/* Hiển thị danh sách sản phẩm lên */}
       {listSanPham.map((item) =>
         console.log(item.tenSanPham)
       )}
+      {/* Hiển thị cột sidebar */}
       <Sidebar />
       <div className='h-screen flex-1 p-7'>
         <button type="button" class="hover:scale-125 ease-in-out duration-150 ease-in-out text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
@@ -57,6 +59,7 @@ export default function ListSanPham() {
                     <label for="checkbox-all" class="sr-only">checkbox</label>
                   </div>
                 </th>
+                {/* Hiển thị tên các cột  */}
                 {tableHeaders.map((item) =>
                   <th scope="col" class="px-6 py-3">
                     {item}
@@ -65,6 +68,7 @@ export default function ListSanPham() {
               </tr>
             </thead>
             <tbody>
+              {/* Map từng dòng trong danh sách sản phẩm ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
               {listSanPham.map((item) =>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <td class="w-4 p-4">
@@ -78,9 +82,11 @@ export default function ListSanPham() {
                     </div>
                   </td>
                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                    {/* Riêng mã sản phẩm được in đậm in ra trước */}
                     {item.maSanPham}
                   </th>
                   {
+                    // Hiển thị thông tin các trường còn lại , có cùng style 
                     [item.tenSanPham, item.loaiSanPham,
                     item.hangSanXuat, item.tinhTrang, item.giaNiemYet]
                       .map((element) =>
@@ -101,6 +107,7 @@ export default function ListSanPham() {
                 </tr>
               )}
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                {/* Tạo dải phân trang vơi pages là tổng số trang và currentPage là trang hiện tại (để đánh dấu màu sắc) */}
                 <td class="w-4 p-4" colSpan={3}> <Paging pages={numberOfPages} currentPage={pageNumber}   /></td>
               </tr>
             </tbody>
