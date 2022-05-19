@@ -48,7 +48,7 @@ export default function ThemSanPham() {
               <input
                 className={inputStyle}
                 // Đăng ký vào react hook form
-                {...register("firstName", {
+                {...register("tenSanPham", {
                   // Các điều kiện validation
                   required: true, // Bắt buộc
                   maxLength: 20, // Độ dài tối đa
@@ -56,12 +56,12 @@ export default function ThemSanPham() {
                 })}
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
-      //  lỗi ở Firstname là required  thì hiện thẻ p thông báo lỗi */}
-              {errors?.firstName?.type === "required" && <p className={errorStyle}>This field is required</p>}
-              {errors?.firstName?.type === "maxLength" && (
+      //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
+              {errors?.tenSanPham?.type === "required" && <p className={errorStyle}>This field is required</p>}
+              {errors?.tenSanPham?.type === "maxLength" && (
                 <p className={errorStyle}>First name cannot exceed 20 characters</p>
               )}
-              {errors?.firstName?.type === "pattern" && (
+              {errors?.tenSanPham?.type === "pattern" && (
                 <p className={errorStyle}>Alphabetical characters only</p>
               )}
             </div>
