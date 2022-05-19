@@ -24,10 +24,17 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
         // GET: api/<QuanLySanPhamController>
         // Authorize: Xác thực danh tính, sai danh tính hoặc hết hạn tài khoản React sẽ đẩy component Login cho Client
-        [HttpGet("ListSanPham")]
+        [HttpGet("ListSanPham/{page}")]
         //[Authorize(Roles = "Nhân viên")]
-        public async Task<ActionResult<List<dynamic>>> DanhSachSanPham()
+        public async Task<ActionResult<List<dynamic>>> DanhSachSanPham(int page)
         {
+            // Bây giờ cần phân trang, how ?
+            // Giả sử mỗi trang co 5 record
+            int rowPerPage = 5; // Cho Take(5) nhé.
+            // Giả sử trang 2 là skip = rowPerPage * page tức là 
+            // skip = 5*2
+            // Cần tinh tổng số trang có thể phân (để tránh người dùng nhập số trang bự quá)
+        
             // Nêu không có sản phẩm nào
             if (_context.SanPhams == null)
             {
