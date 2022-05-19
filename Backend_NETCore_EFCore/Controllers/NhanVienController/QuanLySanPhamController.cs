@@ -34,6 +34,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             // Giả sử trang 2 là skip = rowPerPage * page tức là 
             // skip = 5*2
             // Cần tinh tổng số trang có thể phân (để tránh người dùng nhập số trang bự quá)
+            
+            // Kiểm tra số page, nếu null hoặc  = 0, gán là 1
+            if (page == null || page == 0)
+            {
+                page = 1;
+            }
+            // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
+            int productQuantity = _context.SanPhams.Count();
+            int numberOfPage = productQuantity / rowPerPage;
         
             // Nêu không có sản phẩm nào
             if (_context.SanPhams == null)
@@ -43,7 +52,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
               //return await _context.SanPhams.ToListAsync();
               // Ghi chú đây là trả về kiểu dữ liệu vô danh
               // Vì vậy cần có ToListAsync() thay vì ToList()
-            var ketqua = from a in _context.SanPhams
+            var ketqua = (from a in _context.SanPhams
                          join b in _context.LoaiSanPhams on
                          a.MaLoaiSp equals b.MaLoaiSp
                          join c in _context.HangSanXuats on
@@ -58,7 +67,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                              hangSanXuat = c.TenHangSx,
                              tinhTrang = a.TrangThaiSp,
                              giaNiemYet = d.GiaNhap * (1 + d.ChietKhau)
-                         };
+                         }).Skip(5*(page-1)).Take(5);
             return  Ok(ketqua);
 
         }
