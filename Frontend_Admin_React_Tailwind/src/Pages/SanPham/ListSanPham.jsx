@@ -10,6 +10,8 @@ export default function ListSanPham() {
 
   // Đọc số trang hiện tại
   let { pageNumber } = useParams();
+  // Lấy đường dẫn trang hiện tại
+  let { urlPath } = useRouteMatch();
   pageNumber == undefined ? pageNumber = 0 : pageNumber = pageNumber
   // Table Headers
   const tableHeaders = ["Mã sản phẩm", "Tên sản phẩm",
@@ -100,7 +102,7 @@ export default function ListSanPham() {
                 </tr>
               )}
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td class="w-4 p-4" colSpan={3}><Paging pages={numberOfPages}/></td>
+                <td class="w-4 p-4" colSpan={3}><Paging pages={numberOfPages}   /></td>
               </tr>
             </tbody>
           </table>
