@@ -30,7 +30,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         {
             // Bây giờ cần phân trang, how ?
             // Giả sử mỗi trang co 5 record
-            int rowPerPage = 5; // Cho Take(5) nhé.
+            double rowPerPage = 5; // Cho Take(5) nhé.
             // Giả sử trang 2 là skip = rowPerPage * page tức là 
             // skip = 5*2
             // Cần tinh tổng số trang có thể phân (để tránh người dùng nhập số trang bự quá)
@@ -41,8 +41,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 page = 1;
             }
             // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
-            int productQuantity = _context.SanPhams.Count();
-            int numberOfPage = productQuantity / rowPerPage;
+            double productQuantity = _context.SanPhams.Count();
+            double numberOfPage = productQuantity / rowPerPage;
+            int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
         
             // Nêu không có sản phẩm nào
             if (_context.SanPhams == null)
@@ -68,7 +69,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                              tinhTrang = a.TrangThaiSp,
                              giaNiemYet = d.GiaNhap * (1 + d.ChietKhau)
                          }).Skip(5*(page-1)).Take(5);
-            return  Ok(ketqua);
+            return  Ok(new {tongSoSanPham=productQuantity,soTrang=numberOfPageInteger,ketqua});
 
         }
 
