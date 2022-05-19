@@ -8,6 +8,7 @@ import {
   FcPaid,
   FcShop,
   FcOrgUnit,
+  FcCurrencyExchange
 } from 'react-icons/fc';
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
@@ -17,12 +18,13 @@ const Sidebar = (props) => {
   const [open, setOpen] = useState(true);
   // List of menu items 
   const Menus = [
-    { title: "Sản phẩm", icon: <FcMultipleDevices size={30} />, href: "/san-pham" },
+    { title: "Sản phẩm", icon: <FcMultipleDevices size={30} />, href: "/san-pham/0" },
     { title: "Loại sản phẩm", icon: <FcOrgUnit size={30} />, href: "/loai-san-pham" },
     { title: "Bình luận sản phẩm", icon: <FcSms size={30} />, href: "/binh-luan-san-pham" },
     { title: "Hóa đơn ", icon: <FcPaid size={30} />, href: "/hoa-don" },
     { title: "Hãng sản xuất", icon: <FcShop size={30} />, href: "/hang-san-xuat" },
     { title: "Khách hàng", icon: <FcConferenceCall size={30} />, href: "/khach-hang" },
+    { title: "Biến động giá sản phẩm", icon: <FcCurrencyExchange size={30} />, href: "/bien-dong-gia-ca" },
   ];
   // Auto close menu when on mobile
   const handleResize = () => {
