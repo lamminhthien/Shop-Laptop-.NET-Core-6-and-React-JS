@@ -161,7 +161,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
         }
 
         // Xóa sản phẩm, sẽ xóa cả chi tiết sản  phẩm, duyệt vòng lặp tất cả các biến động giá có cùng mã sản phẩm và xóa chúng đi
-        // DELETE api/<QuanLySanPhamController>/5
+        // DELETE api/<QuanLy   anPhamController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> XoaSanPham(int id)
         {
@@ -171,6 +171,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
             // Tìm thấy, tiến hành xóa... thôi:
             if (sanPham != null)
             {
+                // Xóa ảnh (dùng cascade rồi)
+
                 // Xóa  record  trong table sản phẩm
                 _context.SanPhams.Remove(sanPham);
 
@@ -197,6 +199,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVien
                 try
                 {
                     await _context.SaveChangesAsync();
+                    return Ok("Xóa sản phẩm thành công");
                 }
                 catch (Exception ex)
                 {
