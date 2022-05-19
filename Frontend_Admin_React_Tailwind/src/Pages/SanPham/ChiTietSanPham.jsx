@@ -21,12 +21,14 @@ export default function ChiTietSanPham() {
 
   // Mảng chứa label của các property trong chi tiết sản phẩm
   const dataLabel = [
-          "Mã sản phẩm", "Tên sản phẩm",
-          "Tên loại sản phẩm",  "Hãng sản xuất",
-          "Trạng thái",
-        ]
+    "Mã sản phẩm", "Tên sản phẩm",
+    "Tên loại sản phẩm", "Hãng sản xuất",
+    "Trạng thái", "CPU", "Card đồ họa", "Độ phân giải",
+    "Ổ cưng", "Hệ điều hành", " Màn hình", "Kích thước",
+    "Trọng lượng", "RAM", "Mô tả thêm"
+  ]
 
-  
+
   // Set state for responsive
   const [responsive, setResponsive] = useState(true);
   // Set state for change picture
@@ -42,16 +44,20 @@ export default function ChiTietSanPham() {
   }
 
   useEffect(() => {
+    
     // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
     window.addEventListener("resize", handleResize)
     // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params
     axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
       .then(res => {
         // Tìm thấy thì lưu dữ liệu
+        alert("Hey")
         setDataChiTietSanPham(res.data)
+        
       })
       // Không tìm thấy thì trả về trang lỗi
       .catch(error => {
+        
         return (
           <NotFoundPage />
         )
@@ -75,15 +81,38 @@ export default function ChiTietSanPham() {
         return dataChiTietSanPham.maHangSxNavigation.tenHangSx
         break;
       case 4:
-        return dataChiTietSanPham.trangThaiSp
+        return dataChiTietSanPham.chiTietSanPham.cpu
         break;
-      // case 5:
-      //   break;
-      // case 6:
-      //   break;
-    
+      case 5:
+        return dataChiTietSanPham.chiTietSanPham.cardDoHoa
+        break;
+      case 6:
+        return dataChiTietSanPham.chiTietSanPham.doPhanGiai
+        break;
+      case 7:
+        return dataChiTietSanPham.chiTietSanPham.oCung
+        break;
+      case 8:
+        return dataChiTietSanPham.chiTietSanPham.heDieuHanh
+        break;
+      case 9:
+        return dataChiTietSanPham.chiTietSanPham.manHinh
+        break;
+      case 10:
+        return dataChiTietSanPham.chiTietSanPham.kichThuoc
+        break;
+      case 11:
+        return dataChiTietSanPham.chiTietSanPham.trongLuong
+        break;
+      case 12:
+        return dataChiTietSanPham.chiTietSanPham.ram
+        break;
+      case 13:
+        return dataChiTietSanPham.chiTietSanPham.moTaThem
+        break;
+
     }
-  } 
+  }
 
   return (
     <div className="flex">
@@ -118,8 +147,8 @@ export default function ChiTietSanPham() {
 
           <div class="col-span-2 grid grid-cols-4 rounded-2xl border bg-slate-300 shadow-2xl mr-8">
             {/* Chỗ này xuất thông tin chi tiết sản phẩm thôi */}
-            {/* {dataChiTietSanPham.tenSanPham} */}
-            {Array.from({ length: 7 }, (val, ind) =>
+            {/* Dựa theo độ dài của mảng dataLabel mà xuất dữ liệu ra giao diện */}
+            {Array.from({ length: dataLabel.length }, (val, ind) =>
               <>
                 <div class="rounded-tr-2xl border-b-2 bg-white">
                   <div class="m-2 inline-flex leading-normal">
