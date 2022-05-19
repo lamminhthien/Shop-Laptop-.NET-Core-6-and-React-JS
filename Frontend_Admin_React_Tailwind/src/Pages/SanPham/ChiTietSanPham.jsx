@@ -47,21 +47,26 @@ export default function ChiTietSanPham() {
 
     // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
     window.addEventListener("resize", handleResize)
-    // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params
-    axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
-      .then(res => {
-        // Tìm thấy thì lưu dữ liệu
-        alert("Hey")
-        setDataChiTietSanPham(res.data)
+    // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
+    const fetchApi = async () => {
+      await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
+        .then(res => {
+          // Tìm thấy thì lưu dữ liệu
+          alert("Hey")
+          setDataChiTietSanPham(res.data)
 
-      })
-      // Không tìm thấy thì trả về trang lỗi
-      .catch(error => {
+        })
+        // Không tìm thấy thì trả về trang lỗi
+        .catch(error => {
 
-        return (
-          <NotFoundPage />
-        )
-      })
+          return (
+            <NotFoundPage />
+          )
+        })
+    }
+    // Gọi hàm fetchApi
+    fetchApi();
+
   }, [])
 
   // Hàm này dùng để render data đúng theo thư tự nhãn trong data Label
