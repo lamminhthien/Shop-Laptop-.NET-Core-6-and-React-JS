@@ -1,10 +1,35 @@
-
-
+/* eslint-disable no-unused-vars */
+import {useState,useEffect} from 'react';
 import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
+import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { useForm } from "react-hook-form";
 export default function ThemSanPham() {
+  // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
+  const [hangSanXuatOption,setHangSanXuatOption] = useState([])
+  const [loaiSanPhamOption,setLoaiSanPhamOpton] = useState([])
+
+  useEffect(() => {
+    // Get Danh sách các hãng sản xuât
+    axios.get("https://localhost:7216/api/QuanLyHangSanXuat")
+    .then((res) => {
+      setHangSanXuatOption(res.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+    // Get danh sách các danh mục sản phẩm
+    axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham")
+        .then((res) => {
+        setLoaiSanPhamOpton(res.data)
+      })
+       .catch((error)=> {
+         console.log(error)
+       })
+  },[])
+
   // We can use the `useParams` hook here to access
   // the dynamic pieces of the URL.
   const {
@@ -32,6 +57,8 @@ export default function ThemSanPham() {
   const labelStyle = `block mb-2 text-sm font-medium text-gray-900`
   const errorStyle = `before:content-['⚠'] mt-2 text-sm text-red-600 `
   const divStyle = `relative z-0 w-full mb-6 group`
+  const formtyle = `mt-2 rounded-xl bg-gradient-to-r bg-white  border 
+  border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
 
   return (
     <div className="flex">
@@ -40,50 +67,57 @@ export default function ThemSanPham() {
         <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm sản phẩm mới</h1></div>
         {/*  Chế độ onSubmit sẽ là HandleSubmit */}
         <form onSubmit={handleSubmit(onSubmit)}
-          className="mt-2 rounded-xl bg-gradient-to-r bg-white  border 
-        border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain">
+          className={formtyle}>
+          {/* Input tên sản phẩm */}
           <div className="grid xl:grid-cols-3 xl:gap-6">
             <div className={divStyle}>
-              <label for="email" class="block mb-2 text-sm font-medium text-green-900 dark:text-gray-300">Tên sản phẩm</label>
+              <label for="email" class={labelStyle}>Tên sản phẩm</label>
               <input
                 className={inputStyle}
                 // Đăng ký vào react hook form
                 {...register("tenSanPham", {
-                  // Các điều kiện validation
+                  // Các ràng buộc validation
                   required: true, // Bắt buộc
-                  maxLength: 20, // Độ dài tối đa
-                  pattern: /^[A-Za-z]+$/i // Pattern theo regex
+                  maxLength: 50, // Độ dài tối đa
                 })}
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
-      //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
+           //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
               {errors?.tenSanPham?.type === "required" && <p className={errorStyle}>This field is required</p>}
               {errors?.tenSanPham?.type === "maxLength" && (
                 <p className={errorStyle}>First name cannot exceed 20 characters</p>
               )}
-              {errors?.tenSanPham?.type === "pattern" && (
-                <p className={errorStyle}>Alphabetical characters only</p>
-              )}
             </div>
+
             <div className={divStyle}>
               <label for="countries" class={labelStyle}>Hãng sản xuất</label>
-              <select id="countries" class={inputStyle}>
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+              {/* Đăng ký react hook form */}
+              <select {...register("hangSanXuat", {
+                //Các ràng buộc validation
+                required: true,
+              })}
+                id="countries" class={inputStyle}>
+                {hangSanXuatOption.map((item) => 
+                    <option>{item.tenHangSx}</option>
+                )}
+                
+            
               </select>
             </div>
+
             <div className={divStyle}>
               <label for="countries" class={labelStyle}>Loại sản phẩm</label>
-              <select id="countries" class={inputStyle}>
-                <option>United States</option>
-                <option>Canada</option>
-                <option>France</option>
-                <option>Germany</option>
+              <select {...register("loaiSanPham", {
+                required:true
+              })}
+                id="countries" class={inputStyle}>
+                  {loaiSanPhamOption.map((item) => 
+                    <option>{item.tenLoaiSp}</option>
+                  )}
               </select>
             </div>
           </div>
+
           {/* Trạng thái sản phẩm,CPU, CARD đồ họa */}
           <div className="grid xl:grid-cols-3 xl:gap-6">
             <div className={divStyle}>
