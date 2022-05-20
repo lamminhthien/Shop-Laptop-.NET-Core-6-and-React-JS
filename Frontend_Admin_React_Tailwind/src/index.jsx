@@ -19,6 +19,7 @@ import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham';
 import ListHangSanXuat from './Pages/HangSanXuat/ListHangSanXuat'
 import ListNhanVien from './Pages/NhanVien/ListNhanVien'
 import ListKhachHang from './Pages/KhachHang/ListKhachHang'
+import ListLichSuGiaCa from './Pages/LichSuGiaCa/ListLichSuGiaCa'
 
 
 
@@ -48,6 +49,8 @@ reactDom.render(
             <Route exact path="/nhan-vien/:pageNumber" children={<ListNhanVien   />} />
 
             <Route exact path="/khach-hang/:pageNumber" children={<ListKhachHang   />} />
+
+            <Route exact path="/bien-dong-gia-ca/:pageNumber" children={<ListLichSuGiaCa   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 

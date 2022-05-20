@@ -56,6 +56,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 tongSoLichSuGia = historyPriceQuantity,
                 tongSoTrang = numberOfPageInteger,
+                // Đừng quên await khi dùng async :((, luồng nó chờ 
+                // không hồi kết
                 ketqua = await ketqua
             });
         }
