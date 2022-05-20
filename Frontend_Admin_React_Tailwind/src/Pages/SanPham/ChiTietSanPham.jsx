@@ -33,6 +33,8 @@ export default function ChiTietSanPham() {
   const [responsive, setResponsive] = useState(true);
   // Set state for change picture
   const [imageSlide, setImageSlide] = useState(imgSRC[0]);
+  // Set state for ready to render page (Prevent empty page when don't have data)
+  const [fetchDataOk,setFetchDataOk] = useState(false);
 
   // Responsive content when on mobile
   const handleResize = () => {
@@ -44,16 +46,14 @@ export default function ChiTietSanPham() {
   }
 
   useEffect(() => {
-
-    // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
-    window.addEventListener("resize", handleResize)
     // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
     const fetchApi = async () => {
       await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
         .then(res => {
           // Tìm thấy thì lưu dữ liệu
-          alert("Hey")
           setDataChiTietSanPham(res.data)
+          // Đặt tín hiệu để render dữ liệu
+          setFetchDataOk(true)
 
         })
         // Không tìm thấy thì trả về trang lỗi
@@ -67,6 +67,9 @@ export default function ChiTietSanPham() {
     // Gọi hàm fetchApi
     fetchApi();
 
+        // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
+        window.addEventListener("resize", handleResize)
+
   }, [])
 
   // Hàm này dùng để render data đúng theo thư tự nhãn trong data Label
@@ -74,52 +77,76 @@ export default function ChiTietSanPham() {
     // eslint-disable-next-line default-case
     switch (param) {
       case 0:
-        return "SP0" + dataChiTietSanPham.maSanPham
+        return (dataChiTietSanPham.maSanPham ? `SP0${dataChiTietSanPham.maSanPham}` : "Không có dữ liệu")
         break;
       case 1:
-        return dataChiTietSanPham.tenSanPham
+        return (dataChiTietSanPham.tenSanPham ? dataChiTietSanPham.tenSanPham : "Không có dữ liệu")
         break;
       case 2:
-        return dataChiTietSanPham.maLoaiSpNavigation.tenLoaiSp
+        return (dataChiTietSanPham.maLoaiSpNavigation.tenLoaiSp ? dataChiTietSanPham.maLoaiSpNavigation.tenLoaiSp : 
+            "Không có dữ liệu"
+          )
         break;
       case 3:
-        return dataChiTietSanPham.maHangSxNavigation.tenHangSx
+        return (dataChiTietSanPham.maHangSxNavigation.tenHangSx ? dataChiTietSanPham.maHangSxNavigation.tenHangSx :
+            "Không có dữ liệu"
+          )
         break;
       case 4:
-        return dataChiTietSanPham.trangThaiSp
+        return (dataChiTietSanPham.trangThaiSp ? dataChiTietSanPham.trangThaiSp : 
+            "Không có dữ liệu"
+          )
         break;
       case 5:
-        return dataChiTietSanPham.chiTietSanPham.cpu
+        return (dataChiTietSanPham.chiTietSanPham.cpu ? dataChiTietSanPham.chiTietSanPham.cpu :
+          "Không có dữ liệu"
+        )
         break;
       case 6:
-        return dataChiTietSanPham.chiTietSanPham.cardDoHoa
+        return (dataChiTietSanPham.chiTietSanPham.cardDoHoa ? dataChiTietSanPham.chiTietSanPham.cardDoHoa :
+            "Không có dữ liệu"
+          )
         break;
       case 7:
-        return dataChiTietSanPham.chiTietSanPham.doPhanGiai
+        return (dataChiTietSanPham.chiTietSanPham.doPhanGiai ? dataChiTietSanPham.chiTietSanPham.doPhanGiai : 
+            "Không có dữ liệu"
+          )
         break;
       case 8:
-        return dataChiTietSanPham.chiTietSanPham.oCung
+        return (dataChiTietSanPham.chiTietSanPham.oCung ? dataChiTietSanPham.chiTietSanPham.oCung :
+          "Không có dữ liệu"
+        )
         break;
       case 9:
-        return dataChiTietSanPham.chiTietSanPham.heDieuHanh
+        return (dataChiTietSanPham.chiTietSanPham.heDieuHanh ? dataChiTietSanPham.chiTietSanPham.heDieuHanh :
+            "Không có dữ liệu"
+        )
         break;
       case 10:
-        return dataChiTietSanPham.chiTietSanPham.manHinh
+        return (dataChiTietSanPham.chiTietSanPham.manHinh ? dataChiTietSanPham.chiTietSanPham.manHinh :
+          "Không có dữ liệu"
+          )
         break;
       case 11:
-        return dataChiTietSanPham.chiTietSanPham.kichThuoc
+        return (dataChiTietSanPham.chiTietSanPham.kichThuoc ? dataChiTietSanPham.chiTietSanPham.kichThuoc :
+            "Không có dữ liệu"
+          )
         break;
       case 12:
-        return dataChiTietSanPham.chiTietSanPham.trongLuong
+        return (dataChiTietSanPham.chiTietSanPham.trongLuong ? dataChiTietSanPham.chiTietSanPham.trongLuong :
+            "Không có dữ liệu"
+          )
         break;
       case 13:
-        return dataChiTietSanPham.chiTietSanPham.ram
+        return (dataChiTietSanPham.chiTietSanPham.ram ? dataChiTietSanPham.chiTietSanPham.ram :
+            "Không có dữ liệu"
+          )
         break;
       case 14:
-        return dataChiTietSanPham.chiTietSanPham.moTaThem
+        return (dataChiTietSanPham.chiTietSanPham.moTaThem ? dataChiTietSanPham.chiTietSanPham.moTaThem :
+            "Không có dữ liệu"
+          )
         break;
-
-
     }
   }
 
@@ -168,7 +195,7 @@ export default function ChiTietSanPham() {
                 </div>
                 <div class="col-span-3  flex items-center justify-center border-r-2 border-b-2 align-middle">
                   {/* Hiển thị dữ liệu lấy từ api */}
-                  <div class="px-3 leading-7">{renderDataBySwtichCase(ind)}</div>
+                  <div class="px-3 leading-7">{fetchDataOk ? renderDataBySwtichCase(ind) : "Đang tải"}</div>
                 </div>
               </>
             )}

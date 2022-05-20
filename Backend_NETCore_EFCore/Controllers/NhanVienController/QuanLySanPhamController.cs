@@ -53,7 +53,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
               //return await _context.SanPhams.ToListAsync();
               // Ghi chú đây là trả về kiểu dữ liệu vô danh
               // Vì vậy cần có ToListAsync() thay vì ToList()
-            var ketqua = (from a in _context.SanPhams
+            var ketqua = ( from a in _context.SanPhams
                          join b in _context.LoaiSanPhams on
                          a.MaLoaiSp equals b.MaLoaiSp
                          join c in _context.HangSanXuats on
