@@ -48,8 +48,10 @@ namespace ShopLaptop_EFCore.Models
         [StringLength(170)]
         public string? KichThuoc { get; set; }
         [Column("trong_luong")]
+        [Required]
         public double? TrongLuong { get; set; }
         [Column("mo_ta_them", TypeName = "text")]
+        [Required]
         public string MoTaThem { get; set; } = null!;
         [Column("ram")]
         public int? Ram { get; set; }
