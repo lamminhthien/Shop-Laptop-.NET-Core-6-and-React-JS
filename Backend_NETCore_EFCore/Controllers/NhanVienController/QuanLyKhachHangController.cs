@@ -39,11 +39,22 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 return NotFound();
             }
+            var ketQua = await _context.KhachHangs.Select(x => new
+            {
+                maKhachHang = x.MaKhachHang,
+                tenKhachHang = x.HoTen,
+                diaChi = x.DiaChi,
+                soDienThoai = x.SoDienThoai,
+                gioiTinh = (x.GioiTinh == true ? "Nữ" : "Nam"),
+                email = x.Email,
+
+            }
+            ).Skip(5 * (page - 1)).Take(5).ToListAsync();
             return Ok(new
             {
                 tongSoKhachHang = customerQuantity,
                 soTrang = numberOfPageInteger,
-                ketqua = await _context.KhachHangs.Skip(5 * (page - 1)).Take(5).ToListAsync()
+                ketqua = ketQua
             }); ;
         }
 
