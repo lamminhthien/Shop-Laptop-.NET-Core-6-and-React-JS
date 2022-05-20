@@ -251,7 +251,7 @@ export default function ThemSanPham() {
               <input {...register("kichThuoc",{
                 maxLength:50
               })}
-              className={inputStyle} placeholder="" value="Ngang ?? mm, Dọc ?? mm, Cao ?? mm"></input>
+              className={inputStyle} placeholder=""></input>
               {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 100 kí tự</p>}
             </div>
             <div className={divStyle}>
@@ -262,7 +262,7 @@ export default function ThemSanPham() {
                   valueAsNumber:true,
                   max:6
                 })}
-                className={inputStyle} value="3.5" />
+                className={inputStyle}  />
                 {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
                 {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
                 {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
@@ -280,12 +280,7 @@ export default function ThemSanPham() {
               </select>
               {errors?.ram?.type === "max" && <p className={errorStyle}> Dung lượng ram tối đa không vượt quá 32 GB</p>}
             </div>
-            <div className={divStyle}>
-              <label class={labelStyle} for="multiple_files">Upload nhiều ảnh</label>
-              <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg 
-              border border-gray-300 cursor-pointer 
-               focus:outline-none " id="multiple_files" type="file" multiple />
-            </div>
+
           </div>
 
           {/* Kết thúc Màn hình, kích thước, trọng lượng ,ram */}
@@ -293,8 +288,19 @@ export default function ThemSanPham() {
           <div className={divStyle}>
 
             <label for="message" class={labelStyle}>Mô tả thêm</label>
-            <textarea id="message" rows="4" className={inputStyle} placeholder="Your message..."></textarea>
-
+            <textarea 
+              {...register("moTaThem", {
+                required:true,
+                minLength: 20,
+                maxLength: 1000
+              })}
+              rows="4" 
+              className={inputStyle} 
+              placeholder="Your message..."></textarea>
+              {errors?.moTaThem?.type === "required" && <p className={errorStyle}> Mô tả thêm bắt buộc phải nhập</p>}
+              {errors?.moTaThem?.type === "minLength" && <p className={errorStyle}> Bắt buộc phải nhập từ 20 kí tự trở lên tính tluoon khoảng trống</p>}
+              {errors?.moTaThem?.type === "maxLength" && <p className={errorStyle}> Mô tả thêm không được vượt quá 1000 ký tự</p>}
+            
           </div>
           {/* Khu vực nút bấm */}
           <div className="flex justify-center">
