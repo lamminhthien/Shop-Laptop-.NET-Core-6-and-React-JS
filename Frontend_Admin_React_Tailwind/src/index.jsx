@@ -14,8 +14,9 @@ import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
 import EditSanPham from "./Pages/SanPham/EdiSanPham";
 import 'flowbite';
 import ThemSanPham from "./Pages/SanPham/ThemSanPham";
-import UploadImage from "./Pages/SanPham/UploadAnhTest"
-import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham'
+import UploadImage from "./Pages/SanPham/UploadAnhTest";
+import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham';
+import ListHangSanXuat from './Pages/HangSanXuat/ListHangSanXuat'
 
 
 
@@ -39,6 +40,8 @@ reactDom.render(
             <Route exact path="/them-san-pham/" children={<ThemSanPham   />} />
 
             <Route exact path="/danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
+
+            <Route exact path="/hang-san-xuat/:pageNumber" children={<ListHangSanXuat   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
