@@ -22,14 +22,30 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // GET: api/QuanLyHangSanXuat
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<HangSanXuat>>> GetHangSanXuats()
+        [HttpGet("HangSanXuat/{page}")]
+        public async Task<ActionResult<IEnumerable<HangSanXuat>>> GetHangSanXuats(int page)
         {
-          if (_context.HangSanXuats == null)
+            double rowPerPage = 5;
+
+            if (page == null || page == 0)
+            {
+                page = 1;
+            }
+            // Tính số trang cần phân chia dựa theo số lượng record của hãng sản phẩm
+            double brandQuantity = _context.HangSanXuats.Count();
+            double numberOfPage = brandQuantity / rowPerPage;
+            int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
+
+            if (_context.HangSanXuats == null)
           {
               return NotFound();
           }
-            return await _context.HangSanXuats.ToListAsync();
+            return Ok(new
+            {
+                tongSoHangSanXuat = brandQuantity,
+                tongSoTrang = numberOfPageInteger,
+                ketQua = await _context.HangSanXuats.Skip(5 * (page - 1)).Take(5).ToListAsync()
+            });
         }
 
         // GET: api/QuanLyHangSanXuat/5

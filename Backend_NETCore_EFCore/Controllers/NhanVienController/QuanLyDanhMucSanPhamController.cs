@@ -31,7 +31,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 page = 1;
             }
-            // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
+            // Tính số trang cần phân chia dựa theo số lượng record của loại sản phẩm
             double categoryQuantity = _context.LoaiSanPhams.Count();
             double numberOfPage = categoryQuantity / rowPerPage;
             int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
