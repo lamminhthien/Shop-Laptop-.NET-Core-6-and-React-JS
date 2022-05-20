@@ -30,7 +30,7 @@ namespace ShopLaptop_EFCore.Models
         public DateTime ThoiGian { get; set; }
         [Column("chiet_khau")]
         // Ràng buộc phạm vi chiết khấu
-        [Range(0.1, 1)]
+        [Range(0.01, 1)]
         public double ChietKhau { get; set; }
 
         [ForeignKey("MaSanPham")]

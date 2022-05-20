@@ -54,6 +54,9 @@ export default function ThemSanPham() {
   const onSubmit = (data) => {
     // Khi nào vượt rào được thì mới xác nhận form hợp lệ
     // và hiện ra dữ liệu json  được chuỗi hóa
+    // Đổi giá trị phần trăm chiết khấu sang số thực
+    data.chietKhau = (data.chietKhau) / 100;
+    // Test hiển thị thử JSON data
     alert(JSON.stringify(data));
     // Đưa dữ liệu từ form vô axios
     axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham",data)
