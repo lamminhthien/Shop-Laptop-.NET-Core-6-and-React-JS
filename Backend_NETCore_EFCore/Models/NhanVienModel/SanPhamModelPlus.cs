@@ -69,7 +69,7 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
 
         [Column("chiet_khau")]
         // Ràng buộc phạm vi chiết khấu
-        [Range(0.1,1)]
+        [Range(0.01,1)]
         public double ChietKhau { get; set; }
     }
 }

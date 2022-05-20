@@ -1,0 +1,18 @@
+{
+    "tenSanPham": "ASUS ZenFlip 6",
+    "hangSanXuat": 2,
+    "loaiSanPham": 3,
+    "trangThaiSp": "1",
+    "cpu": "Intel Core i9 1900K",
+    "cardDoHoa": "NVIDIA Geforce RTX 3090 Ti",
+    "doPhanGiai": "HD+",
+    "oCung": 512,
+    "heDieuHanh": "Window 11",
+    "manHinh": "11.6",
+    "kichThuoc": "Ngang 19 mm, Dọc 54 mm, Rộng 32 mm",
+    "trongLuong": 3.5,
+    "ram": "4",
+    "moTaThem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consequat et tortor sed rutrum. Nam porta augue ut nibh finibus, id vehicula neque hendrerit. Pellentesque sit amet laoreet urna. Morbi dapibus nisl dignissim, consectetur augue quis, rhoncus elit. Nunc nec ornare urna. Cras mollis, sem ut sagittis facilisis, ligula ex bibendum augue, tincidunt imperdiet eros dolor vitae ligula. Aliquam bibendum urna in justo ornare, sed pellentesque felis hendrerit. Duis ornare cursus lectus, et facilisis massa euismod sodales. Phasellus sed risus sit amet eros varius sollicitudin. Aenean efficitur dui a purus sollicitudin posuere. Morbi viverra magna metus, eget blandit elit posuere vel. Suspendisse fermentum mauris vitae finibus auctor. Proin vel maximus dui. Donec nec vehicula quam. Nullam maximus vestibulum massa, non bibendum dui gravida non.",
+    "chietKhau": 0.04,
+    "gia": "15000"
+}

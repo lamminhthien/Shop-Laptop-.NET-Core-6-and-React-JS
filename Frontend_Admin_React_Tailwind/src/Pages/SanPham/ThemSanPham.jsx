@@ -294,8 +294,23 @@ export default function ThemSanPham() {
               </select>
               {errors?.ram?.type === "max" && <p className={errorStyle}> Dung lượng ram tối đa không vượt quá 32 GB</p>}
             </div>
+            {/* Giá */}
+            <div className={divStyle}>
+                <label className={labelStyle}> Giá nhập vào</label>
+                <input 
+                  className={inputStyle}
+                  {...register("gia",{
+                  required: true,
+                  min: 10000,
+                  max: 1000000000
+                })} />
+                {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
+                {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 10.000 </p>}
+                {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
+            </div>
 
 
+            {/* Chiết khấu */}
             <div className={divStyle}>
               <label class={labelStyle}>Chiết khấu %</label>
               <input {...register("chietKhau", {
