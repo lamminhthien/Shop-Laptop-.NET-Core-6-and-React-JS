@@ -22,24 +22,40 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // GET: api/QuanLyDanhMucSanPham
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhams()
+        [HttpGet("ListDanhMucSanPham/{page}")]
+        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhams(int page)
         {
-          if (_context.LoaiSanPhams == null)
-          {
-              return NotFound();
-          }
-            return await _context.LoaiSanPhams.ToListAsync();
+            double rowPerPage = 5;
+
+            if (page == null || page == 0)
+            {
+                page = 1;
+            }
+            // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
+            double categoryQuantity = _context.LoaiSanPhams.Count();
+            double numberOfPage = categoryQuantity / rowPerPage;
+            int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
+
+            if (_context.LoaiSanPhams == null)
+            {
+                return NotFound();
+            }
+            return Ok(new
+            {
+                tongSoDanhMuc = categoryQuantity,
+                soTrang = numberOfPageInteger,
+                ketQua = await _context.LoaiSanPhams.Skip(5 * (page - 1)).Take(5).ToListAsync()
+            });
         }
 
         // GET: api/QuanLyDanhMucSanPham/5
         [HttpGet("{id}")]
         public async Task<ActionResult<LoaiSanPham>> GetLoaiSanPham(int id)
         {
-          if (_context.LoaiSanPhams == null)
-          {
-              return NotFound();
-          }
+            if (_context.LoaiSanPhams == null)
+            {
+                return NotFound();
+            }
             var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
 
             if (loaiSanPham == null)
@@ -86,10 +102,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpPost]
         public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPham(LoaiSanPham loaiSanPham)
         {
-          if (_context.LoaiSanPhams == null)
-          {
-              return Problem("Entity set 'shop_laptopContext.LoaiSanPhams'  is null.");
-          }
+            if (_context.LoaiSanPhams == null)
+            {
+                return Problem("Entity set 'shop_laptopContext.LoaiSanPhams'  is null.");
+            }
             _context.LoaiSanPhams.Add(loaiSanPham);
             await _context.SaveChangesAsync();
 
