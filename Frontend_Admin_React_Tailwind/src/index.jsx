@@ -15,6 +15,7 @@ import EditSanPham from "./Pages/SanPham/EdiSanPham";
 import 'flowbite';
 import ThemSanPham from "./Pages/SanPham/ThemSanPham";
 import UploadImage from "./Pages/SanPham/UploadAnhTest"
+import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham'
 
 
 
@@ -36,6 +37,8 @@ reactDom.render(
             <Route exact path="/edit-san-pham/:id" children={<EditSanPham   />} />
 
             <Route exact path="/them-san-pham/" children={<ThemSanPham   />} />
+
+            <Route exact path="/danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 

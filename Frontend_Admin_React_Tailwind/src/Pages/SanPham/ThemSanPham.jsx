@@ -50,7 +50,7 @@ export default function ThemSanPham() {
     formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
   } = useForm(
     {
-      mode:'onChange',
+      mode: 'onChange',
       reValidateMode: 'onChange',
     }
   ); // Na ná cách dùng useState
@@ -64,7 +64,7 @@ export default function ThemSanPham() {
     // Test hiển thị thử JSON data
     alert(JSON.stringify(data));
     // Đưa dữ liệu từ form vô axios
-    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham",data)
+    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
       .then((res) => {
         alert("Submit dữ liệu qua api thành công")
       })
@@ -301,17 +301,17 @@ export default function ThemSanPham() {
             </div>
             {/* Giá */}
             <div className={divStyle}>
-                <label className={labelStyle}> Giá nhập vào</label>
-                <input 
-                  className={inputStyle}
-                  {...register("gia",{
+              <label className={labelStyle}> Giá nhập vào</label>
+              <input
+                className={inputStyle}
+                {...register("gia", {
                   required: true,
                   min: 10000,
                   max: 1000000000
                 })} />
-                {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
-                {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 10.000 </p>}
-                {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
+              {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
+              {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 10.000 </p>}
+              {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
             </div>
 
 
@@ -324,9 +324,9 @@ export default function ThemSanPham() {
                 max: 100
               })}
                 className={inputStyle} />
-                {errors?.chietKhau?.type === "required" && <p className={errorStyle}> Chiết khấu bắt buộc phải nhập </p>}
-                {errors?.chietKhau?.type === "min" && <p className={errorStyle}> Chiết khấu không được dưới 1% </p>}
-                {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
+              {errors?.chietKhau?.type === "required" && <p className={errorStyle}> Chiết khấu bắt buộc phải nhập </p>}
+              {errors?.chietKhau?.type === "min" && <p className={errorStyle}> Chiết khấu không được dưới 1% </p>}
+              {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
             </div>
           </div>
 
