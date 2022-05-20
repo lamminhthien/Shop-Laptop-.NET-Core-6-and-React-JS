@@ -8,7 +8,6 @@ export default function ChiTietSanPham() {
   // We can use the `useParams` hook here to access
   // the dynamic pieces of the URL.
   let { id } = useParams();
-  let { path, url } = useRouteMatch();
   // Khởi tạo dữ liệu chi tiết sản phẩm
   const [dataChiTietSanPham, setDataChiTietSanPham] = useState([]);
 
@@ -78,75 +77,75 @@ export default function ChiTietSanPham() {
     switch (param) {
       case 0:
         return (dataChiTietSanPham.maSanPham ? `SP0${dataChiTietSanPham.maSanPham}` : "Không có dữ liệu")
-        break;
+        
       case 1:
         return (dataChiTietSanPham.tenSanPham ? dataChiTietSanPham.tenSanPham : "Không có dữ liệu")
-        break;
+        
       case 2:
         return (dataChiTietSanPham.maLoaiSpNavigation.tenLoaiSp ? dataChiTietSanPham.maLoaiSpNavigation.tenLoaiSp : 
             "Không có dữ liệu"
           )
-        break;
+        
       case 3:
         return (dataChiTietSanPham.maHangSxNavigation.tenHangSx ? dataChiTietSanPham.maHangSxNavigation.tenHangSx :
             "Không có dữ liệu"
           )
-        break;
+        
       case 4:
         return (dataChiTietSanPham.trangThaiSp ? dataChiTietSanPham.trangThaiSp : 
             "Không có dữ liệu"
           )
-        break;
+        
       case 5:
         return (dataChiTietSanPham.chiTietSanPham.cpu ? dataChiTietSanPham.chiTietSanPham.cpu :
           "Không có dữ liệu"
         )
-        break;
+        
       case 6:
         return (dataChiTietSanPham.chiTietSanPham.cardDoHoa ? dataChiTietSanPham.chiTietSanPham.cardDoHoa :
             "Không có dữ liệu"
           )
-        break;
+        
       case 7:
         return (dataChiTietSanPham.chiTietSanPham.doPhanGiai ? dataChiTietSanPham.chiTietSanPham.doPhanGiai : 
             "Không có dữ liệu"
           )
-        break;
+        
       case 8:
         return (dataChiTietSanPham.chiTietSanPham.oCung ? dataChiTietSanPham.chiTietSanPham.oCung :
           "Không có dữ liệu"
         )
-        break;
+        
       case 9:
         return (dataChiTietSanPham.chiTietSanPham.heDieuHanh ? dataChiTietSanPham.chiTietSanPham.heDieuHanh :
             "Không có dữ liệu"
         )
-        break;
+        
       case 10:
         return (dataChiTietSanPham.chiTietSanPham.manHinh ? dataChiTietSanPham.chiTietSanPham.manHinh :
           "Không có dữ liệu"
           )
-        break;
+        
       case 11:
         return (dataChiTietSanPham.chiTietSanPham.kichThuoc ? dataChiTietSanPham.chiTietSanPham.kichThuoc :
             "Không có dữ liệu"
           )
-        break;
+        
       case 12:
         return (dataChiTietSanPham.chiTietSanPham.trongLuong ? dataChiTietSanPham.chiTietSanPham.trongLuong :
             "Không có dữ liệu"
           )
-        break;
+        
       case 13:
         return (dataChiTietSanPham.chiTietSanPham.ram ? dataChiTietSanPham.chiTietSanPham.ram :
             "Không có dữ liệu"
           )
-        break;
+        
       case 14:
         return (dataChiTietSanPham.chiTietSanPham.moTaThem ? dataChiTietSanPham.chiTietSanPham.moTaThem :
             "Không có dữ liệu"
           )
-        break;
+        
     }
   }
 
