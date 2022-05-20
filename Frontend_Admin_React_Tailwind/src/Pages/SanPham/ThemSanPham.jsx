@@ -55,11 +55,19 @@ export default function ThemSanPham() {
     // Khi nào vượt rào được thì mới xác nhận form hợp lệ
     // và hiện ra dữ liệu json  được chuỗi hóa
     alert(JSON.stringify(data));
+    // Đưa dữ liệu từ form vô axios
+    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham",data)
+      .then((res) => {
+        alert("Submit dữ liệu qua api thành công")
+      })
+      .catch((err) => {
+        alert("Submit dữ liệu qua api không thành công")
+      })
   }; // your form submit function which will invoke after successful validation
 
 
   // Watcher theo dõi input theo name property 
-  console.log(watch("example"));
+  console.log(watch("tenSanPham"));
 
   // Tailwind CSS Reuse style 
   const inputStyle = `bg-gray-50 border border-gray-300
@@ -71,6 +79,8 @@ export default function ThemSanPham() {
   const formtyle = `mt-2 rounded-xl bg-gradient-to-r bg-white  border 
   border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
 
+
+  // Khu vực render giao diện
   return (
     <div className="flex">
       <Sidebar />
@@ -102,7 +112,7 @@ export default function ThemSanPham() {
               {errors?.tenSanPham?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm ít nhất phải 10 kí tự</p>}
             </div>
 
-                {/* Hãng sản xuất */}
+            {/* Hãng sản xuất */}
             <div className={divStyle}>
               <label class={labelStyle}>Hãng sản xuất</label>
               {/* Đăng ký react hook form */}
@@ -110,7 +120,7 @@ export default function ThemSanPham() {
                 //Các ràng buộc validation
                 required: true,
                 valueAsNumber: true,
-                min:0
+                min: 0
               })}
                 class={inputStyle}>
                 {hangSanXuatOption.map((item) =>
@@ -122,7 +132,7 @@ export default function ThemSanPham() {
               {errors?.hangSanXuat?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
             </div>
 
-              {/* Loại sản phẩm */}
+            {/* Loại sản phẩm */}
             <div className={divStyle}>
               <label class={labelStyle}>Loại sản phẩm</label>
               <select {...register("loaiSanPham", {
@@ -146,13 +156,13 @@ export default function ThemSanPham() {
           <div className="grid xl:grid-cols-3 xl:gap-6">
             <div className={divStyle}>
               <label class={labelStyle}>Trạng thái sản phẩm !!Đừng đưa vào form thêm sản phẩm</label>
-              <select 
-              {...register("trangThaiSp",{
-                required:true,
-                min:0,
-                max:1
-              })}
-              class={inputStyle}>
+              <select
+                {...register("trangThaiSp", {
+                  required: true,
+                  min: 0,
+                  max: 1
+                })}
+                class={inputStyle}>
                 {trangThaiSanPhamOption.map((item) =>
                   <option value={item.value}>{item.name}</option>
                 )}
@@ -166,21 +176,21 @@ export default function ThemSanPham() {
             <div className={divStyle}>
               <label class={labelStyle}>CPU</label>
               <input
-                {...register("cpu",{
+                {...register("cpu", {
                   maxLength: 40
                 })}
                 className={inputStyle} />
-                {errors?.cpu?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên CPU không được vượt quá 40 ký tự</p>}
+              {errors?.cpu?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên CPU không được vượt quá 40 ký tự</p>}
             </div>
 
             {/* Card đồ họa */}
             <div className={divStyle}>
               <label class={labelStyle}>Card đồ họa</label>
-              <input 
-                {...register("cardDoHoa",{
-                  maxLength:40
+              <input
+                {...register("cardDoHoa", {
+                  maxLength: 40
                 })}
-              className={inputStyle} />
+                className={inputStyle} />
               {errors?.cardDoHoa?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên card đồ họa không được vượt quá 40 ký tự</p>}
             </div>
           </div>
@@ -191,11 +201,11 @@ export default function ThemSanPham() {
           <div className="grid xl:grid-cols-3 xl:gap-6">
             <div className={divStyle}>
               <label class={labelStyle}>Độ phân giải</label>
-              <select 
-              {...register("doPhanGiai", {
-                maxLength:10,
-              })}
-              class={inputStyle}>
+              <select
+                {...register("doPhanGiai", {
+                  maxLength: 10,
+                })}
+                class={inputStyle}>
                 {doPhanGiaiOption.map((item) =>
                   <option value={item}>{item}</option>
                 )}
@@ -205,9 +215,9 @@ export default function ThemSanPham() {
 
             <div className={divStyle}>
               <label class={labelStyle}>Ổ cứng</label>
-              <select 
-                {...register("oCung",{
-                  valueAsNumber:true
+              <select
+                {...register("oCung", {
+                  valueAsNumber: true
                 })}
                 class={inputStyle}>
                 {oCungOption.map((item) =>
@@ -218,11 +228,11 @@ export default function ThemSanPham() {
             </div>
             <div className={divStyle}>
               <label class={labelStyle}>Hệ điều hành</label>
-              <select 
-              {...register("heDieuHanh",{
-                maxLength:20
-              })}
-              class={inputStyle}>
+              <select
+                {...register("heDieuHanh", {
+                  maxLength: 20
+                })}
+                class={inputStyle}>
                 {heDieuHanhOption.map((item) =>
                   <option value={item}>{item}</option>
                 )}
@@ -235,9 +245,9 @@ export default function ThemSanPham() {
           <div className="grid xl:grid-cols-3 xl:gap-6">
             <div className={divStyle}>
               <label class={labelStyle}>Màn hình</label>
-              <select 
+              <select
                 {...register("manHinh", {
-                  min:11.6
+                  min: 11.6
                 })}
                 class={inputStyle}>
                 {manHinhOption.map((item) =>
@@ -248,32 +258,33 @@ export default function ThemSanPham() {
             </div>
             <div className={divStyle}>
               <label class={labelStyle}>Kích thước</label>
-              <input {...register("kichThuoc",{
-                maxLength:50
+              <input {...register("kichThuoc", {
+                maxLength: 50
               })}
-              className={inputStyle} placeholder=""></input>
+                className={inputStyle} placeholder=""></input>
               {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 100 kí tự</p>}
             </div>
             <div className={divStyle}>
               <label class={labelStyle}>Trọng lượng</label>
-              <input 
+              <input
                 {...register("trongLuong", {
-                  required:true,
-                  valueAsNumber:true,
-                  max:6
+                  required: true,
+                  valueAsNumber: true,
+                  max: 6
                 })}
-                className={inputStyle}  />
-                {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
-                {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
-                {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
+                className={inputStyle} />
+              {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
+              {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
+              {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
             </div>
+            {/* Dung lượng RAM */}
             <div className={divStyle}>
               <label class={labelStyle}>Dung lượng RAM</label>
-              <select 
-              {...register("ram", {
-                max:32
-              })}
-              className={inputStyle}>
+              <select
+                {...register("ram", {
+                  max: 32
+                })}
+                className={inputStyle}>
                 {dungLuongRAMOption.map((item) =>
                   <option value={item}>{item} GB</option>
                 )}
@@ -281,6 +292,19 @@ export default function ThemSanPham() {
               {errors?.ram?.type === "max" && <p className={errorStyle}> Dung lượng ram tối đa không vượt quá 32 GB</p>}
             </div>
 
+
+            <div className={divStyle}>
+              <label class={labelStyle}>Chiết khấu %</label>
+              <input {...register("chietKhau", {
+                required: true,
+                min: 1,
+                max: 100
+              })}
+                className={inputStyle} />
+                {errors?.chietKhau?.type === "required" && <p className={errorStyle}> Chiết khấu bắt buộc phải nhập </p>}
+                {errors?.chietKhau?.type === "min" && <p className={errorStyle}> Chiết khấu không được dưới 1% </p>}
+                {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
+            </div>
           </div>
 
           {/* Kết thúc Màn hình, kích thước, trọng lượng ,ram */}
@@ -288,19 +312,19 @@ export default function ThemSanPham() {
           <div className={divStyle}>
 
             <label for="message" class={labelStyle}>Mô tả thêm</label>
-            <textarea 
+            <textarea
               {...register("moTaThem", {
-                required:true,
+                required: true,
                 minLength: 20,
                 maxLength: 1000
               })}
-              rows="4" 
-              className={inputStyle} 
+              rows="4"
+              className={inputStyle}
               placeholder="Your message..."></textarea>
-              {errors?.moTaThem?.type === "required" && <p className={errorStyle}> Mô tả thêm bắt buộc phải nhập</p>}
-              {errors?.moTaThem?.type === "minLength" && <p className={errorStyle}> Bắt buộc phải nhập từ 20 kí tự trở lên tính tluoon khoảng trống</p>}
-              {errors?.moTaThem?.type === "maxLength" && <p className={errorStyle}> Mô tả thêm không được vượt quá 1000 ký tự</p>}
-            
+            {errors?.moTaThem?.type === "required" && <p className={errorStyle}> Mô tả thêm bắt buộc phải nhập</p>}
+            {errors?.moTaThem?.type === "minLength" && <p className={errorStyle}> Bắt buộc phải nhập từ 20 kí tự trở lên tính tluoon khoảng trống</p>}
+            {errors?.moTaThem?.type === "maxLength" && <p className={errorStyle}> Mô tả thêm không được vượt quá 1000 ký tự</p>}
+
           </div>
           {/* Khu vực nút bấm */}
           <div className="flex justify-center">
