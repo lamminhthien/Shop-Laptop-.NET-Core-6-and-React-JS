@@ -29,7 +29,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
           {
               return NotFound();
           }
-            return await _context.NhanViens.ToListAsync();
+          var ketQua = await _context.NhanViens.Select(x => new
+          {
+              maNhanVien = x.MaNhanVien,
+              tenNhanVien = x.TenNhanVien,
+              userName = x.Username,
+              soDienThoai = x.SoDienThoai
+
+          }).ToListAsync();
+
+           return Ok(ketQua);
         }
 
         // GET: api/QuanLyNhanVien/5
