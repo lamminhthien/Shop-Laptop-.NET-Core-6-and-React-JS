@@ -56,7 +56,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 tongSoLichSuGia = historyPriceQuantity,
                 tongSoTrang = numberOfPageInteger,
-                ketqua = ketqua
+                ketqua = await ketqua
             });
         }
 
