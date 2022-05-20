@@ -48,7 +48,12 @@ export default function ThemSanPham() {
     handleSubmit, //Xử lý khi submit form
     watch, // Theo dõi và báo lỗi
     formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
-  } = useForm(); // Na ná cách dùng useState
+  } = useForm(
+    {
+      mode:'onChange',
+      reValidateMode: 'onChange',
+    }
+  ); // Na ná cách dùng useState
 
   // Xử lý khi submit form
   const onSubmit = (data) => {
