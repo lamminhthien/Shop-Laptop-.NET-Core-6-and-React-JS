@@ -7,8 +7,8 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 export default function ThemSanPham() {
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
-  const [hangSanXuatOption, setHangSanXuatOption] = useState([])
-  const [loaiSanPhamOption, setLoaiSanPhamOpton] = useState([])
+  const [maHangSXOption, setmaHangSXOption] = useState([])
+  const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
   // Tạo dữ liệu cho các option trong thẻ select
   const trangThaiSanPhamOption = [
     { name: "Đang bán", value: 1 },
@@ -25,7 +25,7 @@ export default function ThemSanPham() {
     // Get Danh sách các hãng sản xuât
     axios.get("https://localhost:7216/api/QuanLyHangSanXuat")
       .then((res) => {
-        setHangSanXuatOption(res.data)
+        setmaHangSXOption(res.data)
       })
       .catch((error) => {
         console.log(error)
@@ -34,7 +34,7 @@ export default function ThemSanPham() {
     // Get danh sách các danh mục sản phẩm
     axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham")
       .then((res) => {
-        setLoaiSanPhamOpton(res.data)
+        setmaLoaiSpOpton(res.data)
       })
       .catch((error) => {
         console.log(error)
@@ -119,38 +119,38 @@ export default function ThemSanPham() {
             <div className={divStyle}>
               <label class={labelStyle}>Hãng sản xuất</label>
               {/* Đăng ký react hook form */}
-              <select {...register("hangSanXuat", {
+              <select {...register("maHangSX", {
                 //Các ràng buộc validation
                 required: true,
                 valueAsNumber: true,
                 min: 0
               })}
                 class={inputStyle}>
-                {hangSanXuatOption.map((item) =>
+                {maHangSXOption.map((item) =>
                   <option value={item.maHangSx}>{item.tenHangSx}</option>
                 )}
               </select>
-              {errors?.hangSanXuat?.type === "required" && <p className={errorStyle}>Hãng sản xuất băt buộc chọn</p>}
-              {errors?.hangSanXuat?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
-              {errors?.hangSanXuat?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
+              {errors?.maHangSX?.type === "required" && <p className={errorStyle}>Hãng sản xuất băt buộc chọn</p>}
+              {errors?.maHangSX?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
+              {errors?.maHangSX?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
             </div>
 
             {/* Loại sản phẩm */}
             <div className={divStyle}>
               <label class={labelStyle}>Loại sản phẩm</label>
-              <select {...register("loaiSanPham", {
+              <select {...register("maLoaiSp", {
                 required: true,
                 valueAsNumber: true,
                 min: 0
               })}
                 class={inputStyle}>
-                {loaiSanPhamOption.map((item) =>
+                {maLoaiSpOption.map((item) =>
                   <option value={item.maLoaiSp}>{item.tenLoaiSp}</option>
                 )}
               </select>
-              {errors?.loaiSanPham?.type === "required" && <p className={errorStyle}>Loại sản phẩm bắt buộc chọn</p>}
-              {errors?.loaiSanPham?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
-              {errors?.loaiSanPham?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
+              {errors?.maLoaiSp?.type === "required" && <p className={errorStyle}>Loại sản phẩm bắt buộc chọn</p>}
+              {errors?.maLoaiSp?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
+              {errors?.maLoaiSp?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
             </div>
           </div>
 
