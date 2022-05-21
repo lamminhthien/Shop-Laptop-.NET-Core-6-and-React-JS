@@ -67,16 +67,13 @@ export default function EditSanPham() {
       .then(res => {
         // Tìm thấy thì lưu dữ liệu
         setDataChiTietSanPham(res.data)
-        // Đặt tín hiệu để render dữ liệu
         setisLoading(false)
-        for (let item of Object.keys(dataChiTietSanPham)) {
-          if (item == "maSanPham") continue
-          setValue(item, dataChiTietSanPham[item], {
-            shouldValidate: true,
-            shouldDirty: true
-          })
-        }
-        alert("OverHere2")
+        // Đặt tín hiệu để render dữ liệu
+        setValue('tenSanPham',res.data.tenSanPham, {
+          shouldValidate: true,
+          shouldDirty:true
+        })
+        alert("OverHere22")
       })
       // Không tìm thấy thì trả về trang lỗi
       .catch(error => {
@@ -112,11 +109,6 @@ export default function EditSanPham() {
       })
   }, [])
 
-
-
-
-  // Watcher theo dõi input theo name property 
-  console.log(watch("tenSanPham"));
 
   // Tailwind CSS Reuse style 
   const inputStyle = `bg-gray-50 border border-gray-300
