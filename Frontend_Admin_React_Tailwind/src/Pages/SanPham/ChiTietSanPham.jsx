@@ -23,7 +23,7 @@ export default function ChiTietSanPham() {
     "Mã sản phẩm", "Tên sản phẩm",
     "Tên loại sản phẩm", "Hãng sản xuất",
     "Trạng thái", "CPU", "Card đồ họa", "Độ phân giải",
-    "Ổ cưng", "Hệ điều hành", " Màn hình", "Kích thước",
+    "Ổ cưng", "Hệ điều hành",  "Kích thước"," Màn hình",
     "Trọng lượng", "RAM", "Mô tả thêm"
   ]
 
@@ -32,8 +32,8 @@ export default function ChiTietSanPham() {
   const [responsive, setResponsive] = useState(true);
   // Set state for change picture
   const [imageSlide, setImageSlide] = useState(imgSRC[0]);
-  // Set state isLoading
-  const [isLoading, setIsLoading] = useState(true);
+  // Set state isFailed
+  const [isFailed, setisFailed] = useState(true);
 
   // Responsive content when on mobile
   const handleResize = () => {
@@ -52,17 +52,17 @@ export default function ChiTietSanPham() {
       .then(res => {
         // Tìm thấy thì lưu dữ liệu
         setDataChiTietSanPham(res.data)
-        setIsLoading(false)
+        setisFailed(false)
       })
       // Không tìm thấy thì trả về trang lỗi
       .catch(error => {
-        setIsLoading(true)
+        setisFailed(true)
       })
     // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
     window.addEventListener("resize", handleResize)
   }, [])
 
-  if (isLoading)
+  if (isFailed)
     return <NotFoundPage />
   return (
     <div className="flex">
@@ -109,7 +109,11 @@ export default function ChiTietSanPham() {
                 <div class="col-span-3  flex items-center justify-center border-r-2 border-b-2 align-middle">
                   {/* Hiển thị dữ liệu lấy từ api */}
                   {/* <div class="px-3 leading-7">{fetchDataOk ? renderDataBySwtichCase(ind) : "Đang tải"}</div> */}
-                  <div className="px-3 leading-7">{JSON.stringify()}</div>
+                  {/* {Object.keys(dataChiTietSanPham).forEach( (key) => {
+                      console.log(dataChiTietSanPham[key])
+                     
+                  })} */}
+                  {JSON.stringify(dataChiTietSanPham['tenSanPham'])}
                 </div>
               </>
             )}

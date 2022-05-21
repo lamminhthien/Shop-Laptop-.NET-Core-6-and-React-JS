@@ -78,7 +78,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
         // GET api/<QuanLySanPhamController>/5
         [HttpGet("DetailSanPham/{id}")]
-        public async Task<ActionResult<SanPham>> SanPhamByID(int id)
+        public async Task<ActionResult<SanPham>> SanPhamByID(int id,bool? includeMaSanPham)
         {
             if (_context.SanPhams == null)
             {
@@ -97,6 +97,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                  where a.MaSanPham == id
                                  select new
                                  {
+                                     maSanPham = a.MaSanPham,
                                      tenSanPham = a.TenSanPham,
                                      loaiSanPham = b.TenLoaiSp,
                                      hangSanXuat = c.TenHangSx,
@@ -112,7 +113,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                      moTaThem = d.MoTaThem,
                                      giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau))
                                  }
-                            ).ToListAsync();
+                            ).FirstOrDefaultAsync();
 
             if (chiTietSanPham == null)
             {
