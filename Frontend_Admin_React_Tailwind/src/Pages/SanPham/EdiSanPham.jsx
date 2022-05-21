@@ -69,7 +69,7 @@ export default function EditSanPham() {
         setDataChiTietSanPham(res.data)
         setisLoading(false)
         // Đặt tín hiệu để render dữ liệu
-        setValue('tenSanPham',res.data.tenSanPham, {
+        setValue('tenSanPham',res.data['tenSanPham'], {
           shouldValidate: true,
           shouldDirty:true
         })
