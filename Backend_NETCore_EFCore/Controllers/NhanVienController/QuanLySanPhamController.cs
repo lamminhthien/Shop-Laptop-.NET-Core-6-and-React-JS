@@ -78,7 +78,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
         // GET api/<QuanLySanPhamController>/5
         [HttpGet("DetailSanPham/{id}")]
-        public async Task<ActionResult<SanPham>> SanPhamByID(int id,bool? includeMaSanPham)
+        public async Task<ActionResult<SanPham>> SanPhamByID(int id)
         {
             if (_context.SanPhams == null)
             {
@@ -98,22 +98,27 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                  where a.MaSanPham == id
                                  select new
                                  {
-                                     maSanPham = a.MaSanPham,
+                                     maSanPham = "SP" + a.MaSanPham,
                                      tenSanPham = a.TenSanPham,
                                      loaiSanPham = b.TenLoaiSp,
+                                     maLoaiSp = a.MaLoaiSp,
                                      hangSanXuat = c.TenHangSx,
-                                     tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : a.TrangThaiSp == 2 ? "Hết hàng 1" : "Hết hàng 2",
+                                     maHangSX = a.MaHangSx,
+                                     tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : "Hết hàng",
+                                     trangThaiSp = a.TrangThaiSp,
                                      cpu = d.Cpu,
                                      cardDoHoa = d.CardDoHoa,
                                      doPhanGiai = d.DoPhanGiai,
                                      oCung = d.OCung,
                                      heDieuHanh = d.HeDieuHanh,
                                      kichThuoc = d.KichThuoc,
-                                     manHinh = d.ManHinh,
-                                     trongLuong = d.TrongLuong,
+                                     manHinh = d.ManHinh + "inch",
+                                     trongLuong = d.TrongLuong + "g",
                                      ram = d.Ram,
                                      moTaThem = d.MoTaThem,
-                                     giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau))
+                                     giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau)),
+                                     gia = e.GiaNhap,
+                                     chietKhau = e.ChietKhau
                                  }
                             ).FirstOrDefaultAsync();
 

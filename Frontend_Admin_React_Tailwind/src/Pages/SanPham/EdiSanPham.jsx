@@ -12,8 +12,7 @@ export default function EditSanPham() {
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
   const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
-  // Khởi tạo dữ liệu chi tiết sản phẩm
-  const [dataChiTietSanPham, setDataChiTietSanPham] = useState([]);
+
   // Set state for ready to render page (Prevent empty page when don't have data)
   const [isLoading, setisLoading] = useState(true);
 
@@ -27,6 +26,11 @@ export default function EditSanPham() {
   const heDieuHanhOption = ["Windows 8", "Windows 10", "Window 11", "Mac OS", "Ubuntu"]
   const manHinhOption = [11.6, 12.3, 12.4, 13.3, 13.4, 14, 13, 15.6, 16, 16.1, 16.2, 17, 17.3]
   const dungLuongRAMOption = [4, 6, 8, 12, 16, 32]
+  const input_key =["tenSanPham","maHangSX",
+"maLoaiSp","trangThaiSp","cpu","cardDoHoa",
+"doPhanGiai","oCung","heDieuHanh","kichThuoc",
+"trongLuong","ram","gia","chietKhau","moTaThem"]
+ 
 
 
   // We can use the `useParams` hook here to access
@@ -65,15 +69,14 @@ export default function EditSanPham() {
   const fetchApi = async () => {
     await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
       .then(res => {
-        // Tìm thấy thì lưu dữ liệu
-        setDataChiTietSanPham(res.data)
+        // Đặt tín hiệu đang loading là false
         setisLoading(false)
-        // Đặt tín hiệu để render dữ liệu
-        setValue('tenSanPham',res.data['tenSanPham'], {
-          shouldValidate: true,
-          shouldDirty:true
-        })
-        alert("OverHere22")
+        //Gán các giá trị của chi tiết sản phẩm vào từng ô input của form
+        input_key.forEach((key) => {
+          setValue(key,res.data[key], {
+          })
+        }); 
+
       })
       // Không tìm thấy thì trả về trang lỗi
       .catch(error => {
@@ -390,7 +393,7 @@ export default function EditSanPham() {
             <div className="flex justify-center">
               {/* Quan trọng, type = submit */}
               <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-            focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Thêm</button>
+            focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Sữa</button>
               <button type="button" class="focus:outline-none text-white bg-green-700 
             hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg 
             text-sm px-5 py-2.5 mr-2 mb-2 ml-3 ">Kiểm tra</button>

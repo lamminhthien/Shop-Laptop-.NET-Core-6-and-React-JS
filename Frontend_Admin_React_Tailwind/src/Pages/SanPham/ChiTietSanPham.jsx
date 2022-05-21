@@ -31,7 +31,7 @@ export default function ChiTietSanPham() {
     "tenSanPham", "loaiSanPham","hangSanXuat",
     "tinhTrang","cpu","cardDoHoa",
     "doPhanGiai","oCung","heDieuHanh",
-    "kichThuoc","trongLuong","ram",
+    "kichThuoc","manHinh","trongLuong","ram",
     "moTaThem"
   ]
 
@@ -120,19 +120,11 @@ export default function ChiTietSanPham() {
                 </div>
               </>
             )}
-
-
             {/*End of block Chỗ này xuât thông tin chi tiết sản phẩm thôi */}
-
-
           </div>
         </div>
 
         {/* //Kết thúc  Khu vực thông tin chi tiết sản phẩm */}
-
-
-
-
       </div>
     </div>
   );
