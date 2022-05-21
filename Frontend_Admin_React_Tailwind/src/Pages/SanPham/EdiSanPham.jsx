@@ -15,7 +15,6 @@ export default function EditSanPham() {
 
   // Set state for ready to render page (Prevent empty page when don't have data)
   const [isLoading, setisLoading] = useState(true);
-  const [maSanPham, setMaSanPham] = useState(-1);
 
   // Tạo dữ liệu cho các option trong thẻ select
   const trangThaiSanPhamOption = [
@@ -58,7 +57,7 @@ export default function EditSanPham() {
     // Test hiển thị thử JSON data
     alert(JSON.stringify(data));
     // Đưa dữ liệu từ form vô axios
-    axios.put("https://localhost:7216/api/QuanLySanPham/CapNhatSanPham", data)
+    axios.put(`https://localhost:7216/api/QuanLySanPham/CapNhatSanPham/${id}`, data)
       .then((res) => {
         alert("Submit dữ liệu qua api thành công")
       })
@@ -72,8 +71,6 @@ export default function EditSanPham() {
       .then(res => {
         // Đặt tín hiệu đang loading là false
         setisLoading(false)
-        // Gán mà sản phẩm vào  useState
-        setMaSanPham(res.data[maSanPham])
         //Gán các giá trị của chi tiết sản phẩm vào từng ô input của form
         input_key.forEach((key) => {
           setValue(key,res.data[key], {
