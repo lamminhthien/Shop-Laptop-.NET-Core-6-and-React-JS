@@ -29,6 +29,39 @@ export default function EditSanPham() {
   const dungLuongRAMOption = [4, 6, 8, 12, 16, 32]
 
 
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  const {
+    register, // Đăng ký input vô react hookform
+    handleSubmit, //Xử lý khi submit form
+    watch, // Theo dõi và báo lỗi
+    setValue, // Gán sẵn giá trị cho từng input trong form
+    formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
+  } = useForm(
+    {
+      mode: 'onChange',
+      reValidateMode: 'onChange',
+    }
+  ); // Na ná cách dùng useState
+
+  // Xử lý khi submit form
+  const onSubmit = (data) => {
+    // Khi nào vượt rào được thì mới xác nhận form hợp lệ
+    // và hiện ra dữ liệu json  được chuỗi hóa
+    // Đổi giá trị phần trăm chiết khấu sang số thực
+    data.chietKhau = (data.chietKhau) / 100;
+    // Test hiển thị thử JSON data
+    alert(JSON.stringify(data));
+    // Đưa dữ liệu từ form vô axios
+    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
+      .then((res) => {
+        alert("Submit dữ liệu qua api thành công")
+      })
+      .catch((err) => {
+        alert("Submit dữ liệu qua api không thành công")
+      })
+  }; // your form submit function which will invoke after successful validation
+
   useEffect(() => {
     // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
     const fetchApi = async () => {
@@ -38,6 +71,11 @@ export default function EditSanPham() {
           setDataChiTietSanPham(res.data)
           // Đặt tín hiệu để render dữ liệu
           setFetchDataOk(true)
+          // Gán dữ liệu chi tiết sản phẩm vào form
+          setValue("tenSanPham","Thien123", {
+            shouldValidate:true,
+            shouldDirty:true
+          })
 
         })
         // Không tìm thấy thì trả về trang lỗi
@@ -70,38 +108,7 @@ export default function EditSanPham() {
       })
   }, [])
 
-  // We can use the `useParams` hook here to access
-  // the dynamic pieces of the URL.
-  const {
-    register, // Đăng ký input vô react hookform
-    handleSubmit, //Xử lý khi submit form
-    watch,
-    setValue, // Theo dõi và báo lỗi
-    formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
-  } = useForm(
-    {
-      mode: 'onChange',
-      reValidateMode: 'onChange',
-    }
-  ); // Na ná cách dùng useState
 
-  // Xử lý khi submit form
-  const onSubmit = (data) => {
-    // Khi nào vượt rào được thì mới xác nhận form hợp lệ
-    // và hiện ra dữ liệu json  được chuỗi hóa
-    // Đổi giá trị phần trăm chiết khấu sang số thực
-    data.chietKhau = (data.chietKhau) / 100;
-    // Test hiển thị thử JSON data
-    alert(JSON.stringify(data));
-    // Đưa dữ liệu từ form vô axios
-    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
-      .then((res) => {
-        alert("Submit dữ liệu qua api thành công")
-      })
-      .catch((err) => {
-        alert("Submit dữ liệu qua api không thành công")
-      })
-  }; // your form submit function which will invoke after successful validation
 
 
   // Watcher theo dõi input theo name property 
@@ -140,7 +147,7 @@ export default function EditSanPham() {
                   maxLength: 50, // Độ dài tối đa
                   minLength: 10
                 })}
-                
+
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
            //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
