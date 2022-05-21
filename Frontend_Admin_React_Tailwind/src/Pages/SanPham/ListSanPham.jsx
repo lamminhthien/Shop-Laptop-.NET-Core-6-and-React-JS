@@ -4,9 +4,14 @@ import Sidebar from '../../Components/Sidebar';
 import { useState, useEffect } from 'react';
 import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
+import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import Paging from '../../Components/Paging';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 export default function ListSanPham() {
+
+  // Sử dụng history để điều hướng web khi onclick
+  const history = useHistory()
 
   // Đọc số trang hiện tại
   let { pageNumber } = useParams();
@@ -35,6 +40,12 @@ export default function ListSanPham() {
       })
       .catch(error => console.log(error));
   }, [])
+
+  // Chuyển hướng đến trang xóa sản phẩm
+  const RedirectToDelete = (manSanPham) => {
+    return <Redirect to={`/delete-san-pham/${manSanPham}`} />
+    // alert(manSanPham)
+  }
 
   return (
     <div className='flex'>
@@ -100,15 +111,17 @@ export default function ListSanPham() {
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-blue-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150 ">Chi tiết</a>
                     <a href={"/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
-                    <a href={"/delete-san-pham/" + item.maSanPham} class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</a>
+                    <button 
+                    onClick={   () =>   {history.push('/delete-san-pham/41124124') }}
+                    class="font-medium text-blue-600
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</button>
                   </td>
 
                 </tr>
               )}
               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 {/* Tạo dải phân trang vơi pages là tổng số trang và currentPage là trang hiện tại (để đánh dấu màu sắc) */}
-                <td class="w-4 p-4" colSpan={3}> <Paging pages={numberOfPages} currentPage={pageNumber}   /></td>
+                <td class="w-4 p-4" colSpan={3}> <Paging pages={numberOfPages} currentPage={pageNumber} /></td>
               </tr>
             </tbody>
           </table>
