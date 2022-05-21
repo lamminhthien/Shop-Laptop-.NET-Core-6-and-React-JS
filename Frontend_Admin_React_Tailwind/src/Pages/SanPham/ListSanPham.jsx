@@ -8,6 +8,9 @@ import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import Paging from '../../Components/Paging';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 export default function ListSanPham() {
 
   // Sử dụng history để điều hướng web khi onclick
@@ -42,11 +45,22 @@ export default function ListSanPham() {
   }, [])
 
   // Chuyển hướng đến trang xóa sản phẩm
-  const RedirectToDelete = (manSanPham) => {
-    return <Redirect to={`/delete-san-pham/${manSanPham}`} />
-    // alert(manSanPham)
-  }
-
+  const AlertAndRedirectToDelete = (manSanPham) => {
+    confirmAlert({
+      title: 'Xác nhận trước khi xóa sản phẩm',
+      message: 'Bạn có muốn xóa sản phẩm này',
+      buttons: [
+        {
+          label: 'Có',
+          onClick: () => history.push(`/delete-san-pham/${manSanPham}`)
+        },
+        {
+          label: 'Không',
+          onClick: () => alert('Click No')
+        }
+      ]
+    });
+  };
   return (
     <div className='flex'>
       {/* Hiển thị danh sách sản phẩm lên */}
@@ -85,10 +99,10 @@ export default function ListSanPham() {
                   <td class="w-4 p-4">
                     <div class="flex items-center">
                       <input id="checkbox-table-1" type="checkbox" class="w-4 h-4
-                         text-blue-600 bg-gray-100 border-gray-300 rounded
-                          focus:ring-blue-500 dark:focus:ring-blue-600 
-                          dark:ring-offset-gray-800 focus:ring-2 
-                          dark:bg-gray-700 dark:border-gray-600" />
+                           text-blue-600 bg-gray-100 border-gray-300 rounded
+                            focus:ring-blue-500 dark:focus:ring-blue-600 
+                            dark:ring-offset-gray-800 focus:ring-2 
+                            dark:bg-gray-700 dark:border-gray-600" />
                       <label for="checkbox-table-1" class="sr-only">checkbox</label>
                     </div>
                   </td>
@@ -108,13 +122,13 @@ export default function ListSanPham() {
                   }
                   <td class="px-5 py-4 text-left">
                     <a href={"/chi-tiet-san-pham/" + item.maSanPham} class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-blue-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150 ">Chi tiết</a>
+   dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-blue-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150 ">Chi tiết</a>
                     <a href={"/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
-                    <button 
-                    onClick={   () =>   {history.push('/delete-san-pham/41124124') }}
-                    class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</button>
+   dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
+                    <button
+                      onClick={() => { AlertAndRedirectToDelete(item.maSanPham) }}
+                      class="font-medium text-blue-600
+   dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</button>
                   </td>
 
                 </tr>
@@ -132,5 +146,7 @@ export default function ListSanPham() {
 
     </div>
   )
-
 }
+
+
+
