@@ -113,7 +113,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                      heDieuHanh = d.HeDieuHanh,
                                      kichThuoc = d.KichThuoc,
                                      manHinh = d.ManHinh + "inch",
-                                     trongLuong = d.TrongLuong + "g",
+                                     trongLuong = d.TrongLuong,
                                      ram = d.Ram,
                                      moTaThem = d.MoTaThem,
                                      giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau)),
