@@ -15,7 +15,7 @@ export default function EditSanPham() {
   // Khởi tạo dữ liệu chi tiết sản phẩm
   const [dataChiTietSanPham, setDataChiTietSanPham] = useState([]);
   // Set state for ready to render page (Prevent empty page when don't have data)
-  const [fetchDataOk, setFetchDataOk] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
 
   // Tạo dữ liệu cho các option trong thẻ select
   const trangThaiSanPhamOption = [
@@ -53,7 +53,7 @@ export default function EditSanPham() {
     // Test hiển thị thử JSON data
     alert(JSON.stringify(data));
     // Đưa dữ liệu từ form vô axios
-    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
+    axios.put("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
       .then((res) => {
         alert("Submit dữ liệu qua api thành công")
       })
@@ -61,31 +61,35 @@ export default function EditSanPham() {
         alert("Submit dữ liệu qua api không thành công")
       })
   }; // your form submit function which will invoke after successful validation
+  // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
+  const fetchApi = async () => {
+    await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
+      .then(res => {
+        // Tìm thấy thì lưu dữ liệu
+        setDataChiTietSanPham(res.data)
+        // Đặt tín hiệu để render dữ liệu
+        setisLoading(false)
+        for (let item of Object.keys(dataChiTietSanPham)) {
+          if (item == "maSanPham") continue
+          setValue(item, dataChiTietSanPham[item], {
+            shouldValidate: true,
+            shouldDirty: true
+          })
+        }
+        alert("OverHere2")
+      })
+      // Không tìm thấy thì trả về trang lỗi
+      .catch(error => {
+
+        return (
+          <NotFoundPage />
+        )
+      })
+  }
+
 
   useEffect(() => {
-    // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
-    const fetchApi = async () => {
-      await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
-        .then(res => {
-          // Tìm thấy thì lưu dữ liệu
-          setDataChiTietSanPham(res.data)
-          // Đặt tín hiệu để render dữ liệu
-          setFetchDataOk(true)
-          // Gán dữ liệu chi tiết sản phẩm vào form
-          setValue("tenSanPham","Thien123", {
-            shouldValidate:true,
-            shouldDirty:true
-          })
 
-        })
-        // Không tìm thấy thì trả về trang lỗi
-        .catch(error => {
-
-          return (
-            <NotFoundPage />
-          )
-        })
-    }
     // Gọi hàm fetchApi
     fetchApi();
 
@@ -126,282 +130,285 @@ export default function EditSanPham() {
 
 
   // Khu vực render giao diện
-  return (
-    <div className="flex">
-      <Sidebar />
-      <div className="h-screen flex-1 p-7">
-        <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm sản phẩm mới</h1></div>
-        {/*  Chế độ onSubmit sẽ là HandleSubmit */}
-        <form onSubmit={handleSubmit(onSubmit)}
-          className={formtyle}>
-          {/* Input tên sản phẩm */}
-          <div className="grid xl:grid-cols-3 xl:gap-6">
-            <div className={divStyle}>
-              <label class={labelStyle}>Tên sản phẩm</label>
-              <input
-                className={inputStyle}
-                // Đăng ký vào react hook form
-                {...register("tenSanPham", {
-                  // Các ràng buộc validation
-                  required: true, // Bắt buộc
-                  maxLength: 50, // Độ dài tối đa
-                  minLength: 10
-                })}
+  if (isLoading)
+    return (<div>Now Loading</div>)
+  else
+    return (
+      <div className="flex">
+        <Sidebar />
+        <div className="h-screen flex-1 p-7">
+          <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Edit sản phẩm</h1></div>
+          {/*  Chế độ onSubmit sẽ là HandleSubmit */}
+          <form onSubmit={handleSubmit(onSubmit)}
+            className={formtyle}>
+            {/* Input tên sản phẩm */}
+            <div className="grid xl:grid-cols-3 xl:gap-6">
+              <div className={divStyle}>
+                <label class={labelStyle}>Tên sản phẩm</label>
+                <input
+                  className={inputStyle}
+                  // Đăng ký vào react hook form
+                  {...register("tenSanPham", {
+                    // Các ràng buộc validation
+                    required: true, // Bắt buộc
+                    maxLength: 50, // Độ dài tối đa
+                    minLength: 10
+                  })}
 
-              />
-              {/* // Hình thức hiển thị lỗi (dựa theo formState)
+                />
+                {/* // Hình thức hiển thị lỗi (dựa theo formState)
            //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
-              {errors?.tenSanPham?.type === "required" && <p className={errorStyle}>Tên sản phẩm bắt buộc nhập</p>}
-              {errors?.tenSanPham?.type === "maxLength" && (
-                <p className={errorStyle}>Tên sản phẩm không được vượt quá 50 kí tự</p>
-              )}
-              {errors?.tenSanPham?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm ít nhất phải 10 kí tự</p>}
-            </div>
+                {errors?.tenSanPham?.type === "required" && <p className={errorStyle}>Tên sản phẩm bắt buộc nhập</p>}
+                {errors?.tenSanPham?.type === "maxLength" && (
+                  <p className={errorStyle}>Tên sản phẩm không được vượt quá 50 kí tự</p>
+                )}
+                {errors?.tenSanPham?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm ít nhất phải 10 kí tự</p>}
+              </div>
 
-            {/* Hãng sản xuất */}
-            <div className={divStyle}>
-              <label class={labelStyle}>Hãng sản xuất</label>
-              {/* Đăng ký react hook form */}
-              <select {...register("maHangSX", {
-                //Các ràng buộc validation
-                required: true,
-                valueAsNumber: true,
-                min: 0
-              })}
-                class={inputStyle}>
-                {maHangSXOption.map((item) =>
-                  <option value={item.maHangSx}>{item.tenHangSx}</option>
-                )}
-              </select>
-              {errors?.maHangSX?.type === "required" && <p className={errorStyle}>Hãng sản xuất băt buộc chọn</p>}
-              {errors?.maHangSX?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
-              {errors?.maHangSX?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
-            </div>
-
-            {/* Loại sản phẩm */}
-            <div className={divStyle}>
-              <label class={labelStyle}>Loại sản phẩm</label>
-              <select {...register("maLoaiSp", {
-                required: true,
-                valueAsNumber: true,
-                min: 0
-              })}
-                class={inputStyle}>
-                {maLoaiSpOption.map((item) =>
-                  <option value={item.maLoaiSp}>{item.tenLoaiSp}</option>
-                )}
-              </select>
-              {errors?.maLoaiSp?.type === "required" && <p className={errorStyle}>Loại sản phẩm bắt buộc chọn</p>}
-              {errors?.maLoaiSp?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
-              {errors?.maLoaiSp?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
-            </div>
-          </div>
-
-          {/* Trạng thái sản phẩm,CPU, CARD đồ họa */}
-          {/* Trạng thái sản phẩm */}
-          <div className="grid xl:grid-cols-3 xl:gap-6">
-            <div className={divStyle}>
-              <label class={labelStyle}>Trạng thái sản phẩm !!Đừng đưa vào form thêm sản phẩm</label>
-              <select
-                {...register("trangThaiSp", {
-                  required: true,
-                  min: 0,
-                  max: 1
-                })}
-                class={inputStyle}>
-                {trangThaiSanPhamOption.map((item) =>
-                  <option value={item.value}>{item.name}</option>
-                )}
-              </select>
-              {errors?.trangThaiSp?.type === "required" && <p className={errorStyle}>Trạng thái sản phẩm bắt buộc chọn</p>}
-              {errors?.trangThaiSp?.type === "min" && <p className={errorStyle}>Error, you are tying to edit value in html code for this select to below 0</p>}
-              {errors?.trangThaiSp?.type === "max" && <p className={errorStyle}>Error, you are trying to edit value html code for this select to above 1</p>}
-            </div>
-
-            {/* CPU */}
-            <div className={divStyle}>
-              <label class={labelStyle}>CPU</label>
-              <input
-                {...register("cpu", {
-                  maxLength: 40
-                })}
-                className={inputStyle} />
-              {errors?.cpu?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên CPU không được vượt quá 40 ký tự</p>}
-            </div>
-
-            {/* Card đồ họa */}
-            <div className={divStyle}>
-              <label class={labelStyle}>Card đồ họa</label>
-              <input
-                {...register("cardDoHoa", {
-                  maxLength: 40
-                })}
-                className={inputStyle} />
-              {errors?.cardDoHoa?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên card đồ họa không được vượt quá 40 ký tự</p>}
-            </div>
-          </div>
-          {/* Kết thúc trạng thái sản phẩm, CPU, CARD đồ họa */}
-          {/* ------------------------------------- */}
-          {/* Độ phân giải, ổ cứng, hệ điều hành */}
-          {/* Độ phân giải */}
-          <div className="grid xl:grid-cols-3 xl:gap-6">
-            <div className={divStyle}>
-              <label class={labelStyle}>Độ phân giải</label>
-              <select
-                {...register("doPhanGiai", {
-                  maxLength: 10,
-                })}
-                class={inputStyle}>
-                {doPhanGiaiOption.map((item) =>
-                  <option value={item}>{item}</option>
-                )}
-              </select>
-              {errors?.doPhanGiai?.type === "maxLength" && <p className={errorStyle}>Số lượng ký tự không được vượt quá 10</p>}
-            </div>
-
-            <div className={divStyle}>
-              <label class={labelStyle}>Ổ cứng</label>
-              <select
-                {...register("oCung", {
-                  valueAsNumber: true
-                })}
-                class={inputStyle}>
-                {oCungOption.map((item) =>
-                  <option value={item}>{item} GB</option>
-                )}
-              </select>
-              {errors?.oCung?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo Bạn đang cố chỉnh code cho value của select không phải là kiểu số</p>}
-            </div>
-            <div className={divStyle}>
-              <label class={labelStyle}>Hệ điều hành</label>
-              <select
-                {...register("heDieuHanh", {
-                  maxLength: 20
-                })}
-                class={inputStyle}>
-                {heDieuHanhOption.map((item) =>
-                  <option value={item}>{item}</option>
-                )}
-              </select>
-              {errors?.heDieuHanh?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên hệ điều hành không vượt quá 20</p>}
-            </div>
-          </div>
-          {/* Kết thúc độ phân giải, ổ cứng, hệ điều hành */}
-          {/* Màn hình, kích thước, trọng lượng */}
-          <div className="grid xl:grid-cols-3 xl:gap-6">
-            <div className={divStyle}>
-              <label class={labelStyle}>Màn hình</label>
-              <select
-                {...register("manHinh", {
-                  min: 11.6
-                })}
-                class={inputStyle}>
-                {manHinhOption.map((item) =>
-                  <option value={item}>{item}</option>
-                )}
-              </select>
-              {errors?.manHinh?.type === "min" && <p className={errorStyle}> Độ phân giải màn hình không được nhỏ hơn 11.6 inch</p>}
-            </div>
-            <div className={divStyle}>
-              <label class={labelStyle}>Kích thước</label>
-              <input {...register("kichThuoc", {
-                maxLength: 50
-              })}
-                className={inputStyle} placeholder=""></input>
-              {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 100 kí tự</p>}
-            </div>
-            <div className={divStyle}>
-              <label class={labelStyle}>Trọng lượng</label>
-              <input
-                {...register("trongLuong", {
+              {/* Hãng sản xuất */}
+              <div className={divStyle}>
+                <label class={labelStyle}>Hãng sản xuất</label>
+                {/* Đăng ký react hook form */}
+                <select {...register("maHangSX", {
+                  //Các ràng buộc validation
                   required: true,
                   valueAsNumber: true,
-                  max: 6
+                  min: 0
                 })}
-                className={inputStyle} />
-              {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
-              {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
-              {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
-            </div>
-            {/* Dung lượng RAM */}
-            <div className={divStyle}>
-              <label class={labelStyle}>Dung lượng RAM</label>
-              <select
-                {...register("ram", {
-                  max: 32
-                })}
-                className={inputStyle}>
-                {dungLuongRAMOption.map((item) =>
-                  <option value={item}>{item} GB</option>
-                )}
-              </select>
-              {errors?.ram?.type === "max" && <p className={errorStyle}> Dung lượng ram tối đa không vượt quá 32 GB</p>}
-            </div>
-            {/* Giá */}
-            <div className={divStyle}>
-              <label className={labelStyle}> Giá nhập vào</label>
-              <input
-                className={inputStyle}
-                {...register("gia", {
+                  class={inputStyle}>
+                  {maHangSXOption.map((item) =>
+                    <option value={item.maHangSx}>{item.tenHangSx}</option>
+                  )}
+                </select>
+                {errors?.maHangSX?.type === "required" && <p className={errorStyle}>Hãng sản xuất băt buộc chọn</p>}
+                {errors?.maHangSX?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
+                {errors?.maHangSX?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
+              </div>
+
+              {/* Loại sản phẩm */}
+              <div className={divStyle}>
+                <label class={labelStyle}>Loại sản phẩm</label>
+                <select {...register("maLoaiSp", {
                   required: true,
-                  min: 10000,
-                  max: 1000000000
-                })} />
-              {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
-              {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 10.000 </p>}
-              {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
+                  valueAsNumber: true,
+                  min: 0
+                })}
+                  class={inputStyle}>
+                  {maLoaiSpOption.map((item) =>
+                    <option value={item.maLoaiSp}>{item.tenLoaiSp}</option>
+                  )}
+                </select>
+                {errors?.maLoaiSp?.type === "required" && <p className={errorStyle}>Loại sản phẩm bắt buộc chọn</p>}
+                {errors?.maLoaiSp?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
+                {errors?.maLoaiSp?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
+              </div>
             </div>
 
+            {/* Trạng thái sản phẩm,CPU, CARD đồ họa */}
+            {/* Trạng thái sản phẩm */}
+            <div className="grid xl:grid-cols-3 xl:gap-6">
+              <div className={divStyle}>
+                <label class={labelStyle}>Trạng thái sản phẩm !!Đừng đưa vào form thêm sản phẩm</label>
+                <select
+                  {...register("trangThaiSp", {
+                    required: true,
+                    min: 0,
+                    max: 1
+                  })}
+                  class={inputStyle}>
+                  {trangThaiSanPhamOption.map((item) =>
+                    <option value={item.value}>{item.name}</option>
+                  )}
+                </select>
+                {errors?.trangThaiSp?.type === "required" && <p className={errorStyle}>Trạng thái sản phẩm bắt buộc chọn</p>}
+                {errors?.trangThaiSp?.type === "min" && <p className={errorStyle}>Error, you are tying to edit value in html code for this select to below 0</p>}
+                {errors?.trangThaiSp?.type === "max" && <p className={errorStyle}>Error, you are trying to edit value html code for this select to above 1</p>}
+              </div>
 
-            {/* Chiết khấu */}
+              {/* CPU */}
+              <div className={divStyle}>
+                <label class={labelStyle}>CPU</label>
+                <input
+                  {...register("cpu", {
+                    maxLength: 40
+                  })}
+                  className={inputStyle} />
+                {errors?.cpu?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên CPU không được vượt quá 40 ký tự</p>}
+              </div>
+
+              {/* Card đồ họa */}
+              <div className={divStyle}>
+                <label class={labelStyle}>Card đồ họa</label>
+                <input
+                  {...register("cardDoHoa", {
+                    maxLength: 40
+                  })}
+                  className={inputStyle} />
+                {errors?.cardDoHoa?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên card đồ họa không được vượt quá 40 ký tự</p>}
+              </div>
+            </div>
+            {/* Kết thúc trạng thái sản phẩm, CPU, CARD đồ họa */}
+            {/* ------------------------------------- */}
+            {/* Độ phân giải, ổ cứng, hệ điều hành */}
+            {/* Độ phân giải */}
+            <div className="grid xl:grid-cols-3 xl:gap-6">
+              <div className={divStyle}>
+                <label class={labelStyle}>Độ phân giải</label>
+                <select
+                  {...register("doPhanGiai", {
+                    maxLength: 10,
+                  })}
+                  class={inputStyle}>
+                  {doPhanGiaiOption.map((item) =>
+                    <option value={item}>{item}</option>
+                  )}
+                </select>
+                {errors?.doPhanGiai?.type === "maxLength" && <p className={errorStyle}>Số lượng ký tự không được vượt quá 10</p>}
+              </div>
+
+              <div className={divStyle}>
+                <label class={labelStyle}>Ổ cứng</label>
+                <select
+                  {...register("oCung", {
+                    valueAsNumber: true
+                  })}
+                  class={inputStyle}>
+                  {oCungOption.map((item) =>
+                    <option value={item}>{item} GB</option>
+                  )}
+                </select>
+                {errors?.oCung?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo Bạn đang cố chỉnh code cho value của select không phải là kiểu số</p>}
+              </div>
+              <div className={divStyle}>
+                <label class={labelStyle}>Hệ điều hành</label>
+                <select
+                  {...register("heDieuHanh", {
+                    maxLength: 20
+                  })}
+                  class={inputStyle}>
+                  {heDieuHanhOption.map((item) =>
+                    <option value={item}>{item}</option>
+                  )}
+                </select>
+                {errors?.heDieuHanh?.type === "maxLength" && <p className={errorStyle}>Độ dài của tên hệ điều hành không vượt quá 20</p>}
+              </div>
+            </div>
+            {/* Kết thúc độ phân giải, ổ cứng, hệ điều hành */}
+            {/* Màn hình, kích thước, trọng lượng */}
+            <div className="grid xl:grid-cols-3 xl:gap-6">
+              <div className={divStyle}>
+                <label class={labelStyle}>Màn hình</label>
+                <select
+                  {...register("manHinh", {
+                    min: 11.6
+                  })}
+                  class={inputStyle}>
+                  {manHinhOption.map((item) =>
+                    <option value={item}>{item}</option>
+                  )}
+                </select>
+                {errors?.manHinh?.type === "min" && <p className={errorStyle}> Độ phân giải màn hình không được nhỏ hơn 11.6 inch</p>}
+              </div>
+              <div className={divStyle}>
+                <label class={labelStyle}>Kích thước</label>
+                <input {...register("kichThuoc", {
+                  maxLength: 50
+                })}
+                  className={inputStyle} placeholder=""></input>
+                {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 100 kí tự</p>}
+              </div>
+              <div className={divStyle}>
+                <label class={labelStyle}>Trọng lượng</label>
+                <input
+                  {...register("trongLuong", {
+                    required: true,
+                    valueAsNumber: true,
+                    max: 6
+                  })}
+                  className={inputStyle} />
+                {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
+                {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
+                {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
+              </div>
+              {/* Dung lượng RAM */}
+              <div className={divStyle}>
+                <label class={labelStyle}>Dung lượng RAM</label>
+                <select
+                  {...register("ram", {
+                    max: 32
+                  })}
+                  className={inputStyle}>
+                  {dungLuongRAMOption.map((item) =>
+                    <option value={item}>{item} GB</option>
+                  )}
+                </select>
+                {errors?.ram?.type === "max" && <p className={errorStyle}> Dung lượng ram tối đa không vượt quá 32 GB</p>}
+              </div>
+              {/* Giá */}
+              <div className={divStyle}>
+                <label className={labelStyle}> Giá nhập vào</label>
+                <input
+                  className={inputStyle}
+                  {...register("gia", {
+                    required: true,
+                    min: 10000,
+                    max: 1000000000
+                  })} />
+                {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
+                {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 10.000 </p>}
+                {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
+              </div>
+
+
+              {/* Chiết khấu */}
+              <div className={divStyle}>
+                <label class={labelStyle}>Chiết khấu %</label>
+                <input {...register("chietKhau", {
+                  required: true,
+                  min: 1,
+                  max: 100
+                })}
+                  className={inputStyle} />
+                {errors?.chietKhau?.type === "required" && <p className={errorStyle}> Chiết khấu bắt buộc phải nhập </p>}
+                {errors?.chietKhau?.type === "min" && <p className={errorStyle}> Chiết khấu không được dưới 1% </p>}
+                {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
+              </div>
+            </div>
+
+            {/* Kết thúc Màn hình, kích thước, trọng lượng ,ram */}
+            {/* Mô tả thêm */}
             <div className={divStyle}>
-              <label class={labelStyle}>Chiết khấu %</label>
-              <input {...register("chietKhau", {
-                required: true,
-                min: 1,
-                max: 100
-              })}
-                className={inputStyle} />
-              {errors?.chietKhau?.type === "required" && <p className={errorStyle}> Chiết khấu bắt buộc phải nhập </p>}
-              {errors?.chietKhau?.type === "min" && <p className={errorStyle}> Chiết khấu không được dưới 1% </p>}
-              {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
+
+              <label for="message" class={labelStyle}>Mô tả thêm</label>
+              <textarea
+                {...register("moTaThem", {
+                  required: true,
+                  minLength: 20,
+                  maxLength: 1000
+                })}
+                rows="4"
+                className={inputStyle}
+                placeholder="Your message..."></textarea>
+              {errors?.moTaThem?.type === "required" && <p className={errorStyle}> Mô tả thêm bắt buộc phải nhập</p>}
+              {errors?.moTaThem?.type === "minLength" && <p className={errorStyle}> Bắt buộc phải nhập từ 20 kí tự trở lên tính tluoon khoảng trống</p>}
+              {errors?.moTaThem?.type === "maxLength" && <p className={errorStyle}> Mô tả thêm không được vượt quá 1000 ký tự</p>}
+
             </div>
-          </div>
-
-          {/* Kết thúc Màn hình, kích thước, trọng lượng ,ram */}
-          {/* Mô tả thêm */}
-          <div className={divStyle}>
-
-            <label for="message" class={labelStyle}>Mô tả thêm</label>
-            <textarea
-              {...register("moTaThem", {
-                required: true,
-                minLength: 20,
-                maxLength: 1000
-              })}
-              rows="4"
-              className={inputStyle}
-              placeholder="Your message..."></textarea>
-            {errors?.moTaThem?.type === "required" && <p className={errorStyle}> Mô tả thêm bắt buộc phải nhập</p>}
-            {errors?.moTaThem?.type === "minLength" && <p className={errorStyle}> Bắt buộc phải nhập từ 20 kí tự trở lên tính tluoon khoảng trống</p>}
-            {errors?.moTaThem?.type === "maxLength" && <p className={errorStyle}> Mô tả thêm không được vượt quá 1000 ký tự</p>}
-
-          </div>
-          {/* Khu vực nút bấm */}
-          <div className="flex justify-center">
-            {/* Quan trọng, type = submit */}
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+            {/* Khu vực nút bấm */}
+            <div className="flex justify-center">
+              {/* Quan trọng, type = submit */}
+              <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
             focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Thêm</button>
-            <button type="button" class="focus:outline-none text-white bg-green-700 
+              <button type="button" class="focus:outline-none text-white bg-green-700 
             hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg 
             text-sm px-5 py-2.5 mr-2 mb-2 ml-3 ">Kiểm tra</button>
-          </div>
-        </form>
+            </div>
+          </form>
 
+        </div>
+        <script src="./node_modules/flowbite/dist/flowbite.js"></script>
       </div>
-      <script src="./node_modules/flowbite/dist/flowbite.js"></script>
-    </div>
-  );
+    );
 
 
 }
