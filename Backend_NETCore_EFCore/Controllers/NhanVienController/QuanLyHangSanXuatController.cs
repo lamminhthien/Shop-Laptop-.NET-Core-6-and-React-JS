@@ -22,7 +22,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // GET: api/QuanLyHangSanXuat
-        [HttpGet("HangSanXuat")]
+        [HttpGet("ListHangSanXuat")]
         public async Task<ActionResult<IEnumerable<HangSanXuat>>> GetHangSanXuats(int page, string? orderByProperty, string? searchBy, bool? allRecord)
         {
             // Nếu muốn lấy toàn bộ danh sách hãng cho trang thêm sữa sản phẩm

@@ -4,7 +4,7 @@ import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
 import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 export default function ThemSanPham() {
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
@@ -22,8 +22,9 @@ export default function ThemSanPham() {
 
 
   useEffect(() => {
+    setValue("tenSanPham","abc")
     // Get Danh sách các hãng sản xuât
-    axios.get("https://localhost:7216/api/QuanLyHangSanXuat/HangSanXuat?allRecord=true")
+    axios.get("https://localhost:7216/api/QuanLyHangSanXuat/ListHangSanXuat?allRecord=true")
       .then((res) => {
         setmaHangSXOption(res.data)
       })
@@ -46,7 +47,8 @@ export default function ThemSanPham() {
   const {
     register, // Đăng ký input vô react hookform
     handleSubmit, //Xử lý khi submit form
-    watch, // Theo dõi và báo lỗi
+    watch,
+    setValue, // Theo dõi và báo lỗi
     formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
   } = useForm(
     {
@@ -108,8 +110,9 @@ export default function ThemSanPham() {
                   // Các ràng buộc validation
                   required: true, // Bắt buộc
                   maxLength: 50, // Độ dài tối đa
-                  minLength: 10
+                  minLength: 10,
                 })}
+  
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
            //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}

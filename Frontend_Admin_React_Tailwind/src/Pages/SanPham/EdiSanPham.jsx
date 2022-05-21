@@ -1,21 +1,22 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
-import { useParams, useRouteMatch } from "react-router-dom";
 import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
 import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { useForm } from "react-hook-form";
-
+import { useParams, useRouteMatch } from "react-router-dom";
 
 export default function EditSanPham() {
-  // Lấy id sản phẩm
   let { id } = useParams();
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
   const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
   // Khởi tạo dữ liệu chi tiết sản phẩm
   const [dataChiTietSanPham, setDataChiTietSanPham] = useState([]);
+  // Set state for ready to render page (Prevent empty page when don't have data)
+  const [fetchDataOk, setFetchDataOk] = useState(false);
+
   // Tạo dữ liệu cho các option trong thẻ select
   const trangThaiSanPhamOption = [
     { name: "Đang bán", value: 1 },
@@ -30,22 +31,28 @@ export default function EditSanPham() {
 
   useEffect(() => {
     // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
-    axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
-      .then(res => {
-        // Tìm thấy thì lưu dữ liệu
-        setDataChiTietSanPham(res.data)
-        alert(res.data)
-      })
-      // Không tìm thấy thì trả về trang lỗi
-      .catch(error => {
+    const fetchApi = async () => {
+      await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
+        .then(res => {
+          // Tìm thấy thì lưu dữ liệu
+          setDataChiTietSanPham(res.data)
+          // Đặt tín hiệu để render dữ liệu
+          setFetchDataOk(true)
 
-        return (
-          <NotFoundPage />
-        )
-      })
+        })
+        // Không tìm thấy thì trả về trang lỗi
+        .catch(error => {
+
+          return (
+            <NotFoundPage />
+          )
+        })
+    }
+    // Gọi hàm fetchApi
+    fetchApi();
 
     // Get Danh sách các hãng sản xuât
-    axios.get("https://localhost:7216/api/QuanLyHangSanXuat")
+    axios.get("https://localhost:7216/api/QuanLyHangSanXuat/ListHangSanXuat?allRecord=true")
       .then((res) => {
         setmaHangSXOption(res.data)
       })
@@ -54,24 +61,22 @@ export default function EditSanPham() {
       })
 
     // Get danh sách các danh mục sản phẩm
-    axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham")
+    axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham/ListDanhMucSanPham?allRecord=true")
       .then((res) => {
         setmaLoaiSpOpton(res.data)
       })
       .catch((error) => {
         console.log(error)
       })
-
-
   }, [])
 
   // We can use the `useParams` hook here to access
   // the dynamic pieces of the URL.
   const {
     register, // Đăng ký input vô react hookform
-    setValue, // Gán giá trị  có sẵn vô input hoặc select form
     handleSubmit, //Xử lý khi submit form
-    watch, // Theo dõi và báo lỗi
+    watch,
+    setValue, // Theo dõi và báo lỗi
     formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
   } = useForm(
     {
@@ -133,16 +138,9 @@ export default function EditSanPham() {
                   // Các ràng buộc validation
                   required: true, // Bắt buộc
                   maxLength: 50, // Độ dài tối đa
-                  minLength: 10,
-                })
-                }
-                // Gán tên sản phẩm đọc được từ database
-                {...setValue("tenSanPham", "abc", {
-                  shouldValidate: true,
-                  shouldDirty: true
+                  minLength: 10
                 })}
-
-
+                
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
            //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
