@@ -84,6 +84,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 return NotFound();
             }
+
             // Lấy chi tiet san pham
             var chiTietSanPham = await (from a in _context.SanPhams
                                  join b in _context.LoaiSanPhams
@@ -101,13 +102,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                      tenSanPham = a.TenSanPham,
                                      loaiSanPham = b.TenLoaiSp,
                                      hangSanXuat = c.TenHangSx,
-                                     tinhTrang = a.TrangThaiSp,
+                                     tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : "Hết hàng",
                                      cpu = d.Cpu,
                                      cardDoHoa = d.CardDoHoa,
                                      doPhanGiai = d.DoPhanGiai,
                                      oCung = d.OCung,
                                      heDieuHanh = d.HeDieuHanh,
                                      kichThuoc = d.KichThuoc,
+                                     manHinh = d.ManHinh,
                                      trongLuong = d.TrongLuong,
                                      ram = d.Ram,
                                      moTaThem = d.MoTaThem,
