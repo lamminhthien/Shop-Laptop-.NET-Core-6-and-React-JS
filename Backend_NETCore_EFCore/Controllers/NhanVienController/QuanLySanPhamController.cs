@@ -193,6 +193,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpPut("CapNhatSanPham/{id}")]
         public async Task<IActionResult> EditSanPham(int id, SanPhamModelPlus sanPhamModel)
         {
+
             Console.WriteLine(id);
             // Kiểm tra xem id sản phẩm có tồn tại hay ko 
             var sanPhamExist = await _context.SanPhams.Include(s => s.MaHangSxNavigation)
@@ -227,16 +228,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 _context.Entry(chiTietSanPham).State = EntityState.Modified;
                 // Thêm record mới cho biến động giá
                 _context.Entry(bienDongGium).State = EntityState.Modified;
-
+                Console.WriteLine("Overhere");
                 // Thử update vào database và bắt lỗi tiêp
-                try
-                {
+                //try
+                //{
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException error)
-                {
-                    return BadRequest("Có lỗi! " + error.InnerException.Message.ToString());
-                }
+                //}
+                //catch (DbUpdateConcurrencyException error)
+                //{
+                //    return BadRequest("Có lỗi! " + error.InnerException.Message.ToString());
+                //}
                 return Ok("Tìm thấy sản phẩm có id = " + id);
             }
             return BadRequest("Không tìm thấy sản phẩm");
