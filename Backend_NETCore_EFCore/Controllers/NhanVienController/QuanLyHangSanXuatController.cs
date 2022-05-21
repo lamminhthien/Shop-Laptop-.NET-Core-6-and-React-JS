@@ -22,9 +22,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // GET: api/QuanLyHangSanXuat
-        [HttpGet("HangSanXuat/{page}")]
-        public async Task<ActionResult<IEnumerable<HangSanXuat>>> GetHangSanXuats(int page)
+        [HttpGet("HangSanXuat")]
+        public async Task<ActionResult<IEnumerable<HangSanXuat>>> GetHangSanXuats(int page, string? orderByProperty, string? searchBy, bool? allRecord)
         {
+            // Nếu muốn lấy toàn bộ danh sách hãng cho trang thêm sữa sản phẩm
+            if (allRecord == true)
+            {
+                return Ok(await _context.HangSanXuats.ToListAsync());
+            }
+            // Số dòng mỗi trang
             double rowPerPage = 5;
 
             if (page == null || page == 0)
@@ -37,14 +43,17 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
 
             if (_context.HangSanXuats == null)
-          {
-              return NotFound();
-          }
+            {
+                return NotFound();
+            }
+            //test1 = test1.OrderByDescending(o => o.TenHangSx);
+            //test1.Skip(5*(page-1)).Take(5);
+
             return Ok(new
             {
                 tongSoHangSanXuat = brandQuantity,
                 tongSoTrang = numberOfPageInteger,
-                ketQua = await _context.HangSanXuats.Skip(5 * (page - 1)).Take(5).ToListAsync()
+                ketQua = await _context.HangSanXuats.Skip(5 * (page - 1)).Take(5).ToListAsync(),
             });
         }
 
@@ -52,10 +61,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpGet("{id}")]
         public async Task<ActionResult<HangSanXuat>> GetHangSanXuat(int id)
         {
-          if (_context.HangSanXuats == null)
-          {
-              return NotFound();
-          }
+            if (_context.HangSanXuats == null)
+            {
+                return NotFound();
+            }
             var hangSanXuat = await _context.HangSanXuats.FindAsync(id);
 
             if (hangSanXuat == null)
@@ -102,10 +111,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpPost]
         public async Task<ActionResult<HangSanXuat>> PostHangSanXuat(HangSanXuat hangSanXuat)
         {
-          if (_context.HangSanXuats == null)
-          {
-              return Problem("Entity set 'shop_laptopContext.HangSanXuats'  is null.");
-          }
+            if (_context.HangSanXuats == null)
+            {
+                return Problem("Entity set 'shop_laptopContext.HangSanXuats'  is null.");
+            }
             _context.HangSanXuats.Add(hangSanXuat);
             await _context.SaveChangesAsync();
 

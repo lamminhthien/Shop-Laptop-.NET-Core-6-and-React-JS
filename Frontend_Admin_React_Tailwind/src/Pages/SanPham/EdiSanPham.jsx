@@ -1,14 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
+import { useParams, useRouteMatch } from "react-router-dom";
 import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
 import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { useForm } from "react-hook-form";
+
+
 export default function EditSanPham() {
+  // Lấy id sản phẩm
+  let { id } = useParams();
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
   const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
+  // Khởi tạo dữ liệu chi tiết sản phẩm
+  const [dataChiTietSanPham, setDataChiTietSanPham] = useState([]);
   // Tạo dữ liệu cho các option trong thẻ select
   const trangThaiSanPhamOption = [
     { name: "Đang bán", value: 1 },
@@ -22,6 +29,21 @@ export default function EditSanPham() {
 
 
   useEffect(() => {
+    // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
+    axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
+      .then(res => {
+        // Tìm thấy thì lưu dữ liệu
+        setDataChiTietSanPham(res.data)
+        alert(res.data)
+      })
+      // Không tìm thấy thì trả về trang lỗi
+      .catch(error => {
+
+        return (
+          <NotFoundPage />
+        )
+      })
+
     // Get Danh sách các hãng sản xuât
     axios.get("https://localhost:7216/api/QuanLyHangSanXuat")
       .then((res) => {
@@ -39,6 +61,8 @@ export default function EditSanPham() {
       .catch((error) => {
         console.log(error)
       })
+
+
   }, [])
 
   // We can use the `useParams` hook here to access
@@ -110,14 +134,15 @@ export default function EditSanPham() {
                   required: true, // Bắt buộc
                   maxLength: 50, // Độ dài tối đa
                   minLength: 10,
-                  })
+                })
                 }
-                {...setValue("tenSanPham","abc", {
-                  shouldValidate:true,
+                // Gán tên sản phẩm đọc được từ database
+                {...setValue("tenSanPham", "abc", {
+                  shouldValidate: true,
                   shouldDirty: true
                 })}
-                
-                
+
+
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
            //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}

@@ -22,9 +22,20 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // GET: api/QuanLyDanhMucSanPham
-        [HttpGet("ListDanhMucSanPham/{page}")]
-        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhams(int page)
+        [HttpGet("ListDanhMucSanPham")]
+        public async Task<ActionResult<IEnumerable<LoaiSanPham>>> GetLoaiSanPhams(int page,bool? allRecord)
         {
+            // Test Các câu lệnh linq lồng nhau bằng AsQueryable
+            var testNestedLinq = _context.LoaiSanPhams.AsQueryable();
+            testNestedLinq.OrderByDescending(o => o.SanPhams);
+            testNestedLinq.Take(5);
+
+            // Khi lấy toàn bộ loại sản phẩm cho trang thêm, sữa sản phẩm
+            if (allRecord == true)
+            {
+                return Ok(await _context.LoaiSanPhams.ToListAsync());
+            }
+
             double rowPerPage = 5;
 
             if (page == null || page == 0)

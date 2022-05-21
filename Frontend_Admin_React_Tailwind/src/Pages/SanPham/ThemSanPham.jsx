@@ -23,7 +23,7 @@ export default function ThemSanPham() {
 
   useEffect(() => {
     // Get Danh sách các hãng sản xuât
-    axios.get("https://localhost:7216/api/QuanLyHangSanXuat")
+    axios.get("https://localhost:7216/api/QuanLyHangSanXuat/HangSanXuat?allRecord=true")
       .then((res) => {
         setmaHangSXOption(res.data)
       })
@@ -32,7 +32,7 @@ export default function ThemSanPham() {
       })
 
     // Get danh sách các danh mục sản phẩm
-    axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham")
+    axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham/ListDanhMucSanPham?allRecord=true")
       .then((res) => {
         setmaLoaiSpOpton(res.data)
       })
