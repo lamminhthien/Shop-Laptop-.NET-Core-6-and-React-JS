@@ -12,7 +12,6 @@ import CreateBrand from "./Pages/SanPham/BackupThemSanPham";
 import Welcome from "./Components/TestProps";
 import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
 import EditSanPham from "./Pages/SanPham/EdiSanPham";
-import 'flowbite';
 import ThemSanPham from "./Pages/SanPham/ThemSanPham";
 import UploadImage from "./Pages/SanPham/UploadAnhTest";
 import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham';
@@ -20,6 +19,7 @@ import ListHangSanXuat from './Pages/HangSanXuat/ListHangSanXuat'
 import ListNhanVien from './Pages/NhanVien/ListNhanVien'
 import ListKhachHang from './Pages/KhachHang/ListKhachHang'
 import ListLichSuGiaCa from './Pages/LichSuGiaCa/ListLichSuGiaCa'
+import  XoaSanPham from './Pages/SanPham/XoaSanPham'
 
 
 
@@ -51,6 +51,8 @@ reactDom.render(
             <Route exact path="/khach-hang/:pageNumber" children={<ListKhachHang   />} />
 
             <Route exact path="/bien-dong-gia-ca/:pageNumber" children={<ListLichSuGiaCa   />} />
+
+            <Route exact path="/delete-san-pham/:id" children={<XoaSanPham   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
