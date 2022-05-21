@@ -27,7 +27,7 @@ export default function ListHangSanXuat() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/QuanLyHangSanXuat/HangSanXuat/${pageNumber}`)
+        axios.get(`https://localhost:7216/api/QuanLyHangSanXuat/HangSanXuat?page=${pageNumber}`)
             .then(res => {
                 // Set list hãng sản xuất
                 set_listHangSanXuat(res.data.ketQua)

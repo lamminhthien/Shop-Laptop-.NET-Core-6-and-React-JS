@@ -27,7 +27,7 @@ export default function ListLoaiSanPham() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách sản phẩm và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/QuanLyDanhMucSanPham/ListDanhMucSanPham/${pageNumber}`)
+        axios.get(`https://localhost:7216/api/QuanLyDanhMucSanPham/ListDanhMucSanPham?page=${pageNumber}`)
             .then(res => {
                 // Set list sản phẩm
                 set_listLoaiSanPham(res.data.ketQua)
