@@ -102,7 +102,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                      tenSanPham = a.TenSanPham,
                                      loaiSanPham = b.TenLoaiSp,
                                      hangSanXuat = c.TenHangSx,
-                                     tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : "Hết hàng",
+                                     tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : a.TrangThaiSp == 2 ? "Hết hàng 1" : "Hết hàng 2",
                                      cpu = d.Cpu,
                                      cardDoHoa = d.CardDoHoa,
                                      doPhanGiai = d.DoPhanGiai,
