@@ -29,7 +29,7 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
 
         [Key]
         [Column("ma_san_pham")]
-        public int? MaSanPham { get; set; }
+        public int MaSanPham { get; set; }
         [Column("ten_san_pham")]
         [StringLength(50)]
         public string TenSanPham { get; set; } = null!;
