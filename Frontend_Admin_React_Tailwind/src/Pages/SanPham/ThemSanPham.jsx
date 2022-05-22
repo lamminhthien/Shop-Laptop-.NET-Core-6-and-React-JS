@@ -72,7 +72,8 @@ export default function ThemSanPham() {
     axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
       .then((res) => {
         alert("Submit dữ liệu qua api thành công")
-        // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh
+        // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
+        uploadImageToBackend()
       })
       .catch((err) => {
         alert("Submit dữ liệu qua api không thành công")
@@ -121,22 +122,22 @@ export default function ThemSanPham() {
   const uploadImageToBackend = () => {
     // Duyệt từng ảnh của người dùng
     Array.from({ length: imageFormData.length }, (val, ind) => {
-        // Tạo form data
-        var formData = new FormData()
-        // Đưa ảnh vào formdata
-        formData.append("image", imageFormData[ind])
-        // Up formdata chứa ảnh lên server
-        axios.post("https://localhost:7216/api/UploadImageTest", formData)
-            .then(() => {
-                console.log("Đã up ảnh thành công")
-                alert("Ok")
-            })
-            .catch(() => {
-                console.log("Up ảnh thất bại")
-                alert("Alo failed")
-            })
+      // Tạo form data
+      var formData = new FormData()
+      // Đưa ảnh vào formdata
+      formData.append("image", imageFormData[ind])
+      // Up formdata chứa ảnh lên server
+      axios.post("https://localhost:7216/api/UploadImageTest", formData)
+        .then(() => {
+          console.log("Đã up ảnh thành công")
+          alert("Ok")
+        })
+        .catch(() => {
+          console.log("Up ảnh thất bại")
+          alert("Alo failed")
+        })
     })
-}
+  }
 
 
 
@@ -427,13 +428,13 @@ export default function ThemSanPham() {
  " id="multiple_files" type="file" multiple />
             <div class="flex flex-wrap -mx-2 overflow-hidden">
               {/* Khu vực preview ảnh */}
-            {previewPicture.length > 0 ?
-                    Array.from({ length: previewPicture.length }, (val, ind) =>
-                        <div className="my-2 px-2 w-1/5 overflow-hidden">
-                            <img className="lg:h-48 md:h-36  object-cover object-center" src={previewPicture[ind]} alt="Hi" />
-                        </div>
-                    )
-                    : "Chưa có ảnh"}
+              {previewPicture.length > 0 ?
+                Array.from({ length: previewPicture.length }, (val, ind) =>
+                  <div className="my-2 px-2 w-1/5 overflow-hidden">
+                    <img className="lg:h-48 md:h-36  object-cover object-center" src={previewPicture[ind]} alt="Hi" />
+                  </div>
+                )
+                : "Chưa có ảnh"}
             </div>
           </div>
           {/* Khu vực nút bấm */}
