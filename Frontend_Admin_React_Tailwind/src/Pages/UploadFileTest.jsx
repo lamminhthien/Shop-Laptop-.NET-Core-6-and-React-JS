@@ -27,6 +27,8 @@ export default function UploadFileTest() {
         const imageList = data['image']
         // Đếm số ảnh lỗi
         var errorImageCount = 0
+        // Clear danh sách ảnh cũ
+        setPreviewPicture([])
         // Lấy từng ảnh tỏng danh sách ảnh
         for (let index = 0; index < imageList.length; index++) {
             console.log(imageList[index])
