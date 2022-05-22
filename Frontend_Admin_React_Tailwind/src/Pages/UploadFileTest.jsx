@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 export default function UploadFileTest() {
 
     const [previewPicture, setPreviewPicture] = useState([]);
+    const [imageFormData, setImageFormData] = useState([])
 
     const {
         register, // Đăng ký input vô react hookform
@@ -40,9 +41,13 @@ export default function UploadFileTest() {
                 // Đọc xong file thì đưa vào danh sách ảnh để preview
                 fileReader.onload = () => {
                     setPreviewPicture((previewPicture) => [
-                        ...previewPicture,fileReader.result
+                        ...previewPicture, fileReader.result
                     ])
                 }
+                // Lưu ảnh để gửi lên server
+                setImageFormData((imageFormData) => [
+                    ...imageFormData,imageList[index]
+                ])
 
             }
             else {
@@ -52,8 +57,32 @@ export default function UploadFileTest() {
         // Cuối cùng đưa danh sách ảnh preview vào array state của react
         console.log("Số ảnh lỗi là" + errorImageCount)
         console.log(previewPicture.length)
+        // Up ảnh lên backend server
+        upToBackend()
     }
 
+    // Upload ảnh lên backend
+    const upToBackend = () => {
+        // Duyệt từng ảnh của người dùng
+        Array.from({ length: imageFormData.length }, (val, ind) => {
+            // Tạo form data
+            var formData = new FormData()
+            // Đưa ảnh vào formdata
+            formData.append("image" , imageFormData[ind])
+            // Up formdata chứa ảnh lên server
+            axios.post("https://localhost:7216/api/UploadImageTest",formData)
+                .then(() => {
+                    console.log("Đã up ảnh thành công")
+                    alert("Ok")
+
+                })
+                .catch(() => {
+                    console.log("Up ảnh thất bại")
+                    alert("Alo failed")
+                })
+        })
+
+    }
 
 
     return (
@@ -72,12 +101,12 @@ export default function UploadFileTest() {
                     type="submit">Thêm ảnh</button>
             </form>
             {/* Preview picture */}
-            {previewPicture.length > 0 ? 
-                Array.from({length:previewPicture.length}, (val,ind) => 
-                    <img src={ previewPicture[ind]} />
-                   
+            {previewPicture.length > 0 ?
+                Array.from({ length: previewPicture.length }, (val, ind) =>
+                    <img src={previewPicture[ind]} />
+
                 )
-            : "No"}
+                : "No"}
 
         </div>
     )

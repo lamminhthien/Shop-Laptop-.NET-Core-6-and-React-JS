@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Controllers\KhachHangController\" />
     <Folder Include="Controllers\PublicController\" />
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
 
 </Project>
