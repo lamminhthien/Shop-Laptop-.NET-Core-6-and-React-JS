@@ -72,7 +72,5 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
         [Range(0.01,1)]
         public double ChietKhau { get; set; }
 
-        // Test upload image
-        public IFormFile MyImage { get; set; }
     }
 }
