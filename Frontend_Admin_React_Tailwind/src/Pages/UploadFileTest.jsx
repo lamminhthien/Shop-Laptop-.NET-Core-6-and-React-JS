@@ -22,13 +22,11 @@ export default function UploadFileTest() {
         // File type to validate
         // Đếm số lượng ảnh
         const fileDataLength = data['image'].length
-        alert("Số lượng tệp đã up load là" + fileDataLength)
+        console.log("Số lượng tệp đã up load là" + fileDataLength)
         // Danh sách ảnh
         const imageList = data['image']
         // Đếm số ảnh lỗi
         var errorImageCount = 0
-        // Danh sách ảnh để preview
-        const listImageForPreview = []
         // Lấy từng ảnh tỏng danh sách ảnh
         for (let index = 0; index < imageList.length; index++) {
             console.log(imageList[index])
@@ -39,29 +37,21 @@ export default function UploadFileTest() {
                 fileReader.readAsDataURL(imageList[index])
                 // Đọc xong file thì đưa vào danh sách ảnh để preview
                 fileReader.onload = () => {
-                    listImageForPreview.push(fileReader.result)
+                    setPreviewPicture((previewPicture) => [
+                        ...previewPicture,fileReader.result
+                    ])
                 }
+
             }
             else {
                 errorImageCount = errorImageCount + 1
             }
         }
         // Cuối cùng đưa danh sách ảnh preview vào array state của react
-        setPreviewPicture(listImageForPreview)
-        alert("Số ảnh lỗi là" + errorImageCount)
+        console.log("Số ảnh lỗi là" + errorImageCount)
+        console.log(previewPicture.length)
     }
 
-    const renderImage = () => {
-        if (previewPicture.length == 0)
-        return (
-            <p>Chưa có ảnh</p>
-        )
-        else {
-            return(
-                <p>Đã có ảnh</p>
-            )
-        }
-    }
 
     return (
         <div>
@@ -79,10 +69,9 @@ export default function UploadFileTest() {
                     type="submit">Thêm ảnh</button>
             </form>
             {/* Preview picture */}
-            {/* {previewPicture != null ?
-                <img src={previewPicture} /> : <p>Ảnh chưa upload</p>
-            } */}
-            {renderImage}
+            {previewPicture.length > 0 ? previewPicture.map((item) => {
+               <p>Yes yes</p>
+            }):<p>chưa upload ảnh</p>}
 
         </div>
     )
