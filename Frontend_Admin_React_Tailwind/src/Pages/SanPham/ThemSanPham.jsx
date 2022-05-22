@@ -139,8 +139,6 @@ export default function ThemSanPham() {
     })
   }
 
-
-
   // Watcher theo dõi input theo name property 
   console.log(watch("tenSanPham"));
 

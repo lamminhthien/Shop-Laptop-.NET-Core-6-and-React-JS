@@ -13,9 +13,9 @@ export default function ChiTietSanPham() {
 
   // img
   const imgSRC = [
-    "https://cdn.tgdd.vn/Files/2019/08/22/1190454/laptop-vien-man-hinh-mong-co-nhung-uu-va-nhuoc-diem-gi--4.jpg",
-    "https://ben.com.vn/Content/Images/Products/205930.1.jpg",
-    "https://vlink.com.vn/uploads/laptop_la_gi.jpg"
+    "https://localhost:7216/Resources/Images/12412433_p0.png",
+    "https://localhost:7216/Resources/Images/12493252_p0.png",
+    "https://localhost:7216/Resources/Images/13606655_p0.png"
   ]
 
   // Mảng chứa label của các property trong chi tiết sản phẩm
