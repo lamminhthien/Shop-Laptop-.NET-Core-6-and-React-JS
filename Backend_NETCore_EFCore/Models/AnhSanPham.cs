@@ -10,6 +10,12 @@ namespace ShopLaptop_EFCore.Models
     [Index("FileAnh", Name = "UQ__AnhSanPh__3EF620E5FCFAEE26", IsUnique = true)]
     public partial class AnhSanPham
     {
+        public AnhSanPham( int maSanPham, string fileAnh)
+        {
+            MaSanPham = maSanPham;
+            FileAnh = fileAnh;
+        }
+
         [Key]
         [Column("ma_anh")]
         public int MaAnh { get; set; }

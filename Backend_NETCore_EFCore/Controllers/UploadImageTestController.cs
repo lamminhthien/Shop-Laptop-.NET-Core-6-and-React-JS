@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopLaptop_EFCore.Data;
+using ShopLaptop_EFCore.Models;
 using System.Net.Http.Headers;
 
 namespace ShopLaptop_EFCore.Controllers
@@ -20,7 +21,7 @@ namespace ShopLaptop_EFCore.Controllers
         public IActionResult Upload()
         {
             // Giả định mã sản phẩm là 1
-            int id = 999999999;
+            int id = 12;
             // Kiểm tra xem sản phẩm này có tồn tại hay ko?
             var maSanPham = (from a in _context.SanPhams
                              where a.MaSanPham == id
@@ -83,6 +84,10 @@ namespace ShopLaptop_EFCore.Controllers
                 {
                     file.CopyTo(stream);
                 }
+
+                // Băt đầu lưu tên ảnh vào database
+                AnhSanPham anhSanPhamDB = new AnhSanPham(id, fileName + "." + file.ContentType.Split('/')[1]);
+
                 return Ok("Đã tạo ảnh mới với tên " + fileName);
             } // Trường hợp này là formData rỗng rồi
             catch (Exception ex)
@@ -106,5 +111,27 @@ namespace ShopLaptop_EFCore.Controllers
             if (anhSanPham == null) return BadRequest("Ảnh sản phẩm không thấy");
             return Ok("Tìm thấy sản phẩm");
         }
+        // Test lưu tên file ảnh vào db
+        [HttpPost("TestLuuAnhVaoDb")]
+        public IActionResult TestLuuAnhVaoDatabase()
+        {
+            int id = 12;
+            var idSanPham = 1;
+            var maSanPham = (from a in _context.SanPhams
+                             where a.MaSanPham == id
+                             select a.MaSanPham).FirstOrDefault();
+            AnhSanPham anhSanPham = new AnhSanPham(id, "SP" + (idSanPham + 1).ToString() + ".png");
+            _context.Add(anhSanPham);
+            _context.SaveChanges();
+            return Ok("Test Luu Anh  vao DB complete");
+        }
+
+        [HttpPost("JsonBodyCustom")]
+        public IActionResult JsonBodyCustom()
+        {
+            var name = Request.Query["name"];
+            return Ok("Name=" + name);
+        }
+
     }
 }
