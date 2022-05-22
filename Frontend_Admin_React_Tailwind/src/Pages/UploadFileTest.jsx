@@ -74,7 +74,8 @@ export default function UploadFileTest() {
             {/* Preview picture */}
             {previewPicture.length > 0 ? 
                 Array.from({length:previewPicture.length}, (val,ind) => 
-                    previewPicture[ind]
+                    <img src={ previewPicture[ind]} />
+                   
                 )
             : "No"}
 
