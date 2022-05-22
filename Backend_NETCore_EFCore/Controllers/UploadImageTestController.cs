@@ -87,6 +87,10 @@ namespace ShopLaptop_EFCore.Controllers
 
                 // Băt đầu lưu tên ảnh vào database
                 AnhSanPham anhSanPhamDB = new AnhSanPham(id, fileName + "." + file.ContentType.Split('/')[1]);
+                // Đặt lệnh chờ thêm ảnh
+                _context.Add(anhSanPhamDB);
+                // Lưu mọi thay đổi vào database
+                _context.SaveChanges();
 
                 return Ok("Đã tạo ảnh mới với tên " + fileName);
             } // Trường hợp này là formData rỗng rồi
