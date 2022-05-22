@@ -85,7 +85,6 @@ export default function UploadFileTest() {
 
     }
 
-
     return (
         <div>
             <form className="" onSubmit={handleSubmit(onSubmit)} encType="multipart-form">
@@ -100,18 +99,21 @@ export default function UploadFileTest() {
                 <button className="bg-slate-400 border-2 rounded-lg block  text-sm text-gray-900 rounded-lg border-gray-300 "
                     type="submit">Kiểm tra ảnh</button>
                 {/* Hiển thị nút Upload ảnh */}
-                {previewPicture.length > 0 ?                 <button onClick={() => {upToBackend()}}
-                        className="bg-slate-400 border-2 rounded-lg block
+                {previewPicture.length > 0 ? <button onClick={() => { upToBackend() }}
+                    className="bg-slate-400 border-2 rounded-lg block
                          text-sm text-gray-900 rounded-lg border-gray-300  ">Upload ảnh</button>
-                        : ""}
+                    : ""}
             </form>
             {/* Preview picture */}
-            {previewPicture.length > 0 ?
-                   Array.from({ length: previewPicture.length }, (val, ind) =>
-                    <img src={previewPicture[ind]} />
-                ) 
-                : "No"}
-
+            <div className="flex flex-wrap -mx-2 overflow-hidden">
+                {previewPicture.length > 0 ?
+                    Array.from({ length: previewPicture.length }, (val, ind) =>
+                        <div className="my-2 px-2 w-1/5 overflow-hidden">
+                            <img className="lg:h-48 md:h-36  object-cover object-center" src={previewPicture[ind]} alt="Hi" />
+                        </div>
+                    )
+                    : "Chưa có ảnh"}
+            </div>  
         </div>
     )
 
