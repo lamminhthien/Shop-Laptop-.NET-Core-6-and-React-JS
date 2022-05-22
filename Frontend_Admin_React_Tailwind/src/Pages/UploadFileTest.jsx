@@ -66,8 +66,9 @@ export default function UploadFileTest() {
             </form>
             {/* Preview picture */}
             {previewPicture != null ?
-                <p>Ảnh đã upload</p> : <p>Ảnh chưa upload</p>
+                <img src={previewPicture}/> : <p>Ảnh chưa upload</p>
             }
+  
         </div>
     )
 
