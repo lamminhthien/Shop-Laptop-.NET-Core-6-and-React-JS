@@ -87,7 +87,7 @@ export default function UploadFileTest() {
 
     return (
         <div>
-            <form className="" onSubmit={handleSubmit(onSubmit)} encType="multipart-form">
+            <form className="" onChange={handleSubmit(onSubmit)} encType="multipart-form">
 
                 <label class="block mb-2 text-sm font-medium text-gray-900
                  " for="multiple_files">Upload multiple files</label>
