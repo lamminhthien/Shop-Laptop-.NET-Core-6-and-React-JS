@@ -55,6 +55,7 @@ export default function UploadFileTest() {
     }
 
 
+
     return (
         <div>
             <form className="" onSubmit={handleSubmit(onSubmit)} encType="multipart-form">
@@ -72,7 +73,9 @@ export default function UploadFileTest() {
             </form>
             {/* Preview picture */}
             {previewPicture.length > 0 ? 
-                <img src={previewPicture[0]} alt="Yes"/>
+                Array.from({length:previewPicture.length}, (val,ind) => 
+                    previewPicture[ind]
+                )
             : "No"}
 
         </div>
