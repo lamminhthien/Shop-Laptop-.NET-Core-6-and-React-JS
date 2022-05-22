@@ -46,7 +46,7 @@ export default function UploadFileTest() {
                 }
                 // Lưu ảnh để gửi lên server
                 setImageFormData((imageFormData) => [
-                    ...imageFormData,imageList[index]
+                    ...imageFormData, imageList[index]
                 ])
 
             }
@@ -57,20 +57,21 @@ export default function UploadFileTest() {
         // Cuối cùng đưa danh sách ảnh preview vào array state của react
         console.log("Số ảnh lỗi là" + errorImageCount)
         console.log(previewPicture.length)
-        // Up ảnh lên backend server
-        upToBackend()
     }
 
     // Upload ảnh lên backend
     const upToBackend = () => {
+        // Nếu người dùng chưa chọn ảnh
+
+
         // Duyệt từng ảnh của người dùng
         Array.from({ length: imageFormData.length }, (val, ind) => {
             // Tạo form data
             var formData = new FormData()
             // Đưa ảnh vào formdata
-            formData.append("image" , imageFormData[ind])
+            formData.append("image", imageFormData[ind])
             // Up formdata chứa ảnh lên server
-            axios.post("https://localhost:7216/api/UploadImageTest",formData)
+            axios.post("https://localhost:7216/api/UploadImageTest", formData)
                 .then(() => {
                     console.log("Đã up ảnh thành công")
                     alert("Ok")
@@ -94,18 +95,21 @@ export default function UploadFileTest() {
                 <input {...register("image", {
                     require: true,
                 })}
-
                     class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
                    " id="multiple_files" type="file" multiple />
                 <button className="bg-slate-400 border-2 rounded-lg block  text-sm text-gray-900 rounded-lg border-gray-300 "
-                    type="submit">Thêm ảnh</button>
+                    type="submit">Kiểm tra ảnh</button>
+                {/* Hiển thị nút Upload ảnh */}
+                {previewPicture.length > 0 ?                 <button onClick={() => {upToBackend()}}
+                        className="bg-slate-400 border-2 rounded-lg block
+                         text-sm text-gray-900 rounded-lg border-gray-300  ">Upload ảnh</button>
+                        : ""}
             </form>
             {/* Preview picture */}
             {previewPicture.length > 0 ?
-                Array.from({ length: previewPicture.length }, (val, ind) =>
+                   Array.from({ length: previewPicture.length }, (val, ind) =>
                     <img src={previewPicture[ind]} />
-
-                )
+                ) 
                 : "No"}
 
         </div>
