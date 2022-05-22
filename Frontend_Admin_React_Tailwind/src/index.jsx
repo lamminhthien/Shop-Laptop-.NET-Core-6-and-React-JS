@@ -13,7 +13,6 @@ import Welcome from "./Components/TestProps";
 import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
 import EditSanPham from "./Pages/SanPham/EdiSanPham";
 import ThemSanPham from "./Pages/SanPham/ThemSanPham";
-import UploadImage from "./Pages/SanPham/UploadAnhTest";
 import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham';
 import ListHangSanXuat from './Pages/HangSanXuat/ListHangSanXuat'
 import ListNhanVien from './Pages/NhanVien/ListNhanVien'
@@ -56,8 +55,6 @@ reactDom.render(
             <Route exact path="/delete-san-pham/:id" children={<XoaSanPham   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
-
-            <Route exact path="/them-anh-test" children={<UploadImage/>} />
 
             <Route exact path="/them-anh-test-hook-form" children={<UploadFileTest/>} />
 

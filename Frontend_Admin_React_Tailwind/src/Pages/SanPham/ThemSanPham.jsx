@@ -9,6 +9,9 @@ export default function ThemSanPham() {
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
   const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
+  // Khởi tạo dữ liệu hình ảnh preview và ảnh(form data) để upload lên server
+  const [previewPicture, setPreviewPicture] = useState([]);
+  const [imageFormData, setImageFormData] = useState([])
   // Tạo dữ liệu cho các option trong thẻ select
   const trangThaiSanPhamOption = [
     { name: "Đang bán", value: 1 },
@@ -22,7 +25,7 @@ export default function ThemSanPham() {
 
 
   useEffect(() => {
-    setValue("tenSanPham","abc")
+    setValue("tenSanPham", "abc")
     // Get Danh sách các hãng sản xuât
     axios.get("https://localhost:7216/api/QuanLyHangSanXuat/ListHangSanXuat?allRecord=true")
       .then((res) => {
@@ -69,11 +72,78 @@ export default function ThemSanPham() {
     axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
       .then((res) => {
         alert("Submit dữ liệu qua api thành công")
+        // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh
       })
       .catch((err) => {
         alert("Submit dữ liệu qua api không thành công")
       })
   }; // your form submit function which will invoke after successful validation
+
+  // Xử lý submit ảnh
+  const previewImage = (e) => {
+    console.log("Name is" + e.target.name)
+    console.log("Value is" + e.target.value)
+    console.log(e.target.files)
+
+    // // Đếm số lượng ảnh
+    // const fileDataLength = data['image'].length
+    // console.log("Số lượng tệp đã up load là" + fileDataLength)
+    // // Danh sách ảnh
+    // const imageList = data['image']
+    // // Đếm số ảnh lỗi
+    // var errorImageCount = 0
+    // // Clear danh sách ảnh cũ
+    // setPreviewPicture([])
+    // // Lấy từng ảnh tỏng danh sách ảnh
+    // for (let index = 0; index < imageList.length; index++) {
+    //   console.log(imageList[index])
+    //   if (imageList[index]['type'].split('/')[0] == "image") {
+    //     // Tạo fileReader
+    //     const fileReader = new FileReader()
+    //     // Đọc file data image như là một url
+    //     fileReader.readAsDataURL(imageList[index])
+    //     // Đọc xong file thì đưa vào danh sách ảnh để preview
+    //     fileReader.onload = () => {
+    //       setPreviewPicture((previewPicture) => [
+    //         ...previewPicture, fileReader.result
+    //       ])
+    //     }
+    //     // Lưu ảnh để gửi lên server
+    //     setImageFormData((imageFormData) => [
+    //       ...imageFormData, imageList[index]
+    //     ])
+
+    //   }
+    //   else {
+    //     errorImageCount = errorImageCount + 1
+    //   }
+    // }
+    // // Cuối cùng đưa danh sách ảnh preview vào array state của react
+    // console.log("Số ảnh lỗi là" + errorImageCount)
+    // console.log(previewPicture.length)
+  }
+
+  // Upload ảnh lên backend
+  const uploadImageToBackend = () => {
+    // Duyệt từng ảnh của người dùng
+    Array.from({ length: imageFormData.length }, (val, ind) => {
+        // Tạo form data
+        var formData = new FormData()
+        // Đưa ảnh vào formdata
+        formData.append("image", imageFormData[ind])
+        // Up formdata chứa ảnh lên server
+        axios.post("https://localhost:7216/api/UploadImageTest", formData)
+            .then(() => {
+                console.log("Đã up ảnh thành công")
+                alert("Ok")
+            })
+            .catch(() => {
+                console.log("Up ảnh thất bại")
+                alert("Alo failed")
+            })
+    })
+}
+
 
 
   // Watcher theo dõi input theo name property 
@@ -112,7 +182,7 @@ export default function ThemSanPham() {
                   maxLength: 50, // Độ dài tối đa
                   minLength: 10,
                 })}
-  
+
               />
               {/* // Hình thức hiển thị lỗi (dựa theo formState)
            //  lỗi ở tenSanPham là required  thì hiện thẻ p thông báo lỗi */}
@@ -352,14 +422,22 @@ export default function ThemSanPham() {
             {errors?.moTaThem?.type === "maxLength" && <p className={errorStyle}> Mô tả thêm không được vượt quá 1000 ký tự</p>}
 
           </div>
+          {/* Khu vực upload ảnh */}
+          <div
+            {...register("image", {
+              require: true,
+            })}
+
+            class="relative z-0 w-full mb-6 group"><label for="message" class="block mb-2 text-sm font-medium text-gray-900">Upload ảnh</label>
+            <input onChange={previewImage} name="image" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
+ " id="multiple_files" type="file" multiple />
+            <div class="flex flex-wrap -mx-2 overflow-hidden">Chưa có ảnh</div>
+          </div>
           {/* Khu vực nút bấm */}
           <div className="flex justify-center">
             {/* Quan trọng, type = submit */}
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
             focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Thêm</button>
-            <button type="button" class="focus:outline-none text-white bg-green-700 
-            hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg 
-            text-sm px-5 py-2.5 mr-2 mb-2 ml-3 ">Kiểm tra</button>
           </div>
         </form>
 

@@ -20,7 +20,6 @@ export default function UploadFileTest() {
     // Xử lý submit ảnh
     const onSubmit = (data) => {
         console.log(data)
-        // File type to validate
         // Đếm số lượng ảnh
         const fileDataLength = data['image'].length
         console.log("Số lượng tệp đã up load là" + fileDataLength)
@@ -96,8 +95,6 @@ export default function UploadFileTest() {
                 })}
                     class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
                    " id="multiple_files" type="file" multiple />
-                <button className="bg-slate-400 border-2 rounded-lg block  text-sm text-gray-900 rounded-lg border-gray-300 "
-                    type="submit">Kiểm tra ảnh</button>
                 {/* Hiển thị nút Upload ảnh */}
                 {previewPicture.length > 0 ? <button onClick={() => { upToBackend() }}
                     className="bg-slate-400 border-2 rounded-lg block
