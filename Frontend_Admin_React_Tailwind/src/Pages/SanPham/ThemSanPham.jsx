@@ -81,46 +81,40 @@ export default function ThemSanPham() {
 
   // Xử lý submit ảnh
   const previewImage = (e) => {
-    console.log("Name is" + e.target.name)
-    console.log("Value is" + e.target.value)
     console.log(e.target.files)
-
-    // // Đếm số lượng ảnh
-    // const fileDataLength = data['image'].length
-    // console.log("Số lượng tệp đã up load là" + fileDataLength)
     // // Danh sách ảnh
-    // const imageList = data['image']
-    // // Đếm số ảnh lỗi
-    // var errorImageCount = 0
-    // // Clear danh sách ảnh cũ
-    // setPreviewPicture([])
-    // // Lấy từng ảnh tỏng danh sách ảnh
-    // for (let index = 0; index < imageList.length; index++) {
-    //   console.log(imageList[index])
-    //   if (imageList[index]['type'].split('/')[0] == "image") {
-    //     // Tạo fileReader
-    //     const fileReader = new FileReader()
-    //     // Đọc file data image như là một url
-    //     fileReader.readAsDataURL(imageList[index])
-    //     // Đọc xong file thì đưa vào danh sách ảnh để preview
-    //     fileReader.onload = () => {
-    //       setPreviewPicture((previewPicture) => [
-    //         ...previewPicture, fileReader.result
-    //       ])
-    //     }
-    //     // Lưu ảnh để gửi lên server
-    //     setImageFormData((imageFormData) => [
-    //       ...imageFormData, imageList[index]
-    //     ])
+    const imageList = e.target.files
+    // Đếm số ảnh lỗi
+    var errorImageCount = 0
+    // Clear danh sách ảnh cũ
+    setPreviewPicture([])
+    // Lấy từng ảnh tỏng danh sách ảnh
+    for (let index = 0; index < imageList.length; index++) {
+      console.log(imageList[index])
+      if (imageList[index]['type'].split('/')[0] == "image") {
+        // Tạo fileReader
+        const fileReader = new FileReader()
+        // Đọc file data image như là một url
+        fileReader.readAsDataURL(imageList[index])
+        // Đọc xong file thì đưa vào danh sách ảnh để preview
+        fileReader.onload = () => {
+          setPreviewPicture((previewPicture) => [
+            ...previewPicture, fileReader.result
+          ])
+        }
+        // Lưu ảnh để gửi lên server
+        setImageFormData((imageFormData) => [
+          ...imageFormData, imageList[index]
+        ])
 
-    //   }
-    //   else {
-    //     errorImageCount = errorImageCount + 1
-    //   }
-    // }
-    // // Cuối cùng đưa danh sách ảnh preview vào array state của react
-    // console.log("Số ảnh lỗi là" + errorImageCount)
-    // console.log(previewPicture.length)
+      }
+      else {
+        errorImageCount = errorImageCount + 1
+      }
+    }
+    // Cuối cùng đưa danh sách ảnh preview vào array state của react
+    console.log("Số ảnh lỗi là" + errorImageCount)
+    console.log(previewPicture.length)
   }
 
   // Upload ảnh lên backend
@@ -431,7 +425,16 @@ export default function ThemSanPham() {
             class="relative z-0 w-full mb-6 group"><label for="message" class="block mb-2 text-sm font-medium text-gray-900">Upload ảnh</label>
             <input onChange={previewImage} name="image" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
  " id="multiple_files" type="file" multiple />
-            <div class="flex flex-wrap -mx-2 overflow-hidden">Chưa có ảnh</div>
+            <div class="flex flex-wrap -mx-2 overflow-hidden">
+              {/* Khu vực preview ảnh */}
+            {previewPicture.length > 0 ?
+                    Array.from({ length: previewPicture.length }, (val, ind) =>
+                        <div className="my-2 px-2 w-1/5 overflow-hidden">
+                            <img className="lg:h-48 md:h-36  object-cover object-center" src={previewPicture[ind]} alt="Hi" />
+                        </div>
+                    )
+                    : "Chưa có ảnh"}
+            </div>
           </div>
           {/* Khu vực nút bấm */}
           <div className="flex justify-center">
