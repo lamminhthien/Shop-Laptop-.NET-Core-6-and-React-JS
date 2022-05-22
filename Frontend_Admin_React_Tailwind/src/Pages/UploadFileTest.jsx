@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from 'react-hook-form'
 export default function UploadFileTest() {
 
-    const [previewPicture, setPreviewPicture] = useState(null);
+    const [previewPicture, setPreviewPicture] = useState([]);
 
     const {
         register, // Đăng ký input vô react hookform
@@ -19,35 +19,49 @@ export default function UploadFileTest() {
     // Xử lý submit ảnh
     const onSubmit = (data) => {
         console.log(data)
-        // First file
-        const file = data
         // File type to validate
-        const fileType = file['image'][0]['type']
-
-        // Check fileType is image/* or not
-        alert(fileType)
-        if (fileType.split("/")[0] == "image") {
-            // Xác nhận đây là ảnh hợp lệ
-            alert("This is valid image")
-            //Lấy Dữ liệu nhị phân của hình ảnh
-            const fileData = file['image'][0]
-            // Tạo trình đọc file
-            const fileReader = new FileReader()
-            // Đọc file nhị phân ấy như một url
-            fileReader.readAsDataURL(fileData)
-            // Khi fileReader đọc file thành công (onLoad)
-            fileReader.onload = () => {
-                // Lấy url của file
-                const url = fileReader.result
-                // Đưa url ảnh vào state của react
-                setPreviewPicture(url)
+        // Đếm số lượng ảnh
+        const fileDataLength = data['image'].length
+        alert("Số lượng tệp đã up load là" + fileDataLength)
+        // Danh sách ảnh
+        const imageList = data['image']
+        // Đếm số ảnh lỗi
+        var errorImageCount = 0
+        // Danh sách ảnh để preview
+        const listImageForPreview = []
+        // Lấy từng ảnh tỏng danh sách ảnh
+        for (let index = 0; index < imageList.length; index++) {
+            console.log(imageList[index])
+            if (imageList[index]['type'].split('/')[0] == "image") {
+                // Tạo fileReader
+                const fileReader = new FileReader()
+                // Đọc file data image như là một url
+                fileReader.readAsDataURL(imageList[index])
+                // Đọc xong file thì đưa vào danh sách ảnh để preview
+                fileReader.onload = () => {
+                    listImageForPreview.push(fileReader.result)
+                }
             }
-
-        } else {
-            alert("This is not valid image")
+            else {
+                errorImageCount = errorImageCount + 1
+            }
         }
+        // Cuối cùng đưa danh sách ảnh preview vào array state của react
+        setPreviewPicture(listImageForPreview)
+        alert("Số ảnh lỗi là" + errorImageCount)
     }
 
+    const renderImage = () => {
+        if (previewPicture.length == 0)
+        return (
+            <p>Chưa có ảnh</p>
+        )
+        else {
+            return(
+                <p>Đã có ảnh</p>
+            )
+        }
+    }
 
     return (
         <div>
@@ -60,15 +74,16 @@ export default function UploadFileTest() {
                 })}
 
                     class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
-                   " id="multiple_files" type="file" multiple="" />
+                   " id="multiple_files" type="file" multiple />
                 <button className="bg-slate-400 border-2 rounded-lg block  text-sm text-gray-900 rounded-lg border-gray-300 "
                     type="submit">Thêm ảnh</button>
             </form>
             {/* Preview picture */}
-            {previewPicture != null ?
-                <img src={previewPicture}/> : <p>Ảnh chưa upload</p>
-            }
-  
+            {/* {previewPicture != null ?
+                <img src={previewPicture} /> : <p>Ảnh chưa upload</p>
+            } */}
+            {renderImage}
+
         </div>
     )
 
