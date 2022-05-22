@@ -20,6 +20,7 @@ import ListNhanVien from './Pages/NhanVien/ListNhanVien'
 import ListKhachHang from './Pages/KhachHang/ListKhachHang'
 import ListLichSuGiaCa from './Pages/LichSuGiaCa/ListLichSuGiaCa'
 import  XoaSanPham from './Pages/SanPham/XoaSanPham'
+import UploadFileTest from './Pages/UploadFileTest'
 
 
 
@@ -57,6 +58,9 @@ reactDom.render(
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
 
             <Route exact path="/them-anh-test" children={<UploadImage/>} />
+
+            <Route exact path="/them-anh-test-hook-form" children={<UploadFileTest/>} />
+
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
 
