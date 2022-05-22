@@ -8,9 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using ShopLaptop_EFCore.Data;
 using System.Text;
 using Microsoft.OpenApi.Models;
-
-
-
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 // Thêm CORS để React JS sử dụng được API
@@ -52,6 +51,16 @@ builder.Services.AddSwaggerGen(c =>
         }
     }); 
 });
+// Thêm chức năng upload file
+builder.Services.Configure<FormOptions>(o =>
+{
+    // Giới hạn dung lượng ảnh
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBoundaryLengthLimit = int.MaxValue;  
+    o.MemoryBufferThreshold = int.MaxValue;
+});
+
+
 // Thêm SQL Lite (Mục đích chỉ test)
 builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
 // Thêm Database Context và cấu hình đọc chuỗi kết nối SQL Server trong appsettings.json
@@ -93,6 +102,11 @@ if (app.Environment.IsDevelopment())
 // Serve static files in the future
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    RequestPath = new PathString("/Resources")
+});
 
 app.UseHttpsRedirection();
 

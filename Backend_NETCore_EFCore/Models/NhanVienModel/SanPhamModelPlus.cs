@@ -71,5 +71,8 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
         // Ràng buộc phạm vi chiết khấu
         [Range(0.01,1)]
         public double ChietKhau { get; set; }
+
+        // Test upload image
+        public IFormFile MyImage { get; set; }
     }
 }
