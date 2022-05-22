@@ -69,9 +69,9 @@ export default function UploadFileTest() {
                     type="submit">Thêm ảnh</button>
             </form>
             {/* Preview picture */}
-            {previewPicture.length > 0 ? previewPicture.map((item) => {
-               <p>Yes yes</p>
-            }):<p>chưa upload ảnh</p>}
+            {previewPicture.length > 0 ? 
+                <img src={previewPicture[0]} alt="Yes"/>
+            : "No"}
 
         </div>
     )
