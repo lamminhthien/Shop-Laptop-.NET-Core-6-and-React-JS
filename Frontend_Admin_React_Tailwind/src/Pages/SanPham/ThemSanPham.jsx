@@ -89,28 +89,33 @@ export default function ThemSanPham() {
     var errorImageCount = 0
     // Clear danh sách ảnh cũ
     setPreviewPicture([])
+    // Giới hạn số lượng ảnh tối đa là 4
+    var limitPicture = 0
     // Lấy từng ảnh tỏng danh sách ảnh
     for (let index = 0; index < imageList.length; index++) {
       console.log(imageList[index])
-      if (imageList[index]['type'].split('/')[0] == "image") {
-        // Tạo fileReader
-        const fileReader = new FileReader()
-        // Đọc file data image như là một url
-        fileReader.readAsDataURL(imageList[index])
-        // Đọc xong file thì đưa vào danh sách ảnh để preview
-        fileReader.onload = () => {
-          setPreviewPicture((previewPicture) => [
-            ...previewPicture, fileReader.result
+      if (limitPicture < 4) {
+        if (imageList[index]['type'].split('/')[0] == "image") {
+          // Tạo fileReader
+          const fileReader = new FileReader()
+          // Đọc file data image như là một url
+          fileReader.readAsDataURL(imageList[index])
+          // Đọc xong file thì đưa vào danh sách ảnh để preview
+          fileReader.onload = () => {
+            setPreviewPicture((previewPicture) => [
+              ...previewPicture, fileReader.result
+            ])
+          }
+          // Lưu ảnh để gửi lên server
+          setImageFormData((imageFormData) => [
+            ...imageFormData, imageList[index]
           ])
-        }
-        // Lưu ảnh để gửi lên server
-        setImageFormData((imageFormData) => [
-          ...imageFormData, imageList[index]
-        ])
 
-      }
-      else {
-        errorImageCount = errorImageCount + 1
+        }
+        else {
+          errorImageCount = errorImageCount + 1
+        }
+        limitPicture = limitPicture + 1
       }
     }
     // Cuối cùng đưa danh sách ảnh preview vào array state của react

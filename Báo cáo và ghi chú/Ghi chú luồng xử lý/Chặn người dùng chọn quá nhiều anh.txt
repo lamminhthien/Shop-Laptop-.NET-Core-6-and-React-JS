@@ -1,0 +1,3 @@
+// Chặn người dùng thêm quá 4 ảnh ở front end
+Đơn giản là khi chạy vòng for để preview ảnh và lưu ảnh vào state
+thì cho một biến đếm ở trước, nếu biến đếm bằng 4 thì dừng lại thế thôi

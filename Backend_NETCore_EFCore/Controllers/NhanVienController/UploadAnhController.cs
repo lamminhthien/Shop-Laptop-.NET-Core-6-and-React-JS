@@ -8,24 +8,36 @@ namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UploadImageTestController : ControllerBase
+    public class UploadAnhController : ControllerBase
     {
         private readonly shop_laptopContext _context;
 
-        public UploadImageTestController(shop_laptopContext context)
+        public UploadAnhController(shop_laptopContext context)
         {
             _context = context;
         }
 
-        [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload()
+        [HttpPost("ThemAnhSanPham"), DisableRequestSizeLimit]
+        public IActionResult ThemAnhSanPham()
         {
             // Giả định mã sản phẩm là 1
-            int id = 12;
+            var id_request = Request.Form["id"][0];
+            // Khởi tạo biến id
+            int id = 0;
+            // Kiểm tra kiểu dữ liệu của id
+            try
+            {
+                id = Int32.Parse(id_request);
+            }
+            catch (Exception)
+            {
+                return BadRequest("ID sản phẩm không phải kiểu số");
+            }
+
             // Kiểm tra xem sản phẩm này có tồn tại hay ko?
-            var maSanPham = (from a in _context.SanPhams
-                             where a.MaSanPham == id
-                             select a.MaSanPham).FirstOrDefault();
+                var maSanPham = (from a in _context.SanPhams
+                                 where a.MaSanPham == id
+                                 select a.MaSanPham).FirstOrDefault();
             if (maSanPham == 0) return NotFound("Không tìm thấy sản phẩm để upload ảnh");
 
             try
