@@ -73,7 +73,7 @@ export default function EditSanPham() {
         setisLoading(false)
         //Gán các giá trị của chi tiết sản phẩm vào từng ô input của form
         input_key.forEach((key) => {
-          setValue(key,res.data[key], {
+          setValue(key,res.data.chiTietSanPham[key], {
           })
         }); 
 
