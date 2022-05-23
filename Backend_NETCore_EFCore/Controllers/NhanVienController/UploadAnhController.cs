@@ -146,7 +146,7 @@ namespace ShopLaptop_EFCore.Controllers
         [HttpPost("JsonBodyCustom")]
         public IActionResult JsonBodyCustom()
         {
-            var name = Request.Query["name"];
+            var name = Request.Form["name"][0];
             return Ok("Name=" + name);
         }
 

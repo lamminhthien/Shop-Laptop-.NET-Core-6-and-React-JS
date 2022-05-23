@@ -110,17 +110,50 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // POST: api/QuanLyDanhMucSanPham
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("ThemLoaiSanPham")]
-        public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPham(LoaiSanPham loaiSanPham)
+        [HttpPost("ThemLoaiSanPham"),DisableRequestSizeLimit]
+        public async Task<ActionResult<LoaiSanPham>> ThemLoaiSanPham()
         {
-            if (_context.LoaiSanPhams == null)
+            // Lấy tên sản phẩm bằng form data
+            var tenLoaiSp = Request.Form["tenLoaiSp"][0];
+            if (tenLoaiSp == null) return BadRequest("Bạn chưa nhập tên ảnh");
+            if (LoaiSanPhamDuplicateName(tenLoaiSp))
             {
-                return Problem("Entity set 'shop_laptopContext.LoaiSanPhams'  is null.");
+                return BadRequest("Tên loại sản phẩm bị trùng");
             }
+
+            // Lấy ảnh từ form ra
+            var file = Request.Form.Files[0];
+
+            // Check xem request có rỗng file hay ko ?
+            if (file.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
+
+            // Validate file ảnh
+            if (!file.ContentType.Contains("image")) return BadRequest("This file is not image");
+
+            // Tạo đường dẫn  đến thư mục lưu ảnh sản phẩm
+            var folderName = Path.Combine("Resources", "Images", "LoaiSanPham");
+
+            // Tạo đường dẫn của hệ thống để lưu file
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            // Làm tên file ảnh
+            var tenFileAnh = tenLoaiSp + "." + file.ContentType.Split('/')[1];
+
+            // Tạo đường dẫn đầy đủ kèm với tên file ảnh và định dạng file ảnh để copy file vào server
+            var fullPath = Path.Combine(pathToSave, tenFileAnh);
+
+            // Tạo đối tượng loại sản phẩm
+            var loaiSanPham = new LoaiSanPham(tenLoaiSp, tenFileAnh);
+
+            // Copy ảnh từ formdata front end vào fullPath với chế độ Create của filemode
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
             _context.LoaiSanPhams.Add(loaiSanPham);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLoaiSanPham", new { id = loaiSanPham.MaLoaiSp }, loaiSanPham);
+            return Ok("Đã tạo loại sản phẩm:"+tenLoaiSp);
         }
 
         // DELETE: api/QuanLyDanhMucSanPham/5
@@ -143,9 +176,17 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return NoContent();
         }
 
+        // Check loại sản phẩm trùng id ?
         private bool LoaiSanPhamExists(int id)
         {
             return (_context.LoaiSanPhams?.Any(e => e.MaLoaiSp == id)).GetValueOrDefault();
+        }
+
+
+        // Check loại sản phẩm trùng tên !
+        private bool LoaiSanPhamDuplicateName(string tenLoaiSP)
+        {
+            return (_context.LoaiSanPhams?.Any(e => e.TenLoaiSp == tenLoaiSP)).GetValueOrDefault();
         }
     }
 }

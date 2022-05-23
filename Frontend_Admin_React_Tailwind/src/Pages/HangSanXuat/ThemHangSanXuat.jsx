@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 export default function ThemHangSanXuat() {
     const [previewPicture, setPreviewPicture] = useState();
-    const [imageFormData, setImageFormData] = useState([])
+    const [imageFormData, setImageFormData] = useState()
 
     // Tailwind CSS Reuse style 
     const inputStyle = `bg-gray-50 border border-gray-300
@@ -16,47 +16,87 @@ export default function ThemHangSanXuat() {
     const divStyle = `relative z-0 w-full mb-6 group`
     const formStyle = `mt-2 rounded-xl bg-gradient-to-r bg-white  border 
 border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
+    const imgStyle = `max-w-sm bg-white rounded-lg border border-gray-200 shadow-md`
 
-const previewLogo = (e) => {
-    const fileReader = new FileReader();
-    const imageData = e.target.files[0]
-    fileReader.readAsDataURL(imageData);
-    fileReader.onload = () => {
-        setPreviewPicture(fileReader.result)
-    }
-}
+    const {
+        register, // Đăng ký input vô react hookform
+        handleSubmit, //Xử lý khi submit form
+        watch,
+        setValue, // Theo dõi và báo lỗi
+        formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
+    } = useForm(
+        {
+            mode: 'onChange',
+            reValidateMode: 'onChange',
+        }
+    ); // Na ná cách dùng useState
 
-const {
-    register, // Đăng ký input vô react hookform
-    handleSubmit, //Xử lý khi submit form
-    watch,
-    setValue, // Theo dõi và báo lỗi
-    formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
-} = useForm(
-    {
-        mode: 'onChange',
-        reValidateMode: 'onChange',
+    const onSubmit = (data) => {
+        if (imageFormData) {
+            alert(JSON.stringify(data));
+            
+            // Đưa dữ liệu từ form vô axios
+            axios.post("https://localhost:7216/api/QuanLySanPham/ThemHangSanXuat", data)
+                .then((res) => {
+                    alert("Submitloại sản phẩm qua api thành công")
+                    alert(res.data.split(":")[1])
+                    // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
+                    // Upload ảnh cho mã sản phẩm mới tương ứng
+                })
+                .catch((err) => {
+                    alert("Submitloại sản phẩm qua api không thành công")
+                    if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
+                })
+        }
+        else {
+            alert("You don't upload picture !!!")
+        }
+    };
+
+    const previewLogo = (e) => {
+        const fileReader = new FileReader();
+        const imageData = e.target.files[0]
+        // Validate image content type
+        if (imageData['type'].split('/')[0] === "image") {
+            alert("This is valid picture")
+            fileReader.readAsDataURL(imageData);
+            fileReader.onload = () => {
+                setPreviewPicture(fileReader.result)
+            }
+            setImageFormData(imageData);
+
+        } else {
+            alert("This is not valid picture")
+        }
+
     }
-); // Na ná cách dùng useState
 
     return (
         <div className="flex">
             <Sidebar />
             <div className="h-screen flex-1 p-7">
                 <div className="h-screen flex-1 p-7">
-                    <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm hãng sản xuất mới</h1></div>
-                    <form className={formStyle}>
+                    <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm loại sản phẩm mới</h1></div>
+                    <form className={formStyle} onSubmit={handleSubmit(onSubmit)}>
                         <div className="grid xl:grid-cols-2 xl:gap-6">
                             <div className={divStyle}>
                                 <label className={labelStyle}>Tên loại sản phẩm</label>
-                                <input className={inputStyle} 
-                                    {...register("")}
-                                />
+                                <input
+                                    {...register("tenLoaiSp", {
+                                        required: true,
+                                        minLength: 5,
+                                        maxLength: 50
+                                    })}
+                                    className={inputStyle} />
+                                {errors?.tenLoaiSp?.type === "required" && <p className={errorStyle}>Tên loại sản phẩm bắt buộc nhập</p>}
+                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiếu 5 kí tự</p>}
+                                {errors?.tenLoaiSp?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm không được vượt quá 50 kí tự</p>}
                             </div>
                             <div className={divStyle}>
                                 <label className={labelStyle}>Ảnh minh họa</label>
                                 <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
  " id="multiple_files" type="file"
+                                    onChange={previewLogo}
                                 />
                             </div>
                         </div>
@@ -66,7 +106,7 @@ const {
                             </div>
                             <div className={divStyle}>
                                 <label className={`${labelStyle} mr-20 text-center`}>Xem trước ảnh</label>
-                                {previewPicture == null ? "Chưa có ảnh" :
+                                {previewPicture == null ? <p className={errorStyle}>Chưa có ảnh nào</p> :
                                     <img src={previewPicture} alt="123" />
                                 }
                             </div>
@@ -74,8 +114,13 @@ const {
 
                             </div>
                         </div>
-
                         {/* Preview ảnh trước */}
+                        {/* Khu vực nút bấm */}
+                        <div className="flex justify-center">
+                            {/* Quan trọng, type = submit */}
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
+            focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 ">Thêm</button>
+                        </div>
 
                     </form>
 

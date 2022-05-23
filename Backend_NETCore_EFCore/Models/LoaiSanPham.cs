@@ -10,9 +10,16 @@ namespace ShopLaptop_EFCore.Models
     [Index("TenLoaiSp", "AnhMinhHoa", Name = "UQ__LoaiSanP__63C2C7EEB5142B17", IsUnique = true)]
     public partial class LoaiSanPham
     {
+
         public LoaiSanPham()
         {
             SanPhams = new HashSet<SanPham>();
+        }
+
+        public LoaiSanPham(string tenLoaiSp, string anhMinhHoa)
+        {
+            TenLoaiSp = tenLoaiSp;
+            AnhMinhHoa = anhMinhHoa;
         }
 
         [Key]
