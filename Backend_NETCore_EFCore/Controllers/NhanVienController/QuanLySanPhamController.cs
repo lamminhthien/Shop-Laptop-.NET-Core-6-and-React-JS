@@ -123,13 +123,22 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                      chietKhau = e.ChietKhau
                                  }
                             ).FirstOrDefaultAsync();
+            // Lấy danh sách ảnh của sản phẩm tương ứng
+            var listAnhSanPham = (from a in _context.SanPhams
+                                  join b in _context.AnhSanPhams
+                                  on a.MaSanPham equals b.MaSanPham
+                                  select b.FileAnh); 
 
             if (chiTietSanPham == null)
             {
                 return NotFound();
             }
-            // Trả về sản phẩm
-            return Ok(chiTietSanPham);
+            // Trả về chi tiết sản phẩm và danh sách ảnh
+            return Ok(new {
+                chiTietSanPham=chiTietSanPham,
+                danhSachAnh = listAnhSanPham
+            
+            });
         }
 
         // POST api/<QuanLySanPhamController>

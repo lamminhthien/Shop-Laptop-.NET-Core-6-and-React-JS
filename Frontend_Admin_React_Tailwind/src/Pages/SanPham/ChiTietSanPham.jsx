@@ -11,12 +11,8 @@ export default function ChiTietSanPham() {
   // Khởi tạo dữ liệu chi tiết sản phẩm
   const [dataChiTietSanPham, setDataChiTietSanPham] = useState([]);
 
-  // img
-  const imgSRC = [
-    "https://localhost:7216/Resources/Images/12412433_p0.png",
-    "https://localhost:7216/Resources/Images/12493252_p0.png",
-    "https://localhost:7216/Resources/Images/13606655_p0.png"
-  ]
+  // Sẽ lưu path ảnh từ database vào đây (để var nhan)
+  const [imgSRC,setImgSRC] = useState([])
 
   // Mảng chứa label của các property trong chi tiết sản phẩm
   const dataLabel = [
@@ -59,7 +55,9 @@ export default function ChiTietSanPham() {
     axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
       .then(res => {
         // Tìm thấy thì lưu dữ liệu
-        setDataChiTietSanPham(res.data)
+        setDataChiTietSanPham(res.data.chiTietSanPham)
+        // Lưu ảnh vào array imgSRC
+        setUpAnh(res.data.danhSachAnh)
         setisFailed(false)
       })
       // Không tìm thấy thì trả về trang lỗi
@@ -69,6 +67,12 @@ export default function ChiTietSanPham() {
     // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
     window.addEventListener("resize", handleResize)
   }, [])
+
+// Set up ảnh để hiển thị
+const setUpAnh = (data) => {
+  setImageSlide(`https://localhost:7216/Resources/Images/SanPham/${data[0]}`)
+  setImgSRC(data)
+}
 
   if (isFailed)
     return <NotFoundPage />
@@ -84,18 +88,18 @@ export default function ChiTietSanPham() {
             <div>
               <div className="flex items-center justify-center">
                 <div className="place-items-center bg-slate-400">
-                  <img src={imageSlide} />
+                  <img src={imageSlide.trim()} />
                 </div>
               </div>
               <div class="flex items-center justify-center">
                 <div class=" bg-slate-200">
-                  <img src={imgSRC[0]} height="100px" width="100px" onClick={() => setImageSlide(imgSRC[0])} />
+                  <img src={`https://localhost:7216/Resources/Images/SanPham/${imgSRC[0]}`} height="100px" width="100px" onClick={() => setImageSlide(`https://localhost:7216/Resources/Images/SanPham/${imgSRC[0]}`)} />
                 </div>
                 <div class=" bg-slate-200">
-                  <img src={imgSRC[1]} height="100px" width="100px" onClick={() => setImageSlide(imgSRC[1])} />
+                  <img src={`https://localhost:7216/Resources/Images/SanPham/${imgSRC[1]}`} height="100px" width="100px" onClick={() => setImageSlide(`https://localhost:7216/Resources/Images/SanPham/${imgSRC[1]}`)} />
                 </div>
                 <div class=" bg-slate-700">
-                  <img src={imgSRC[2]} height="100px" width="100px" onClick={() => setImageSlide(imgSRC[2])} />
+                  <img src={`https://localhost:7216/Resources/Images/SanPham/${imgSRC[2]}`} height="100px" width="100px" onClick={() => setImageSlide(`https://localhost:7216/Resources/Images/SanPham/${imgSRC[2]}`)} />
                 </div>
               </div>
             </div>
