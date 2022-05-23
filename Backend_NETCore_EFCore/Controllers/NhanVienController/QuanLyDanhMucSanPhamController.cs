@@ -59,81 +59,34 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             });
         }
 
-        // GET: api/QuanLyDanhMucSanPham/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<LoaiSanPham>> GetLoaiSanPham(int id)
-        {
-            if (_context.LoaiSanPhams == null)
-            {
-                return NotFound();
-            }
-            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
-
-            if (loaiSanPham == null)
-            {
-                return NotFound();
-            }
-
-            return loaiSanPham;
-        }
 
         // PUT: api/QuanLyDanhMucSanPham/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("SuaLoaiSanPham/{id}")]
-        public async Task<IActionResult> SuaLoaiSanPham(int id, LoaiSanPham loaiSanPham)
+        public async Task<IActionResult> SuaLoaiSanPham(int id)
         {
+            // Lấy tên loại sản phẩm mới
+            var tenLoaiSPMoi = Request.Form["tenLoaiSP"][0];
             Console.WriteLine(id);
             // Kiểm tra xem id sản phẩm có tồn tại hay ko 
             var loaiSanPhamExist = await _context.LoaiSanPhams
-                 .FirstOrDefaultAsync(m => m.MaLoaiSp == id);
+                .Where(o => o.MaLoaiSp == id).FirstOrDefaultAsync();
             // Nếu tồn tại loại sản phẩm này
             if (loaiSanPhamExist != null)
             {
-                // Lấy ảnh từ form ra
-                var file = Request.Form.Files[0];
-
-                // Check xem request có rỗng file hay ko ?
-                if (file.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
-
-                // Validate file ảnh
-                if (!file.ContentType.Contains("image")) return BadRequest("This file is not image");
-
-                // Tạo đường dẫn  đến thư mục lưu ảnh sản phẩm
-                var folderName = Path.Combine("Resources", "Images", "LoaiSanPham");
-
-                // Tạo đường dẫn của hệ thống để lưu file
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-                // Làm tên file ảnh
-                var tenFileAnh = loaiSanPham.TenLoaiSp + "." + file.ContentType.Split('/')[1];
-
-                // Tạo đường dẫn đầy đủ kèm với tên file ảnh và định dạng file ảnh để copy file vào server
-                var fullPath = Path.Combine(pathToSave, tenFileAnh);
-
-                // Cập nhật lại thông tin cho sản phẩm đã tồn tại
-                loaiSanPhamExist.TenLoaiSp = loaiSanPham.TenLoaiSp;
-                loaiSanPhamExist.AnhMinhHoa = tenFileAnh;
-        
-                // Cập nhật loại sản phẩm
+                // Chỉ cập nhật tên sản phẩm
+                loaiSanPhamExist.TenLoaiSp = tenLoaiSPMoi;
                 _context.Entry(loaiSanPhamExist).State = EntityState.Modified;
-
-                // Thử update vào database và bắt lỗi tiêp
                 try
                 {
                     await _context.SaveChangesAsync();
-                    // Đổi được tên ảnh và tên file ảnh trong db thì sau đó copy ảnh mới vô DB 
-                    // Thế còn ảnh cũ how to xóa (Sẽ nghĩ cách sau)
-                    // Copy ảnh từ formdata front end vào fullPath với chế độ Create của filemode
-                    using (var stream = new FileStream(fullPath, FileMode.OpenOrCreate))
-                    {
-                        file.CopyTo(stream);
-                    }
+                    return Ok("Đã thay đổi tên sản phẩm:" + loaiSanPhamExist.TenLoaiSp);
                 }
-                catch (DbUpdateConcurrencyException error)
+                catch (DbUpdateException dbExcept)
                 {
-                    return BadRequest("Có lỗi! " + error.InnerException.Message.ToString());
+                    if (dbExcept.InnerException.Message.Contains("Violation of UNIQUE KEY constraint"))
+                        return BadRequest("Tên loại sản phẩm bị trùng");
                 }
-                return Ok("Đã sữa tên loại sản phẩm và sữa ảnh cho loại sản phẩm: " + id);
             }
             return BadRequest("Không tìm thấy loại sản phẩm này");
         }
