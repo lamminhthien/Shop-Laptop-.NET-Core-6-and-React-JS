@@ -110,7 +110,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // POST: api/QuanLyDanhMucSanPham
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("ThemLoaiSanPham")]
         public async Task<ActionResult<LoaiSanPham>> PostLoaiSanPham(LoaiSanPham loaiSanPham)
         {
             if (_context.LoaiSanPhams == null)

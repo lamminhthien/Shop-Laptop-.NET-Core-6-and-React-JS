@@ -70,7 +70,16 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                         <div className="grid xl:grid-cols-2 xl:gap-6">
                             <div className={divStyle}>
                                 <label className={labelStyle}>Tên loại sản phẩm</label>
-                                <input className={inputStyle} />
+                                <input 
+                                    {...register("tenLoaiSp", {
+                                        required:true,
+                                        minLength:20,
+                                        maxLength:50
+                                    })}
+                                    className={inputStyle} />
+                                    {errors?.tenLoaiSp?.type === "required" && <p className={errorStyle}>Tên loại sản phẩm bắt buộc nhập</p>}
+                                    {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiếu 20 kí tự</p>}
+                                    {errors?.tenLoaiSp?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm không được vượt quá 50 kí tự</p>}
                             </div>
                             <div className={divStyle}>
                                 <label className={labelStyle}>Ảnh minh họa</label>
@@ -86,7 +95,7 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                             </div>
                             <div className={divStyle}>
                                 <label className={`${labelStyle} mr-20 text-center`}>Xem trước ảnh</label>
-                                {previewPicture == null ? "Chưa có ảnh" :
+                                {previewPicture == null ? <p className={errorStyle}>Chưa có ảnh nào</p> :
                                     <img src={previewPicture} alt="123" />
                                 }
                             </div>

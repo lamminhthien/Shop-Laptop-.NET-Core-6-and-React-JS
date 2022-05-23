@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 export default function ThemHangSanXuat() {
     const [previewPicture, setPreviewPicture] = useState();
     const [imageFormData, setImageFormData] = useState([])
+
     // Tailwind CSS Reuse style 
     const inputStyle = `bg-gray-50 border border-gray-300
  text-gray-900 text-sm rounded-lg focus:ring-blue-500 
@@ -23,8 +24,20 @@ const previewLogo = (e) => {
     fileReader.onload = () => {
         setPreviewPicture(fileReader.result)
     }
-
 }
+
+const {
+    register, // Đăng ký input vô react hookform
+    handleSubmit, //Xử lý khi submit form
+    watch,
+    setValue, // Theo dõi và báo lỗi
+    formState: { errors } // Theo dõi người dùng tương tác form và xuât ra element báo lỗi
+} = useForm(
+    {
+        mode: 'onChange',
+        reValidateMode: 'onChange',
+    }
+); // Na ná cách dùng useState
 
     return (
         <div className="flex">
@@ -36,13 +49,14 @@ const previewLogo = (e) => {
                         <div className="grid xl:grid-cols-2 xl:gap-6">
                             <div className={divStyle}>
                                 <label className={labelStyle}>Tên loại sản phẩm</label>
-                                <input className={inputStyle} />
+                                <input className={inputStyle} 
+                                    {...register("")}
+                                />
                             </div>
                             <div className={divStyle}>
                                 <label className={labelStyle}>Ảnh minh họa</label>
                                 <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
  " id="multiple_files" type="file"
-                                    onChange={previewLogo}
                                 />
                             </div>
                         </div>

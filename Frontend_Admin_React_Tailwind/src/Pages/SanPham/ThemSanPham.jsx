@@ -61,24 +61,28 @@ export default function ThemSanPham() {
     // Khi nào vượt rào được thì mới xác nhận form hợp lệ
     // và hiện ra dữ liệu json  được chuỗi hóa
     // Đổi giá trị phần trăm chiết khấu sang số thực
-    data.chietKhau = (data.chietKhau) / 100;
-    var sanPhamData =  Object.assign(data,{trangThaiSp:1})
+    if (previewPicture.length != 0) {
+      data.chietKhau = (data.chietKhau) / 100;
+      var sanPhamData = Object.assign(data, { trangThaiSp: 1 })
 
-    // Test hiển thị thử JSON data
-    alert(JSON.stringify(sanPhamData));
-    // Đưa dữ liệu từ form vô axios
-    axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
-      .then((res) => {
-        alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api thành công")
-        alert(res.data.split(":")[1])
-        // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
-        // Upload ảnh cho mã sản phẩm mới tương ứng
-        uploadImageToBackend(res.data.split(":")[1])
-      })
-      .catch((err) => {
-        alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api không thành công")
-        if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
-      })
+      // Test hiển thị thử JSON data
+      alert(JSON.stringify(sanPhamData));
+      // Đưa dữ liệu từ form vô axios
+      axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
+        .then((res) => {
+          alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api thành công")
+          alert(res.data.split(":")[1])
+          // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
+          // Upload ảnh cho mã sản phẩm mới tương ứng
+          uploadImageToBackend(res.data.split(":")[1])
+        })
+        .catch((err) => {
+          alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api không thành công")
+          if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
+        })
+    } else {
+      alert("Bạn chưa upload ảnh nào");
+    }
   }; // your form submit function which will invoke after successful validation
 
   // Xử lý submit ảnh
@@ -133,14 +137,14 @@ export default function ThemSanPham() {
       // Đưa ảnh vào formdata
       formData.append("image", imageFormData[ind])
       // Đưa id sản phẩm vào formData
-      formData.append("id",id)
+      formData.append("id", id)
       // Up formdata chứa ảnh lên server
       axios.post("https://localhost:7216/api/UploadAnh/ThemAnhSanPham", formData)
         .then(() => {
-          alert(`Đã up ảnh thứ ${ind+1}  thành công`)
+          alert(`Đã up ảnh thứ ${ind + 1}  thành công`)
         })
         .catch(() => {
-          alert(`Up ảnh thứ ${ind+1} thất bại`)
+          alert(`Up ảnh thứ ${ind + 1} thất bại`)
         })
     })
   }
@@ -410,7 +414,8 @@ export default function ThemSanPham() {
             })}
 
             class="relative z-0 w-full mb-6 group"><label for="message" class="block mb-2 text-sm font-medium text-gray-900">Upload ảnh</label>
-            <input onChange={previewImage} name="image" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
+            <input onChange={previewImage} name="image"
+              class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
  " id="multiple_files" type="file" multiple />
             <div class="flex flex-wrap -mx-2 overflow-hidden">
               {/* Khu vực preview ảnh */}
@@ -420,7 +425,7 @@ export default function ThemSanPham() {
                     <img className="lg:h-48 md:h-36  object-cover object-center" src={previewPicture[ind]} alt="Hi" />
                   </div>
                 )
-                : "Chưa có ảnh"}
+                : <p className={errorStyle}>chưa có ảnh</p>}
             </div>
           </div>
           {/* Khu vực nút bấm */}
