@@ -79,34 +79,68 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // PUT: api/QuanLyDanhMucSanPham/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoaiSanPham(int id, LoaiSanPham loaiSanPham)
+        [HttpPut("SuaLoaiSanPham/{id}")]
+        public async Task<IActionResult> SuaLoaiSanPham(int id, LoaiSanPham loaiSanPham)
         {
-            if (id != loaiSanPham.MaLoaiSp)
+            Console.WriteLine(id);
+            // Kiểm tra xem id sản phẩm có tồn tại hay ko 
+            var loaiSanPhamExist = await _context.LoaiSanPhams
+                 .FirstOrDefaultAsync(m => m.MaLoaiSp == id);
+            // Nếu tồn tại loại sản phẩm này
+            if (loaiSanPhamExist != null)
             {
-                return BadRequest();
-            }
+                // Lấy ảnh từ form ra
+                var file = Request.Form.Files[0];
 
-            _context.Entry(loaiSanPham).State = EntityState.Modified;
+                // Check xem request có rỗng file hay ko ?
+                if (file.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoaiSanPhamExists(id))
+                // Validate file ảnh
+                if (!file.ContentType.Contains("image")) return BadRequest("This file is not image");
+
+                // Tạo đường dẫn  đến thư mục lưu ảnh sản phẩm
+                var folderName = Path.Combine("Resources", "Images", "LoaiSanPham");
+
+                // Tạo đường dẫn của hệ thống để lưu file
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                // Làm tên file ảnh
+                var tenFileAnh = loaiSanPham.TenLoaiSp + "." + file.ContentType.Split('/')[1];
+
+                // Tạo đường dẫn đầy đủ kèm với tên file ảnh và định dạng file ảnh để copy file vào server
+                var fullPath = Path.Combine(pathToSave, tenFileAnh);
+
+                // Cập nhật lại thông tin cho sản phẩm đã tồn tại
+                loaiSanPhamExist.TenLoaiSp = loaiSanPham.TenLoaiSp;
+                loaiSanPhamExist.AnhMinhHoa = tenFileAnh;
+        
+                // Cập nhật loại sản phẩm
+                _context.Entry(loaiSanPhamExist).State = EntityState.Modified;
+
+                // Thử update vào database và bắt lỗi tiêp
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
+                    // Đổi được tên ảnh và tên file ảnh trong db thì sau đó copy ảnh mới vô DB 
+                    // Thế còn ảnh cũ how to xóa (Sẽ nghĩ cách sau)
+                    // Copy ảnh từ formdata front end vào fullPath với chế độ Create của filemode
+                    using (var stream = new FileStream(fullPath, FileMode.OpenOrCreate))
+                    {
+                        file.CopyTo(stream);
+                    }
                 }
-                else
+                catch (DbUpdateConcurrencyException error)
                 {
-                    throw;
+                    return BadRequest("Có lỗi! " + error.InnerException.Message.ToString());
                 }
+                return Ok("Đã sữa tên loại sản phẩm và sữa ảnh cho loại sản phẩm: " + id);
             }
-
-            return NoContent();
+            return BadRequest("Không tìm thấy loại sản phẩm này");
         }
+
+
+
+
 
         // POST: api/QuanLyDanhMucSanPham
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -177,7 +211,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // Check loại sản phẩm trùng id ?
-        private bool LoaiSanPhamExists(int id)
+        private bool LoailoaiSanPhamExists(int id)
         {
             return (_context.LoaiSanPhams?.Any(e => e.MaLoaiSp == id)).GetValueOrDefault();
         }

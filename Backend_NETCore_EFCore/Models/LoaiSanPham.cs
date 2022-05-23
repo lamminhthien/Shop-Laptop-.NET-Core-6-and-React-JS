@@ -28,6 +28,7 @@ namespace ShopLaptop_EFCore.Models
         [Column("ten_loai_sp")]
         [StringLength(50)]
         public string TenLoaiSp { get; set; } = null!;
+        [Required]
         [Column("anh_minh_hoa")]
         [StringLength(50)]
         public string AnhMinhHoa { get; set; } = null!;
