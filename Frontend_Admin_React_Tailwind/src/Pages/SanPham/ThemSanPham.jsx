@@ -131,8 +131,10 @@ export default function ThemSanPham() {
       var formData = new FormData()
       // Đưa ảnh vào formdata
       formData.append("image", imageFormData[ind])
+      // Đưa id vào formData
+      formData.append("id",7)
       // Up formdata chứa ảnh lên server
-      axios.post("https://localhost:7216/api/UploadImageTest", formData)
+      axios.post("https://localhost:7216/api/UploadAnh/ThemAnhSanPham", formData)
         .then(() => {
           console.log("Đã up ảnh thành công")
           alert("Ok")

@@ -65,8 +65,8 @@ namespace ShopLaptop_EFCore.Controllers
                 // Nếu chưa có ảnh sản phẩm này
                 if (anhSanPham == null)
                 {
-                    // Tên sản phẩm bằng mã sản phẩm + "1"
-                    fileName = fileName + maSanPham.ToString();
+                    // Tên sản phẩm bằng mã sản phẩm + "1" VÍ DỤ SP7-1
+                    fileName = fileName + maSanPham.ToString() + "-1";
                 }
                 else // Đã có sẵn từ 1 ảnh trở lên 
                 {
@@ -78,14 +78,14 @@ namespace ShopLaptop_EFCore.Controllers
                                            orderby b.FileAnh descending
                                            select b.FileAnh).Count();
                     // Nếu vượt quá 4 ảnh
-                    if (countAnhSanPham > 4)
+                    if (countAnhSanPham >= 4)
                     {
                         return BadRequest("Sản phẩm này đã có 4 ảnh, bạn không thể up thêm ảnh, mà chỉ có thể sữa 1 trong 4 ảnh");
                     }
                     else
                     {
                         // Tên sản phẩm bằng mã sản phẩm + (số lượng ảnh + 1)
-                        fileName = fileName + (countAnhSanPham + 1).ToString();
+                        fileName = fileName + maSanPham.ToString() + "-" + (countAnhSanPham + 1).ToString();
                     }
                 }
                 // Tạo đường dẫn đầy đủ kèm với tên file và định dạng file ảnh để copy file vào server
