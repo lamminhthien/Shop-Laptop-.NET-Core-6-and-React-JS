@@ -62,6 +62,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                           a.MaHangSx equals c.MaHangSx
                           join d in _context.BienDongGia on
                           a.MaSanPham equals d.MaSanPham
+                          where d.LanThayDoiGia == (from a in _context.SanPhams 
+                                join b in _context.BienDongGia on a.MaSanPham equals b.MaSanPham
+                                orderby b.LanThayDoiGia descending 
+                                select b.LanThayDoiGia).First()
                           select new
                           {
                               maSanPham = a.MaSanPham,
@@ -89,63 +93,65 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
             // Lấy chi tiet san pham
             var chiTietSanPham = await (from a in _context.SanPhams
-                                 join b in _context.LoaiSanPhams
-                                 on a.MaLoaiSp equals b.MaLoaiSp
-                                 join c in _context.HangSanXuats
-                                 on a.MaHangSx equals c.MaHangSx
-                                 join d in _context.ChiTietSanPhams
-                                 on a.MaSanPham equals d.MaSanPham
-                                 join e in _context.BienDongGia
-                                 on a.MaSanPham equals e.MaSanPham
-                                 where a.MaSanPham == id
-                                 select new
-                                 {
-                                     maSanPham = "SP" + a.MaSanPham,
-                                     tenSanPham = a.TenSanPham,
-                                     loaiSanPham = b.TenLoaiSp,
-                                     maLoaiSp = a.MaLoaiSp,
-                                     hangSanXuat = c.TenHangSx,
-                                     maHangSX = a.MaHangSx,
-                                     tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : "Hết hàng",
-                                     trangThaiSp = a.TrangThaiSp,
-                                     cpu = d.Cpu,
-                                     cardDoHoa = d.CardDoHoa,
-                                     doPhanGiai = d.DoPhanGiai,
-                                     oCung = d.OCung,
-                                     heDieuHanh = d.HeDieuHanh,
-                                     kichThuoc = d.KichThuoc,
-                                     manHinh = d.ManHinh + "inch",
-                                     trongLuong = d.TrongLuong,
-                                     ram = d.Ram,
-                                     moTaThem = d.MoTaThem,
-                                     giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau)),
-                                     gia = e.GiaNhap,
-                                     chietKhau = e.ChietKhau
-                                 }
+                                        join b in _context.LoaiSanPhams
+                                        on a.MaLoaiSp equals b.MaLoaiSp
+                                        join c in _context.HangSanXuats
+                                        on a.MaHangSx equals c.MaHangSx
+                                        join d in _context.ChiTietSanPhams
+                                        on a.MaSanPham equals d.MaSanPham
+                                        join e in _context.BienDongGia
+                                        on a.MaSanPham equals e.MaSanPham
+                                        where a.MaSanPham == id
+                                        orderby e.LanThayDoiGia descending
+                                        select new
+                                        {
+                                            maSanPham = "SP" + a.MaSanPham,
+                                            tenSanPham = a.TenSanPham,
+                                            loaiSanPham = b.TenLoaiSp,
+                                            maLoaiSp = a.MaLoaiSp,
+                                            hangSanXuat = c.TenHangSx,
+                                            maHangSX = a.MaHangSx,
+                                            tinhTrang = a.TrangThaiSp == 1 ? "Còn hàng" : "Hết hàng",
+                                            trangThaiSp = a.TrangThaiSp,
+                                            cpu = d.Cpu,
+                                            cardDoHoa = d.CardDoHoa,
+                                            doPhanGiai = d.DoPhanGiai,
+                                            oCung = d.OCung,
+                                            heDieuHanh = d.HeDieuHanh,
+                                            kichThuoc = d.KichThuoc,
+                                            manHinh = d.ManHinh + "inch",
+                                            trongLuong = d.TrongLuong,
+                                            ram = d.Ram,
+                                            moTaThem = d.MoTaThem,
+                                            giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau)),
+                                            gia = e.GiaNhap,
+                                            chietKhau = e.ChietKhau
+                                        }
                             ).FirstOrDefaultAsync();
             // Lấy danh sách ảnh của sản phẩm tương ứng
             var listAnhSanPham = (from a in _context.SanPhams
                                   join b in _context.AnhSanPhams
                                   on a.MaSanPham equals b.MaSanPham
-                                  select b.FileAnh); 
+                                  select b.FileAnh);
 
             if (chiTietSanPham == null)
             {
                 return NotFound();
             }
             // Trả về chi tiết sản phẩm và danh sách ảnh
-            return Ok(new {
-                chiTietSanPham=chiTietSanPham,
+            return Ok(new
+            {
+                chiTietSanPham = chiTietSanPham,
                 danhSachAnh = listAnhSanPham
-            
+
             });
         }
 
         // POST api/<QuanLySanPhamController>
-        [HttpPost("ThemSanPham"),DisableRequestSizeLimit]
+        [HttpPost("ThemSanPham"), DisableRequestSizeLimit]
         public async Task<ActionResult<SanPham>> ThemSanPham(SanPhamModelPlus sanPhamModelPlus)
         {
-         
+
 
             // Kiểm tra tất cả các trường dữ liệu của SanPham, kể cả Icollection ảo
             if (_context.SanPhams == null)
