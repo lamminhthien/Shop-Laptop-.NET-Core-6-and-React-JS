@@ -71,12 +71,15 @@ export default function ThemSanPham() {
     // Đưa dữ liệu từ form vô axios
     axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
       .then((res) => {
-        alert("Submit dữ liệu qua api thành công")
+        alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api thành công")
+        alert(res.data.split(":")[1])
         // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
-        uploadImageToBackend()
+        // Upload ảnh cho mã sản phẩm mới tương ứng
+        uploadImageToBackend(res.data.split(":")[1])
       })
       .catch((err) => {
-        alert("Submit dữ liệu qua api không thành công")
+        alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api không thành công")
+        if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
       })
   }; // your form submit function which will invoke after successful validation
 
@@ -124,24 +127,22 @@ export default function ThemSanPham() {
   }
 
   // Upload ảnh lên backend
-  const uploadImageToBackend = () => {
+  const uploadImageToBackend = (id) => {
     // Duyệt từng ảnh của người dùng
     Array.from({ length: imageFormData.length }, (val, ind) => {
       // Tạo form data
       var formData = new FormData()
       // Đưa ảnh vào formdata
       formData.append("image", imageFormData[ind])
-      // Đưa id vào formData
-      formData.append("id",7)
+      // Đưa id sản phẩm vào formData
+      formData.append("id",id)
       // Up formdata chứa ảnh lên server
       axios.post("https://localhost:7216/api/UploadAnh/ThemAnhSanPham", formData)
         .then(() => {
-          console.log("Đã up ảnh thành công")
-          alert("Ok")
+          alert(`Đã up ảnh thứ ${ind+1}  thành công`)
         })
         .catch(() => {
-          console.log("Up ảnh thất bại")
-          alert("Alo failed")
+          alert(`Up ảnh thứ ${ind+1} thất bại`)
         })
     })
   }
@@ -379,11 +380,11 @@ export default function ThemSanPham() {
                 className={inputStyle}
                 {...register("gia", {
                   required: true,
-                  min: 10000,
+                  min: 101000,
                   max: 1000000000
                 })} />
               {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
-              {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 10.000 </p>}
+              {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 101.000 </p>}
               {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
             </div>
 

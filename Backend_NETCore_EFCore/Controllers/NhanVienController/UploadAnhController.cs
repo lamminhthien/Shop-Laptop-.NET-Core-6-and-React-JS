@@ -139,7 +139,7 @@ namespace ShopLaptop_EFCore.Controllers
             AnhSanPham anhSanPham = new AnhSanPham(id, "SP" + (idSanPham + 1).ToString() + ".png");
             _context.Add(anhSanPham);
             _context.SaveChanges();
-            return Ok("Test Luu Anh  vao DB complete");
+            return Ok("Test Luu Anh  vao DB complete, id mới của ảnh sản phẩm là" + anhSanPham.MaAnh);
         }
 
         [HttpPost("JsonBodyCustom")]
