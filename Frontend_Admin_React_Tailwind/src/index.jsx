@@ -20,6 +20,8 @@ import ListKhachHang from './Pages/KhachHang/ListKhachHang'
 import ListLichSuGiaCa from './Pages/LichSuGiaCa/ListLichSuGiaCa'
 import  XoaSanPham from './Pages/SanPham/XoaSanPham'
 import UploadFileTest from './Pages/UploadFileTest'
+import ThemLoaiSanPham from './Pages/LoaiSanPham/ThemLoaiSanPham'
+import ThemHangSanXuat from "./Pages/HangSanXuat/ThemHangSanXuat";
 
 
 
@@ -55,6 +57,10 @@ reactDom.render(
             <Route exact path="/delete-san-pham/:id" children={<XoaSanPham   />} />
 
             <Route exact path="/them_san_pham" children={<CreateBrand/>} />
+
+            <Route exact path="/them_loai_san_pham" children={<ThemLoaiSanPham/>} />
+
+            <Route exact path="/them_hang_san_xuat" children={<ThemHangSanXuat/>} />
 
             <Route exact path="/them-anh-test-hook-form" children={<UploadFileTest/>} />
 

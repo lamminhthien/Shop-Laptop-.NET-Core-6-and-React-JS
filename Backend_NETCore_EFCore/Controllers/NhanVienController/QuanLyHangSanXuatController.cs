@@ -108,7 +108,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // POST: api/QuanLyHangSanXuat
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("ThemHangSanXuat")]
         public async Task<ActionResult<HangSanXuat>> PostHangSanXuat(HangSanXuat hangSanXuat)
         {
             if (_context.HangSanXuats == null)
@@ -118,7 +118,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             _context.HangSanXuats.Add(hangSanXuat);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetHangSanXuat", new { id = hangSanXuat.MaHangSx }, hangSanXuat);
+            return Ok("Đã tạo hãng sản xuất mới, id:" + hangSanXuat.MaHangSx);
         }
 
         // DELETE: api/QuanLyHangSanXuat/5
