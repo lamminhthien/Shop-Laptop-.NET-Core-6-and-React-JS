@@ -13,10 +13,6 @@ export default function ThemSanPham() {
   const [previewPicture, setPreviewPicture] = useState([]);
   const [imageFormData, setImageFormData] = useState([])
   // Tạo dữ liệu cho các option trong thẻ select
-  const trangThaiSanPhamOption = [
-    { name: "Đang bán", value: 1 },
-    { name: "Hêt hàng", value: 0 }
-  ]
   const doPhanGiaiOption = ["HD+", "Full HD", "2K", "4K"]
   const oCungOption = [128, 256, 512, 1024, 2048]
   const heDieuHanhOption = ["Windows 8", "Windows 10", "Window 11", "Mac OS", "Ubuntu"]
@@ -66,8 +62,10 @@ export default function ThemSanPham() {
     // và hiện ra dữ liệu json  được chuỗi hóa
     // Đổi giá trị phần trăm chiết khấu sang số thực
     data.chietKhau = (data.chietKhau) / 100;
+    var sanPhamData =  Object.assign(data,{trangThaiSp:1})
+
     // Test hiển thị thử JSON data
-    alert(JSON.stringify(data));
+    alert(JSON.stringify(sanPhamData));
     // Đưa dữ liệu từ form vô axios
     axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data)
       .then((res) => {
@@ -236,24 +234,6 @@ export default function ThemSanPham() {
           {/* Trạng thái sản phẩm,CPU, CARD đồ họa */}
           {/* Trạng thái sản phẩm */}
           <div className="grid xl:grid-cols-3 xl:gap-6">
-            <div className={divStyle}>
-              <label class={labelStyle}>Trạng thái sản phẩm !!Đừng đưa vào form thêm sản phẩm</label>
-              <select
-                {...register("trangThaiSp", {
-                  required: true,
-                  min: 0,
-                  max: 1
-                })}
-                class={inputStyle}>
-                {trangThaiSanPhamOption.map((item) =>
-                  <option value={item.value}>{item.name}</option>
-                )}
-              </select>
-              {errors?.trangThaiSp?.type === "required" && <p className={errorStyle}>Trạng thái sản phẩm bắt buộc chọn</p>}
-              {errors?.trangThaiSp?.type === "min" && <p className={errorStyle}>Error, you are tying to edit value in html code for this select to below 0</p>}
-              {errors?.trangThaiSp?.type === "max" && <p className={errorStyle}>Error, you are trying to edit value html code for this select to above 1</p>}
-            </div>
-
             {/* CPU */}
             <div className={divStyle}>
               <label class={labelStyle}>CPU</label>
