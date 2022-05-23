@@ -108,17 +108,50 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
         // POST: api/QuanLyHangSanXuat
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("ThemHangSanXuat")]
-        public async Task<ActionResult<HangSanXuat>> PostHangSanXuat(HangSanXuat hangSanXuat)
+        [HttpPost("ThemHangSanXuat"), DisableRequestSizeLimit]
+        public async Task<ActionResult<HangSanXuat>> ThemHangSanXuat()
         {
-            if (_context.HangSanXuats == null)
+            // Lấy tên sản phẩm bằng form data
+            var tenHangSX = Request.Form["tenHangSX"][0];
+            if (tenHangSX == null) return BadRequest("Bạn chưa nhập tên ảnh");
+            if (HangSanXuatDuplicateName(tenHangSX))
             {
-                return Problem("Entity set 'shop_laptopContext.HangSanXuats'  is null.");
+                return BadRequest("Tên hãng sản xuất bị trùng");
             }
+
+            // Lấy ảnh từ form ra
+            var file = Request.Form.Files[0];
+
+            // Check xem request có rỗng file hay ko ?
+            if (file.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
+
+            // Validate file ảnh
+            if (!file.ContentType.Contains("image")) return BadRequest("This file is not image");
+
+            // Tạo đường dẫn  đến thư mục lưu ảnh sản phẩm
+            var folderName = Path.Combine("Resources", "Images", "HangSanXuat");
+
+            // Tạo đường dẫn của hệ thống để lưu file
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+            // Làm tên file ảnh
+            var tenFileAnh = tenHangSX + "." + file.ContentType.Split('/')[1];
+
+            // Tạo đường dẫn đầy đủ kèm với tên file ảnh và định dạng file ảnh để copy file vào server
+            var fullPath = Path.Combine(pathToSave, tenFileAnh);
+
+            // Tạo đối tượng loại sản phẩm
+            var hangSanXuat = new HangSanXuat(tenHangSX, tenFileAnh);
+
+            // Copy ảnh từ formdata front end vào fullPath với chế độ Create của filemode
+            using (var stream = new FileStream(fullPath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
             _context.HangSanXuats.Add(hangSanXuat);
             await _context.SaveChangesAsync();
-
-            return Ok("Đã tạo hãng sản xuất mới, id:" + hangSanXuat.MaHangSx);
+            return Ok("Đã tạo hãng sản xuất:" + tenHangSX);
         }
 
         // DELETE: api/QuanLyHangSanXuat/5
@@ -141,9 +174,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return NoContent();
         }
 
+        // Check trungf id
         private bool HangSanXuatExists(int id)
         {
             return (_context.HangSanXuats?.Any(e => e.MaHangSx == id)).GetValueOrDefault();
+        }
+
+        //Check trùng tên
+        private bool HangSanXuatDuplicateName(string tenHangSX)
+        {
+            return (_context.HangSanXuats?.Any(e => e.TenHangSx == tenHangSX)).GetValueOrDefault();
         }
     }
 }

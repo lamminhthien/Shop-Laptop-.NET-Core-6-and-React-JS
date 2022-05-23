@@ -15,9 +15,16 @@ namespace ShopLaptop_EFCore.Models
     [Index("Logo", Name = "UQ__HangSanX__A3C74550AF1B14A7", IsUnique = true)]
     public partial class HangSanXuat
     {
+
         public HangSanXuat()
         {
             SanPhams = new HashSet<SanPham>();
+        }
+
+        public HangSanXuat(string tenHangSx, string logo)
+        {
+            TenHangSx = tenHangSx;
+            Logo = logo;
         }
 
         [Key]
