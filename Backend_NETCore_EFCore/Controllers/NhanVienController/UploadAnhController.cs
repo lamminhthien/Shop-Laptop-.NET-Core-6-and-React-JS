@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
 using System.Net.Http.Headers;
@@ -18,7 +19,7 @@ namespace ShopLaptop_EFCore.Controllers
         }
 
         [HttpPost("ThemAnhSanPham"), DisableRequestSizeLimit]
-        public IActionResult ThemAnhSanPham()
+        public async Task<IActionResult> ThemAnhSanPham()
         {
             // Giả định mã sản phẩm là 1
             var id_request = Request.Form["id"][0];
@@ -35,9 +36,9 @@ namespace ShopLaptop_EFCore.Controllers
             }
 
             // Kiểm tra xem sản phẩm này có tồn tại hay ko?
-                var maSanPham = (from a in _context.SanPhams
+                var maSanPham = await (from a in _context.SanPhams
                                  where a.MaSanPham == id
-                                 select a.MaSanPham).FirstOrDefault();
+                                 select a.MaSanPham).FirstOrDefaultAsync();
             if (maSanPham == 0) return NotFound("Không tìm thấy sản phẩm để upload ảnh");
 
             try
@@ -56,12 +57,12 @@ namespace ShopLaptop_EFCore.Controllers
                 // Validate file ảnh
                 if (!file.ContentType.Contains("image")) return BadRequest("This file is not image");
                 // Check xem sản phẩm id=1 này đã có ảnh hay chưa
-                var anhSanPham = (from a in _context.SanPhams
+                var anhSanPham = await (from a in _context.SanPhams
                                   join b in _context.AnhSanPhams
                                   on a.MaSanPham equals b.MaSanPham
                                   where a.MaSanPham == id
                                   orderby b.FileAnh descending
-                                  select b).FirstOrDefault();
+                                  select b).FirstOrDefaultAsync();
                 // Nếu chưa có ảnh sản phẩm này
                 if (anhSanPham == null)
                 {
@@ -71,12 +72,12 @@ namespace ShopLaptop_EFCore.Controllers
                 else // Đã có sẵn từ 1 ảnh trở lên 
                 {
                     // Đếm số lượng ảnh đang có
-                    var countAnhSanPham = (from a in _context.SanPhams
+                    var countAnhSanPham = await (from a in _context.SanPhams
                                            join b in _context.AnhSanPhams
                                            on a.MaSanPham equals b.MaSanPham
                                            where a.MaSanPham == id
                                            orderby b.FileAnh descending
-                                           select b.FileAnh).Count();
+                                           select b.FileAnh).CountAsync();
                     // Nếu vượt quá 4 ảnh
                     if (countAnhSanPham >= 4)
                     {
@@ -100,9 +101,9 @@ namespace ShopLaptop_EFCore.Controllers
                 // Băt đầu lưu tên ảnh vào database
                 AnhSanPham anhSanPhamDB = new AnhSanPham(id, fileName + "." + file.ContentType.Split('/')[1]);
                 // Đặt lệnh chờ thêm ảnh
-                _context.Add(anhSanPhamDB);
+                 await _context.AddAsync(anhSanPhamDB);
                 // Lưu mọi thay đổi vào database
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok("Đã tạo ảnh mới với tên " + fileName);
             } // Trường hợp này là formData rỗng rồi

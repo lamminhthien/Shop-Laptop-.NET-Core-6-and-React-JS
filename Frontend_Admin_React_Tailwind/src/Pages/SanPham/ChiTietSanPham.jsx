@@ -20,7 +20,7 @@ export default function ChiTietSanPham() {
     "Tên loại sản phẩm", "Hãng sản xuất",
     "Trạng thái", "CPU", "Card đồ họa", "Độ phân giải",
     "Ổ cưng", "Hệ điều hành", "Kích thước", " Màn hình",
-    "Trọng lượng", "RAM", "Mô tả thêm"
+    "Trọng lượng", "RAM", "Mô tả thêm","Giá niêm yết"
   ]
   const jsonDataKey = [
     "maSanPham",
@@ -28,7 +28,7 @@ export default function ChiTietSanPham() {
     "tinhTrang","cpu","cardDoHoa",
     "doPhanGiai","oCung","heDieuHanh",
     "kichThuoc","manHinh","trongLuong","ram",
-    "moTaThem"
+    "moTaThem","giaNiemYet"
   ]
 
 
@@ -121,6 +121,7 @@ const setUpAnh = (data) => {
                 <div class="col-span-3  flex items-center justify-center border-r-2 border-b-2 align-middle">
                   {/* Hiển thị dữ liệu lấy từ api */}
                   <p>{dataChiTietSanPham[jsonDataKey[ind]]}</p>
+
                 </div>
               </>
             )}

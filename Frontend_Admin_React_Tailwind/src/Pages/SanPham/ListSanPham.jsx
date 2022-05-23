@@ -23,7 +23,7 @@ export default function ListSanPham() {
   // Table Headers
   const tableHeaders = ["Mã sản phẩm", "Tên sản phẩm",
     "Loại sản phẩm", "Hãng sãn xuất",
-    "Tình trạng", "Giá niêm yết", "Chức năng"
+    "Tình trạng", "Chức năng"
   ]
 
   // Khởi tạo danh sách sản phẩm
@@ -113,7 +113,7 @@ export default function ListSanPham() {
                   {
                     // Hiển thị thông tin các trường còn lại , có cùng style 
                     [item.tenSanPham, item.loaiSanPham,
-                    item.hangSanXuat, item.tinhTrang, item.giaNiemYet]
+                    item.hangSanXuat, item.tinhTrang == 1 ? "Còn hàng" : "Hết hàng"]
                       .map((element) =>
                         <td class="px-6 py-4">
                           {element}

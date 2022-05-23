@@ -55,17 +55,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
               //return await _context.SanPhams.ToListAsync();
               // Ghi chú đây là trả về kiểu dữ liệu vô danh
               // Vì vậy cần có ToListAsync() thay vì ToList()
+
             var ketqua = (from a in _context.SanPhams
                           join b in _context.LoaiSanPhams on
                           a.MaLoaiSp equals b.MaLoaiSp
                           join c in _context.HangSanXuats on
                           a.MaHangSx equals c.MaHangSx
-                          join d in _context.BienDongGia on
-                          a.MaSanPham equals d.MaSanPham
-                          where d.LanThayDoiGia == (from a in _context.SanPhams 
-                                join b in _context.BienDongGia on a.MaSanPham equals b.MaSanPham
-                                orderby b.LanThayDoiGia descending 
-                                select b.LanThayDoiGia).First()
+                          //where d.LanThayDoiGia == (from a in _context.SanPhams 
+                          //      join b in _context.BienDongGia on a.MaSanPham equals b.MaSanPham
+                          //      orderby b.LanThayDoiGia descending 
+                          //      select b.LanThayDoiGia).First()
                           select new
                           {
                               maSanPham = a.MaSanPham,
@@ -73,7 +72,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                               loaiSanPham = b.TenLoaiSp,
                               hangSanXuat = c.TenHangSx,
                               tinhTrang = a.TrangThaiSp,
-                              giaNiemYet = Math.Ceiling(d.GiaNhap * (1 + d.ChietKhau))
+                              //giaNiemYet = Math.Ceiling(d.GiaNhap * (1 + d.ChietKhau))
                           }).Skip(5 * (page - 1)).Take(5);
             return Ok(new
             {
@@ -132,6 +131,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             var listAnhSanPham = (from a in _context.SanPhams
                                   join b in _context.AnhSanPhams
                                   on a.MaSanPham equals b.MaSanPham
+                                  where a.MaSanPham == id
                                   select b.FileAnh);
 
             if (chiTietSanPham == null)
