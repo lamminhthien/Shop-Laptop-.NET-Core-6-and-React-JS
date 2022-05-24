@@ -122,7 +122,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 if (file.Exists) 
                 {
                     file.Delete();
-                    var tenFileAnhMoi = Path.Combine(ResourcesDir, loaiSanPhamExist.TenLoaiSp + "." + fileAnh.ContentType.Split("/")[1]);
+                    var tenFileAnhMoi = Path.Combine(ResourcesDir, loaiSanPhamExist.AnhMinhHoa);
                     using (var stream = new FileStream(tenFileAnhMoi, FileMode.Create))
                     {
                         fileAnh.CopyTo(stream);
@@ -169,6 +169,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
             // Làm tên file ảnh
             var tenFileAnh = tenLoaiSp + "." + file.ContentType.Split('/')[1];
+
+            // Thay thế khoảng trắng bằng dấu "-"
+            tenFileAnh = tenFileAnh.Replace(" ", "-");
 
             // Tạo đường dẫn đầy đủ kèm với tên file ảnh và định dạng file ảnh để copy file vào server
             var fullPath = Path.Combine(pathToSave, tenFileAnh);
