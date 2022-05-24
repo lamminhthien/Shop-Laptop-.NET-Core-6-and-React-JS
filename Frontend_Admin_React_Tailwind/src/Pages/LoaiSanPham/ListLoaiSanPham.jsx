@@ -10,6 +10,9 @@ export default function ListLoaiSanPham() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
 
+    // Đường dẫn đến thư mục ảnh ở Backend
+    const imgURL = "https://localhost:7216/Resources/Images/LoaiSanPham"
+
     // Đọc số trang hiện tại
     let { pageNumber } = useParams();
 
@@ -86,17 +89,14 @@ export default function ListLoaiSanPham() {
                                         {/* Riêng mã sản phẩm được in đậm in ra trước */}
                                         {item.maLoaiSp}
                                     </th>
-                                    {
-                                        // Hiển thị thông tin các trường còn lại , có cùng style 
-                                        [item.tenLoaiSp, item.anhMinhHoa]
-                                            .map((element) =>
-                                                <td class="px-6 py-4">
-                                                    {element}
-                                                </td>
-                                            )
-                                    }
+                                        {/* // Hiển thị thông tin các trường còn lại , có cùng style  */}
+                                       <td className='px-6 py-4'>{item.tenLoaiSp}</td>
+                                       <td className='px-6 py-4'>
+                                       <img src={`${imgURL}/${(item.anhMinhHoa).trim()}`}  className='px-6 py-4 w-24' alt={item.tenLoaiSp}/>
+                                       </td>
+                                      
                                     <td class="px-5 py-4 text-left">
-                                        <a href={"/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
+                                        <a href={"/edit-san-pham/" + item.maLoaiSp} class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
                                     </td>
 

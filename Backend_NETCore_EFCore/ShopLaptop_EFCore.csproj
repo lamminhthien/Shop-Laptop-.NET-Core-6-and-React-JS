@@ -29,7 +29,6 @@
     <Folder Include="Controllers\PublicController\" />
     <Folder Include="Resources\Images\Logo\" />
     <Folder Include="Resources\Images\HangSanXuat\" />
-    <Folder Include="Resources\Images\LoaiSanPham\" />
     <Folder Include="Resources\Images\SanPham\" />
   </ItemGroup>
 
