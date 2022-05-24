@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Sidebar from '../../Components/Sidebar';
 import { useState, useEffect } from 'react';
 import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import Paging from '../../Components/Paging';
+import getListHangSanXuat from '../../Api/HangSanXuat/hangSanXuatApi'
+import hangSanXuatApi from '../../Api/HangSanXuat/hangSanXuatApi';
 export default function ListHangSanXuat() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
@@ -27,14 +28,10 @@ export default function ListHangSanXuat() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/QuanLyHangSanXuat/ListHangSanXuat?page=${pageNumber}`)
-            .then(res => {
-                // Set list hãng sản xuất
-                set_listHangSanXuat(res.data.ketQua)
-                // Set tổng số trang
-                set_numberOfPages(res.data.tongSoTrang)
-            })
-            .catch(error => console.log(error));
+        hangSanXuatApi.getListHangSanXuat(pageNumber).then((res)=>{
+            set_listHangSanXuat(res.data.ketQua)
+            set_numberOfPages(res.data.tongSoTrang)
+        })
     }, [])
 
     return (
