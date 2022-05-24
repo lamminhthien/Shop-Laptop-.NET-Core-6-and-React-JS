@@ -96,6 +96,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpPut("SuaAnhLoaiSanPham/{id}"),DisableRequestSizeLimit]
         public async Task<IActionResult> SuaAnhLoaiSanPham(int id)
         {
+
+            // Bắt đầu lấy ảnh
+            var fileAnh = Request.Form.Files[0];
+            // Check số lưọng ảnh
+            if (fileAnh.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
+
+            // Validate file ảnh
+            if (!fileAnh.ContentType.Contains("image")) return BadRequest("Đây không phải file ảnh");
+
             Console.WriteLine(id);
             // Kiểm tra xem id loại sản phẩm có tồn tại hay ko 
             var loaiSanPhamExist = await _context.LoaiSanPhams
@@ -109,11 +118,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 var ResourcesDir = Path.Combine(Directory.GetCurrentDirectory(),"Resources","Images","LoaiSanPham");
                 var fullPathAnhCu = Path.Combine(ResourcesDir, tenFileAnhCu);
                 FileInfo file = new FileInfo(fullPathAnhCu);
-                // Tiến hành xóa ảnh
+                // Tiến hành xóa ảnh và đổi ảnh
                 if (file.Exists) 
                 {
                     file.Delete();
-                    return Ok("Xóa file ảnh thành công, tiến hành đổi ánh");
+                    var tenFileAnhMoi = Path.Combine(ResourcesDir, loaiSanPhamExist.TenLoaiSp + "." + fileAnh.ContentType.Split("/")[1]);
+                    using (var stream = new FileStream(tenFileAnhMoi, FileMode.Create))
+                    {
+                        fileAnh.CopyTo(stream);
+                    }
+                    return Ok("Đã đổi ảnh thành công");
                 }
                 else
                 {
@@ -148,7 +162,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             if (file.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
 
             // Validate file ảnh
-            if (!file.ContentType.Contains("image")) return BadRequest("This file is not image");
+            if (!file.ContentType.Contains("image")) return BadRequest("Đây không phải file ảnh");
 
             // Tạo đường dẫn  đến thư mục lưu ảnh sản phẩm
             var folderName = Path.Combine("Resources", "Images", "LoaiSanPham");
