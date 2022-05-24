@@ -92,10 +92,44 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
 
 
+        //Sửa ảnh cho loại sản phẩm
+        [HttpPut("SuaAnhLoaiSanPham/{id}"),DisableRequestSizeLimit]
+        public async Task<IActionResult> SuaAnhLoaiSanPham(int id)
+        {
+            Console.WriteLine(id);
+            // Kiểm tra xem id loại sản phẩm có tồn tại hay ko 
+            var loaiSanPhamExist = await _context.LoaiSanPhams
+                .Where(o => o.MaLoaiSp == id).FirstOrDefaultAsync();
+            // Nếu tồn tại loại sản phẩm này
+            if (loaiSanPhamExist != null)
+            {
+                // Chỉ cập nhật ảnh loại sản phẩm này
+                // Lấy tên file ảnh cũ và đường dẫn file trong server
+                var tenFileAnhCu = loaiSanPhamExist.AnhMinhHoa;
+                var ResourcesDir = Path.Combine(Directory.GetCurrentDirectory(),"Resources","Images","LoaiSanPham");
+                var fullPathAnhCu = Path.Combine(ResourcesDir, tenFileAnhCu);
+                FileInfo file = new FileInfo(fullPathAnhCu);
+                // Tiến hành xóa ảnh
+                if (file.Exists) 
+                {
+                    file.Delete();
+                    return Ok("Xóa file ảnh thành công, tiến hành đổi ánh");
+                }
+                else
+                {
+                    return BadRequest("Xóa ảnh thất bại");
+                }
 
 
-        // POST: api/QuanLyDanhMucSanPham
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+                
+            }
+            return BadRequest("Không tìm thấy loại sản phẩm này");
+        }
+
+
+
+
+        // Thêm loại sản phẩm (kèm luôn thêm ảnh)
         [HttpPost("ThemLoaiSanPham"),DisableRequestSizeLimit]
         public async Task<ActionResult<LoaiSanPham>> ThemLoaiSanPham()
         {
@@ -142,25 +176,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return Ok("Đã tạo loại sản phẩm:"+tenLoaiSp);
         }
 
-        // DELETE: api/QuanLyDanhMucSanPham/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoaiSanPham(int id)
-        {
-            if (_context.LoaiSanPhams == null)
-            {
-                return NotFound();
-            }
-            var loaiSanPham = await _context.LoaiSanPhams.FindAsync(id);
-            if (loaiSanPham == null)
-            {
-                return NotFound();
-            }
 
-            _context.LoaiSanPhams.Remove(loaiSanPham);
-            await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
 
         // Check loại sản phẩm trùng id ?
         private bool LoailoaiSanPhamExists(int id)
