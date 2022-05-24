@@ -95,7 +95,8 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                             </div>
                             <div className={divStyle}>
                                 <label className={labelStyle}>Ảnh minh họa</label>
-                                <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
+                                <input 
+                                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
  " id="multiple_files" type="file"
                                     onChange={previewLogo}
                                 />
@@ -107,7 +108,9 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                             </div>
                             <div className={divStyle}>
                                 <label className={`${labelStyle} mr-20 text-center`}>Xem trước ảnh</label>
-                                {previewPicture == null ? <p className={errorStyle}>Chưa có ảnh nào</p> :
+                                {
+                                    previewPicture == null ? 
+                                    <p className={errorStyle}>Chưa có ảnh nào</p> :
                                     <img src={previewPicture} alt="123" />
                                 }
                             </div>

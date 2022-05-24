@@ -12,11 +12,11 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ListBienDongGiaCaController : ControllerBase
+    public class BienDongGiaCaController : ControllerBase
     {
         private readonly shop_laptopContext _context;
 
-        public ListBienDongGiaCaController(shop_laptopContext context)
+        public BienDongGiaCaController(shop_laptopContext context)
         {
             _context = context;
         }

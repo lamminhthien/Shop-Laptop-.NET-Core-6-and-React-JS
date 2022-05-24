@@ -22,6 +22,7 @@ import  XoaSanPham from './Pages/SanPham/XoaSanPham'
 import UploadFileTest from './Pages/UploadFileTest'
 import ThemLoaiSanPham from './Pages/LoaiSanPham/ThemLoaiSanPham'
 import ThemHangSanXuat from "./Pages/HangSanXuat/ThemHangSanXuat";
+import TestAxios from "./Pages/HangSanXuat/Test"
 
 
 
@@ -63,6 +64,8 @@ reactDom.render(
             <Route exact path="/them_hang_san_xuat" children={<ThemHangSanXuat/>} />
 
             <Route exact path="/them-anh-test-hook-form" children={<UploadFileTest/>} />
+
+            <Route exact path="/axios-test" children={<TestAxios/>} />
 
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
