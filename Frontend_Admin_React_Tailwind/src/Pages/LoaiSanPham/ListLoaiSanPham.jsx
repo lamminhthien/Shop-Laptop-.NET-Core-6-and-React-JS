@@ -40,6 +40,20 @@ export default function ListLoaiSanPham() {
             .catch(error => console.log(error));
     }, [])
 
+    // Sửa tên loại sản phẩm
+    const changeProductName = (id,e) => {
+        const imgFile = e.target.files[0]
+        const formData = new FormData()
+        formData.append("image",imgFile)
+        axios.put(`https://localhost:7216/api/QuanLyDanhMucSanPham/SuaAnhLoaiSanPham/${id}`,formData)
+            .then(res => {
+                alert(res)
+            })
+            .catch(err => {
+                alert(err)
+            })
+    }
+
     return (
         <div className='flex'>
             {/* Hiển thị danh sách sản phẩm lên */}
@@ -96,8 +110,11 @@ export default function ListLoaiSanPham() {
                                        </td>
                                       
                                     <td class="px-5 py-4 text-left">
+                                        <input  class="font-medium text-blue-600
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 
+ hover:text-white hover:scale-170 ease-in-out duration-150 " type="file" multiple  onChange={(event) => {changeProductName(item.maLoaiSp,event)}}/>
                                         <a href={"/edit-san-pham/" + item.maLoaiSp} class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150">Sữa ảnh</a>
                                     </td>
 
                                 </tr>
