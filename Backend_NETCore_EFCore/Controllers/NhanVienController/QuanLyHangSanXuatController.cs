@@ -167,6 +167,53 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
 
+        //Sửa ảnh cho hãng sản xuất
+        [HttpPut("SuaAnhHangSanXuat/{id}"), DisableRequestSizeLimit]
+        public async Task<IActionResult> SuaAnhHangSanXuat(int id)
+        {
+
+            // Bắt đầu lấy ảnh
+            var fileAnh = Request.Form.Files[0];
+            // Check số lưọng ảnh
+            if (fileAnh.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
+
+            // Validate file ảnh
+            if (!fileAnh.ContentType.Contains("image")) return BadRequest("Đây không phải file ảnh");
+
+            Console.WriteLine(id);
+            // Kiểm tra xem id loại sản phẩm có tồn tại hay ko 
+            var hangSanXuatExist = await _context.HangSanXuats
+                .Where(o => o.MaHangSx == id).FirstOrDefaultAsync();
+            // Nếu tồn tại loại sản phẩm này
+            if (hangSanXuatExist != null)
+            {
+                // Chỉ cập nhật ảnh loại sản phẩm này
+                // Lấy tên file ảnh cũ và đường dẫn file trong server
+                var tenFileAnhCu = hangSanXuatExist.Logo;
+                var ResourcesDir = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images", "HangSanXuat");
+                var fullPathAnhCu = Path.Combine(ResourcesDir, tenFileAnhCu);
+                FileInfo file = new FileInfo(fullPathAnhCu);
+                // Tiến hành xóa ảnh và đổi ảnh
+                if (file.Exists)
+                {
+                    file.Delete();
+                    var tenFileAnhMoi = Path.Combine(ResourcesDir, hangSanXuatExist.TenHangSx + "." + fileAnh.ContentType.Split("/")[1]);
+                    using (var stream = new FileStream(tenFileAnhMoi, FileMode.Create))
+                    {
+                        fileAnh.CopyTo(stream);
+                    }
+                    return Ok("Đã đổi ảnh thành công");
+                }
+                else
+                {
+                    return BadRequest("Xóa ảnh thất bại");
+                }
+            }
+            return BadRequest("Không tìm thấy loại sản phẩm này");
+        }
+
+
+
         // Check trùng id
         private bool HangSanXuatExists(int id)
         {

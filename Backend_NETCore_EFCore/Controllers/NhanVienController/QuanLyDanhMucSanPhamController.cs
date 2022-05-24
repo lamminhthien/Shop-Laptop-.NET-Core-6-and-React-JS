@@ -133,9 +133,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 {
                     return BadRequest("Xóa ảnh thất bại");
                 }
-
-
-                
             }
             return BadRequest("Không tìm thấy loại sản phẩm này");
         }
