@@ -21,7 +21,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             _context = context;
         }
 
-        // GET: api/QuanLyHangSanXuat
+        // Lấy danh sách hãng sản xuất
         [HttpGet("ListHangSanXuat")]
         public async Task<ActionResult<IEnumerable<HangSanXuat>>> GetHangSanXuats(int page, string? orderByProperty, string? searchBy, bool? allRecord)
         {
@@ -57,24 +57,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             });
         }
 
-        // GET: api/QuanLyHangSanXuat/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HangSanXuat>> GetHangSanXuat(int id)
-        {
-            if (_context.HangSanXuats == null)
-            {
-                return NotFound();
-            }
-            var hangSanXuat = await _context.HangSanXuats.FindAsync(id);
-
-            if (hangSanXuat == null)
-            {
-                return NotFound();
-            }
-
-            return hangSanXuat;
-        }
-
         // PUT: api/QuanLyHangSanXuat/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -106,8 +88,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return NoContent();
         }
 
-        // POST: api/QuanLyHangSanXuat
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
+        // Thêm hãng sản xuất
         [HttpPost("ThemHangSanXuat"), DisableRequestSizeLimit]
         public async Task<ActionResult<HangSanXuat>> ThemHangSanXuat()
         {
@@ -140,7 +122,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             // Tạo đường dẫn đầy đủ kèm với tên file ảnh và định dạng file ảnh để copy file vào server
             var fullPath = Path.Combine(pathToSave, tenFileAnh);
 
-            // Tạo đối tượng loại sản phẩm
+            // Tạo đối tượng hãng sản xuất
             var hangSanXuat = new HangSanXuat(tenHangSX, tenFileAnh);
 
             // Copy ảnh từ formdata front end vào fullPath với chế độ Create của filemode
@@ -154,27 +136,38 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return Ok("Đã tạo hãng sản xuất:" + tenHangSX);
         }
 
-        // DELETE: api/QuanLyHangSanXuat/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHangSanXuat(int id)
+        //Sửa tên hãng sản xuất
+        [HttpPut("SuaTenHangSanXuat/{id}")]
+        public async Task<IActionResult> SuaTenHangSanXuat(int id)
         {
-            if (_context.HangSanXuats == null)
+            // Lấy tên hãng sản xuất mới
+            var tenHangSXMoi = Request.Form["tenHangSX"][0];
+            Console.WriteLine(id);
+            // Kiểm tra xem id sản phẩm có tồn tại hay ko 
+            var hangSanXuatExist = await _context.HangSanXuats
+                .Where(o => o.MaHangSx == id).FirstOrDefaultAsync();
+            // Nếu tồn tại hãng sản xuất này
+            if (hangSanXuatExist != null)
             {
-                return NotFound();
+                // Chỉ cập nhật tên sản phẩm
+                hangSanXuatExist.TenHangSx = tenHangSXMoi;
+                _context.Entry(hangSanXuatExist).State = EntityState.Modified;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return Ok("Đã thay đổi tên hãng sản xuất:" + hangSanXuatExist.TenHangSx);
+                }
+                catch (DbUpdateException dbExcept)
+                {
+                    if (dbExcept.InnerException.Message.Contains("Violation of UNIQUE KEY constraint"))
+                        return BadRequest("Tên hãng sản xuất bị trùng");
+                }
             }
-            var hangSanXuat = await _context.HangSanXuats.FindAsync(id);
-            if (hangSanXuat == null)
-            {
-                return NotFound();
-            }
-
-            _context.HangSanXuats.Remove(hangSanXuat);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return BadRequest("Không tìm thấy hãng sản xuất này");
         }
 
-        // Check trungf id
+
+        // Check trùng id
         private bool HangSanXuatExists(int id)
         {
             return (_context.HangSanXuats?.Any(e => e.MaHangSx == id)).GetValueOrDefault();

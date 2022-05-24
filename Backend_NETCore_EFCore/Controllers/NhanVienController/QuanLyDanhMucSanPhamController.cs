@@ -60,10 +60,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
 
-        // PUT: api/QuanLyDanhMucSanPham/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("SuaLoaiSanPham/{id}")]
-        public async Task<IActionResult> SuaLoaiSanPham(int id)
+        //Sửa tên loại sản phẩm
+        [HttpPut("SuaTenLoaiSanPham/{id}")]
+        public async Task<IActionResult> SuaTenLoaiSanPham(int id)
         {
             // Lấy tên loại sản phẩm mới
             var tenLoaiSPMoi = Request.Form["tenLoaiSP"][0];
