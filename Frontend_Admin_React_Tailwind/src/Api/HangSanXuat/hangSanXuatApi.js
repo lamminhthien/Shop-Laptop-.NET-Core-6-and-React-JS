@@ -13,14 +13,7 @@ class hangSanXuatApi {
          const chucNang = `ThemHangSanXuat`
         return axios.post(`${mainURL}/${chucNang}`,formData)
      }
-
-
-
 }
-
-
- 
-
 
 export default new hangSanXuatApi();
 

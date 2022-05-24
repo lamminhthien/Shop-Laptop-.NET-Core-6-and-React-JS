@@ -1,6 +1,7 @@
 
 // Backend Base URL
 const base_url = "https://localhost:7216/api"
+const backend_img_route = "https://localhost:7216/Resources/Images"
 const backend_main_route = {
     "hangSanXuatBaseURL" : "QuanLyHangSanXuat",
     "danhMucSanPhamBaseURL" : "QuanLyDanhMucSanPham",
@@ -11,9 +12,12 @@ const backend_main_route = {
     "bienDongGiaCaBaseURL" : "BienDongGiaCa",
     "loginNhanVien" : "LoginNhanVien"
 }
+
 const testting = () => {
     console.log('hello thien');
 }
 
-module.exports = {base_url,backend_main_route,testting}
+
+
+module.exports = {base_url,backend_main_route,testting,backend_img_route}
 

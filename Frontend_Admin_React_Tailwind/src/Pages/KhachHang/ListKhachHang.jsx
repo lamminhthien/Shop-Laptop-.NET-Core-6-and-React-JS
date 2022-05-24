@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
+import khachHangApi from '../../Api/KhachHang/khachHangApi';
 
 import Paging from '../../Components/Paging';
 export default function ListKhachHang() {
@@ -29,7 +30,7 @@ export default function ListKhachHang() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách khách hàng và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/QuanLyKhachHang/ListKhachHang/${pageNumber}`)
+        khachHangApi.getListKhachHang(pageNumber)
             .then(res => {
                 // Set list khách hàng
                 set_listKhachHang(res.data.ketqua)

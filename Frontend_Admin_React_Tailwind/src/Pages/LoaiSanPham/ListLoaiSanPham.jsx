@@ -6,12 +6,14 @@ import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import Paging from '../../Components/Paging';
+import loaiSanPhamApi from '../../Api/LoaiSanPham/loaiSanPhamApi';
+
 export default function ListLoaiSanPham() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
 
     // Đường dẫn đến thư mục ảnh ở Backend
-    const imgURL = "https://localhost:7216/Resources/Images/LoaiSanPham"
+    const imgURL = loaiSanPhamApi.loadAnhMinhHoa()
 
     // Đọc số trang hiện tại
     let { pageNumber } = useParams();
@@ -30,7 +32,7 @@ export default function ListLoaiSanPham() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách sản phẩm và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/QuanLyDanhMucSanPham/ListDanhMucSanPham?page=${pageNumber}`)
+        loaiSanPhamApi.getListloaiSanPham(pageNumber)
             .then(res => {
                 // Set list sản phẩm
                 set_listLoaiSanPham(res.data.ketQua)
@@ -40,12 +42,12 @@ export default function ListLoaiSanPham() {
             .catch(error => console.log(error));
     }, [])
 
-    // Sửa tên loại sản phẩm
+    // Sửa ảnh loại sản phẩm
     const changeProductName = (id,e) => {
         const imgFile = e.target.files[0]
         const formData = new FormData()
         formData.append("image",imgFile)
-        axios.put(`https://localhost:7216/api/QuanLyDanhMucSanPham/SuaAnhLoaiSanPham/${id}`,formData)
+        loaiSanPhamApi.suaAnhLoaiSanPham(id,formData)
             .then(res => {
                 alert(res)
             })

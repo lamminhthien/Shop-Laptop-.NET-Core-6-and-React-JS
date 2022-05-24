@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
+import lichSuGiaCaApi from '../../Api/LichSuGiaCa/lichSuGiaCaApi';
 
 import Paging from '../../Components/Paging';
 export default function ListLichSuGiaCa() {
@@ -29,7 +30,7 @@ export default function ListLichSuGiaCa() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách lịch sử giá cả và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/ListBienDongGiaCa/ListBienDongGia/${pageNumber}`)
+        lichSuGiaCaApi.getListLichSuGiaCa(pageNumber)
             .then(res => {
                 // Set list lịch sử giá cả
                 set_listLichSuGiaCa(res.data.ketqua)

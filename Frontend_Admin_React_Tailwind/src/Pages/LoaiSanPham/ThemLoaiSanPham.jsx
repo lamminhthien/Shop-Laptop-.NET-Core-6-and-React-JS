@@ -2,6 +2,7 @@ import Sidebar from "../../Components/Sidebar";
 import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
+import loaiSanPhamApi from "../../Api/LoaiSanPham/loaiSanPhamApi";
 
 export default function ThemLoaiSanPham() {
     const [previewPicture, setPreviewPicture] = useState();
@@ -38,7 +39,7 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             formData.append("tenLoaiSP",data.tenLoaiSp)
             formData.append("image",imageFormData)
             // Đưa dữ liệu từ form vô axios
-            axios.post("https://localhost:7216/api/QuanLyDanhMucSanPham/ThemLoaiSanPham", formData)
+            loaiSanPhamApi.themloaiSanPham(formData)
                 .then((res) => {
                     alert("Submitloại sản phẩm qua api thành công")
                     alert(res.data.split(":")[1])
