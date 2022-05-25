@@ -22,7 +22,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         // GET: api/QuanLyNhanVien
-        [HttpGet]
+        [HttpGet("ListNhanVien")]
         public async Task<ActionResult<IEnumerable<NhanVien>>> GetNhanViens()
         {
           if (_context.NhanViens == null)

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Sidebar from '../../Components/Sidebar';
 import { useState, useEffect } from 'react';
 import isAuthorized from "../../Helpers/Authentication";
@@ -10,6 +9,7 @@ import Paging from '../../Components/Paging';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import SanPhamApi from '../../Api/SanPham/SanPhamApi';
 
 export default function ListSanPham() {
 
@@ -34,7 +34,7 @@ export default function ListSanPham() {
   // Thực thi lúc bắt đầu trang web
   useEffect(() => {
     // Lấy danh sách sản phẩm và tổng số trang cần phân trang
-    axios.get(`https://localhost:7216/api/QuanLySanPham/ListSanPham/${pageNumber}`)
+    SanPhamApi.getListSanPham(pageNumber)
       .then(res => {
         // Set list sản phẩm
         set_listSanPham(res.data.ketqua)

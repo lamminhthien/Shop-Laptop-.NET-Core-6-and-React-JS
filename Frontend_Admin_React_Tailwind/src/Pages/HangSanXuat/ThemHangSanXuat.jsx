@@ -2,7 +2,7 @@ import Sidebar from "../../Components/Sidebar";
 import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import hangSanXuatApi from "../../Api/HangSanXuat/hangSanXuatApi";
+import HangSanXuatApi from "../../Api/HangSanXuat/HangSanXuatApi";
 
 export default function ThemHangSanXuat() {
     const [previewPicture, setPreviewPicture] = useState();
@@ -39,7 +39,7 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             formData.append("tenHangSX",data.tenHangSX)
             formData.append("image",imageFormData)
             // Đưa dữ liệu từ form vô axios
-            hangSanXuatApi.themHangSanXuat(formData)
+            HangSanXuatApi.themHangSanXuat(formData)
                 .then((res) => {
                     alert("Submitloại hãng sản xuất qua api thành công")
                     alert(res.data.split(":")[1])

@@ -2,10 +2,12 @@
 import { useState, useEffect } from 'react';
 import NotFoundPage from "../../Components/404ErrorPage";
 import Sidebar from "../../Components/Sidebar";
-import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { useForm } from "react-hook-form";
 import { useParams, useRouteMatch } from "react-router-dom";
+import SanPhamApi from '../../Api/SanPham/SanPhamApi';
+import HangSanXuatApi from '../../Api/HangSanXuat/HangSanXuatApi';
+import LoaiSanPhamApi from '../../Api/LoaiSanPham/LoaiSanPhamApi';
 
 export default function EditSanPham() {
   let { id } = useParams();
@@ -57,7 +59,7 @@ export default function EditSanPham() {
     // Test hiển thị thử JSON data
     alert(JSON.stringify(data));
     // Đưa dữ liệu từ form vô axios
-    axios.put(`https://localhost:7216/api/QuanLySanPham/CapNhatSanPham/${id}`, data)
+    SanPhamApi.editSanPham(id,data)
       .then((res) => {
         alert("Submit dữ liệu qua api thành công")
       })
@@ -67,7 +69,7 @@ export default function EditSanPham() {
   }; // your form submit function which will invoke after successful validation
   // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
   const fetchApi = async () => {
-    await axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
+    await SanPhamApi.getDetailSanPham(id)
       .then(res => {
         // Đặt tín hiệu đang loading là false
         setisLoading(false)
@@ -94,7 +96,7 @@ export default function EditSanPham() {
     fetchApi();
 
     // Get Danh sách các hãng sản xuât
-    axios.get("https://localhost:7216/api/QuanLyHangSanXuat/ListHangSanXuat?allRecord=true")
+    HangSanXuatApi.getAllHangSanXuat()
       .then((res) => {
         setmaHangSXOption(res.data)
       })
@@ -103,7 +105,7 @@ export default function EditSanPham() {
       })
 
     // Get danh sách các danh mục sản phẩm
-    axios.get("https://localhost:7216/api/QuanLyDanhMucSanPham/ListDanhMucSanPham?allRecord=true")
+    LoaiSanPhamApi.getAllLoaiSanPham()
       .then((res) => {
         setmaLoaiSpOpton(res.data)
       })

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Sidebar from '../../Components/Sidebar';
 import { useState, useEffect } from 'react';
 import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
-
-import Paging from '../../Components/Paging';
+import NhanVienApi from '../../Api/NhanVien/NhanVienApi';
 export default function ListNhanVien() {
 
     // Table Headers
@@ -18,7 +16,7 @@ export default function ListNhanVien() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách nhân viên và tổng số trang cần phân trang
-        axios.get(`https://localhost:7216/api/QuanLyNhanVien`)
+        NhanVienApi.getListNhanVien()
             .then(res => {
                 // Set list nhân viên
                 set_listNhanVien(res.data)

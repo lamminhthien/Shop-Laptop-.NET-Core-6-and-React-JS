@@ -5,8 +5,8 @@ import isAuthorized from "../../Helpers/Authentication";
 import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import Paging from '../../Components/Paging';
-import getListHangSanXuat from '../../Api/HangSanXuat/hangSanXuatApi'
-import hangSanXuatApi from '../../Api/HangSanXuat/hangSanXuatApi';
+import getListHangSanXuat from '../../Api/HangSanXuat/HangSanXuatApi'
+import HangSanXuatApi from '../../Api/HangSanXuat/HangSanXuatApi';
 export default function ListHangSanXuat() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
@@ -28,7 +28,7 @@ export default function ListHangSanXuat() {
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
         // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
-        hangSanXuatApi.getListHangSanXuat(pageNumber).then((res)=>{
+        HangSanXuatApi.getListHangSanXuat(pageNumber).then((res)=>{
             set_listHangSanXuat(res.data.ketQua)
             set_numberOfPages(res.data.tongSoTrang)
         })
