@@ -24,6 +24,7 @@ import ThemLoaiSanPham from './Pages/LoaiSanPham/ThemLoaiSanPham'
 import ThemHangSanXuat from "./Pages/HangSanXuat/ThemHangSanXuat";
 import TestAxios from "./Pages/HangSanXuat/Test"
 import HomePage from "./Pages/Public/TrangChu/index"
+import ChiTietSanPhamPublic from "./Pages/Public/ChiTietSanPham/index"
 
 
 
@@ -70,7 +71,9 @@ reactDom.render(
             <Route exact path="/axios-test" children={<TestAxios/>} />
 
             
-            <Route exact path="/trang-chu" children={<HomePage/>} />
+            <Route exact path="/public/trang-chu" children={<HomePage/>} />
+
+            <Route exact path="/public/san-pham/:id" children={<ChiTietSanPhamPublic/>} />
 
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
