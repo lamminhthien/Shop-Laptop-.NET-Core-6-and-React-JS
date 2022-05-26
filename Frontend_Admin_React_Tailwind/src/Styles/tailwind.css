@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
+<<<<<<< HEAD
 @tailwind utilities;
 
 @layer components {
  
 }
+=======
+@tailwind utilities;
+>>>>>>> parent of b69422b (backup tailwind code)

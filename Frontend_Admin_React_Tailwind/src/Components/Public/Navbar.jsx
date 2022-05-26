@@ -1,29 +1,25 @@
 export default function NavBar() {
     return (
-        <nav class="fixed top-0 left-0 bg-white w-full shadow">
-            <div class="container m-auto flex justify-between items-center text-gray-700">
-                <h1 class="pl-8 py-4 text-xl font-bold">HARTDEV</h1>
-                <ul class="hidden md:flex items-center pr-10 text-base font-semibold cursor-pointer">
-                    <li class="hover:bg-gray-200 py-4 px-6">Home</li>
-                    <li class="hover:bg-gray-200 py-4 px-6">Contact</li>
-                    <li class="hover:bg-gray-200 py-4 px-6">Services</li>
-                    <li class="hover:bg-gray-200 py-4 px-6">About</li>
-                </ul>
-                <button class="block md:hidden py-3 px-4 mx-2 rounded focus:outline-none hover:bg-gray-200 group">
-                    <div class="w-5 h-1 bg-gray-600 mb-1"></div>
-                    <div class="w-5 h-1 bg-gray-600 mb-1"></div>
-                    <div class="w-5 h-1 bg-gray-600"></div>
-                    <div class="absolute top-0 -right-full h-screen w-8/12 bg-white border opacity-0
-      group-focus:right-0 group-focus:opacity-100 transition-all duration-300">
-                        <ul class="flex flex-col items-center w-full text-base cursor-pointer pt-10">
-                            <li class="hover:bg-gray-200 py-4 px-6 w-full">Home</li>
-                            <li class="hover:bg-gray-200 py-4 px-6 w-full">Contact</li>
-                            <li class="hover:bg-gray-200 py-4 px-6 w-full">Services</li>
-                            <li class="hover:bg-gray-200 py-4 px-6 w-full">About</li>
-                        </ul>
-                    </div>
+        <header class="text-gray-600 body-font">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span class="ml-3 text-xl">Tailblocks</span>
+                </a>
+                <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+                    <a class="mr-5 hover:text-gray-900">First Link</a>
+                    <a class="mr-5 hover:text-gray-900">Second Link</a>
+                    <a class="mr-5 hover:text-gray-900">Third Link</a>
+                    <a class="mr-5 hover:text-gray-900">Fourth Link</a>
+                </nav>
+                <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Button
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
                 </button>
             </div>
-        </nav>
+        </header>
     )
 }

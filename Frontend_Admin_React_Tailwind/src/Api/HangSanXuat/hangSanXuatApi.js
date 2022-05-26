@@ -19,6 +19,8 @@ class HangSanXuatApi {
         const chucNang = 'ListHangSanXuat?allRecord=true'
         return axios.get(`${mainURL}/${chucNang}`)
      }
+
+     
 }
 
 export default new HangSanXuatApi();
