@@ -23,6 +23,7 @@ import UploadFileTest from './Pages/UploadFileTest'
 import ThemLoaiSanPham from './Pages/LoaiSanPham/ThemLoaiSanPham'
 import ThemHangSanXuat from "./Pages/HangSanXuat/ThemHangSanXuat";
 import TestAxios from "./Pages/HangSanXuat/Test"
+import TrangChu from "./Pages/Public/TrangChu/index"
 
 
 
@@ -69,6 +70,8 @@ reactDom.render(
 
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
+
+            <Route exact path="/public/index" children={<TrangChu />} />
 
             <Route path="*" children={<NotFoundPage/>}  / >
 
