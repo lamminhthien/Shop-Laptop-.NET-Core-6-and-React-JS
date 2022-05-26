@@ -1,11 +1,15 @@
 @tailwind base;
 @tailwind components;
 <<<<<<< HEAD
+<<<<<<< HEAD
 @tailwind utilities;
 
 @layer components {
  
 }
+=======
+@tailwind utilities;
+>>>>>>> parent of b69422b (backup tailwind code)
 =======
 @tailwind utilities;
 >>>>>>> parent of b69422b (backup tailwind code)
