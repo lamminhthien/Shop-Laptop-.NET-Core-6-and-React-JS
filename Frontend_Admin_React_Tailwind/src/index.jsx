@@ -23,6 +23,8 @@ import UploadFileTest from './Pages/UploadFileTest'
 import ThemLoaiSanPham from './Pages/LoaiSanPham/ThemLoaiSanPham'
 import ThemHangSanXuat from "./Pages/HangSanXuat/ThemHangSanXuat";
 import TestAxios from "./Pages/HangSanXuat/Test"
+import HomePage from "./Pages/Public/TrangChu/index"
+
 
 
 
@@ -66,6 +68,9 @@ reactDom.render(
             <Route exact path="/them-anh-test-hook-form" children={<UploadFileTest/>} />
 
             <Route exact path="/axios-test" children={<TestAxios/>} />
+
+            
+            <Route exact path="/trang-chu" children={<HomePage/>} />
 
 
             <Route exact path="/prop_test" children={<Welcome name="Sara" />} />

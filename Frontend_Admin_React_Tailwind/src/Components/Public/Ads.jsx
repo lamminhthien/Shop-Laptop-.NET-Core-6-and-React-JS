@@ -1,22 +1,59 @@
-export default function Ads() {
+export default function Ads ()  {
     return (
-        <section className="text-gray-600 body-font">
-            <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-                <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-                    <img className="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600" />
-                </div>
-                <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-                    <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Before they sold out
-                        <br className="hidden lg:inline-block" />readymade gluten
-                    </h1>
-                    <p className="mb-8 leading-relaxed">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
-                    <div className="flex justify-center">
-                        <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
-                        <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Button</button>
-                    </div>
-                </div>
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="grid gap-5 row-gap-8 lg:grid-cols-2">
+          <div className="flex flex-col justify-center">
+            <div className="max-w-xl mb-6">
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+                Quảng cáo
+                <br className="hidden md:block" />
+                jumps over{' '}
+                <span className="relative px-1">
+                  <div className="absolute inset-x-0 bottom-0 h-3 transform -skew-x-12 bg-teal-accent-400" />
+                  <span className="relative inline-block text-deep-purple-accent-400">
+                    a lazy dog
+                  </span>
+                </span>
+              </h2>
+              <p className="text-base text-gray-700 md:text-lg">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+                quae. explicabo.
+              </p>
             </div>
-        </section>
-
-    )
-}
+            <div className="grid gap-5 row-gap-8 sm:grid-cols-2">
+              <div className="bg-white border-l-4 shadow-sm border-deep-purple-accent-400">
+                <div className="h-full p-5 border border-l-0 rounded-r">
+                  <h6 className="mb-2 font-semibold leading-5">
+                    I'll be sure to note that in my log
+                  </h6>
+                  <p className="text-sm text-gray-900">
+                    Lookout flogging bilge rat main sheet bilge water nipper fluke
+                    to go on account heave down.
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white border-l-4 shadow-sm border-deep-purple-accent-400">
+                <div className="h-full p-5 border border-l-0 rounded-r">
+                  <h6 className="mb-2 font-semibold leading-5">
+                    A business big enough that it could be listed
+                  </h6>
+                  <p className="text-sm text-gray-900">
+                    Those options are already baked in with this model shoot me an
+                    email clear.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img
+              className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
+              src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };

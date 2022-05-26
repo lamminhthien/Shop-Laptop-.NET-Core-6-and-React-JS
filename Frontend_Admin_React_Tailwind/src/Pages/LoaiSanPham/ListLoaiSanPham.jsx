@@ -114,9 +114,13 @@ export default function ListLoaiSanPham() {
                                     <td class="px-5 py-4 text-left">
                                         <input  class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 
- hover:text-white hover:scale-170 ease-in-out duration-150 " type="file"  onChange={(event) => {changeProductName(item.maLoaiSp,event)}}/>
+ hover:text-white hover:scale-170 ease-in-out duration-150 " type="file"  onChange={(event) => {changeProductName(item.maLoaiSp,event)}}
+ 
+ />
                                         <a href={"/edit-san-pham/" + item.maLoaiSp} class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150">Sữa ảnh</a>
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150"
+
+ >Sữa ảnh</a>
                                     </td>
 
                                 </tr>
