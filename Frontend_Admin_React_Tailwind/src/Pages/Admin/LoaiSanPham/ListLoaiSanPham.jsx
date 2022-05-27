@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from '../../../Components/Sidebar';
 import { useState, useEffect } from 'react';
-import isAuthorized from "../../Helpers/Authentication";
-import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
-import Paging from '../../Components/Paging';
-import LoaiSanPhamApi from '../../Api/LoaiSanPham/LoaiSanPhamApi';
+import Paging from '../../../Components/Paging';
+import LoaiSanPhamApi from '../../../Api/LoaiSanPham/LoaiSanPhamApi';
 
 export default function ListLoaiSanPham() {
     // Lấy url trang hiện tại

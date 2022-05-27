@@ -1,15 +1,13 @@
 import React from 'react';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from '../../../Components/Sidebar';
 import { useState, useEffect } from 'react';
-import isAuthorized from "../../Helpers/Authentication";
-import LoginCreateJWT from "../Login"
 import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router-dom";
-import Paging from '../../Components/Paging';
+import Paging from '../../../Components/Paging';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import SanPhamApi from '../../Api/SanPham/SanPhamApi';
+import SanPhamApi from '../../../Api/SanPham/SanPhamApi';
 
 export default function ListSanPham() {
 

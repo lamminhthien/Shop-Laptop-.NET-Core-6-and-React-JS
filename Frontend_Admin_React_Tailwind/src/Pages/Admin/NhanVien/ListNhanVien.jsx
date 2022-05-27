@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from '../../../Components/Sidebar';
 import { useState, useEffect } from 'react';
-import isAuthorized from "../../Helpers/Authentication";
-import LoginCreateJWT from "../Login"
-import NhanVienApi from '../../Api/NhanVien/NhanVienApi';
+import NhanVienApi from '../../../Api/NhanVien/NhanVienApi';
 export default function ListNhanVien() {
 
     // Table Headers

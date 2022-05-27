@@ -1,8 +1,8 @@
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../../Components/Sidebar";
 import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import LoaiSanPhamApi from "../../Api/LoaiSanPham/LoaiSanPhamApi";
+import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
 
 export default function ThemLoaiSanPham() {
     const [previewPicture, setPreviewPicture] = useState();

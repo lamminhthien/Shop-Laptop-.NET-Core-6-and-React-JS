@@ -1,4 +1,4 @@
-import getListHangSanXuat from '../../Api/HangSanXuat/HangSanXuatApi'
+import getListHangSanXuat from '../../../Api/HangSanXuat/HangSanXuatApi'
 export default function TestAxios () {
     return (
         <div>

@@ -1,8 +1,8 @@
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../../Components/Sidebar";
 import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import HangSanXuatApi from "../../Api/HangSanXuat/HangSanXuatApi";
+import HangSanXuatApi from "../../../Api/HangSanXuat/HangSanXuatApi";
 
 export default function ThemHangSanXuat() {
     const [previewPicture, setPreviewPicture] = useState();

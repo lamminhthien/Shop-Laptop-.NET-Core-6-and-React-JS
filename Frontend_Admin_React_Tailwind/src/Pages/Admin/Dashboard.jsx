@@ -1,5 +1,4 @@
-import Sidebar from "../Components/Sidebar";
-import isAuthorized from "../Helpers/Authentication";
+import Sidebar from "../../Components/Sidebar";
 import { Redirect } from "react-router-dom"
 
 export default function Dashboard() {

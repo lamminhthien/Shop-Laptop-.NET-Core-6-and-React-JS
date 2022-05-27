@@ -1,34 +1,24 @@
 import reactDom from "react-dom";
 import "./Styles/tailwind.css";
 import { BrowserRouter, Route, Switch,useParams } from "react-router-dom";
-import Dashboard from "./Pages/Dashboard";
-import TableTailwind from "./Pages/TableTest";
-import Details from "./Pages/Details";
+import Dashboard from "./Pages/Admin/Dashboard";
 import NotFoundPage from "./Components/404ErrorPage";
-import QueryParameters from "./Pages/QueryParameters";
-
-import ListSanPham from "./Pages/SanPham/ListSanPham";
-import CreateBrand from "./Pages/SanPham/BackupThemSanPham";
+import ListSanPham from "./Pages/Admin/SanPham/ListSanPham";
+import CreateBrand from "./Pages/Admin/SanPham/BackupThemSanPham";
 import Welcome from "./Components/TestProps";
-import ChiTietSanPham from "./Pages/SanPham/ChiTietSanPham"
-import EditSanPham from "./Pages/SanPham/EdiSanPham";
-import ThemSanPham from "./Pages/SanPham/ThemSanPham";
-import ListLoaiSanPham from './Pages/LoaiSanPham/ListLoaiSanPham';
-import ListHangSanXuat from './Pages/HangSanXuat/ListHangSanXuat'
-import ListNhanVien from './Pages/NhanVien/ListNhanVien'
-import ListKhachHang from './Pages/KhachHang/ListKhachHang'
-import ListLichSuGiaCa from './Pages/LichSuGiaCa/ListLichSuGiaCa'
-import  XoaSanPham from './Pages/SanPham/XoaSanPham'
-import UploadFileTest from './Pages/UploadFileTest'
-import ThemLoaiSanPham from './Pages/LoaiSanPham/ThemLoaiSanPham'
-import ThemHangSanXuat from "./Pages/HangSanXuat/ThemHangSanXuat";
-import TestAxios from "./Pages/HangSanXuat/Test"
+import ChiTietSanPham from "./Pages/Admin/SanPham/ChiTietSanPham"
+import EditSanPham from "./Pages/Admin/SanPham/EditSanPham";
+import ThemSanPham from "./Pages/Admin/SanPham/ThemSanPham";
+import ListLoaiSanPham from './Pages/Admin/LoaiSanPham/ListLoaiSanPham';
+import ListHangSanXuat from './Pages/Admin/HangSanXuat/ListHangSanXuat'
+import ListNhanVien from './Pages/Admin/NhanVien/ListNhanVien'
+import ListKhachHang from './Pages/Admin/KhachHang/ListKhachHang'
+import ListLichSuGiaCa from './Pages/Admin/LichSuGiaCa/ListLichSuGiaCa'
+import  XoaSanPham from './Pages/Admin/SanPham/XoaSanPham'
+import ThemLoaiSanPham from './Pages/Admin/LoaiSanPham/ThemLoaiSanPham'
+import ThemHangSanXuat from "./Pages/Admin/HangSanXuat/ThemHangSanXuat";
 import HomePage from "./Pages/Public/TrangChu/index"
 import ChiTietSanPhamPublic from "./Pages/Public/ChiTietSanPham/index"
-
-
-
-
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -36,11 +26,7 @@ reactDom.render(
         <Switch>
             <Route exact path="/" children={<Dashboard />} />
 
-            <Route exact path="/table" children={<TableTailwind />} />
-
             <Route exact path="/chi-tiet-san-pham/:id" children={<ChiTietSanPham />} />
-
-            <Route exact path="/queryparams" children={<QueryParameters/>} />
 
             <Route exact path="/san-pham/:pageNumber" children={<ListSanPham/>} />
 
@@ -65,11 +51,6 @@ reactDom.render(
             <Route exact path="/them_loai_san_pham" children={<ThemLoaiSanPham/>} />
 
             <Route exact path="/them_hang_san_xuat" children={<ThemHangSanXuat/>} />
-
-            <Route exact path="/them-anh-test-hook-form" children={<UploadFileTest/>} />
-
-            <Route exact path="/axios-test" children={<TestAxios/>} />
-
             
             <Route exact path="/public/trang-chu" children={<HomePage/>} />
 

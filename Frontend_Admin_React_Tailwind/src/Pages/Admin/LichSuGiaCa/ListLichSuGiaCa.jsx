@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Sidebar from '../../Components/Sidebar';
+import Sidebar from '../../../Components/Sidebar';
 import { useState, useEffect } from 'react';
-import isAuthorized from "../../Helpers/Authentication";
-import LoginCreateJWT from "../Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
-import LichSuGiaCaApi from '../../Api/LichSuGiaCa/LichSuGiaCaApi';
+import LichSuGiaCaApi from '../../../Api/LichSuGiaCa/LichSuGiaCaApi';
 
-import Paging from '../../Components/Paging';
+import Paging from '../../../Components/Paging';
 export default function ListLichSuGiaCa() {
     // Lấy url trang hiện tại
     const { path, url } = useRouteMatch();

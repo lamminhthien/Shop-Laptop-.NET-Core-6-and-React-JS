@@ -1,8 +1,8 @@
 
 import { useParams, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
-import NotFoundPage from "../../Components/404ErrorPage";
-import Sidebar from "../../Components/Sidebar";
+import NotFoundPage from "../../../Components/404ErrorPage";
+import Sidebar from "../../../Components/Sidebar";
 import axios from "axios";
 export default function ChiTietSanPham() {
   // We can use the `useParams` hook here to access

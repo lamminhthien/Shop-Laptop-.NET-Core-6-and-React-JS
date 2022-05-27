@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
-import NotFoundPage from "../../Components/404ErrorPage";
-import Sidebar from "../../Components/Sidebar";
+import NotFoundPage from "../../../Components/404ErrorPage";
+import Sidebar from "../../../Components/Sidebar";
 // Sử dụng useFrom từ react hook  form
 import { useForm } from "react-hook-form";
 import { useParams, useRouteMatch } from "react-router-dom";
-import SanPhamApi from '../../Api/SanPham/SanPhamApi';
-import HangSanXuatApi from '../../Api/HangSanXuat/HangSanXuatApi';
-import LoaiSanPhamApi from '../../Api/LoaiSanPham/LoaiSanPhamApi';
+import SanPhamApi from '../../../Api/SanPham/SanPhamApi';
+import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
+import LoaiSanPhamApi from '../../../Api/LoaiSanPham/LoaiSanPhamApi';
 
 export default function EditSanPham() {
   let { id } = useParams();
