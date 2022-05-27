@@ -1,3 +1,4 @@
+import 'flowbite';
 import reactDom from "react-dom";
 import "./Styles/tailwind.css";
 import { BrowserRouter, Route, Switch,useParams } from "react-router-dom";
