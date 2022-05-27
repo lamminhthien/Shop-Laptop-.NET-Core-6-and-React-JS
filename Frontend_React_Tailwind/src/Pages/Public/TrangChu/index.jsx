@@ -3,6 +3,7 @@ import Ads from "../../../Components/Public/Ads"
 import ProductType from "../../../Components/Public/ProductType"
 import ProductList from "../../../Components/Public/ProductList"
 import Footer from "../../../Components/Public/Footer"
+import BrandList from "../../../Components/Public/BrandList"
 
 export default function HomePage () {
     return (
@@ -10,6 +11,7 @@ export default function HomePage () {
            <PrimarySearchAppBar/>
            <Ads/>
            <ProductType/>
+           <BrandList/>
            <ProductList/>
            <Footer/>
         </div>
