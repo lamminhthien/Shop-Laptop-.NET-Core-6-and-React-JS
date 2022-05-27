@@ -5,7 +5,6 @@ import Dashboard from "./Pages/Admin/Dashboard";
 import NotFoundPage from "./Components/404ErrorPage";
 import ListSanPham from "./Pages/Admin/SanPham/ListSanPham";
 import CreateBrand from "./Pages/Admin/SanPham/BackupThemSanPham";
-import Welcome from "./Components/TestProps";
 import ChiTietSanPham from "./Pages/Admin/SanPham/ChiTietSanPham"
 import EditSanPham from "./Pages/Admin/SanPham/EditSanPham";
 import ThemSanPham from "./Pages/Admin/SanPham/ThemSanPham";
@@ -55,9 +54,6 @@ reactDom.render(
             <Route exact path="/public/trang-chu" children={<HomePage/>} />
 
             <Route exact path="/public/san-pham/:id" children={<ChiTietSanPhamPublic/>} />
-
-
-            <Route exact path="/prop_test" children={<Welcome name="Sara" />} />
 
             <Route path="*" children={<NotFoundPage/>}  / >
 

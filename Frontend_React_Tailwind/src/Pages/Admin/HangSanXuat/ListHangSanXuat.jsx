@@ -1,72 +1,50 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Sidebar from '../../../Components/Sidebar';
+import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
-import Paging from '../../../Components/Paging';
-import LoaiSanPhamApi from '../../../Api/LoaiSanPham/LoaiSanPhamApi';
-
-export default function ListLoaiSanPham() {
+import Paging from '../../../Components/Admin/Paging';
+import getListHangSanXuat from '../../../Api/HangSanXuat/HangSanXuatApi'
+import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
+export default function ListHangSanXuat() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
-
-    // Đường dẫn đến thư mục ảnh ở Backend
-    const imgURL = LoaiSanPhamApi.loadAnhMinhHoa()
 
     // Đọc số trang hiện tại
     let { pageNumber } = useParams();
 
     pageNumber == undefined ? pageNumber = 1 : pageNumber = pageNumber
     // Table Headers
-    const tableHeaders = ["Mã loại sản phẩm", "Tên loại sản phẩm",
+    const tableHeaders = ["Mã hãng sản xuât", "Tên hãng hãng sản xuất",
         "Ảnh minh họa", "Chức năng"
     ]
 
-    // Khởi tạo danh sách sản phẩm
-    const [listLoaiSanPham, set_listLoaiSanPham] = useState([])
+    // Khởi tạo danh sách hãng sản xuất
+    const [listHangSanXuat, set_listHangSanXuat] = useState([])
     // Khởi tạo tổng số trang để tạo menu phân trang
     const [numberOfPages, set_numberOfPages] = useState(0);
 
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
-        // Lấy danh sách sản phẩm và tổng số trang cần phân trang
-        LoaiSanPhamApi.getListloaiSanPham(pageNumber)
-            .then(res => {
-                // Set list sản phẩm
-                set_listLoaiSanPham(res.data.ketQua)
-                // Set tổng số trang
-                set_numberOfPages(res.data.soTrang)
-            })
-            .catch(error => console.log(error));
+        // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
+        HangSanXuatApi.getListHangSanXuat(pageNumber).then((res)=>{
+            set_listHangSanXuat(res.data.ketQua)
+            set_numberOfPages(res.data.tongSoTrang)
+        })
     }, [])
-
-    // Sửa ảnh loại sản phẩm
-    const changeProductName = (id,e) => {
-        const imgFile = e.target.files[0]
-        const formData = new FormData()
-        formData.append("image",imgFile)
-        LoaiSanPhamApi.suaAnhLoaiSanPham(id,formData)
-            .then(res => {
-                alert(res)
-            })
-            .catch(err => {
-                alert(err)
-            })
-    }
 
     return (
         <div className='flex'>
-            {/* Hiển thị danh sách sản phẩm lên */}
-            {listLoaiSanPham.map((item) =>
+            {/* Hiển thị danh sách hãng sản xuất lên */}
+            {listHangSanXuat.map((item) =>
                 console.log(item.tenSanPham)
             )}
             {/* Hiển thị cột sidebar */}
             <Sidebar />
             <div className='h-screen flex-1 p-7'>
-                <button type="button" class="hover:scale-125 ease-in-out duration-150 ease-in-out text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2  ">
-                    <a href='/them_loai_san_pham'>Thêm danh mục sản phẩm</a>
+                <button type="button" class="hover:scale-125 ease-in-out duration-150 ease-in-out text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">
+                    <a href='/them_hang_san_xuat'>Thêm danh mục hãng sản xuất</a>
                 </button>
-                <div class="flex items-center"><h1 class="mb-3 inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Danh mục sản phẩm</h1></div>
+                <div class="flex items-center"><h1 class="mb-3 inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Danh sách hãng sản xuất</h1></div>
                 <div class="relative overflow-x-auto shadow-2xl rounded-2xl">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -86,39 +64,33 @@ export default function ListLoaiSanPham() {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Map từng dòng trong danh sách sản phẩm ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
-                            {listLoaiSanPham.map((item) =>
+                            {/* Map từng dòng trong danh sách hãng sản xuất ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
+                            {listHangSanXuat.map((item) =>
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="w-4 p-4">
                                         <div class="flex items-center">
                                             <input id="checkbox-table-1" type="checkbox" class="w-4 h-4
                          text-blue-600 bg-gray-100 border-gray-300 rounded
-                          focus:ring-blue-500 dark:focus:ring-blue-600 
-                          dark:ring-offset-gray-800 focus:ring-2 
-                          dark:bg-gray-700 dark:border-gray-600" />
+                          focus:ring-blue-500 dark:focus:ring-blue-600 " />
                                             <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                         </div>
                                     </td>
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                        {/* Riêng mã sản phẩm được in đậm in ra trước */}
-                                        {item.maLoaiSp}
+                                        {/* Riêng mã hãng sản xuất được in đậm in ra trước */}
+                                        {item.maHangSx}
                                     </th>
-                                        {/* // Hiển thị thông tin các trường còn lại , có cùng style  */}
-                                       <td className='px-6 py-4'>{item.tenLoaiSp}</td>
-                                       <td className='px-6 py-4'>
-                                       <img src={`${imgURL}/${(item.anhMinhHoa).trim()}`}  className='px-6 py-4 w-24' alt={item.tenLoaiSp}/>
-                                       </td>
-                                      
+                                    {
+                                        // Hiển thị thông tin các trường còn lại , có cùng style 
+                                        [item.tenHangSx, item.logo]
+                                            .map((element) =>
+                                                <td class="px-6 py-4">
+                                                    {element}
+                                                </td>
+                                            )
+                                    }
                                     <td class="px-5 py-4 text-left">
-                                        <input  class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 
- hover:text-white hover:scale-170 ease-in-out duration-150 " type="file"  onChange={(event) => {changeProductName(item.maLoaiSp,event)}}
- 
- />
-                                        <a href={"/edit-san-pham/" + item.maLoaiSp} class="font-medium text-blue-600
- dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150"
-
- >Sữa ảnh</a>
+                                        <a href={"/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
+ dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
                                     </td>
 
                                 </tr>

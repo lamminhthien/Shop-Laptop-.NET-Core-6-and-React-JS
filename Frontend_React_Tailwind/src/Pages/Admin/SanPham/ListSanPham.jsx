@@ -1,9 +1,9 @@
 import React from 'react';
-import Sidebar from '../../../Components/Sidebar';
+import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router-dom";
-import Paging from '../../../Components/Paging';
+import Paging from '../../../Components/Admin/Sidebar';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css

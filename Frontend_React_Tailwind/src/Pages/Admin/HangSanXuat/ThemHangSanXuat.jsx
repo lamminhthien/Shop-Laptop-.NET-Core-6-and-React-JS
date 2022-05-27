@@ -1,10 +1,10 @@
-import Sidebar from "../../../Components/Sidebar";
+import Sidebar from "../../../Components/Admin/Sidebar";
 import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
+import HangSanXuatApi from "../../../Api/HangSanXuat/HangSanXuatApi";
 
-export default function ThemLoaiSanPham() {
+export default function ThemHangSanXuat() {
     const [previewPicture, setPreviewPicture] = useState();
     const [imageFormData, setImageFormData] = useState()
 
@@ -36,19 +36,19 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
         if (imageFormData) {
             alert(JSON.stringify(data));
             var formData = new FormData();
-            formData.append("tenLoaiSP",data.tenLoaiSp)
+            formData.append("tenHangSX",data.tenHangSX)
             formData.append("image",imageFormData)
             // Đưa dữ liệu từ form vô axios
-            LoaiSanPhamApi.themloaiSanPham(formData)
+            HangSanXuatApi.themHangSanXuat(formData)
                 .then((res) => {
-                    alert("Submitloại sản phẩm qua api thành công")
+                    alert("Submitloại hãng sản xuất qua api thành công")
                     alert(res.data.split(":")[1])
-                    // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
-                    // Upload ảnh cho mã sản phẩm mới tương ứng
+                    // Chỉ khi thêm hãng sản xuất, chi tiết hãng sản xuất, biến động giá thành công thì mới up ảnh lên database
+                    // Upload ảnh cho mã hãng sản xuất mới tương ứng
                 })
                 .catch((err) => {
-                    alert("Submitloại sản phẩm qua api không thành công")
-                    if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
+                    alert("Submitloại hãng sản xuất qua api không thành công")
+                    if (err.includes("hãng sản xuất bị trùng")) alert("Tên hãng sản xuất bị trùng")
                 })
         }
         else {
@@ -78,25 +78,26 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             <Sidebar />
             <div className="h-screen flex-1 p-7">
                 <div className="h-screen flex-1 p-7">
-                    <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm loại sản phẩm mới</h1></div>
+                    <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm hãng sản xuất mới</h1></div>
                     <form className={formStyle} onSubmit={handleSubmit(onSubmit)}>
                         <div className="grid xl:grid-cols-2 xl:gap-6">
                             <div className={divStyle}>
-                                <label className={labelStyle}>Tên loại sản phẩm</label>
+                                <label className={labelStyle}>Tên hãng sản xuất</label>
                                 <input
-                                    {...register("tenLoaiSp", {
+                                    {...register("tenHangSX", {
                                         required: true,
                                         minLength: 5,
                                         maxLength: 50
                                     })}
                                     className={inputStyle} />
-                                {errors?.tenLoaiSp?.type === "required" && <p className={errorStyle}>Tên loại sản phẩm bắt buộc nhập</p>}
-                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiếu 5 kí tự</p>}
-                                {errors?.tenLoaiSp?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm không được vượt quá 50 kí tự</p>}
+                                {errors?.tenHangSX?.type === "required" && <p className={errorStyle}>Tên hãng sản xuất bắt buộc nhập</p>}
+                                {errors?.tenHangSX?.type === "minLength" && <p className={errorStyle}>Tên hãng sản xuất tối thiếu 5 kí tự</p>}
+                                {errors?.tenHangSX?.type === "maxLength" && <p className={errorStyle}>Tên hãng sản xuất không được vượt quá 50 kí tự</p>}
                             </div>
                             <div className={divStyle}>
                                 <label className={labelStyle}>Ảnh minh họa</label>
-                                <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
+                                <input 
+                                    class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
  " id="multiple_files" type="file"
                                     onChange={previewLogo}
                                 />
@@ -108,7 +109,9 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                             </div>
                             <div className={divStyle}>
                                 <label className={`${labelStyle} mr-20 text-center`}>Xem trước ảnh</label>
-                                {previewPicture == null ? <p className={errorStyle}>Chưa có ảnh nào</p> :
+                                {
+                                    previewPicture == null ? 
+                                    <p className={errorStyle}>Chưa có ảnh nào</p> :
                                     <img src={previewPicture} alt="123" />
                                 }
                             </div>

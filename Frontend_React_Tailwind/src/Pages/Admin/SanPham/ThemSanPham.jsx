@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
-import Sidebar from "../../../Components/Sidebar";
+import Sidebar from "../../../Components/Admin/Sidebar";
 import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { set, useForm } from "react-hook-form";

@@ -1,4 +1,4 @@
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../Components/Admin/Sidebar";
 import { Redirect } from "react-router-dom"
 
 export default function Dashboard() {

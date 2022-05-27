@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import NotFoundPage from "../../../Components/404ErrorPage";
-import Sidebar from "../../../Components/Sidebar";
+import Sidebar from "../../../Components/Admin/Sidebar";
 // Sử dụng useFrom từ react hook  form
 import { useForm } from "react-hook-form";
 import { useParams, useRouteMatch } from "react-router-dom";
