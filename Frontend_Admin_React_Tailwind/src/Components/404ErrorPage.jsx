@@ -1,11 +1,10 @@
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import Sidebar from "./Sidebar";
 export default function NotFoundPage() {
   let location = useLocation();
 
   return (
-    <div className="flex">
-      <Sidebar index="1"/>
+   
+  
       <div className="
       h-screen flex-1 
       p-7
@@ -44,6 +43,6 @@ export default function NotFoundPage() {
         </div>
 
       </div>
-    </div>
+
   );
 }
