@@ -23,37 +23,51 @@ import ChiTietSanPhamPublic from "./Pages/Public/ChiTietSanPham/index"
 reactDom.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" children={<Dashboard />} />
 
-            <Route exact path="/chi-tiet-san-pham/:id" children={<ChiTietSanPham />} />
+            <Route exact path="/" children={<HomePage />} />
 
-            <Route exact path="/san-pham/:pageNumber" children={<ListSanPham/>} />
+            {/* Admin Quản lý sản phẩm */}
+            <Route exact path="/admin/chi-tiet-san-pham/:id" children={<ChiTietSanPham />} />
 
-            <Route exact path="/edit-san-pham/:id" children={<EditSanPham   />} />
+            <Route exact path="/admin/san-pham/:pageNumber" children={<ListSanPham/>} />
 
-            <Route exact path="/them-san-pham/" children={<ThemSanPham   />} />
+            <Route exact path="/admin/edit-san-pham/:id" children={<EditSanPham   />} />
 
-            <Route exact path="/danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
+            <Route exact path="/admin/them-san-pham/" children={<ThemSanPham   />} />
 
-            <Route exact path="/hang-san-xuat/:pageNumber" children={<ListHangSanXuat   />} />
+            <Route exact path="/admin/xoa-san-pham/:id" children={<XoaSanPham   />} />
 
-            <Route exact path="/nhan-vien/:pageNumber" children={<ListNhanVien   />} />
+            {/* Admin Quản lý danh mục sản phẩm */}
 
-            <Route exact path="/khach-hang/:pageNumber" children={<ListKhachHang   />} />
+            <Route exact path="/admin/danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
 
-            <Route exact path="/bien-dong-gia-ca/:pageNumber" children={<ListLichSuGiaCa   />} />
+            <Route exact path="/admin/them-danh-muc-san-pham" children={<ThemLoaiSanPham/>} />
 
-            <Route exact path="/delete-san-pham/:id" children={<XoaSanPham   />} />
+            {/* Admin Quản lý hãng sản xuất */}
 
-            <Route exact path="/them_san_pham" children={<CreateBrand/>} />
+            <Route exact path="/admin/list-hang-san-xuat/:pageNumber" children={<ListHangSanXuat   />} />
 
-            <Route exact path="/them_loai_san_pham" children={<ThemLoaiSanPham/>} />
+            <Route exact path="/admin/them-hang-san-xuat" children={<ThemHangSanXuat/>} />
 
-            <Route exact path="/them_hang_san_xuat" children={<ThemHangSanXuat/>} />
+            {/* Admin Quản lý nhân viên */}
+
+            <Route exact path="/admin/list-nhan-vien/:pageNumber" children={<ListNhanVien   />} />
+
+            {/* Admin Quản lý khách hàng */}
+
+            <Route exact path="/admin/list-khach-hang/:pageNumber" children={<ListKhachHang   />} />
+
+            {/* Admin Quản lý biến động giá cả */}
+            <Route exact path="/admin/list-bien-dong-gia-ca/:pageNumber" children={<ListLichSuGiaCa   />} />
             
+            
+            {/* Public */}
             <Route exact path="/public/trang-chu" children={<HomePage/>} />
 
             <Route exact path="/public/san-pham/:id" children={<ChiTietSanPhamPublic/>} />
+
+            {/* Khách Hàng */}
+            {/* <Route exact path="/khach-hang/gio-hang" children=GioH  /> */}
 
             <Route path="*" children={<NotFoundPage/>}  / >
 

@@ -39,17 +39,7 @@ export default function Navbar  ()  {
                   title="Our product"
                   class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  Product
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  aria-label="Our product"
-                  title="Our product"
-                  class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-                >
-                  Features
+                  Tin tức
                 </a>
               </li>
               <li>
@@ -59,7 +49,7 @@ export default function Navbar  ()  {
                   title="Product pricing"
                   class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  Pricing
+                  Giỏ hàng
                 </a>
               </li>
               <li>
@@ -69,7 +59,7 @@ export default function Navbar  ()  {
                   title="About us"
                   class="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  About us
+                  Theo dõi đơn hàng
                 </a>
               </li>
               <li>
@@ -79,7 +69,7 @@ export default function Navbar  ()  {
                   aria-label="Sign up"
                   title="Sign up"
                 >
-                  Sign up
+                  Đăng nhập
                 </a>
               </li>
             </ul>
