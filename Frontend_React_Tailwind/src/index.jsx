@@ -40,7 +40,7 @@ reactDom.render(
 
             {/* Admin Quản lý danh mục sản phẩm */}
 
-            <Route exact path="/admin/list-danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
+            <Route exact path="/admin/danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
 
             <Route exact path="/admin/them-danh-muc-san-pham" children={<ThemLoaiSanPham/>} />
 
