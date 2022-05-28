@@ -16,6 +16,17 @@ namespace ShopLaptop_EFCore.Models
             HoaDons = new HashSet<HoaDon>();
         }
 
+        public KhachHang(string hoTen, string diaChi, string soDienThoai, bool gioiTinh, string username, string password, string email)
+        {
+            HoTen = hoTen;
+            DiaChi = diaChi;
+            SoDienThoai = soDienThoai;
+            GioiTinh = gioiTinh;
+            Username = username;
+            Password = password;
+            Email = email;
+        }
+
         [Key]
         [Column("ma_khach_hang")]
         public int MaKhachHang { get; set; }

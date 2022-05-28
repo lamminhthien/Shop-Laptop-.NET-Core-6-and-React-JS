@@ -13,35 +13,36 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace ShopLaptop_EFCore.Controllers
+
+
+namespace ShopLaptop_EFCore.Controllers.KhachHangController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginNhanVienController : ControllerBase
+    public class LoginKhachHangController : ControllerBase
     {
         // Đọc cấu hình từ appsetting.json
         private IConfiguration _config;
         // Database context
         private readonly shop_laptopContext _context;
         // Constructor
-        public LoginNhanVienController(IConfiguration config, shop_laptopContext context)
+        public LoginKhachHangController(IConfiguration config, shop_laptopContext context)
         {
             _config = config;
             _context = context;
         }
 
-
         // Route đăng nhập và lấy jwt token
         [AllowAnonymous]
-        [HttpPost("LoginNhanVien")]
-        public IActionResult LoginNhanVien([FromBody] UserLogin userLogin)
+        [HttpPost("LoginKhachHang")]
+        public IActionResult LoginKhachHang([FromBody] UserLogin userLogin)
         {
             // Lấy username và password từ request payload
             var username = userLogin.Username;
             var password = userLogin.Password;
 
             // Kiểm tra username và password có tồn tại trong database không?
-            var currentUser = _context.NhanViens.FirstOrDefault(o => o.Username == username && o.Password == password);
+            var currentUser = _context.KhachHangs.FirstOrDefault(o => o.Username == username && o.Password == password);
 
             // Nếu tồn tại tài khoản, trả về JWT Token để React lưu vào LocalStorage
             if (currentUser != null)
@@ -53,8 +54,8 @@ namespace ShopLaptop_EFCore.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, currentUser.Username),
                     new Claim(ClaimTypes.MobilePhone, currentUser.SoDienThoai),
-                    new Claim(ClaimTypes.Name, currentUser.TenNhanVien),
-                    new Claim(ClaimTypes.Role, "Nhân viên")
+                    new Claim(ClaimTypes.Name, currentUser.HoTen),
+                    new Claim(ClaimTypes.Role, "Khách Hàng")
                  };
 
                 var token = new JwtSecurityToken(_config["Jwt:Issuer"],
@@ -68,15 +69,15 @@ namespace ShopLaptop_EFCore.Controllers
             }
             else
             {
-                return NotFound("Tài khoản nhân viên không hợp lệ");
+                return NotFound("Tài khoản khách hàng không hợp lệ");
             }
         }
-        // Lấy thông tin tài khoản nhân viên từ JWT Token
-        private string GetCurrentUserInfo()
+        // Lấy thông tin tài khoản khách hàng từ JWT Token
+        private string GetCurrentUser()
         {
             // Đọc các Claims từ Header của Request
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            // Nếu tồn tại, lấy tên của nhân viên
+            // Nếu tồn tại, lấy tên của khách hàng
             if (identity != null)
             {
                 var userClaims = identity.Claims;

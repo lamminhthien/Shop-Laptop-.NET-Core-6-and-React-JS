@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\KhachHangController\" />
     <Folder Include="Resources\Images\Logo\" />
     <Folder Include="Resources\Images\HangSanXuat\" />
     <Folder Include="Resources\Images\SanPham\" />
