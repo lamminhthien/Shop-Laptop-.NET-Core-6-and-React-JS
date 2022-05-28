@@ -193,14 +193,12 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
         }
 
         // Tìm kiếm sản phẩm theo nhiều tiêu chí
+        // Vừa hãng sản xuất, vừa loại sản phẩm, vừa phạm vi giá
         [HttpGet("timKiemTheoNhieuTieuChi")]
-        public ActionResult<List<dynamic>> timKiemTheoNhieuTieuChi(int page,int maLoaiSanPham=-9999, int maHangSanXuat=-9999)
+        public ActionResult<List<dynamic>> timKiemTheoNhieuTieuChi(int page=1,
+            int maLoaiSanPham=-9999, int maHangSanXuat=-9999,double minPrice=0, double maxPrice=999999999)
         {
             double rowPerPage = 5;
-            if (page == null || page == 0)
-            {
-                page = 1;
-            }
             // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
             double productQuantity = _context.SanPhams.Count();
             double numberOfPage = productQuantity / rowPerPage;
@@ -220,7 +218,9 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                {
                                    tenSanPham = a.TenSanPham,
                                    giaNiemYet = (from d in _context.BienDongGia
-                                                 where d.MaSanPham == a.MaSanPham
+                                                 where (d.MaSanPham == a.MaSanPham)
+                                                 && (minPrice >=0 ? d.GiaNhap >= minPrice : 1==1)
+                                                 && (maxPrice<=999999999 ? d.GiaNhap <= maxPrice : 1==1)
                                                  orderby d.LanThayDoiGia ascending
                                                  select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                                    anhSanPham = (from e in _context.AnhSanPhams
