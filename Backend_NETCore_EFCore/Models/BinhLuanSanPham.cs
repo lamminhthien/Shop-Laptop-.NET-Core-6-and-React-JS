@@ -14,6 +14,13 @@ namespace ShopLaptop_EFCore.Models
             PhanHoiBinhLuanSps = new HashSet<PhanHoiBinhLuanSp>();
         }
 
+        public BinhLuanSanPham(int maKhachHang, int maSanPham, string noiDung)
+        {
+            MaKhachHang = maKhachHang;
+            MaSanPham = maSanPham;
+            NoiDung = noiDung;
+        }
+
         [Key]
         [Column("ma_binh_luan")]
         public int MaBinhLuan { get; set; }

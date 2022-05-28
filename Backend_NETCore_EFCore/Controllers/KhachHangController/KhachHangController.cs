@@ -28,6 +28,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             try
             {
                 _context.Add(kh);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -50,7 +51,22 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                     return BadRequest("Họ và tên bị trùng");
                 }
             }
-            return Ok("Đăng ký tài khoản thành công");
+            return Ok("Đăng ký tài khoản khách hàng thành công");
+        }
+
+        [HttpGet("BinhLuanSanPham")]
+        public ActionResult<List<dynamic>> BinhLuanSanPham(BinhLuanSanPham binhLuan)
+        {
+            try
+            {
+                _context.Add(binhLuan);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.InnerException.ToString());
+            }
+            return Ok("Hi");
         }
 
    
