@@ -22,7 +22,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             _context = context;
         }
 
-        [HttpGet("DangKyKhachHang")]
+        [HttpPost("DangKyKhachHang")]
         public ActionResult<List<dynamic>> DangKyKhachHang(KhachHang kh)
         {
             try
@@ -54,7 +54,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             return Ok("Đăng ký tài khoản khách hàng thành công");
         }
 
-        [HttpGet("BinhLuanSanPham")]
+        [HttpPost("BinhLuanSanPham")]
         public ActionResult<List<dynamic>> BinhLuanSanPham(BinhLuanSanPham binhLuan)
         {
             try
@@ -66,6 +66,13 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             {
                 return BadRequest(e.InnerException.ToString());
             }
+            return Ok("Hi");
+        }
+
+        [HttpPost("ThemVaoGioHang")]
+        public ActionResult<List<dynamic>> ThemVaoGioHang(GioHang gh)
+        {
+
             return Ok("Hi");
         }
 

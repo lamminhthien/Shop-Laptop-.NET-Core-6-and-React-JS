@@ -11,6 +11,13 @@ namespace ShopLaptop_EFCore.Models
     [Index("MaKhachHang", Name = "UQ__GioHang__C9817AF7CD6FD201", IsUnique = true)]
     public partial class GioHang
     {
+        public GioHang(int maKhachHang, int maSanPham, int soLuong)
+        {
+            MaKhachHang = maKhachHang;
+            MaSanPham = maSanPham;
+            SoLuong = soLuong;
+        }
+
         [Key]
         [Column("ma_khach_hang")]
         public int MaKhachHang { get; set; }
