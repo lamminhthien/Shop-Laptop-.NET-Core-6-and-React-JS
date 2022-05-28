@@ -117,14 +117,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                             doPhanGiai = d.DoPhanGiai,
                                             oCung = d.OCung,
                                             heDieuHanh = d.HeDieuHanh,
-                                            kichThuoc = d.KichThuoc,
+                                            kichThuoc = d.KichThuoc.Trim(),
                                             manHinh = d.ManHinh + "inch",
                                             trongLuong = d.TrongLuong,
                                             ram = d.Ram,
                                             moTaThem = d.MoTaThem,
                                             giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau)),
                                             gia = e.GiaNhap,
-                                            chietKhau = e.ChietKhau
+                                            chietKhau = e.ChietKhau*100
                                         }
                             ).FirstOrDefaultAsync();
             // Lấy danh sách ảnh của sản phẩm tương ứng
@@ -132,7 +132,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                   join b in _context.AnhSanPhams
                                   on a.MaSanPham equals b.MaSanPham
                                   where a.MaSanPham == id
-                                  select b.FileAnh);
+                                  select b.FileAnh.Trim());
 
             if (chiTietSanPham == null)
             {
@@ -208,7 +208,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
 
         [HttpPut("CapNhatSanPham/{id}")]
-        public async Task<IActionResult> EditSanPham(int id, SanPhamModelPlus sanPhamModel)
+        public async Task<IActionResult> CapNhatSanPham(int id, SanPhamModelPlus sanPhamModel)
         {
             Console.WriteLine(id);
             // Kiểm tra xem id sản phẩm có tồn tại hay ko 
@@ -230,9 +230,17 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                     .OrderByDescending(o => o.LanThayDoiGia)
                     .Select(o => o.LanThayDoiGia).First();
                 Console.WriteLine("Số lần thay đổi giá hiện tại " + soLanThayDoiGia);
-                // Tăng số lần thay đổi giá lên 1 đơn vị
-                BienDongGium bienDongGium = new BienDongGium(id, sanPhamModel.Gia, soLanThayDoiGia + 1, DateTime.Now, sanPhamModel.ChietKhau);
-
+                // Kiểm tra xem giá sản phẩm có bị thay đổi hay không ?
+                var currentPrice = _context.BienDongGia.Where(o => o.MaSanPham == id)
+                    .OrderByDescending(o => o.LanThayDoiGia)
+                    .Select(o => o.GiaNhap).First();
+                if (currentPrice != sanPhamModel.Gia)
+                {
+                    // Tăng số lần thay đổi giá lên 1 đơn vị
+                    BienDongGium bienDongGium = new BienDongGium(id, sanPhamModel.Gia, soLanThayDoiGia + 1, DateTime.Now, sanPhamModel.ChietKhau);
+                    // Thêm record mới cho biến động giá
+                    _context.BienDongGia.Add(bienDongGium);
+                }
                 // Tạo đối tượng con cho chi tiết sản phẩm
                 ChiTietSanPham chiTietSanPham = new ChiTietSanPham(id, sanPhamModel.Cpu, sanPhamModel.CardDoHoa, sanPhamModel.DoPhanGiai, sanPhamModel.OCung,
                sanPhamModel.HeDieuHanh, sanPhamModel.ManHinh, sanPhamModel.KichThuoc, sanPhamModel.TrongLuong,
@@ -242,8 +250,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 _context.Entry(sanPhamExist).State = EntityState.Modified;
                 // Cập nhật chi tiết sản phẩm
                 _context.Entry(chiTietSanPham).State = EntityState.Modified;
-                // Thêm record mới cho biến động giá
-                _context.BienDongGia.Add(bienDongGium);
+                
 
                 // Thử update vào database và bắt lỗi tiêp
                 try

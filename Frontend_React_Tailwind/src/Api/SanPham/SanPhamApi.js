@@ -7,7 +7,7 @@ class SanPhamApi {
      // TODO Lấy danh sách  sản phẩm và tổng số trang cần phân trang
      getListSanPham (pageNumber)  {
          const chucNang = 'ListSanPham'
-        return axios.get(`${mainURL}/${chucNang}?page=${pageNumber}`)
+        return axios.get(`${mainURL}/${chucNang}/${pageNumber}`)
      }
      // TODO Lấy chi tiết sản phẩm
      getDetailSanPham (id) {
