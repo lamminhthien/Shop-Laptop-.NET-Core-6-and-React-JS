@@ -69,7 +69,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                   tenSanPham = a.TenSanPham,
                                   giaNiemYet = (from d in _context.BienDongGia
                                                 where d.MaSanPham == a.MaSanPham
-                                                orderby d.LanThayDoiGia descending
+                                                orderby d.LanThayDoiGia ascending
                                                 select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                                   anhSanPham = (from e in _context.AnhSanPhams
                                                 where e.MaSanPham == a.MaSanPham
@@ -93,7 +93,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                   tenSanPham = a.TenSanPham,
                                   giaNiemYet = (from d in _context.BienDongGia
                                                 where d.MaSanPham == a.MaSanPham
-                                                orderby d.LanThayDoiGia descending
+                                                orderby d.LanThayDoiGia ascending
                                                 select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                                   anhSanPham = (from e in _context.AnhSanPhams
                                                 where e.MaSanPham == a.MaSanPham
@@ -130,7 +130,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                   tenSanPham = a.TenSanPham,
                                   giaNiemYet = (from d in _context.BienDongGia
                                                 where d.MaSanPham == a.MaSanPham
-                                                orderby d.LanThayDoiGia descending
+                                                orderby d.LanThayDoiGia ascending
                                                 select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                                   anhSanPham = (from e in _context.AnhSanPhams
                                                 where e.MaSanPham == a.MaSanPham
@@ -145,6 +145,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
             });
         }
 
+        // Tìm kiếm sản phẩm theo từ khóa
         [HttpGet("timKiemTheoTuKhoa")]
         public ActionResult<List<dynamic>> timKiemTheoTuKhoa(int page,String searchKey)
         {
@@ -176,7 +177,51 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                    tenSanPham = a.TenSanPham,
                                    giaNiemYet = (from d in _context.BienDongGia
                                                  where d.MaSanPham == a.MaSanPham
-                                                 orderby d.LanThayDoiGia descending
+                                                 orderby d.LanThayDoiGia ascending
+                                                 select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                                   anhSanPham = (from e in _context.AnhSanPhams
+                                                 where e.MaSanPham == a.MaSanPham
+                                                 select imageURL + e.FileAnh.Trim()
+                                                 ).First()
+                               }).Skip(5 * (page - 1)).Take(5);
+            return Ok(new
+            {
+                tongSoSanPham = productQuantity,
+                soTrang = numberOfPageInteger,
+                ketqua = listSanPham
+            });
+        }
+
+        // Tìm kiếm sản phẩm theo nhiều tiêu chí
+        [HttpGet("timKiemTheoNhieuTieuChi")]
+        public ActionResult<List<dynamic>> timKiemTheoNhieuTieuChi(int page,int maLoaiSanPham=-9999, int maHangSanXuat=-9999)
+        {
+            double rowPerPage = 5;
+            if (page == null || page == 0)
+            {
+                page = 1;
+            }
+            // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
+            double productQuantity = _context.SanPhams.Count();
+            double numberOfPage = productQuantity / rowPerPage;
+            int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
+            // Nêu không có sản phẩm nào
+            if (_context.SanPhams == null)
+            {
+                return NotFound();
+            }
+            var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
+            var listSanPham = (from a in _context.SanPhams
+                               join b in _context.ChiTietSanPhams
+                               on a.MaSanPham equals b.MaSanPham
+                               where (maLoaiSanPham != -9999 ? a.MaLoaiSp == maLoaiSanPham : 1==1)
+                               && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1==1 )
+                               select new
+                               {
+                                   tenSanPham = a.TenSanPham,
+                                   giaNiemYet = (from d in _context.BienDongGia
+                                                 where d.MaSanPham == a.MaSanPham
+                                                 orderby d.LanThayDoiGia ascending
                                                  select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                                    anhSanPham = (from e in _context.AnhSanPhams
                                                  where e.MaSanPham == a.MaSanPham
