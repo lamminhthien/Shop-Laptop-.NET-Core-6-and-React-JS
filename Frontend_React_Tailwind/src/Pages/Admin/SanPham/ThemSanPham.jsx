@@ -74,6 +74,7 @@ export default function ThemSanPham() {
           // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
           // Upload ảnh cho mã sản phẩm mới tương ứng
           uploadImageToBackend(res.data.split(":")[1])
+          window.location.href = "/admin/san-pham/1"
         })
         .catch((err) => {
           alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api không thành công")

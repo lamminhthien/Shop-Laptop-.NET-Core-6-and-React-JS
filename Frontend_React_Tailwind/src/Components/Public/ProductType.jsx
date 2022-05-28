@@ -7,20 +7,22 @@ export default function ProductType() {
   useEffect(() => {
     TrangChuApi.getListLoaiSanPham().then((res) => {
       setState({
-        data: res.data
+        data: res.data,
+        done: true
       })
     })
       .catch(err => {
         setState({
-          error: err
+          error: err,
+          done: false
         })
       })
   }, [])
 
-
+if (state.done)
   return (
     <div class="flex flex-wrap place-content-center overflow-hidden">
-      {state.data.map((item) =>
+       {state.data !== null ? state.data.map((item) =>
         <a href="#">
           <div className="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
 
@@ -34,7 +36,7 @@ export default function ProductType() {
             {/* CTA */}
           </div>
         </a>
-      )}
+      ) : <p>Đang load data</p>}
     </div>
   )
 }

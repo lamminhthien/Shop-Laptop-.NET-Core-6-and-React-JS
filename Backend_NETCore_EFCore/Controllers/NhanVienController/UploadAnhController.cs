@@ -93,7 +93,7 @@ namespace ShopLaptop_EFCore.Controllers
                 var fullPath = Path.Combine(pathToSave, fileName + "." + file.ContentType.Split('/')[1]);
 
                 // Copy ảnh từ formdata front end vào fullPath với chế độ Create của filemode
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+                await using (var stream = new FileStream(fullPath, FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }

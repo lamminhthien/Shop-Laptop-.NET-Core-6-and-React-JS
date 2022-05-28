@@ -32,10 +32,35 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                 );
 
             return Ok(listLoaiSanPham);
-        }   
+        }
+
+
+        // Lấy danh sách hãng sản xuất
+        // Làm các list hãng sản xuất ngang hiện lên ấy
+        [HttpGet("ListHangSanXuat")]
+        public ActionResult<List<dynamic>> ListHangSanXuat()
+        {
+            var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/HangSanXuat/";
+            var listHangSanXuat = _context.HangSanXuats.Select(
+                   o => new
+                   {
+                       maHangSanxuat = o.MaHangSx,
+                       tenHangSanXuat = o.TenHangSx,
+                       logo = imageURL + o.Logo.Trim()
+                   }
+                );
+
+            return Ok(listHangSanXuat);
+        }
+
+
+
 
         // Lọc danh sách sản phẩm theo yêu cầu
         [HttpGet("SanPhamByCategory")]
+        /* 1 Thẻ sản phẩm gồm có
+         * 1 ảnh, tên sản phẩm, giá niêm yết
+         */
         public ActionResult<List<dynamic>> SanPhamByCategory(int id)
         {
             var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
@@ -50,7 +75,10 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                                 where d.MaSanPham == a.MaSanPham
                                                 orderby d.LanThayDoiGia descending
                                                 select d.GiaNhap * (1 + d.ChietKhau)).Last(),
-                                  anhSanPham = imageURL + a.AnhSanPhams
+                                  anhSanPham = (from e in _context.AnhSanPhams
+                                                where e.MaSanPham == a.MaSanPham
+                                                select imageURL + e.FileAnh.Trim()
+                                                ).First()
                               };
             return Ok(listSanPham);
 

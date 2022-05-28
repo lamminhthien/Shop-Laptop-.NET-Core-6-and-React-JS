@@ -19,7 +19,7 @@ const Sidebar = (props) => {
   const [open, setOpen] = useState(true);
   // List of menu items 
   const Menus = [
-    { title: "Sản phẩm", icon: <FcMultipleDevices size={30} />, href: "/san-pham/1" },
+    { title: "Sản phẩm", icon: <FcMultipleDevices size={30} />, href: "/admin/san-pham/1" },
     { title: "Loại sản phẩm", icon: <FcOrgUnit size={30} />, href: "/danh-muc-san-pham/1" },
     { title: "Bình luận sản phẩm", icon: <FcSms size={30} />, href: "/binh-luan-san-pham" },
     { title: "Hóa đơn ", icon: <FcPaid size={30} />, href: "/hoa-don" },
