@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopLaptop_EFCore.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace ShopLaptop_EFCore.Controllers.PublicController
 {
@@ -37,22 +39,21 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
         public ActionResult<List<dynamic>> SanPhamByCategory(int id)
         {
             var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
-            //var listSanPham = from a in _context.SanPhams
-            //                  join b in _context.ChiTietSanPhams
-            //                  on a.MaSanPham equals b.MaSanPham
-            //                  where a.MaLoaiSp == id
-            //                  select new
-            //                  {
-            //                     tenSanPham =  a.TenSanPham,
-            //                      giaNiemYet = (from a)
-            //                  }
-            var test = from c in _context.BienDongGia
-                        where c.MaSanPham == 1
-                        select c;
-            return Ok(test);
+            var listSanPham = from a in _context.SanPhams
+                              join b in _context.ChiTietSanPhams
+                              on a.MaSanPham equals b.MaSanPham
+                              where a.MaLoaiSp == id
+                              select new
+                              {
+                                  tenSanPham = a.TenSanPham,
+                                  giaNiemYet = (from d in _context.BienDongGia
+                                                where d.MaSanPham == a.MaSanPham
+                                                orderby d.LanThayDoiGia descending
+                                                select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                                  anhSanPham = imageURL + a.AnhSanPhams
+                              };
+            return Ok(listSanPham);
 
-        }
-
-     
+        }     
     }
 }
