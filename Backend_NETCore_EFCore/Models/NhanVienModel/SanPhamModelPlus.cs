@@ -7,7 +7,7 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
     [Index("TenSanPham", Name = "UQ__SanPham__BA66C031EDFC9119", IsUnique = true)]
     public class SanPhamModelPlus
     {
-        public SanPhamModelPlus(string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp, long gia, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram, double chietKhau)
+        public SanPhamModelPlus(string tenSanPham, int maLoaiSp, int maHangSx, int trangThaiSp, long gia, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram, double chietKhau,int soLuong)
         {
             TenSanPham = tenSanPham;
             MaLoaiSp = maLoaiSp;
@@ -25,6 +25,7 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
             MoTaThem = moTaThem;
             Ram = ram;
             ChietKhau = chietKhau;
+            SoLuong = soLuong;
         }
 
         [Key]
@@ -66,6 +67,8 @@ namespace ShopLaptop_EFCore.Models.NhanVienModel
         public string MoTaThem { get; set; } = null!;
         [Column("ram")]
         public int? Ram { get; set; }
+        [Column("so_luong")]
+        public int SoLuong { get; set; }
 
         [Column("chiet_khau")]
         // Ràng buộc phạm vi chiết khấu

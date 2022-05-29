@@ -124,7 +124,8 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                             moTaThem = d.MoTaThem,
                                             giaNiemYet = Math.Ceiling(e.GiaNhap * (1 + e.ChietKhau)),
                                             gia = e.GiaNhap,
-                                            chietKhau = e.ChietKhau*100
+                                            chietKhau = e.ChietKhau*100,
+                                            soLuong = d.SoLuong
                                         }
                             ).FirstOrDefaultAsync();
             // Lấy danh sách ảnh của sản phẩm tương ứng
@@ -188,7 +189,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             // Taọ đối ượng con cho chiTietSanPham
             ChiTietSanPham chiTietSanPham = new ChiTietSanPham(ma_san_pham, sanPhamModelPlus.Cpu, sanPhamModelPlus.CardDoHoa, sanPhamModelPlus.DoPhanGiai, sanPhamModelPlus.OCung,
                 sanPhamModelPlus.HeDieuHanh, sanPhamModelPlus.ManHinh, sanPhamModelPlus.KichThuoc, sanPhamModelPlus.TrongLuong,
-                sanPhamModelPlus.MoTaThem, sanPhamModelPlus.Ram);
+                sanPhamModelPlus.MoTaThem, sanPhamModelPlus.Ram,sanPhamModelPlus.SoLuong);
 
 
             // Lưu Chi tiêt sản phẩm với id sản phẩm trên
@@ -244,7 +245,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 // Tạo đối tượng con cho chi tiết sản phẩm
                 ChiTietSanPham chiTietSanPham = new ChiTietSanPham(id, sanPhamModel.Cpu, sanPhamModel.CardDoHoa, sanPhamModel.DoPhanGiai, sanPhamModel.OCung,
                sanPhamModel.HeDieuHanh, sanPhamModel.ManHinh, sanPhamModel.KichThuoc, sanPhamModel.TrongLuong,
-               sanPhamModel.MoTaThem, sanPhamModel.Ram);
+               sanPhamModel.MoTaThem, sanPhamModel.Ram,sanPhamModel.SoLuong);
 
                 // Cập nhật sản phẩm
                 _context.Entry(sanPhamExist).State = EntityState.Modified;

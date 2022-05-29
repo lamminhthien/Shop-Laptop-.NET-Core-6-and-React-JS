@@ -10,7 +10,7 @@ namespace ShopLaptop_EFCore.Models
     [Index("MaSanPham", Name = "UQ__ChiTietS__9D25990DDADFB156", IsUnique = true)]
     public partial class ChiTietSanPham
     {
-        public ChiTietSanPham(int maSanPham, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram)
+        public ChiTietSanPham(int maSanPham, string? cpu, string? cardDoHoa, string? doPhanGiai, int? oCung, string? heDieuHanh, double? manHinh, string? kichThuoc, double? trongLuong, string moTaThem, int? ram, int soLuong)
         {
             MaSanPham = maSanPham;
             Cpu = cpu;
@@ -23,6 +23,7 @@ namespace ShopLaptop_EFCore.Models
             TrongLuong = trongLuong;
             MoTaThem = moTaThem;
             Ram = ram;
+            SoLuong = soLuong;
         }
 
         [Key]
@@ -55,6 +56,8 @@ namespace ShopLaptop_EFCore.Models
         public string MoTaThem { get; set; } = null!;
         [Column("ram")]
         public int? Ram { get; set; }
+        [Column("so_luong")]
+        public int SoLuong { get; set; }
 
         [ForeignKey("MaSanPham")]
         [InverseProperty("ChiTietSanPham")]

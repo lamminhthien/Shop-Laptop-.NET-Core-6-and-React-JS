@@ -387,6 +387,24 @@ export default function ThemSanPham() {
               {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
             </div>
           </div>
+          {/* Kết thúc chiết khấu */}
+
+          {/* Số lượng */}
+          <div className={divStyle}>
+            <label class={labelStyle}>Số lượng</label>
+            <input {...register("soLuong", {
+              valueAsNumber: true,
+              required: true,
+              min: 1,
+              max: 1000
+            })}
+              className={inputStyle} />
+            {errors?.soLuong?.type === "required" && <p className={errorStyle}> Số lượng bắt buộc phải nhập </p>}
+            {errors?.soLuong?.type === "min" && <p className={errorStyle}> Số lượng không được dưới 1 </p>}
+            {errors?.soLuong?.type === "max" && <p className={errorStyle}>Số lượng không được vượt quá 1000 </p>}
+          </div>
+          {/* Số lượng */}
+
 
           {/* Kết thúc Màn hình, kích thước, trọng lượng ,ram */}
           {/* Mô tả thêm */}
@@ -436,9 +454,9 @@ export default function ThemSanPham() {
           </div>
         </form>
 
-      </div>
+      </div >
       <script src="./node_modules/flowbite/dist/flowbite.js"></script>
-    </div>
+    </div >
   );
 
 
