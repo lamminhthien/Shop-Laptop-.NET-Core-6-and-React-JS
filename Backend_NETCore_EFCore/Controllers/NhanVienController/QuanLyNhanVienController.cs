@@ -25,10 +25,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpGet("ListNhanVien")]
         public async Task<ActionResult<IEnumerable<NhanVien>>> ListNhanVien()
         {
-          if (_context.NhanViens == null)
-          {
-              return NotFound();
-          }
           var ketQua = await _context.NhanViens.Select(x => new
           {
               maNhanVien = x.MaNhanVien,
