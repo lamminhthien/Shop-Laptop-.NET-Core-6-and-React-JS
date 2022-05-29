@@ -42,10 +42,10 @@ namespace ShopLaptop_EFCore.Models
         [Column("gioi_tinh")]
         public bool GioiTinh { get; set; }
         [Column("username")]
-        [StringLength(10)]
+        [StringLength(20)]
         public string Username { get; set; } = null!;
         [Column("password")]
-        [StringLength(10)]
+        [StringLength(20)]
         public string Password { get; set; } = null!;
         [Column("email")]
         [StringLength(20)]
