@@ -87,6 +87,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return NotFound("Không tìm thấy bình luận này");
         }
 
+        [HttpPost("PhanHoiBinhLuanSP")]
+        public async Task<ActionResult<List<dynamic>>> PhanHoiBinhLuanSP(int id = 1)
+        {
+
+            return Ok("123");
+        }
+
+
 
 
 
