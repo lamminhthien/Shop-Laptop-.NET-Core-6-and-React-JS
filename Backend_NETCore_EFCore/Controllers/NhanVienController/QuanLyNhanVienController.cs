@@ -21,9 +21,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             _context = context;
         }
 
-        // GET: api/QuanLyNhanVien
+        // Lấy danh sách toàn bộ nhân viên
         [HttpGet("ListNhanVien")]
-        public async Task<ActionResult<IEnumerable<NhanVien>>> GetNhanViens()
+        public async Task<ActionResult<IEnumerable<NhanVien>>> ListNhanVien()
         {
           if (_context.NhanViens == null)
           {
@@ -41,32 +41,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
            return Ok(ketQua);
         }
 
-        // GET: api/QuanLyNhanVien/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<NhanVien>> GetNhanVien(int id)
-        {
-          if (_context.NhanViens == null)
-          {
-              return NotFound();
-          }
-            var nhanVien = await _context.NhanViens.FindAsync(id);
 
-            if (nhanVien == null)
-            {
-                return NotFound();
-            }
-
-            return nhanVien;
-        }
-
-        // PUT: api/QuanLyNhanVien/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutNhanVien(int id, NhanVien nhanVien)
+        // Sữa thông tin nhân viên
+        [HttpPut("SuaThongTinNhanVien")]
+        public async Task<IActionResult> SuaThongTinNhanVien(int id, NhanVien nhanVien)
         {
             if (id != nhanVien.MaNhanVien)
             {
-                return BadRequest();
+                return BadRequest("Không tìm thấy nhân viên cần sữa");
             }
 
             _context.Entry(nhanVien).State = EntityState.Modified;
@@ -79,7 +61,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 if (!NhanVienExists(id))
                 {
-                    return NotFound();
+                    return NotFound("Không tìm thấy nhân viên cần sữa");
                 }
                 else
                 {
@@ -90,10 +72,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return NoContent();
         }
 
-        // POST: api/QuanLyNhanVien
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<NhanVien>> PostNhanVien(NhanVien nhanVien)
+        // Thêm nhân viên
+        [HttpPost("ThemNhanVien")]
+        //[Authorize("Giam Doc")]
+        public async Task<ActionResult<NhanVien>> ThemNhanVien(NhanVien nhanVien)
         {
           if (_context.NhanViens == null)
           {
@@ -105,9 +87,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return CreatedAtAction("GetNhanVien", new { id = nhanVien.MaNhanVien }, nhanVien);
         }
 
+
         // DELETE: api/QuanLyNhanVien/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteNhanVien(int id)
+        [HttpDelete("XoaNhanVien")]
+        public async Task<IActionResult> XoaNhanVien(int id)
         {
             if (_context.NhanViens == null)
             {
