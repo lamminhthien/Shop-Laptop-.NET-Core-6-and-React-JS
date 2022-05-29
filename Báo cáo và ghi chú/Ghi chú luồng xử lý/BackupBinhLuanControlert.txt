@@ -1,0 +1,84 @@
+
+        // GET: api/QuanLyBinhLuanSanPham/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BinhLuanSanPham>> GetBinhLuanSanPham(int id)
+        {
+          if (_context.BinhLuanSanPhams == null)
+          {
+              return NotFound();
+          }
+            var binhLuanSanPham = await _context.BinhLuanSanPhams.FindAsync(id);
+
+            if (binhLuanSanPham == null)
+            {
+                return NotFound();
+            }
+
+            return binhLuanSanPham;
+        }
+
+        // PUT: api/QuanLyBinhLuanSanPham/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutBinhLuanSanPham(int id, BinhLuanSanPham binhLuanSanPham)
+        {
+            if (id != binhLuanSanPham.MaBinhLuan)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(binhLuanSanPham).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BinhLuanSanPhamExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/QuanLyBinhLuanSanPham
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<BinhLuanSanPham>> PostBinhLuanSanPham(BinhLuanSanPham binhLuanSanPham)
+        {
+          if (_context.BinhLuanSanPhams == null)
+          {
+              return Problem("Entity set 'shop_laptopContext.BinhLuanSanPhams'  is null.");
+          }
+            _context.BinhLuanSanPhams.Add(binhLuanSanPham);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetBinhLuanSanPham", new { id = binhLuanSanPham.MaBinhLuan }, binhLuanSanPham);
+        }
+
+        // DELETE: api/QuanLyBinhLuanSanPham/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBinhLuanSanPham(int id)
+        {
+            if (_context.BinhLuanSanPhams == null)
+            {
+                return NotFound();
+            }
+            var binhLuanSanPham = await _context.BinhLuanSanPhams.FindAsync(id);
+            if (binhLuanSanPham == null)
+            {
+                return NotFound();
+            }
+
+            _context.BinhLuanSanPhams.Remove(binhLuanSanPham);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }

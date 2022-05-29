@@ -14,11 +14,12 @@ namespace ShopLaptop_EFCore.Models
             PhanHoiBinhLuanSps = new HashSet<PhanHoiBinhLuanSp>();
         }
 
-        public BinhLuanSanPham(int maKhachHang, int maSanPham, string noiDung)
+        public BinhLuanSanPham(int maKhachHang, int maSanPham, string noiDung, bool trangThai)
         {
             MaKhachHang = maKhachHang;
             MaSanPham = maSanPham;
             NoiDung = noiDung;
+            TrangThai = trangThai;
         }
 
         [Key]
@@ -31,6 +32,8 @@ namespace ShopLaptop_EFCore.Models
         [Column("noi_dung")]
         [StringLength(60)]
         public string NoiDung { get; set; } = null!;
+        [Column("trang_thai")]
+        public bool TrangThai { get; set; }
 
         [ForeignKey("MaKhachHang")]
         [InverseProperty("BinhLuanSanPhams")]
