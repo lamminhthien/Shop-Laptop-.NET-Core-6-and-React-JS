@@ -50,12 +50,23 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             var maHoaDon = hoaDon.MaHoaDon;
 
             // Tạo chi tiết hóa đơn cho từng sản phẩm
-            //foreach (var item in gh)
-            //{
-            //    _context.Add(new ChiTietHoaDon(maHoaDon,item.MaSanPham,item.SoLuong)
-            //}
-            
-            
+            foreach (var item in gh)
+            {
+                var giaTienSanPham = (from a in _context.SanPhams
+                                      join b in _context.BienDongGia
+                                      on a.MaSanPham equals b.MaSanPham
+                                      where a.MaSanPham == item.MaSanPham
+                                      orderby b.LanThayDoiGia descending
+                                      select b.GiaNhap * (1 + b.ChietKhau)).FirstOrDefault();
+                _context.Add(new ChiTietHoaDon(maHoaDon, item.MaSanPham, item.SoLuong, (long)giaTienSanPham));
+                try { _context.SaveChanges(); }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.InnerException.ToString());
+                }
+            }
+
+
             return Ok("1234");
         }
 
