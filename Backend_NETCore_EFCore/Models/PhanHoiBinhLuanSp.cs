@@ -9,6 +9,13 @@ namespace ShopLaptop_EFCore.Models
     [Table("PhanHoiBinhLuanSP")]
     public partial class PhanHoiBinhLuanSp
     {
+        public PhanHoiBinhLuanSp(int maBinhLuan, int maNhanVien, string noiDung)
+        {
+            MaBinhLuan = maBinhLuan;
+            MaNhanVien = maNhanVien;
+            NoiDung = noiDung;
+        }
+
         [Key]
         [Column("ma_phan_hoi")]
         public int MaPhanHoi { get; set; }

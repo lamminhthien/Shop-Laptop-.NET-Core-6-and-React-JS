@@ -88,11 +88,29 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         }
 
         [HttpPost("PhanHoiBinhLuanSP")]
-        public async Task<ActionResult<List<dynamic>>> PhanHoiBinhLuanSP(int id = 1)
+        public async Task<ActionResult<List<dynamic>>> PhanHoiBinhLuanSP(int maBinhLuan = -1,int maNhanVien = -1,String noiDung="")
         {
-
-            return Ok("123");
+            if (maNhanVien == -1)
+            {
+                return BadRequest("Không có nhân viên phản hồi");
+            }
+            if (noiDung.Length < 50 || noiDung.Length > 255)
+            {
+                return BadRequest("Nội dung phải nằm trong khoảng từ 50 đến 255 kí tự");
+            }
+            try
+            {
+                _context.Add(new PhanHoiBinhLuanSp(maBinhLuan,maNhanVien,noiDung));
+                _context.SaveChanges();
+                return Ok("Đã phản hồi cho bình luận " + maBinhLuan + "thành công");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.ToString());
+            }
         }
+
+
 
 
 
