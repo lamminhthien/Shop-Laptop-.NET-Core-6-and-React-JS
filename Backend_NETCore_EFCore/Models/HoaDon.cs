@@ -14,10 +14,9 @@ namespace ShopLaptop_EFCore.Models
             ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
         }
 
-        public HoaDon(int maKhachHang, DateTime ngayChotDon, int tinhTrangGiaoHang, long tongTien, int maNhanVien)
+        public HoaDon(int maKhachHang, int tinhTrangGiaoHang, long tongTien, int maNhanVien)
         {
             MaKhachHang = maKhachHang;
-            NgayChotDon = ngayChotDon;
             TinhTrangGiaoHang = tinhTrangGiaoHang;
             TongTien = tongTien;
             MaNhanVien = maNhanVien;
