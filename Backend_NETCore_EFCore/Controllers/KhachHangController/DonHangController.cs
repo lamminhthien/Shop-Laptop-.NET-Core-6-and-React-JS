@@ -36,7 +36,25 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                 tongTien = tongTien + tinhTienMoiSanPham(item.MaSanPham, item.SoLuong);
             }
             // Tạo hóa đơn chung trước
-            var hoaDon = _context.Add(new HoaDon(maKhachHang, ngayChotDon, tinhTrangGiaoHang, tongTien, maNhanVien));
+            var hoaDon = new HoaDon(maKhachHang, ngayChotDon, tinhTrangGiaoHang, tongTien, maNhanVien);
+            // Tạo record hóa đơn mới vào database
+            _context.Add(hoaDon);
+           try {
+                _context.SaveChanges();
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.ToString());
+            }
+            // Lấy mã hóa đơn (autoincrement) vừa được tạo ra
+            var maHoaDon = hoaDon.MaHoaDon;
+
+            // Tạo chi tiết hóa đơn cho từng sản phẩm
+            //foreach (var item in gh)
+            //{
+            //    _context.Add(new ChiTietHoaDon(maHoaDon,item.MaSanPham,item.SoLuong)
+            //}
+            
             
             return Ok("1234");
         }
