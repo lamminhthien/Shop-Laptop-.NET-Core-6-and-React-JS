@@ -66,6 +66,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                               where a.MaLoaiSp == id
                               select new
                               {
+                                  maSanPham = a.MaSanPham,
                                   tenSanPham = a.TenSanPham,
                                   giaNiemYet = (from d in _context.BienDongGia
                                                 where d.MaSanPham == a.MaSanPham
@@ -90,6 +91,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                               where a.MaHangSx == id
                               select new
                               {
+                                  maSanPham = a.MaSanPham,
                                   tenSanPham = a.TenSanPham,
                                   giaNiemYet = (from d in _context.BienDongGia
                                                 where d.MaSanPham == a.MaSanPham
@@ -127,6 +129,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                               on a.MaSanPham equals b.MaSanPham
                               select new
                               {
+                                  maSanPham = a.MaSanPham,
                                   tenSanPham = a.TenSanPham,
                                   giaNiemYet = (from d in _context.BienDongGia
                                                 where d.MaSanPham == a.MaSanPham
@@ -174,6 +177,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                where a.TenSanPham.Contains(searchKey)
                                select new
                                {
+                                   maSanPham = a.MaSanPham,
                                    tenSanPham = a.TenSanPham,
                                    giaNiemYet = (from d in _context.BienDongGia
                                                  where d.MaSanPham == a.MaSanPham
@@ -216,6 +220,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1==1 )
                                select new
                                {
+                                   maSanPham = a.MaSanPham,
                                    tenSanPham = a.TenSanPham,
                                    giaNiemYet = (from d in _context.BienDongGia
                                                  where (d.MaSanPham == a.MaSanPham)

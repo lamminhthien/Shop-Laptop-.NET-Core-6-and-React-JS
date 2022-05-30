@@ -10,8 +10,9 @@ class TrangChuApi  {
         return axios.get(`${mainURL}/ListHangSanXuat`)
     }
 
-    getSanPhamByDefault () {
-        return axios.get(`${mainURL}/ListSanPhamDefault`)
+    getSanPhamByDefault (page) {
+        if (page === undefined) page=1
+        return axios.get(`${mainURL}/ListSanPhamDefault?page=${page}`)
     }
 }
 
