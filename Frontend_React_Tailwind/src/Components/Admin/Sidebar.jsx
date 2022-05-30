@@ -20,13 +20,13 @@ const Sidebar = (props) => {
   // List of menu items 
   const Menus = [
     { title: "Sản phẩm", icon: <FcMultipleDevices size={30} />, href: "/admin/san-pham/1" },
-    { title: "Loại sản phẩm", icon: <FcOrgUnit size={30} />, href: "/danh-muc-san-pham/1" },
+    { title: "Loại sản phẩm", icon: <FcOrgUnit size={30} />, href: "/admin/danh-muc-san-pham/1" },
     { title: "Bình luận sản phẩm", icon: <FcSms size={30} />, href: "/binh-luan-san-pham" },
-    { title: "Hóa đơn ", icon: <FcPaid size={30} />, href: "/hoa-don" },
-    { title: "Hãng sản xuất", icon: <FcShop size={30} />, href: "/hang-san-xuat/1" },
-    { title: "Khách hàng", icon: <FcConferenceCall size={30} />, href: "/khach-hang/1" },
-    { title: "Biến động giá sản phẩm", icon: <FcCurrencyExchange size={30} />, href: "/bien-dong-gia-ca/1" },
-    { title: "Nhân viên !!", icon: <FcButtingIn size={30} />, href: "/nhan-vien/1" },
+    { title: "Hóa đơn ", icon: <FcPaid size={30} />, href: "admin/list-hoa-don/" },
+    { title: "Hãng sản xuất", icon: <FcShop size={30} />, href: "/admin/list-hang-san-xuat/1" },
+    { title: "Khách hàng", icon: <FcConferenceCall size={30} />, href: "/admin/list-khach-hang/1" },
+    { title: "Biến động giá sản phẩm", icon: <FcCurrencyExchange size={30} />, href: "/admin/list-bien-dong-gia-ca/1" },
+    { title: "Nhân viên !!", icon: <FcButtingIn size={30} />, href: "/admin/list-nhan-vien/1" },
   ];
   // Auto close menu when on mobile
   const handleResize = () => {
@@ -68,18 +68,19 @@ const Sidebar = (props) => {
       </div>
       <ul className="pt-6">
         {Menus.map((Menu, index) => (
-          <li
-            key={index}
-            className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white hover:scale-125 ease-in-out duration-150 text-gray-300 text-sm items-center gap-x-4 
+          <span className={`${!open && "hidden"} origin-left duration-200`}>
+            <Link to={Menu.href} >
+              <li
+                key={index}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white hover:scale-125 ease-in-out duration-150 text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${location.pathname == Menu.href && "bg-light-white scale-x-125 scale-y-125"
-              } `}
-          >
-            {Menu.icon}
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
-              <Link to={Menu.href} >{Menu.title}</Link>
-            </span>
-
-          </li>
+                  } `}
+              >
+                {Menu.icon}
+                {Menu.title}
+              </li>
+            </Link>
+          </span>
         ))}
       </ul>
     </div>
