@@ -5,6 +5,10 @@ class TrangChuApi  {
     getListLoaiSanPham () {
         return axios.get(`${mainURL}/ListLoaiSanPham`)
     }
+
+    getListHangSanXuat () {
+        return axios.get(`${mainURL}/ListHangSanXuat`)
+    }
 }
 
 export default new TrangChuApi();
