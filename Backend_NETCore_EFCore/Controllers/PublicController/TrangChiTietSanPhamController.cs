@@ -29,7 +29,8 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
             {
                 return NotFound();
             }
-
+            // Đường dẫn ảnh
+            var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
             // Lấy chi tiet san pham
             var chiTietSanPham = await (from a in _context.SanPhams
                                         join b in _context.LoaiSanPhams
@@ -65,7 +66,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                   join b in _context.AnhSanPhams
                                   on a.MaSanPham equals b.MaSanPham
                                   where a.MaSanPham == id
-                                  select b.FileAnh.Trim());
+                                  select imageURL + b.FileAnh.Trim());
 
             if (chiTietSanPham == null)
             {

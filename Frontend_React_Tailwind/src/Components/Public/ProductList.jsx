@@ -29,6 +29,7 @@ export default function ProductList() {
               <a className="block relative h-48 rounded overflow-hidden" href={`/public/san-pham/${item.maSanPham}`}>
                 <img alt="ecommerce" className="object-cover object-center w-full h-full block" src={item.anhSanPham} />
               </a>
+              
               <div className="mt-4">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
