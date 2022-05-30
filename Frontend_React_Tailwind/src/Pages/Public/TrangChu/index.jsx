@@ -9,11 +9,11 @@ export default function HomePage () {
     return (
         <div>
            <PrimarySearchAppBar/>
-           <Ads/>
+           {/* <Ads/>
            <ProductType/>
            <BrandList/>
            <ProductList/>
-           <Footer/>
+           <Footer/> */}
         </div>
     )
 }
