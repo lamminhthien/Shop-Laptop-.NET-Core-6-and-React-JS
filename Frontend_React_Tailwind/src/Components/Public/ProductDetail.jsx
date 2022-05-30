@@ -10,6 +10,7 @@ export default function ProductDetail() {
       setState({
         data: res.data.chiTietSanPham,
         image: res.data.danhSachAnh,
+        imageSlide: res.data.danhSachAnh[0],
         done: true
       })
     })
@@ -27,10 +28,10 @@ export default function ProductDetail() {
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-row">
             <div className="lg:basis-2/4">
-              <img alt="ecommerce" className="mt-auto h-3/5  w-fit object-cover object-center rounded" src={state.image[1]} />
-              <div className="flex flex-row  justify-center space-x-4 font-mono text-white text-sm font-bold leading-6">
+              <img alt="ecommerce" className="m-auto h-3/5  w-96 h-96 object-cover object-center rounded" src={state.imageSlide} />
+              <div className="flex flex-row mt-3  justify-center space-x-4 font-mono text-white text-sm font-bold leading-6">
               {state.image !== null ? state.image.map((item) =>
-                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={item} />
+                <img alt="ecommerce" className="w-48 h-48 object-cover object-center rounded" src={item} onClick={() => setState({...state,imageSlide:item})} />
               ) : <p>Đang load ảnh thu nhỏ</p>}
               </div>
               
