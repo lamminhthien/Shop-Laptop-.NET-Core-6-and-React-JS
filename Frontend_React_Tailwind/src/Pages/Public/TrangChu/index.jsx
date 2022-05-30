@@ -7,7 +7,7 @@ import BrandList from "../../../Components/Public/BrandList"
 
 export default function HomePage () {
     return (
-        <div>
+        <div className="container m-auto">
            <PrimarySearchAppBar/>
            <Ads/>
            <ProductType/>
