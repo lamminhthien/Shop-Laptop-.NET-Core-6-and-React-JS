@@ -29,10 +29,11 @@ export default function ProductDetail() {
             <div className="lg:basis-2/4">
               <img alt="ecommerce" className="h-fit w-fit object-cover object-center rounded" src={state.image[1]} />
               <div className="flex flex-row  justify-center space-x-4 font-mono text-white text-sm font-bold leading-6">
-                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={state.image[1]} />
-                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={state.image[1]} />
-                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={state.image[1]} />
+              {state.image !== null ? state.image.map((item) =>
+                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={item} />
+              ) : <p>Đang load ảnh thu nhỏ</p>}
               </div>
+              
             </div>
             <div className="lg:basis-2/4 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">{state.data.hangSanXuat}</h2>
