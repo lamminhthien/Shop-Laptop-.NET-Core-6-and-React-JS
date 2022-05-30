@@ -26,15 +26,15 @@ export default function ProductDetail() {
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-row">
-            <div>
-              <img alt="ecommerce" className="object-cover object-center rounded" src={state.image[1]} />
-              <div className="lg:w-1/3 flex flex-row space-x-4 font-mono text-white text-sm font-bold leading-6">
-                <div class="w-14 h-14 rounded-lg flex items-center justify-center bg-fuchsia-500 shadow-lg">01</div>
-                <div class="w-14 h-14 rounded-lg flex items-center justify-center bg-fuchsia-500 shadow-lg">01</div>
-                <div class="w-14 h-14 rounded-lg flex items-center justify-center bg-fuchsia-500 shadow-lg">01</div>
+            <div className="lg:basis-2/4">
+              <img alt="ecommerce" className="h-fit w-fit object-cover object-center rounded" src={state.image[1]} />
+              <div className="flex flex-row  justify-center space-x-4 font-mono text-white text-sm font-bold leading-6">
+                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={state.image[1]} />
+                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={state.image[1]} />
+                <img alt="ecommerce" className="w-1/4 object-cover object-center rounded" src={state.image[1]} />
               </div>
             </div>
-            <div className="lg:w-2/3 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div className="lg:basis-2/4 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">{state.data.hangSanXuat}</h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{state.data.tenSanPham}</h1>
               <div className="flex mb-4">
