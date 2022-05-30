@@ -14,6 +14,7 @@ class TrangChuApi  {
         if (page === undefined) page=1
         return axios.get(`${mainURL}/ListSanPhamDefault?page=${page}`)
     }
+
 }
 
 export default new TrangChuApi();
