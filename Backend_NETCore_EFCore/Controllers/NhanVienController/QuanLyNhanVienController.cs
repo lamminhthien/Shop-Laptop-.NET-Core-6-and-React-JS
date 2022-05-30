@@ -80,7 +80,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             _context.NhanViens.Add(nhanVien);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetNhanVien", new { id = nhanVien.MaNhanVien }, nhanVien);
+            return Ok("Đã tạo nhân viên mới với tên");
         }
 
 
