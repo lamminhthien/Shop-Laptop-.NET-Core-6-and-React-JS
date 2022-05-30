@@ -105,7 +105,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
 
         // Hiển thị sản phẩm  mặc định trên trang chủ
         [HttpGet("listSanPhamDefault")]
-        public ActionResult<List<dynamic>> listSanPhamDefault(int page)
+        public ActionResult<List<dynamic>> ListSanPhamDefault(int page)
         {
             double rowPerPage = 5;
             if (page == null || page == 0)
@@ -141,7 +141,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
             {
                 tongSoSanPham = productQuantity,
                 soTrang = numberOfPageInteger,
-                ketqua = listSanPham
+                ketQua = listSanPham
             });
         }
 
