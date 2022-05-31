@@ -1,10 +1,6 @@
 import { useForm } from "react-hook-form";
 export default function Navbar() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data))
-
-  };
+  const { register } = useForm();
   return (
 
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
@@ -36,7 +32,7 @@ export default function Navbar() {
               <a href="#" className="block py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0  ">Giỏ hàng</a>
             </li>
             <li>
-              <form  onSubmit={handleSubmit(onSubmit)}>
+              <form>
                 <input type="text"
                   {...register("searchKey")}
                   class=" text-gray-900 bg-gray-50 rounded-lg border
