@@ -3,17 +3,19 @@ import { useState, useEffect } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import React from "react";
 
+
 // A custom hook that builds on useLocation to parse
 // the query string for you.
 function useQuery() {
   const { search } = useLocation();
-
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
 export default function ProductList() {
   const [state, setState] = useState({})
   let query = useQuery();
+
+
 
   useEffect(() => {
     //Đọc query parameter category
