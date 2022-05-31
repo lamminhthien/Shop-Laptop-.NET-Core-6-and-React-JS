@@ -16,21 +16,28 @@ export default function ProductList() {
   let query = useQuery();
 
   useEffect(() => {
+    //Đọc query parameter category
     if (query.get("category"))
-      console.log(query.get("category"));
-
-    TrangChuApi.getSanPhamByDefault(0).then((res) => {
-      setState({
-        data: res.data,
-        done: true
-      })
-    })
-      .catch(err => {
+      console.log("Category ID is "+query.get("category"));
+    // Đọc query parameter brand
+    if (query.get("brand"))
+      console.log("Brand ID is "+query.get("brand"));
+    
+    if (query == "") {
+      TrangChuApi.getSanPhamByDefault(0).then((res) => {
         setState({
-          error: err,
-          done: false
+          data: res.data,
+          done: true
         })
       })
+        .catch(err => {
+          setState({
+            error: err,
+            done: false
+          })
+        })
+    }
+   
   }, [])
 
 
@@ -56,7 +63,5 @@ export default function ProductList() {
         </div>
       </div>
     </section>
-
-
   )
 }
