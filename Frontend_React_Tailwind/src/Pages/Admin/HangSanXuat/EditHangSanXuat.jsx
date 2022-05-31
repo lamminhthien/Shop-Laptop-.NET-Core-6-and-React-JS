@@ -1,8 +1,9 @@
 import Sidebar from "../../../Components/Admin/Sidebar";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
+
 import { useState, useEffect } from "react"
+import HangSanXuatApi from "../../../Api/HangSanXuat/HangSanXuatApi";
 
 export default function EditHangSanXuat() {
     // the dynamic pieces of the URL.
@@ -22,12 +23,12 @@ export default function EditHangSanXuat() {
 
 
  useEffect(() => {
-    LoaiSanPhamApi.getLoaiSanPhamSingle(id).then( (res) => {
+    HangSanXuatApi.getSingleHangSanXuat(id).then( (res) => {
         setState({
             data: res.data,
             done: true
         });
-        setValue("tenLoaiSp",res.data[0].tenLoaiSp)
+        setValue("tenHangSx",res.data[0].tenHangSx)
         
     })
         .catch(err => {
@@ -35,22 +36,18 @@ export default function EditHangSanXuat() {
         })
 }, [])
 
-    // if (state.done) console.log(state.data[0].tenLoaiSp);
+    // if (state.done) console.log(state.data[0].tenHangSx);
     console.log(state);
 
     const errorStyle = `before:content-['⚠'] mt-2 text-sm text-red-600 `
     // Xử lý khi submit form
     const onSubmit = (data) => {
         // Đổi tên loại sản phẩm
-        if (data.tenLoaiSp !== undefined) {
-            const formData = new FormData()
-            formData.append("tenLoaiSp",data.tenLoaiSp)
-            LoaiSanPhamApi.suaTenLoaiSanPham(id,formData)
+        if (data.tenHangSx !== undefined) {
+            HangSanXuatApi.editNameHangSanXuat(id,data.tenHangSx)
         } 
         if (data.image !== undefined) {
-            const imageFormData = new FormData()
-            imageFormData.append("image",data.image[0])
-            LoaiSanPhamApi.suaAnhLoaiSanPham(id,imageFormData)
+            HangSanXuatApi.editNameHangSanXuat(id,data.image[0])
         }
         alert(JSON.stringify(data));
     };
@@ -68,19 +65,19 @@ export default function EditHangSanXuat() {
                                 <input type="text" id="large-input"
                                     class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg
                                 bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 "
-                                    {...register("tenLoaiSp", {
+                                    {...register("tenHangSx", {
                                         required: true,
                                         minLength: 10,
                                         maxLength: 50
                                     })}
                                 />
-                                {errors?.tenLoaiSp?.type === "required" && <p className={errorStyle}>Tên sản phẩm bắt buộc nhập</p>}
-                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiểu 10 kí tự</p>}
-                                {errors?.tenLoaiSp?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm tối đa 50 kí tự</p>}
+                                {errors?.tenHangSx?.type === "required" && <p className={errorStyle}>Tên sản phẩm bắt buộc nhập</p>}
+                                {errors?.tenHangSx?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiểu 10 kí tự</p>}
+                                {errors?.tenHangSx?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm tối đa 50 kí tự</p>}
                             </div>
                             <div className="mb-6">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Ảnh</label>
-                                <img className="block mb-2 w-40 h-40" src={state.data[0].anhMinhHoa} alt={state.data[0].tenLoaiSp} />
+                                <img className="block mb-2 w-40 h-40" src={state.data[0].anhMinhHoa} alt={state.data[0].tenHangSx} />
                             </div>
                             <div className="mb-6">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Đổi ảnh mới</label>

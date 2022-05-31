@@ -20,6 +20,7 @@ import ThemHangSanXuat from "./Pages/Admin/HangSanXuat/ThemHangSanXuat";
 import HomePage from "./Pages/Public/TrangChu/index"
 import ChiTietSanPhamPublic from "./Pages/Public/ChiTietSanPham/index"
 import EditLoaiSanPham from './Pages/Admin/LoaiSanPham/EditLoaiSanPham';
+import EditHangSanXuat from './Pages/Admin/HangSanXuat/EditHangSanXuat';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -52,6 +53,8 @@ reactDom.render(
             <Route exact path="/admin/list-hang-san-xuat/:pageNumber" children={<ListHangSanXuat   />} />
 
             <Route exact path="/admin/them-hang-san-xuat" children={<ThemHangSanXuat/>} />
+
+            <Route exact path="/admin/edit-hang-san-xuat/:id" children={<EditHangSanXuat/>} />
 
             {/* Admin Quản lý nhân viên */}
 

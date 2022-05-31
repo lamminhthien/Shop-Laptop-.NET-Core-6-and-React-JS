@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import Paging from '../../../Components/Admin/Paging';
-import getListHangSanXuat from '../../../Api/HangSanXuat/HangSanXuatApi'
 import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
 export default function ListHangSanXuat() {
     // Lấy url trang hiện tại
@@ -89,7 +88,7 @@ export default function ListHangSanXuat() {
                                             )
                                     }
                                     <td class="px-5 py-4 text-left">
-                                        <a href={"/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
+                                        <a href={"/admin/edit-hang-san-xuat/" + item.maHangSx} class="font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
                                     </td>
 
