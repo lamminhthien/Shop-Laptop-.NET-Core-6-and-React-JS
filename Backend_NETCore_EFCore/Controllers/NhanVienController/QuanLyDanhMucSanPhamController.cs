@@ -194,9 +194,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         [HttpGet("GetSingleDanhMuc")]
         public async Task<ActionResult<LoaiSanPham>> GetSingleDanhMuc(int id=-1)
         {
+            var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/LoaiSanPham/";
             var danhMucSP = (from a in _context.LoaiSanPhams
-                                  where a.MaLoaiSp == id
-                                  select a);
+                             where a.MaLoaiSp == id
+                             select new
+                             {
+                                 maLoaiSp = a.MaLoaiSp,
+                                 tenLoaiSp = a.TenLoaiSp,
+                                 anhMinhHoa = imageURL + a.AnhMinhHoa
+                             }); ;
             if (danhMucSP == null) return BadRequest("Không tìm thấy danh mục sản phẩm này");
             return Ok(danhMucSP);
         }
