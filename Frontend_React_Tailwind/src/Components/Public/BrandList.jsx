@@ -21,7 +21,7 @@ export default function BrandList() {
         return (
             <div>
                  <h1 className="text-center text-fuchsia-500  text-3xl font-semibold">Hãng sản xuất</h1>
-                <div className="my-16">
+                <div className="">
                     <a href="#" class="flex flex-wrap place-content-center overflow-hidden">
                         {state.data !== null ? state.data.map((item) =>
                             <a href={`?brand=${item.maHangSanXuat}`}>
