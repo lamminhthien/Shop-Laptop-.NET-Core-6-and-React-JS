@@ -190,6 +190,17 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return Ok("Đã tạo loại sản phẩm:"+tenLoaiSp);
         }
 
+        //Get 1 loại sản phẩm
+        [HttpGet("GetSingleDanhMuc")]
+        public async Task<ActionResult<LoaiSanPham>> GetSingleDanhMuc(int id=-1)
+        {
+            var danhMucSP = (from a in _context.LoaiSanPhams
+                                  where a.MaLoaiSp == id
+                                  select a);
+            if (danhMucSP == null) return BadRequest("Không tìm thấy danh mục sản phẩm này");
+            return Ok(danhMucSP);
+        }
+
 
 
 

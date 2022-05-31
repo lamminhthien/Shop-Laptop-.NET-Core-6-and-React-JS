@@ -19,6 +19,7 @@ import ThemLoaiSanPham from './Pages/Admin/LoaiSanPham/ThemLoaiSanPham'
 import ThemHangSanXuat from "./Pages/Admin/HangSanXuat/ThemHangSanXuat";
 import HomePage from "./Pages/Public/TrangChu/index"
 import ChiTietSanPhamPublic from "./Pages/Public/ChiTietSanPham/index"
+import EditLoaiSanPham from './Pages/Admin/LoaiSanPham/EditLoaiSanPham';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -43,6 +44,8 @@ reactDom.render(
             <Route exact path="/admin/danh-muc-san-pham/:pageNumber" children={<ListLoaiSanPham   />} />
 
             <Route exact path="/admin/them-danh-muc-san-pham" children={<ThemLoaiSanPham/>} />
+
+            <Route exact path="/admin/sua-danh-muc-san-pham/:id" children={<EditLoaiSanPham/>} />
 
             {/* Admin Quản lý hãng sản xuất */}
 

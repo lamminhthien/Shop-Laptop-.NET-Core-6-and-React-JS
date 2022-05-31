@@ -31,6 +31,13 @@ class LoaiSanPhamApi {
          const chucNang = `ListDanhMucSanPham?allRecord=true`
          return axios.get(`${mainURL}/${chucNang}`)
      }
+
+     //TODO Lấy loại sản phẩm cụ thể 
+     getLoaiSanPhamSingle (id) {
+         const chucNang = `GetSingleDanhMuc`
+         return axios.get(`${mainURL}/${chucNang}?id=${id}`)
+     }
+
 }
 
 export default new LoaiSanPhamApi();

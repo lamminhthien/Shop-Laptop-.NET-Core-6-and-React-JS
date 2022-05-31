@@ -434,7 +434,7 @@ export default function ThemSanPham() {
             class="relative z-0 w-full mb-6 group"><label for="message" class="block mb-2 text-sm font-medium text-gray-900">Upload ảnh</label>
             <input onChange={previewImage} name="image"
               class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer
- " id="multiple_files" type="file" multiple />
+                  " id="multiple_files" type="file" multiple />
             <div class="flex flex-wrap -mx-2 overflow-hidden">
               {/* Khu vực preview ảnh */}
               {previewPicture.length > 0 ?
