@@ -33,8 +33,20 @@ export default function ProductList() {
     }
     console.log("Category ID is " + query.get("category"));
     // Đọc query parameter brand
-    if (query.get("brand"))
-      console.log("Brand ID is " + query.get("brand"));
+    if (query.get("brand")) {
+      TrangChuApi.getSanPhamByBrand(query.get("brand")).then(res => {
+        setState({
+          data: res.data,
+          done: true
+        })
+        .catch(err => {
+          setState({
+            error:err,
+            done:false
+          })
+        })
+      })
+    }
 
     if (query == "") {
       TrangChuApi.getSanPhamByDefault(0).then((res) => {
@@ -52,7 +64,7 @@ export default function ProductList() {
     }
   }, [])
   console.log(state.data);
-  if (state.done) 
+  if (state.done)
     return (
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">

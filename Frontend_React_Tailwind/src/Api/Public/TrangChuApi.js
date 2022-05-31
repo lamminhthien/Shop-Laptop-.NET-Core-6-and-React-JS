@@ -20,7 +20,7 @@ class TrangChuApi  {
     }
 
     getSanPhamByBrand (id) {
-        return axios.get(`${mainURL}/SanPhamByBrand/?${id}`)
+        return axios.get(`${mainURL}/SanPhamByBrand/?id=${id}`)
     }
 
 }
