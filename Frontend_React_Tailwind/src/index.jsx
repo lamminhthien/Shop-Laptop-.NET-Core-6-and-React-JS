@@ -21,6 +21,7 @@ import HomePage from "./Pages/Public/TrangChu/index"
 import ChiTietSanPhamPublic from "./Pages/Public/ChiTietSanPham/index"
 import EditLoaiSanPham from './Pages/Admin/LoaiSanPham/EditLoaiSanPham';
 import EditHangSanXuat from './Pages/Admin/HangSanXuat/EditHangSanXuat';
+import Login from './Pages/Admin/Login/Login';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -29,6 +30,8 @@ reactDom.render(
 
             <Route exact path="/" children={<HomePage />} />
 
+            {/* Admin Login */}
+            <Route exact path="/admin" children={Login} />
             {/* Admin Quản lý sản phẩm */}
             <Route exact path="/admin/chi-tiet-san-pham/:id" children={<ChiTietSanPham />} />
 
