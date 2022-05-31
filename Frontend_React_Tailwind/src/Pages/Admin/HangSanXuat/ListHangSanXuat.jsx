@@ -78,14 +78,21 @@ export default function ListHangSanXuat() {
                                         {/* Riêng mã hãng sản xuất được in đậm in ra trước */}
                                         {item.maHangSx}
                                     </th>
+                                    <td className='px-6 py-4'>
+                                        {item.tenHangSx}
+                                    </td>
+                                    <td className='px-6 py-4 '>
+                                        <img className='w-24 ' src={`https://localhost:7216/Resources/Images/HangSanXuat/${item.logo}`} alt={item.tenHangSx}/>
+                                    </td>
                                     {
                                         // Hiển thị thông tin các trường còn lại , có cùng style 
-                                        [item.tenHangSx, item.logo]
-                                            .map((element) =>
-                                                <td class="px-6 py-4">
-                                                    {element}
-                                                </td>
-                                            )
+                                        // [item.tenHangSx, item.logo]
+                                        //     .map((element) =>
+                                        //         <td class="px-6 py-4">
+                                        //             {element}
+                                        //         </td>
+                                        //     )
+                                    
                                     }
                                     <td class="px-5 py-4 text-left">
                                         <a href={"/admin/edit-hang-san-xuat/" + item.maHangSx} class="font-medium text-blue-600
