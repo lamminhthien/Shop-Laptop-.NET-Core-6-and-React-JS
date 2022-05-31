@@ -33,9 +33,9 @@ reactDom.render(
 
             <Route exact path="/admin/san-pham/:pageNumber" children={<ListSanPham/>} />
 
-            <Route exact path="/admin/edit-san-pham/:id" children={<EditSanPham   />} />
+            <Route exact path="/admin/edit-san-pham/:id" children={<EditSanPham/>} />
 
-            <Route exact path="/admin/them-san-pham/" children={<ThemSanPham   />} />
+            <Route exact path="/admin/them-san-pham/" children={<ThemSanPham/>} />
 
             <Route exact path="/admin/xoa-san-pham/:id" children={<XoaSanPham   />} />
 

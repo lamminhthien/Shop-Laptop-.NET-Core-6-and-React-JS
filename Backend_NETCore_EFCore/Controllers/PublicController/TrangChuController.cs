@@ -44,7 +44,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
             var listHangSanXuat = _context.HangSanXuats.Select(
                    o => new
                    {
-                       maHangSanxuat = o.MaHangSx,
+                       maHangSanXuat = o.MaHangSx,
                        tenHangSanXuat = o.TenHangSx,
                        logo = imageURL + o.Logo.Trim()
                    }

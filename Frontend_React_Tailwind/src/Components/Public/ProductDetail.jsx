@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import TrangChiTietSanPhamApi from "../../Api/Public/TrangChiTietSanPhamApi";
 import { useState, useEffect } from "react"
 
+
 export default function ProductDetail() {
   let { id } = useParams();
   const [state, setState] = useState({})
@@ -22,7 +23,8 @@ export default function ProductDetail() {
       })
   }, [])
 
-  if (state.done)
+  if (state.done) {
+ 
     return (
       <section className="text-gray-600 body-font overflow-hidden">
         <div className="container px-5 py-24 mx-auto">
@@ -30,11 +32,11 @@ export default function ProductDetail() {
             <div className="lg:basis-2/4">
               <img alt="ecommerce" className="m-auto h-3/5  w-96 h-96 object-cover object-center rounded" src={state.imageSlide} />
               <div className="flex flex-row mt-3  justify-center space-x-4 font-mono text-white text-sm font-bold leading-6">
-              {state.image !== null ? state.image.map((item) =>
-                <img alt="ecommerce" className="w-48 h-48 object-cover object-center rounded" src={item} onClick={() => setState({...state,imageSlide:item})} />
-              ) : <p>Đang load ảnh thu nhỏ</p>}
+                {state.image !== null ? state.image.map((item) =>
+                  <img alt="ecommerce" className="w-48 h-48 object-cover object-center rounded" src={item} onClick={() => setState({ ...state, imageSlide: item })} />
+                ) : <p>Đang load ảnh thu nhỏ</p>}
               </div>
-              
+
             </div>
             <div className="lg:basis-2/4 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">{state.data.hangSanXuat}</h2>
@@ -70,4 +72,7 @@ export default function ProductDetail() {
       </section>
 
     )
+
+  }
+
 }

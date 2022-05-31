@@ -15,6 +15,14 @@ class TrangChuApi  {
         return axios.get(`${mainURL}/ListSanPhamDefault?page=${page}`)
     }
 
+    getSanPhamByCategory (id) {
+         axios.get(`${mainURL}/SanPhamByCategory/?id=${id}`)
+    }
+
+    getSanPhamByBrand (id) {
+        return axios.get(`${mainURL}/SanPhamByBrand/?${id}`)
+    }
+
 }
 
 export default new TrangChuApi();

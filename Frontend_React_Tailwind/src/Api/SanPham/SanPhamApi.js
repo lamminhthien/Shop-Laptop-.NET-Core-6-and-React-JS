@@ -20,7 +20,6 @@ class SanPhamApi {
          return axios.put(`${mainURL}/${chucNang}/${id}`,data)
      }
 
-
 }
 
 export default new SanPhamApi();

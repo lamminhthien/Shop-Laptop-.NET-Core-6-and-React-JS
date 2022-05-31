@@ -1,11 +1,24 @@
 import TrangChuApi from "../../Api/Public/TrangChuApi"
 import { useState, useEffect } from "react"
+import { useLocation,useParams } from "react-router-dom"
+import React from "react";
+
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
 
 export default function ProductList() {
   const [state, setState] = useState({})
- 
+  let query = useQuery();
 
   useEffect(() => {
+    if (query.get("category"))
+      console.log(query.get("category"));
+
     TrangChuApi.getSanPhamByDefault(0).then((res) => {
       setState({
         data: res.data,
@@ -19,6 +32,9 @@ export default function ProductList() {
         })
       })
   }, [])
+
+
+
   if (state.done)
   return (
     <section className="text-gray-600 body-font">

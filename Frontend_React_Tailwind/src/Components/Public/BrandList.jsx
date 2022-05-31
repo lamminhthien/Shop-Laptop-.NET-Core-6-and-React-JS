@@ -24,7 +24,7 @@ export default function BrandList() {
                 <div className="my-16">
                     <a href="#" class="flex flex-wrap place-content-center overflow-hidden">
                         {state.data !== null ? state.data.map((item) =>
-                            <a href="#">
+                            <a href={`?brand=${item.maHangSanXuat}`}>
                                 <div className="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
                                     {/* Image */}
                                     <img className="h-40 object-cover rounded-xl h-40 object-cover rounded-xl" src={item.logo} alt />
