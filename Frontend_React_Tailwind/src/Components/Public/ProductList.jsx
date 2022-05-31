@@ -39,7 +39,7 @@ export default function ProductList() {
     if (query == "") {
       TrangChuApi.getSanPhamByDefault(0).then((res) => {
         setState({
-          data: res.data,
+          data: res.data.ketQua,
           done: true
         })
       })
