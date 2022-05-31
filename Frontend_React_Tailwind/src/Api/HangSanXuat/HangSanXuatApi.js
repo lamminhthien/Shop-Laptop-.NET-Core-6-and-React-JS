@@ -25,7 +25,7 @@ class HangSanXuatApi {
         const chucNang = `SuaTenHangSanXuat`
         const formData = new FormData()
         formData.append("tenHangSX",name)
-        return axios.put(`${mainURL}/${chucNang}/?id=${id}`)
+        return axios.put(`${mainURL}/${chucNang}/${id}`,formData)
      }
 
      //TODO Sữa ảnh hãng sản xuất
@@ -33,7 +33,7 @@ class HangSanXuatApi {
         const chucNang = `SuaAnhHangSanXuat`
         const formData = new FormData()
         formData.append("image",image)
-        return axios.put(`${mainURL}/${chucNang}/?id=${id}`)
+        return axios.put(`${mainURL}/${chucNang}/${id}`,formData)
      }
 
      //TODO Lấy cụ thể hãng sản xuất
