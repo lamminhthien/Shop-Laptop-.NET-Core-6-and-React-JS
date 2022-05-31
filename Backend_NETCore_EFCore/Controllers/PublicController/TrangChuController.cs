@@ -150,16 +150,12 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
 
         // Tìm kiếm sản phẩm theo từ khóa
         [HttpGet("timKiemTheoTuKhoa")]
-        public ActionResult<List<dynamic>> timKiemTheoTuKhoa(int page,String searchKey)
+        public ActionResult<List<dynamic>> timKiemTheoTuKhoa(int page=1,String searchKey="")
         {
             double rowPerPage = 5;
-            if (page == null || page == 0)
+            if (page < 0)
             {
                 page = 1;
-            }
-            if (searchKey == null)
-            {
-                searchKey = "";
             }
             // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
             double productQuantity = _context.SanPhams.Count();
