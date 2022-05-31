@@ -50,7 +50,7 @@ export default function ProductList() {
       })
     }
 
-    if (query == "" || query.get("searchKey").trim() == "" || query.get("searchKey").contains("+")) {
+    if (query == "" || query.get("searchKey").trim() == "" || query.get("searchKey").contains('+')) {
       TrangChuApi.getSanPhamByDefault(0).then((res) => {
         setState({
           data: res.data.ketQua,
