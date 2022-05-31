@@ -20,6 +20,28 @@ class HangSanXuatApi {
         return axios.get(`${mainURL}/${chucNang}`)
      }
 
+     // TODO Sữa tên hãng sản xuất
+     editNameHangSanXuat (id,name) {
+        const chucNang = `SuaTenHangSanXuat`
+        const formData = new FormData()
+        formData.append("tenHangSX",name)
+        return axios.put(`${mainURL}/${chucNang}/?id=${id}`)
+     }
+
+     //TODO Sữa ảnh hãng sản xuất
+     editImageHangSanXuat (id,image) {
+        const chucNang = `SuaAnhHangSanXuat`
+        const formData = new FormData()
+        formData.append("image",image)
+        return axios.put(`${mainURL}/${chucNang}/?id=${id}`)
+     }
+
+     //TODO Lấy cụ thể hãng sản xuất
+     getSingleHangSanXuat (id) {
+        const chucNang = `GetSingleHangSanXuat`
+        return axios.get(`${mainURL}/${chucNang}/?id=${id}`)
+     }
+
      
 }
 

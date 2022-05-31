@@ -212,6 +212,23 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             return BadRequest("Không tìm thấy loại sản phẩm này");
         }
 
+        //Get 1 loại sản phẩm
+        [HttpGet("GetSingleHangSanXuat")]
+        public async Task<ActionResult<LoaiSanPham>> GetSingleHangSanXuat(int id = -1)
+        {
+            var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/HangSanXuat/";
+            var hangSX = (from a in _context.HangSanXuats
+                             where a.MaHangSx == id
+                             select new
+                             {
+                                 maHangSx = a.MaHangSx,
+                                 tenHangSx = a.TenHangSx,
+                                 anhMinhHoa = imageURL + a.Logo
+                             }); ;
+            if (hangSX == null) return BadRequest("Không tìm thấy hãng sản xuất này");
+            return Ok(hangSX);
+        }
+
 
 
         // Check trùng id
