@@ -43,6 +43,17 @@ export default function EditLoaiSanPham() {
     const errorStyle = `before:content-['⚠'] mt-2 text-sm text-red-600 `
     // Xử lý khi submit form
     const onSubmit = (data) => {
+        // Đổi tên loại sản phẩm
+        if (data.tenLoaiSp !== undefined) {
+            const formData = new FormData()
+            formData.append("tenLoaiSp",data.tenLoaiSp)
+            LoaiSanPhamApi.suaTenLoaiSanPham(id,formData)
+        } 
+        if (data.image !== undefined) {
+            const imageFormData = new FormData()
+            imageFormData.append("image",data.image[0])
+            LoaiSanPhamApi.suaAnhLoaiSanPham(id,imageFormData)
+        }
         alert(JSON.stringify(data));
     };
 
@@ -76,7 +87,7 @@ export default function EditLoaiSanPham() {
                             <div className="mb-6">
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="user_avatar">Đổi ảnh mới</label>
                                 <input {...register("image", {
-                                    required: true
+                                    required: false
                                 })}
                                     class="block w-full text-sm text-gray-900 border border-gray-300 
                             rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none 

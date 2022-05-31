@@ -26,6 +26,12 @@ class LoaiSanPhamApi {
          return axios.put(`${mainURL}/${chucNang}/${id}`,formData)
      }
 
+     //TODO Sữa tên loại sản phẩm
+     suaTenLoaiSanPham (id,formData) {
+         const chucNang = `SuaTenLoaiSanPham`
+         return axios.put(`${mainURL}/${chucNang}/${id}`,formData)
+     }
+
      //TODO lấy toàn bộ loại sản phẩm
      getAllLoaiSanPham () {
          const chucNang = `ListDanhMucSanPham?allRecord=true`
