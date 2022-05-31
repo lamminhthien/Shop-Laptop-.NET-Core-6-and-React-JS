@@ -22,6 +22,9 @@ class TrangChuApi  {
     getSanPhamByBrand (id) {
         return axios.get(`${mainURL}/SanPhamByBrand/?id=${id}`)
     }
+    getSanPhamBySearchKey (stringKey) {
+        return axios.get(`${mainURL}/timKiemTheoTuKhoa/?searchKey=${stringKey}`)
+    }
 
 }
 

@@ -50,7 +50,7 @@ export default function ProductList() {
       })
     }
 
-    if (query == "") {
+    if (query == "" || query.get("searchKey").trim() == "" || query.get("searchKey").contains("+")) {
       TrangChuApi.getSanPhamByDefault(0).then((res) => {
         setState({
           data: res.data.ketQua,
@@ -63,6 +63,21 @@ export default function ProductList() {
             done: false
           })
         })
+    }
+
+    if (query.get("searchKey")){
+      TrangChuApi.getSanPhamBySearchKey(query.get("searchKey")).then((res) => {
+        setState({
+          data: res.data.ketQua,
+          done:true
+        })
+      })
+      .catch(err => {
+        setState({
+          error:err,
+          done:false
+        })
+      })
     }
   }, [])
   console.log(state.data);

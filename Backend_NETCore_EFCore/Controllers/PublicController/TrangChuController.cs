@@ -188,7 +188,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
             {
                 tongSoSanPham = productQuantity,
                 soTrang = numberOfPageInteger,
-                ketqua = listSanPham
+                ketQua = listSanPham
             });
         }
 
