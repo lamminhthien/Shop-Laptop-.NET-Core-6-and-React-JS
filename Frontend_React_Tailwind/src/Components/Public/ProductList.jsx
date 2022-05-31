@@ -95,6 +95,11 @@ export default function ProductList() {
                 <div className="mt-4">
                   <h2 className="text-gray-900 title-font text-lg font-medium">{item.tenSanPham}</h2>
                   <p className="mt-1">{item.giaNiemYet} VND</p>
+                  <button 
+                      className="mt-1 border-2  bg-white text-black text-1xl rounded-2xl 
+                        shadow-xl hover:bg-black hover:text-white hover:text-2xl 
+                        transform transition-all hover:-translate-y-2 duration-300
+                        ">Thêm vào giỏ hàng</button>
                 </div>
               </div>
             )}
