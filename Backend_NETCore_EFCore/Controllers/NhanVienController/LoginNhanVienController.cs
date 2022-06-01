@@ -33,7 +33,7 @@ namespace ShopLaptop_EFCore.Controllers
 
         // Route đăng nhập và lấy jwt token
         [AllowAnonymous]
-        [HttpPost("LoginNhanVien")]
+        [HttpPost]
         public IActionResult LoginNhanVien([FromBody] UserLogin userLogin)
         {
             // Lấy username và password từ request payload
