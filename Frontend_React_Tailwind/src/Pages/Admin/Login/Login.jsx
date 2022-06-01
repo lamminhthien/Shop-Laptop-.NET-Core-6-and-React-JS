@@ -2,6 +2,10 @@ import axios from 'axios';
 
 export default function LoginCreateJWT() {
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e);
+  }
 
 
   // Render form
@@ -16,7 +20,7 @@ export default function LoginCreateJWT() {
         </section>
 
         <section class="mt-10">
-          <form class="flex flex-col" method="POST" action="#">
+          <form class="flex flex-col" method="POST" action="#" onSubmit={(e) => handleSubmit(e)}>
             <div class="mb-6 pt-3 rounded bg-gray-200">
               <label
                 class="block text-gray-700 text-sm font-bold mb-2 ml-3"
