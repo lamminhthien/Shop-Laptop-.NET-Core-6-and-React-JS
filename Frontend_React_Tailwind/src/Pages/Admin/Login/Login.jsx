@@ -1,12 +1,12 @@
 import LoginJWT from '../../../Api/LoginJWT';
-export default function LoginCreateJWT() {
+export default function LoginCreateJWT(props) {
   const handleSubmit = e => {
     e.preventDefault();
     const username = e.target[0].value;
     const password = e.target[1].value;
     LoginJWT(username, password);
   };
-
+console.log(props);
   // Render form
     return (
       <div
@@ -15,6 +15,12 @@ export default function LoginCreateJWT() {
       to-blue-400'>
         <main class='bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl'>
           <section>
+            {props.expire? <h3 className='text-red-600'>Phiên đăng nhập hết hạn</h3> :
+            ""
+            }
+             {props.login? <h3 className='text-red-600'>Phiên đăng nhập hết hạn</h3> :
+            ""
+            }
             <h3 class='font-bold text-2xl text-center'>Chào mừng nhân viên Đức Thịnh Laptop</h3>
           </section>
 

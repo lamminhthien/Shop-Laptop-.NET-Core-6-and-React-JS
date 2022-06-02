@@ -10,13 +10,14 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 // Thêm CORS để React JS sử dụng được API
 builder.Services.AddCors(c =>
 {
-    c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:7216/").AllowAnyMethod()
-     .AllowAnyHeader().AllowCredentials());
+  c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:7216/").AllowAnyMethod()
+   .AllowAnyHeader().AllowCredentials().WithExposedHeaders("expire", " www-authenticate"));
 });
 
 // Thêm chức năng xử lý json 
@@ -26,17 +27,17 @@ builder.Services.AddEndpointsApiExplorer();
 // Thêm SwaggerUI (công cụ theo dõi và test API nền web), và thêm phương thức xác thực route bằng JWT (Json Web Token) trên Swagger UI
 builder.Services.AddSwaggerGen(c =>
 {
-    // Thêm định nghĩa phương thức xác thực JWT
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please Insert Token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "bearer"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+  // Thêm định nghĩa phương thức xác thực JWT
+  c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+  {
+    In = ParameterLocation.Header,
+    Description = "Please Insert Token",
+    Name = "Authorization",
+    Type = SecuritySchemeType.Http,
+    BearerFormat = "JWT",
+    Scheme = "bearer"
+  });
+  c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
@@ -49,15 +50,15 @@ builder.Services.AddSwaggerGen(c =>
             },
             new string[]{}
         }
-    }); 
+    });
 });
 // Thêm chức năng upload file
 builder.Services.Configure<FormOptions>(o =>
 {
-    // Giới hạn dung lượng ảnh
-    o.ValueLengthLimit = int.MaxValue;
-    o.MultipartBoundaryLengthLimit = int.MaxValue;  
-    o.MemoryBufferThreshold = int.MaxValue;
+  // Giới hạn dung lượng ảnh
+  o.ValueLengthLimit = int.MaxValue;
+  o.MultipartBoundaryLengthLimit = int.MaxValue;
+  o.MemoryBufferThreshold = int.MaxValue;
 });
 
 
@@ -75,16 +76,43 @@ builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
+      options.TokenValidationParameters = new TokenValidationParameters
+      {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+      };
+      options.Events = new JwtBearerEvents()
+      {
+        OnChallenge = context =>
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-        };
+          context.HandleResponse();
+          context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+          context.Response.ContentType = "application/json";
+
+          // Ensure we always have an error and error description
+          if (string.IsNullOrEmpty(context.Error))
+            context.Error = "invalid_token";
+          if (string.IsNullOrEmpty(context.ErrorDescription))
+            context.ErrorDescription = "This request requires a valid JWT access token to be provided";
+
+          // Add some extra context for expired tokens.
+          if (context.AuthenticateFailure != null && context.AuthenticateFailure.GetType() == typeof(SecurityTokenExpiredException))
+          {
+            var authenticationException = context.AuthenticateFailure as SecurityTokenException;
+            context.Response.Headers.Add("x-token-expired", authenticationException.ToString());
+            context.ErrorDescription = $"The token expired on {authenticationException.ToString()}";
+          }
+          return context.Response.WriteAsync(JsonSerializer.Serialize(new {
+              error = context.Error,
+              error_description = context.ErrorDescription
+          }));
+        }
+      };
     });
 
 
@@ -95,8 +123,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 // Serve static files in the future
@@ -104,8 +132,8 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),@"Resources")),
-    RequestPath = new PathString("/Resources")
+  FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+  RequestPath = new PathString("/Resources")
 });
 
 app.UseHttpsRedirection();
@@ -130,8 +158,8 @@ app.MapControllerRoute(
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers();
-    endpoints.MapRazorPages();
+  endpoints.MapControllers();
+  endpoints.MapRazorPages();
 });
 
 app.Run();
