@@ -1,7 +1,7 @@
 import { useParams, useRouteMatch } from "react-router-dom";
 import { useHistory } from 'react-router-dom'
 import axios from "axios";
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 
 export default function XoaSanPham() {
   // the dynamic pieces of the URL.

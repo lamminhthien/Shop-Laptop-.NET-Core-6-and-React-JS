@@ -3,7 +3,7 @@ import { useParams, useRouteMatch } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
 import { useState, useEffect } from "react"
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 export default function EditLoaiSanPham() {
     // the dynamic pieces of the URL.
     let { id } = useParams();

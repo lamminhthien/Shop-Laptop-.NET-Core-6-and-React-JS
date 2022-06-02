@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
-import LoginCreateJWT from "../Login/Login"
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import KhachHangApi from '../../../Api/KhachHang/KhachHangApi';
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 import Paging from '../../../Components/Admin/Paging';
 export default function ListKhachHang() {
     // Lấy url trang hiện tại

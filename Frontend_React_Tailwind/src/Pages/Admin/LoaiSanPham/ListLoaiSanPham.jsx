@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import Paging from '../../../Components/Admin/Paging';
 import LoaiSanPhamApi from '../../../Api/LoaiSanPham/LoaiSanPhamApi';
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ListLoaiSanPham() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();

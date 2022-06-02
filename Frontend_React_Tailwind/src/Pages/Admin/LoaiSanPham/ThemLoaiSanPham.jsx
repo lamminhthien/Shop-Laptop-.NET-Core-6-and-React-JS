@@ -3,7 +3,7 @@ import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ThemLoaiSanPham() {
     const [previewPicture, setPreviewPicture] = useState();
     const [imageFormData, setImageFormData] = useState()

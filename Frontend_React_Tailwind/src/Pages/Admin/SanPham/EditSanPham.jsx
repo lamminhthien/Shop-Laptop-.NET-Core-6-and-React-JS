@@ -8,7 +8,7 @@ import { useParams, useRouteMatch } from "react-router-dom";
 import SanPhamApi from '../../../Api/SanPham/SanPhamApi';
 import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
 import LoaiSanPhamApi from '../../../Api/LoaiSanPham/LoaiSanPhamApi';
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 export default function EditSanPham() {
   let { id } = useParams();
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm

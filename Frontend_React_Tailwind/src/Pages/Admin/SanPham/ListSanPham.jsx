@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import SanPhamApi from '../../../Api/SanPham/SanPhamApi';
-
+import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ListSanPham() {
 
   // Sử dụng history để điều hướng web khi onclick

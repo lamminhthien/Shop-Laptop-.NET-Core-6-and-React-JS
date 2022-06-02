@@ -4,6 +4,7 @@ import Sidebar from "../../../Components/Admin/Sidebar";
 import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { set, useForm } from "react-hook-form";
+import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ThemSanPham() {
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
