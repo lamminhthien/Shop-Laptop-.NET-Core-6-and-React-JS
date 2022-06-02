@@ -6,6 +6,7 @@ import Sidebar from "../../../Components/Admin/Sidebar";
 import axios from "axios";
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ChiTietSanPham() {
+   const [statusCode, setStatusCode] = useState('');
   // We can use the `useParams` hook here to access
   // the dynamic pieces of the URL.
   let { id } = useParams();
@@ -64,6 +65,7 @@ export default function ChiTietSanPham() {
       // Không tìm thấy thì trả về trang lỗi
       .catch(error => {
         setisFailed(true)
+        setStatusCode(error.response.status)
       })
     // Lắng nghe sự kiện thay đổi kích thước thiết bị và kích hoạt hàm handleResize
     window.addEventListener("resize", handleResize)
@@ -74,7 +76,12 @@ const setUpAnh = (data) => {
   setImageSlide(`https://localhost:7216/Resources/Images/SanPham/${data[0]}`)
   setImgSRC(data)
 }
-
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
   if (isFailed)
     return <NotFoundPage />
   return (

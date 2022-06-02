@@ -37,6 +37,7 @@ export default function ListKhachHang() {
             })
             .catch(error => console.log(error));
     }, [])
+     const [statusCode, setStatusCode] = useState('');
     return (
         <div className='flex'>
             {/* Hiển thị danh sách khách hàng lên */}

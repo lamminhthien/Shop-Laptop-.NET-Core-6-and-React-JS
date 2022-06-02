@@ -10,7 +10,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import SanPhamApi from '../../../Api/SanPham/SanPhamApi';
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ListSanPham() {
-
+   const [statusCode, setStatusCode] = useState('');
   // Sử dụng history để điều hướng web khi onclick
   const history = useHistory()
 
@@ -39,7 +39,7 @@ export default function ListSanPham() {
         // Set tổng số trang
         set_numberOfPages(res.data.soTrang)
       })
-      .catch(error => console.log(error));
+      .catch(err => setStatusCode(err.response.status));
   }, [])
 
   // Chuyển hướng đến trang xóa sản phẩm
@@ -59,6 +59,12 @@ export default function ListSanPham() {
       ]
     });
   };
+    if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
   return (
     <div className='flex'>
       {/* Hiển thị danh sách sản phẩm lên */}

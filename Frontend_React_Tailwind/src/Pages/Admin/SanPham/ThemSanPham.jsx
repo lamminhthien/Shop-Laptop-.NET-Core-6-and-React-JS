@@ -6,6 +6,7 @@ import axios from 'axios';
 import { set, useForm } from "react-hook-form";
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ThemSanPham() {
+   const [statusCode, setStatusCode] = useState('');
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
   const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
@@ -164,6 +165,12 @@ export default function ThemSanPham() {
   border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
 
 
+    if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
   // Khu vực render giao diện
   return (
     <div className="flex">

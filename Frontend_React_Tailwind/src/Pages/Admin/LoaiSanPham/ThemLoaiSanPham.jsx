@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ThemLoaiSanPham() {
+     const [statusCode, setStatusCode] = useState('');
     const [previewPicture, setPreviewPicture] = useState();
     const [imageFormData, setImageFormData] = useState()
 
@@ -72,7 +73,12 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             alert("This is not valid picture")
         }
     }
-
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
     return (
         <div className="flex">
             <Sidebar />

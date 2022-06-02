@@ -7,6 +7,7 @@ import Paging from '../../../Components/Admin/Paging';
 import LoaiSanPhamApi from '../../../Api/LoaiSanPham/LoaiSanPhamApi';
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ListLoaiSanPham() {
+     const [statusCode, setStatusCode] = useState('');
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
 
@@ -37,7 +38,7 @@ export default function ListLoaiSanPham() {
                 // Set tổng số trang
                 set_numberOfPages(res.data.soTrang)
             })
-            .catch(error => console.log(error));
+            .catch(err => setStatusCode(err.response.status));
     }, [])
 
     // Sửa ảnh loại sản phẩm
@@ -53,7 +54,12 @@ export default function ListLoaiSanPham() {
                 alert(err)
             })
     }
-
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
     return (
         <div className='flex'>
             {/* Hiển thị danh sách sản phẩm lên */}

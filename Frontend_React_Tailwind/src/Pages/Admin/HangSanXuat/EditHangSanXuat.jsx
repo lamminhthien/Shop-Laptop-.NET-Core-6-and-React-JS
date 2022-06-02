@@ -53,6 +53,12 @@ export default function EditHangSanXuat() {
 if (statusCode === 401) {
     return <LoginCreateJWT/>
 } 
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
 
   if (state.done) {
     return (

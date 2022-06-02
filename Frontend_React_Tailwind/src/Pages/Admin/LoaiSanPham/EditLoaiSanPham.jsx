@@ -5,6 +5,7 @@ import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
 import { useState, useEffect } from "react"
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function EditLoaiSanPham() {
+     const [statusCode, setStatusCode] = useState('');
     // the dynamic pieces of the URL.
     let { id } = useParams();
     const [state, setState] = useState({})
@@ -56,6 +57,13 @@ export default function EditLoaiSanPham() {
         }
         alert(JSON.stringify(data));
     };
+
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
 
     if (state.done)
     {

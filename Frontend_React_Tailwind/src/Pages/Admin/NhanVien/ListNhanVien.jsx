@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import NhanVienApi from '../../../Api/NhanVien/NhanVienApi';
 import LoginCreateJWT from '../../Admin/Login/Login';
 export default function ListNhanVien() {
+     const [statusCode, setStatusCode] = useState('');
 
     // Table Headers
     const tableHeaders = ["Mã nhân viên", "Tên  nhân viên", "Username",
@@ -20,8 +21,14 @@ export default function ListNhanVien() {
                 // Set list nhân viên
                 set_listNhanVien(res.data)
             })
-            .catch(error => console.log(error));
+            .catch(err => setStatusCode(err.response.status));
     }, [])
+      if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
     return (
         <div className='flex'>
             {/* Hiển thị danh sách nhân viên lên */}
