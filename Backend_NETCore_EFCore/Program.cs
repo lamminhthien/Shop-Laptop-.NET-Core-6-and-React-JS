@@ -15,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Thêm CORS để React JS sử dụng được API
 builder.Services.AddCors(c =>
 {
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
-     .AllowAnyHeader());
+    c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:7216/").AllowAnyMethod()
+     .AllowAnyHeader().AllowCredentials());
 });
 
 // Thêm chức năng xử lý json 

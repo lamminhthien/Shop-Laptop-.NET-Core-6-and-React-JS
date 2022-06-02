@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Hàm kiểm tra đăng nhập = gửi request đến backend2
-export default function isAuthorized() {
+export default function authorizedAdmin() {
     // Cấu hình header để đọc JWT từ localStorage
     const config = {
         headers: {
