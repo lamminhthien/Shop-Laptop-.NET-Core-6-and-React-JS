@@ -18,7 +18,7 @@ console.log(props);
             {props.expire? <h3 className='text-red-600'>Phiên đăng nhập hết hạn</h3> :
             ""
             }
-             {props.login? <h3 className='text-red-600'>Phiên đăng nhập hết hạn</h3> :
+             {props.login? <h3 className='text-red-600'>Bạn chưa đăng nhập</h3> :
             ""
             }
             <h3 class='font-bold text-2xl text-center'>Chào mừng nhân viên Đức Thịnh Laptop</h3>

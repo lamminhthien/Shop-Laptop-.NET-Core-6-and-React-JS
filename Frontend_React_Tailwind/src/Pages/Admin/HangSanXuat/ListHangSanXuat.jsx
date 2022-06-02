@@ -32,17 +32,16 @@ export default function ListHangSanXuat() {
         set_listHangSanXuat(res.data.ketQua);
         set_numberOfPages(res.data.tongSoTrang);
       })
-    //   .catch(err => setStatusCode(err.response.status));
-    .catch(err => console.log(err))
+      .catch(err => setStatusCode(err.response.status));
   }, []);
 
-  // Check status code, if (403) redirect to login form
-//   if (statusCode === 401 ) {
-//     return <LoginCreateJWT expire="1" />;
-//   }
-//   if (statusCode === 403) {
-//       return <LoginCreateJWT login="0" />
-//   }
+//   Check status code, if (403) redirect to login form
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
     return (
       <div className='flex'>
         {/* Hiển thị danh sách hãng sản xuất lên */}

@@ -103,6 +103,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
           // Add some extra context for expired tokens.
           if (context.AuthenticateFailure != null && context.AuthenticateFailure.GetType() == typeof(SecurityTokenExpiredException))
           {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            context.Error = "token_expired";
             var authenticationException = context.AuthenticateFailure as SecurityTokenException;
             context.Response.Headers.Add("x-token-expired", authenticationException.Data.ToString());
             context.ErrorDescription = $"The token expired on {authenticationException.Data.ToString()}";
