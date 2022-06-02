@@ -1,7 +1,4 @@
-import axios from 'axios';
 import LoginJWT from '../../../Api/LoginJWT';
-import authorizedAdmin from '../../../Helpers/authenticationAdmin.js';
-import ListSanPham from '../SanPham/ListSanPham';
 export default function LoginCreateJWT() {
   const handleSubmit = e => {
     e.preventDefault();
