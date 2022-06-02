@@ -60,7 +60,7 @@ namespace ShopLaptop_EFCore.Controllers
                 var token = new JwtSecurityToken(_config["Jwt:Issuer"],
                   _config["Jwt:Audience"],
                   claims,
-                  expires: DateTime.Now.AddMinutes(30),
+                  expires: DateTime.Now.AddMinutes(1),
                   signingCredentials: credentials);
                 // Mã hóa thành chuỗi token và trả về status 200 kèm token để React lưu vào LocalStorage
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(token);

@@ -104,8 +104,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
           if (context.AuthenticateFailure != null && context.AuthenticateFailure.GetType() == typeof(SecurityTokenExpiredException))
           {
             var authenticationException = context.AuthenticateFailure as SecurityTokenException;
-            context.Response.Headers.Add("x-token-expired", authenticationException.ToString());
-            context.ErrorDescription = $"The token expired on {authenticationException.ToString()}";
+            context.Response.Headers.Add("x-token-expired", authenticationException.Data.ToString());
+            context.ErrorDescription = $"The token expired on {authenticationException.Data.ToString()}";
           }
           return context.Response.WriteAsync(JsonSerializer.Serialize(new {
               error = context.Error,
