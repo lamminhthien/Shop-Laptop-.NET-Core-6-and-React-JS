@@ -4,6 +4,8 @@ import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import LoaiSanPhamApi from "../../../Api/LoaiSanPham/LoaiSanPhamApi";
 import LoginCreateJWT from '../../Admin/Login/Login';
+import validateJWT from '../../../Api/validateJWT'
+
 export default function ThemLoaiSanPham() {
      const [statusCode, setStatusCode] = useState('');
     const [previewPicture, setPreviewPicture] = useState();
@@ -73,6 +75,8 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             alert("This is not valid picture")
         }
     }
+
+    validateJWT().catch(err => setStatusCode(err.response.status));
   if (statusCode === 403 ) {
     return <LoginCreateJWT expire="1" />;
   }

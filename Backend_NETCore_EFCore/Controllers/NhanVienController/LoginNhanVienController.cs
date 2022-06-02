@@ -16,7 +16,7 @@ using System.Text;
 namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
-[Authorize(Roles ="Nhân Viên")]
+    [Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class LoginNhanVienController : ControllerBase
     {
@@ -72,6 +72,14 @@ namespace ShopLaptop_EFCore.Controllers
                 return NotFound("Tài khoản nhân viên không hợp lệ");
             }
         }
+
+        [Authorize(Roles="Nhân Viên")]
+        [HttpPost("validateToken")]
+        public ActionResult<List<dynamic>> validateToken(){
+            return Ok("You are login");
+        }
+
+
         // Lấy thông tin tài khoản nhân viên từ JWT Token
         private string GetCurrentUserInfo()
         {

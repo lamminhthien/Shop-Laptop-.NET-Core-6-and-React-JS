@@ -5,6 +5,7 @@ import axios from 'axios';
 // Sử dụng useFrom từ react hook  form
 import { set, useForm } from "react-hook-form";
 import LoginCreateJWT from '../../Admin/Login/Login';
+import validateJWT from '../../../Api/validateJWT'
 export default function ThemSanPham() {
    const [statusCode, setStatusCode] = useState('');
   // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
@@ -165,6 +166,7 @@ export default function ThemSanPham() {
   border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
 
 
+  validateJWT().catch(err => setStatusCode(err.response.status));
     if (statusCode === 403 ) {
     return <LoginCreateJWT expire="1" />;
   }
