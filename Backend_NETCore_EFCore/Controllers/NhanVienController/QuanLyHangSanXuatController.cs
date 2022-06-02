@@ -11,8 +11,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
-    [Authorize(Roles ="Nhân Viên")]
+    
     [Route("api/[controller]")]
+[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class QuanLyHangSanXuatController : ControllerBase
     {

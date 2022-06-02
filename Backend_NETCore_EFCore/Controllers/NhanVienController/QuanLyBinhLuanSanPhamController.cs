@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     [Route("api/[controller]")]
+[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class QuanLyBinhLuanSanPhamController : ControllerBase
     {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using ShopLaptop_EFCore.Models.NhanVienModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     // Tên route /api/{tên controller}
     [Route("api/[controller]")]
+[Authorize(Roles ="Nhân Viên")]
     // Chỉ định đây là API sử dụng các phương thức của HTTP
     [ApiController]
     // ControllerBase (Mô hình MVC không cần đến View )

@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using System.Net.Http.Headers;
 
 namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
+[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class UploadAnhController : ControllerBase
     {

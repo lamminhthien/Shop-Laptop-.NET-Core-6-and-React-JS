@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopLaptop_EFCore.Data;
 using ShopLaptop_EFCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using ShopLaptop_EFCore.Models.NhanVienModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using System.IO;
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     [Route("api/[controller]")]
+[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class QuanLyDonHangController : ControllerBase
     {
