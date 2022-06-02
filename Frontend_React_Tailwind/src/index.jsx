@@ -30,8 +30,6 @@ reactDom.render(
 
             <Route exact path="/" children={<HomePage />} />
 
-            {/* Admin Login */}
-            <Route exact path="/admin" children={Login} />
             {/* Admin Quản lý sản phẩm */}
             <Route exact path="/admin/chi-tiet-san-pham/:id" children={<ChiTietSanPham />} />
 

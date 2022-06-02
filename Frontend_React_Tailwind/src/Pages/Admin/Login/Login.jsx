@@ -11,8 +11,6 @@ export default function LoginCreateJWT() {
   };
 
   // Render form
-  // If admin, manager don't have token,render login form
-  if (!authorizedAdmin) {
     return (
       <div
         class='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 bg-gradient-to-r
@@ -56,7 +54,4 @@ export default function LoginCreateJWT() {
       </div>
     );
   }
-  else return (
-    <ListSanPham/>
-  )
-}
+

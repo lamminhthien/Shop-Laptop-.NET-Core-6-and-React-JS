@@ -1,10 +1,10 @@
 import React from 'react';
 import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
-import { useParams, useRouteMatch, useLocation } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import Paging from '../../../Components/Admin/Paging';
 import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
-import authorizedAdmin from '../../../Helpers/authenticationAdmin.js';
+import LoginCreateJWT from '../../Admin/Login/Login'
 
 export default function ListHangSanXuat() {
     // Lấy url trang hiện tại
@@ -23,6 +23,8 @@ export default function ListHangSanXuat() {
     const [listHangSanXuat, set_listHangSanXuat] = useState([])
     // Khởi tạo tổng số trang để tạo menu phân trang
     const [numberOfPages, set_numberOfPages] = useState(0);
+    // Response status code
+    const [statusCode,setStatusCode] = useState("")
 
     // Thực thi lúc bắt đầu trang web
     useEffect(() => {
@@ -31,8 +33,14 @@ export default function ListHangSanXuat() {
             set_listHangSanXuat(res.data.ketQua)
             set_numberOfPages(res.data.tongSoTrang)
         })
+        .catch ((err) => setStatusCode(err.response.status))
     }, [])
 
+// Check status code, if (403) redirect to login form
+if (statusCode === 401) {
+    console.log('Error not authorized');
+    return <LoginCreateJWT/>
+} else
     return (
         <div className='flex'>
             {/* Hiển thị danh sách hãng sản xuất lên */}
