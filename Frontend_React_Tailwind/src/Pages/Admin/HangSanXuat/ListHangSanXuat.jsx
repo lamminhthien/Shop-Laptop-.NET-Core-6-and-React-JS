@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
 import Paging from '../../../Components/Admin/Paging';
 import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
+import authorizedAdmin from '../../../Helpers/authenticationAdmin.js';
+
 export default function ListHangSanXuat() {
     // Lấy url trang hiện tại
     const {path,url} = useRouteMatch();
