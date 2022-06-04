@@ -11,34 +11,27 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
-    
+    [Authorize(Roles = "Nhân viên")]
     [Route("api/[controller]")]
-//[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class BienDongGiaCaController : ControllerBase
     {
         private readonly shop_laptopContext _context;
-
         public BienDongGiaCaController(shop_laptopContext context)
         {
             _context = context;
         }
-
-        // GET: api/ListBienDongGiaCa
         [HttpGet("ListBienDongGia/{page}")]
         public async Task<ActionResult<IEnumerable<BienDongGium>>> GetBienDongGia(int page)
         {
             double rowPerPage = 5;
-            // Kiểm tra số page, nếu null hoặc  = 0, gán là 1
             if (page == null || page == 0)
             {
                 page = 1;
             }
-            // Tính số trang cần phân chia dựa theo số lượng record của khách hàng
             double historyPriceQuantity = _context.BienDongGia.Count();
             double numberOfPage = historyPriceQuantity / rowPerPage;
             int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
-
             if (_context.BienDongGia == null)
             {
                 return NotFound();
@@ -59,13 +52,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 tongSoLichSuGia = historyPriceQuantity,
                 tongSoTrang = numberOfPageInteger,
-                // Đừng quên await khi dùng async :((, luồng nó chờ 
-                // không hồi kết
                 ketqua = await ketqua
             });
         }
-
-        // GET: api/ListBienDongGiaCa/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BienDongGium>> GetBienDongGium(int id)
         {
@@ -82,9 +71,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
             return bienDongGium;
         }
-
-        // PUT: api/ListBienDongGiaCa/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBienDongGium(int id, BienDongGium bienDongGium)
         {
@@ -113,9 +99,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
             return NoContent();
         }
-
-        // POST: api/ListBienDongGiaCa
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<BienDongGium>> PostBienDongGium(BienDongGium bienDongGium)
         {
@@ -128,8 +111,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
             return CreatedAtAction("GetBienDongGium", new { id = bienDongGium.MaBienDong }, bienDongGium);
         }
-
-        // DELETE: api/ListBienDongGiaCa/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBienDongGium(int id)
         {
@@ -148,7 +129,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
             return NoContent();
         }
-
         private bool BienDongGiumExists(int id)
         {
             return (_context.BienDongGia?.Any(e => e.MaBienDong == id)).GetValueOrDefault();
