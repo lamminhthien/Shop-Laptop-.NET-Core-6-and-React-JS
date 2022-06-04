@@ -68,12 +68,5 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             }
             return Ok("Hi");
         }
-
-
-  
-
-
-
-   
     }
 }
