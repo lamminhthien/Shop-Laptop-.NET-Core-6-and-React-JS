@@ -1,5 +1,4 @@
-﻿using ContosoPizza.Services;
-using ContosoPizza.Data;
+﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
@@ -61,9 +60,6 @@ builder.Services.Configure<FormOptions>(o =>
   o.MemoryBufferThreshold = int.MaxValue;
 });
 
-
-// Thêm SQL Lite (Mục đích chỉ test)
-builder.Services.AddSqlite<PizzaContext>("Data Source=ContosoPizza.db");
 // Thêm Database Context và cấu hình đọc chuỗi kết nối SQL Server trong appsettings.json
 builder.Services.AddDbContext<shop_laptopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MvcShopLaptopContext")));
@@ -118,8 +114,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
-builder.Services.AddScoped<PizzaService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -142,8 +136,6 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-// Add the CreateDbIfNotExists method call
-app.CreateDbIfNotExists();
 
 app.UseRouting();
 
