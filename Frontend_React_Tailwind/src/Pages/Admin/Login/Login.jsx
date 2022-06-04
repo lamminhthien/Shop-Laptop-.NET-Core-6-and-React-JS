@@ -1,12 +1,6 @@
 import axios from 'axios';
 import LoginJWT from '../../../Api/LoginJWT';
-<<<<<<< HEAD
 export default function LoginCreateJWT(props) {
-=======
-import authorizedAdmin from '../../../Helpers/authenticationAdmin.js';
-import ListSanPham from '../SanPham/ListSanPham';
-export default function LoginCreateJWT() {
->>>>>>> parent of d93dd75 (bỏ helper đi)
   const handleSubmit = e => {
     e.preventDefault();
     const username = e.target[0].value;
