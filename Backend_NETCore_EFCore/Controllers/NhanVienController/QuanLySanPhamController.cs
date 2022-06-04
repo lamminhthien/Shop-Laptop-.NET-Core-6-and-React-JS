@@ -14,7 +14,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     // Tên route /api/{tên controller}
     [Route("api/[controller]")]
-[Authorize(Roles ="Nhân Viên")]
+//[Authorize(Roles ="Nhân Viên")]
     // Chỉ định đây là API sử dụng các phương thức của HTTP
     [ApiController]
     // ControllerBase (Mô hình MVC không cần đến View )
@@ -29,7 +29,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         // GET: api/<QuanLySanPhamController>
         // Authorize: Xác thực danh tính, sai danh tính hoặc hết hạn tài khoản React sẽ đẩy component Login cho Client
         [HttpGet("ListSanPham/{page}")]
-        //[Authorize(Roles = "Nhân viên")]
+        ////[Authorize(Roles = "Nhân viên")]
         public async Task<ActionResult<List<dynamic>>> DanhSachSanPham(int page)
         {
             // Bây giờ cần phân trang, how ?

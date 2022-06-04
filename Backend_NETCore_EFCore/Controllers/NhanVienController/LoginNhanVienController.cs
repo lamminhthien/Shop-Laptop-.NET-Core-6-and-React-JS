@@ -16,7 +16,7 @@ using System.Text;
 namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles ="Nhân Viên")]
+    //[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class LoginNhanVienController : ControllerBase
     {
@@ -73,7 +73,7 @@ namespace ShopLaptop_EFCore.Controllers
             }
         }
 
-        [Authorize(Roles="Nhân Viên")]
+        //[Authorize(Roles="Nhân Viên")]
         [HttpPost("validateToken")]
         public ActionResult<List<dynamic>> validateToken(){
             return Ok("You are login");
