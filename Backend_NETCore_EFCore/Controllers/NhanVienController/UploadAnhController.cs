@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 namespace ShopLaptop_EFCore.Controllers
 {
     [Route("api/[controller]")]
-//[Authorize(Roles ="Nhân Viên")]
+[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class UploadAnhController : ControllerBase
     {

@@ -13,7 +13,7 @@ using System.IO;
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
     [Route("api/[controller]")]
-//[Authorize(Roles ="Nhân Viên")]
+[Authorize(Roles ="Nhân Viên")]
     [ApiController]
     public class QuanLyDonHangController : ControllerBase
     {
