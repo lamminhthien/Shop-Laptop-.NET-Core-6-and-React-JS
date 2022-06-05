@@ -8,9 +8,9 @@ class ProductListService {
     else {
       TrangChuApi.getSanPhamByCategory(idInt).then(res => {
         data = res;
+        if (data === null) return ReceiveData.do('Không có sản phẩm', false);
+        return ReceiveData.do(data, true);
       });
-      if (data === null) return ReceiveData.do('Không có sản phẩm', false);
-      return ReceiveData.do(data, true);
     }
   }
 }
