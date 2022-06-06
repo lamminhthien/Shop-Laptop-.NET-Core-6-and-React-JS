@@ -33,18 +33,32 @@ export default function ProductList() {
           <div
             className='
       bg-white box-border shadow-lg 
-      rounded-md shadow-fuchsia-400 w-60'>
+      rounded-md shadow-fuchsia-400 w-60 flex flex-wrap justify-center'>
+        <img 
+        className='max-h-40
+         bg-center 
+        
+        '
+        src='https://images.fpt.shop/unsafe/fit-in/214x214/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/4/25/637864982144816513_iphone-13-pro-max-dd-2-128-256-512-1tb.jpg'/>
             <h3>
-              <a href='#'
+              <a
+                href='#'
                 className='
-                font-bold text-sm text-black
+                font-bold text-sm text-black block mb-3
               '>
                 {item.tenSanPham}
               </a>
             </h3>
-            <p>{item.giaNiemYet}</p>
+            <div
+              className='
+            bg-orange-500 w-fit px-4 text-white
+             border-orange-500 rounded-2xl
+            '>
+              {item.giaNiemYet}
+            </div>
           </div>
-        ))} */
+        ))}{' '}
+        */
         <>-------------------f--</> <br />
         <>{JSON.stringify(listProduct.data.ketQua)}</>
       </>
