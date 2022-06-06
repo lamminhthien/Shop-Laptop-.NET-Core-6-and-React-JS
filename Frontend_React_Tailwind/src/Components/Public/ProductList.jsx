@@ -27,46 +27,42 @@ export default function ProductList() {
     if (pageState === -1) return <p className='text-red-500 text-2xl'>Trang bạn yêu cầu có lỗi</p>;
     return (
       <>
-        {JSON.stringify(listProduct)}
-        {/* {/* <>----------This is map function--------</> <br /> */}
-        <div className='flex'>
-        {listProduct.data.ketQua.map(item => (
+        <div className="container mt-5">
+          <div className='flex justify-evenly'>
+          {listProduct.data.ketQua.map(item => (
           
-            <a
-              href={item.maSanPham}
-              className='
-                  bg-white box-border shadow-lg 
-                  rounded-md shadow-fuchsia-400 w-60 flex 
-                  flex-wrap flex justify-center
-                  '>
-              <div
+              <a
+                href={item.maSanPham}
                 className='
-              max-h-40 bg-center px-3 py-3
-              '>
-                <img src='https://vatvostudio.vn/wp-content/uploads/2022/04/iPhone-12-hang-Nhat-ma-ja-ve-Viet-Nam-2.jpg' />
-              </div>
-
-                <p
+                    bg-white box-border shadow-lg
+                    rounded-md shadow-blue-200 w-60 flex
+                    flex-wrap flex justify-center
+                    '>
+                <div
                   className='
-                  font-bold text-sm text-black w-full text-center my-3
+                max-h-40 bg-center px-3 py-3
                 '>
-                  {item.tenSanPham}
-                </p>
-              <div
-                className='
-              bg-orange-500 w-fit px-4 text-white
-               border-orange-500 rounded-2xl py-3
-              '>
-                {item.giaNiemYet}đ
-              </div>
-            </a>
-         
-        ))}
-         </div>
-        {' '}
-        */
-        <>-------------------f--</> <br />
-        <>{JSON.stringify(listProduct.data.ketQua)}</>
+                  <img src='https://vatvostudio.vn/wp-content/uploads/2022/04/iPhone-12-hang-Nhat-ma-ja-ve-Viet-Nam-2.jpg' />
+                </div>
+                  <p
+                    className='
+                    font-bold text-sm text-black w-full text-center my-3
+                  '>
+                    {item.tenSanPham}
+                  </p>
+                <div
+                  className='
+                bg-orange-500 w-fit px-4 text-white
+                 border-orange-500 rounded-2xl py-3
+                '>
+                  {item.giaNiemYet}đ
+                </div>
+              </a>
+          
+          ))}
+           </div>
+        </div>
+
       </>
     );
   };
