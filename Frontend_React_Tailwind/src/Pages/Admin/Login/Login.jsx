@@ -1,12 +1,26 @@
 import axios from 'axios';
+import { FcElectricalSensor } from 'react-icons/fc';
 import LoginJWT from '../../../Api/LoginJWT';
+import { useState } from 'react';
 export default function LoginCreateJWT(props) {
+  var [isLogin,setIsLogin] =  useState("")
   const handleSubmit = e => {
     e.preventDefault();
     const username = e.target[0].value;
     const password = e.target[1].value;
-    LoginJWT(username, password);
+    if(LoginJWT(username, password)){
+      setIsLogin(1)
+    } else {
+      setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
+    }
   };
+  // const isLoginMessage = (isLogin) =>{
+  //   console.log("Go to this function");
+  //   if (isLogin === -1 ){
+  //     return ""
+  //   } else  if (isLogin === 0)
+  //   return <h3 className=''>Tài khoản không hợp lệ</h3>
+  // }
 console.log(props);
   // Render form
     return (
@@ -22,6 +36,7 @@ console.log(props);
              {props.login? <h3 className='text-red-600'>Bạn chưa đăng nhập</h3> :
             ""
             }
+            {isLogin}
             <h3 class='font-bold text-2xl text-center'>Chào mừng nhân viên Đức Thịnh Laptop</h3>
           </section>
 
