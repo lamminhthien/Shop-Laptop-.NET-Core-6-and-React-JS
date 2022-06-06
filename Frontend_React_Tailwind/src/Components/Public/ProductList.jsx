@@ -26,17 +26,15 @@ export default function ProductList() {
     if (pageState === 0) return <p className='text-2xl'>Đang tải dữ liệu</p>;
     if (pageState === -1) return <p className='text-red-500 text-2xl'>Trang bạn yêu cầu có lỗi</p>;
     return (
-      <>
-        <div className="container mt-5">
-          <div className='flex justify-evenly'>
-          {listProduct.data.ketQua.map(item => (
-          
+        <div className='container mt-5'>
+          <div className='flex flex-wrap justify-start'>
+            {listProduct.data.ketQua.map(item => (
               <a
                 href={item.maSanPham}
-                className='
-                    bg-white box-border shadow-lg
-                    rounded-md shadow-blue-200 w-60 flex
-                    flex-wrap flex justify-center
+                className=' h-fit
+                    bg-white shadow-lg
+                    rounded-md border-black border-0 w-60 flex
+                    flex-wrap justify-center mx-4 my-4
                     '>
                 <div
                   className='
@@ -44,12 +42,12 @@ export default function ProductList() {
                 '>
                   <img src='https://vatvostudio.vn/wp-content/uploads/2022/04/iPhone-12-hang-Nhat-ma-ja-ve-Viet-Nam-2.jpg' />
                 </div>
-                  <p
-                    className='
+                <p
+                  className='
                     font-bold text-sm text-black w-full text-center my-3
                   '>
-                    {item.tenSanPham}
-                  </p>
+                  {item.tenSanPham}
+                </p>
                 <div
                   className='
                 bg-orange-500 w-fit px-4 text-white
@@ -58,12 +56,9 @@ export default function ProductList() {
                   {item.giaNiemYet}đ
                 </div>
               </a>
-          
-          ))}
-           </div>
+            ))}
+          </div>
         </div>
-
-      </>
     );
   };
   return <>{pageRender()}</>;
