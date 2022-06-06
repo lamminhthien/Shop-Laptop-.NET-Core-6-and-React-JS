@@ -27,7 +27,7 @@ export default function BrandList() {
                             <a href={`?brand=${item.maHangSanXuat}`}>
                                 <div className="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
                                     {/* Image */}
-                                    <img className="h-40 object-cover rounded-xl h-40 object-cover rounded-xl" src={item.logo} alt />
+                                    <img className="h-40 object-fill rounded-xl h-20 w-40  rounded-xl" src={item.logo} alt />
                                     <div className="p-2">
                                         {/* Heading */}
                                         <h2 className="font-bold text-lg mb-2 ">{item.tenHangSanXuat}</h2>
