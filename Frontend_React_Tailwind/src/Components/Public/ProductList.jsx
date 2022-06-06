@@ -4,14 +4,22 @@ import { useState, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import React from 'react';
 import ReceiveData from '../../Services/ReceiveData';
-function useQuery() {
-  const { search } = useLocation();
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
+
 export default function ProductList() {
+  // init variable
+  function useQuery() {
+    const { search } = useLocation();
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
+  let query = useQuery();
   var page = 1;
-  const [listProduct, setListProduct] = useState([]);
+  const [listProduct, setListProduct] = useState([]); 
   const [pageState, setPageState] = useState(0);
+  // Query handle
+  // const queryHandler = () => {
+  //   return <>{JSON.stringify(query)}</>
+  // }
+  // SetState in react-hook
   useEffect(() => {
     TrangChuApi.getSanPhamByDefault(parseInt(page))
       .then(res => {
@@ -22,6 +30,7 @@ export default function ProductList() {
         setPageState(-1);
       });
   }, []);
+  // Page Renderring Item
   const pageRender = () => {
     if (pageState === 0) return <p className='text-2xl'>Đang tải dữ liệu</p>;
     if (pageState === -1) return <p className='text-red-500 text-2xl'>Trang bạn yêu cầu có lỗi</p>;
@@ -31,7 +40,7 @@ export default function ProductList() {
             {listProduct.data.ketQua.map(item => (
               <a
                 href={item.maSanPham}
-                className=' h-fit
+                className='h-fit
                     bg-white shadow-lg
                     rounded-md border-black border-0 w-60 flex
                     flex-wrap justify-center mx-4 my-4
