@@ -21,6 +21,7 @@ export default function ProductList() {
     let category = query.get('category')
     let priceMin = query.get('price-min')
     if (!isNaN(brand)) return <>{parseInt(brand)}</>
+    if (!isNaN(category)) return <>{parseInt(category)}</>
   }
   // SetState in react-hook
   useEffect(() => {
