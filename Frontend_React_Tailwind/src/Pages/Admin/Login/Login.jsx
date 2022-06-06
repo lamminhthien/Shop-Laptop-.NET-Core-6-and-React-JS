@@ -10,7 +10,7 @@ export default function LoginCreateJWT(props) {
     const password = e.target[1].value;
     LoginJWT(username,password)
     if(LoginJWT(username, password)){
-      setIsLogin(1)
+      window.location.reload();
     } else {
       setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
     }
