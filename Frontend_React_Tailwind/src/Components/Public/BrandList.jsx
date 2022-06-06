@@ -20,7 +20,7 @@ export default function BrandList() {
     if (state.done)
         return (
             <div>
-                 <h1 className="text-center text-fuchsia-500  text-3xl font-semibold">Hãng sản xuất</h1>
+                 <h1 className="text-center text-fuchsia-500 my-5  text-3xl font-semibold">Hãng sản xuất</h1>
                 <div className="">
                     <a href="#" class="flex flex-wrap place-content-center overflow-hidden">
                         {state.data !== null ? state.data.map((item) =>

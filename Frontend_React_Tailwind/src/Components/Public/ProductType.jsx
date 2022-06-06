@@ -23,7 +23,7 @@ if (state.done)
   return (
   
     <div>
-        <h1 className="text-center text-fuchsia-500 shadow-xl text-3xl font-semibold">Danh mục sản phẩm</h1>
+        <h1 className="text-center text-fuchsia-500 text-3xl font-semibold mt-5 mb-5">Danh mục sản phẩm</h1>
       <div class="flex flex-wrap place-content-center overflow-hidden">
       
          {state.data !== null ? state.data.map((item) =>
