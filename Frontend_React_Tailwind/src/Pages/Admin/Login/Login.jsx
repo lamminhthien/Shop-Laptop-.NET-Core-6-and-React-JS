@@ -8,11 +8,12 @@ export default function LoginCreateJWT(props) {
     e.preventDefault();
     const username = e.target[0].value;
     const password = e.target[1].value;
-    if(LoginJWT(username, password)){
-      setIsLogin(1)
-    } else {
-      setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
-    }
+    LoginJWT(username,password)
+    // if(LoginJWT(username, password)){
+    //   setIsLogin(1)
+    // } else {
+    //   setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
+    // }
   };
   // const isLoginMessage = (isLogin) =>{
   //   console.log("Go to this function");

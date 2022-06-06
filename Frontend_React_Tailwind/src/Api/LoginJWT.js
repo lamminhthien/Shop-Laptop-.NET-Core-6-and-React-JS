@@ -4,7 +4,9 @@ export default function LoginJWT(username, password) {
     const formData = new FormData();
     formData.append('username', username)
     formData.append('password', password)
+    console.log("Before axios");
     axios.post(`${base_url}/LoginNhanVien`, formData).then((res) => {
+
             localStorage.setItem('token', res.data)
             return true
         })
