@@ -9,19 +9,12 @@ export default function LoginCreateJWT(props) {
     const username = e.target[0].value;
     const password = e.target[1].value;
     LoginJWT(username,password)
-    // if(LoginJWT(username, password)){
-    //   setIsLogin(1)
-    // } else {
-    //   setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
-    // }
+    if(LoginJWT(username, password)){
+      setIsLogin(1)
+    } else {
+      setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
+    }
   };
-  // const isLoginMessage = (isLogin) =>{
-  //   console.log("Go to this function");
-  //   if (isLogin === -1 ){
-  //     return ""
-  //   } else  if (isLogin === 0)
-  //   return <h3 className=''>Tài khoản không hợp lệ</h3>
-  // }
 console.log(props);
   // Render form
     return (
