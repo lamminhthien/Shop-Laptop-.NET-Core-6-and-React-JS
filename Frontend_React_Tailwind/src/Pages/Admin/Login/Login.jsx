@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { FcElectricalSensor } from 'react-icons/fc';
-import LoginJWT from '../../../Api/LoginJWT';
+import { base_url } from '../../../Api/config';
 import { useState } from 'react';
 export default function LoginCreateJWT(props) {
   var [isLogin,setIsLogin] =  useState("")
@@ -8,12 +7,17 @@ export default function LoginCreateJWT(props) {
     e.preventDefault();
     const username = e.target[0].value;
     const password = e.target[1].value;
-    LoginJWT(username,password)
-    if(LoginJWT(username, password)){
-      window.location.reload();
-    } else {
-      setIsLogin(<h3> Tài khoản không hợp lệ</h3>)
-    }
+    const formData = new FormData();
+    formData.append('username', username)
+    formData.append('password', password)
+    axios.post(`${base_url}/LoginNhanVien`, formData).then((res) => {
+      localStorage.setItem('token', res.data)
+      window.location.href = ""
+  })
+  .catch(err => {
+      setIsLogin("Sai tài khoản hoặc mật khẩu")
+  })
+
   };
 console.log(props);
   // Render form
