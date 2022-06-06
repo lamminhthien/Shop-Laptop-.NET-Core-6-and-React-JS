@@ -32,6 +32,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       double brandQuantity = _context.HangSanXuats.Count();
       double numberOfPage = brandQuantity / rowPerPage;
       int numberOfPageInteger = (int)Math.Ceiling(numberOfPage);
+      if (allRecord == true) {
+        var allRecordList = await _context.HangSanXuats.ToListAsync();
+        return Ok(allRecordList);
+      }
       return Ok(new
       {
         tongSoHangSanXuat = brandQuantity,
