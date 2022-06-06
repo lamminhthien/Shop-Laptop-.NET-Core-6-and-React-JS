@@ -28,7 +28,9 @@ if (state.done)
       
          {state.data !== null ? state.data.map((item) =>
           <a href={`?category=${item.maLoaiSanPham}`}>
-            <div className="w-60 p-2 bg-white rounded-xl transform transition-all hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
+            <div className="w-60 p-2 bg-white rounded-xl transform transition-all 
+            border-indigo-600 border-2
+            hover:-translate-y-2 duration-300 shadow-lg hover:shadow-2xl">
               {/* Image */}
               <img className="h-40 object-cover rounded-xl h-40 object-cover rounded-xl" src={item.anhLoaiSanPham} alt />
               <div className="p-2">
