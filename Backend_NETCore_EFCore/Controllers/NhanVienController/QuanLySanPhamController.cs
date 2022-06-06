@@ -285,7 +285,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                 // Xóa  record  trong table sản phẩm
                 _context.SanPhams.Remove(sanPham);
 
-                // Tìm 1 chi tiết sản phẩm cần xóa theo id 
+                // Tìm 1 chi tiết sản phẩm cần xóa theo id
                 var chiTietSanPham = await _context.ChiTietSanPhams.FindAsync(id);
                 //Nếu tìm thấy, đặt lệnh sẵn sàng xóa (chưa xóa trong database liền)
                 if (chiTietSanPham != null)

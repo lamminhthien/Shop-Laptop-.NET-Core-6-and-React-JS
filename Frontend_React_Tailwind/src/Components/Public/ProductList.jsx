@@ -28,12 +28,16 @@ export default function ProductList() {
     if (!isNaN(priceMin)) formData.append("minPrice",priceMin)
     if (!isNaN(priceMax)) formData.append("maxPrice",priceMax)
     if (!isNaN(page)) formData.append("page",page)
-    let log=``
-    for (const value of formData.values()) {
-      log = log + value + '--'
+    let params=`?`
+    for (const pair of formData.entries()) {
+      params = params + `${pair[0]}=${pair[1]}` + '&'
     }
-    return <>{log}</>
-
+    params = params.slice(0,params.length -1)
+    TrangChuApi.getSanPhamByAdvanceSearch(params).then(res => {
+      setPageState(1)
+    }).catch(err => {
+      setPageState(-1)
+    })
   }
   // SetState in react-hook
   useEffect(() => {
@@ -46,6 +50,8 @@ export default function ProductList() {
         setPageState(-1);
       });
   }, []);
+  //Excute queryHandler()
+  queryHandler()
   // Page Renderring Item
   const pageRender = () => {
     if (pageState === 0) return <p className='text-2xl'>Đang tải dữ liệu</p>;
@@ -84,7 +90,7 @@ export default function ProductList() {
         //     ))}
         //   </div>
         // </div>
-        <>{queryHandler()}</>
+          <>RenderArea</>
     );
   };
   return <>{pageRender()}</>;
