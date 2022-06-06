@@ -28,6 +28,7 @@ reactDom.render(
       <Route exact path='/' children={<HomePage />} />
 
       {/* Admin Quản lý sản phẩm */}
+      <Route exact path='/admin' children={<ListSanPham />} />
       <Route exact path='/admin/chi-tiet-san-pham/:id' children={<ChiTietSanPham />} />
 
       <Route exact path='/admin/san-pham/:pageNumber' children={<ListSanPham />} />

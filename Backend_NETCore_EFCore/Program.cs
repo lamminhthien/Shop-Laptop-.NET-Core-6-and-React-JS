@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Thêm CORS để React JS sử dụng được API
 builder.Services.AddCors(c =>
 {
-  c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:7216/").AllowAnyMethod()
+  c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:3000").AllowAnyMethod()
    .AllowAnyHeader().AllowCredentials().WithExposedHeaders("expire", " www-authenticate"));
 });
 
