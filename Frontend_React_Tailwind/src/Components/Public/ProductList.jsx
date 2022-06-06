@@ -17,11 +17,23 @@ export default function ProductList() {
   const [pageState, setPageState] = useState(0);
   // Query handle
   const queryHandler = () => {
+    const formData = new FormData()
     let brand = query.get('brand')
     let category = query.get('category')
     let priceMin = query.get('price-min')
-    if (!isNaN(brand)) return <>{parseInt(brand)}</>
-    if (!isNaN(category)) return <>{parseInt(category)}</>
+    let priceMax = query.get('price-max')
+    let page = query.get('page')
+    if (!isNaN(brand)) formData.append("maHangSanXuat",brand)
+    if (!isNaN(category)) formData.append("maLoaiSanPham",category)
+    if (!isNaN(priceMin)) formData.append("minPrice",priceMin)
+    if (!isNaN(priceMax)) formData.append("maxPrice",priceMax)
+    if (!isNaN(page)) formData.append("page",page)
+    let log=``
+    for (const value of formData.values()) {
+      log = log + value + '--'
+    }
+    return <>{log}</>
+
   }
   // SetState in react-hook
   useEffect(() => {
