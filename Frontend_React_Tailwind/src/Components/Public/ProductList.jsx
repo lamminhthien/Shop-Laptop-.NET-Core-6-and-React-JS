@@ -29,35 +29,41 @@ export default function ProductList() {
       <>
         {JSON.stringify(listProduct)}
         {/* {/* <>----------This is map function--------</> <br /> */}
+        <div className='flex'>
         {listProduct.data.ketQua.map(item => (
-          <div
-            className='
-      bg-white box-border shadow-lg 
-      rounded-md shadow-fuchsia-400 w-60 flex flex-wrap justify-center'>
-        <img 
-        className='max-h-40
-         bg-center 
-        
-        '
-        src='https://images.fpt.shop/unsafe/fit-in/214x214/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/4/25/637864982144816513_iphone-13-pro-max-dd-2-128-256-512-1tb.jpg'/>
-            <h3>
-              <a
-                href='#'
-                className='
-                font-bold text-sm text-black block mb-3
-              '>
-                {item.tenSanPham}
-              </a>
-            </h3>
-            <div
+          
+            <a
+              href={item.maSanPham}
               className='
-            bg-orange-500 w-fit px-4 text-white
-             border-orange-500 rounded-2xl
-            '>
-              {item.giaNiemYet}
-            </div>
-          </div>
-        ))}{' '}
+                  bg-white box-border shadow-lg 
+                  rounded-md shadow-fuchsia-400 w-60 flex 
+                  flex-wrap flex justify-center
+                  '>
+              <div
+                className='
+              max-h-40 bg-center px-3 py-3
+              '>
+                <img src='https://vatvostudio.vn/wp-content/uploads/2022/04/iPhone-12-hang-Nhat-ma-ja-ve-Viet-Nam-2.jpg' />
+              </div>
+
+                <p
+                  className='
+                  font-bold text-sm text-black w-full text-center my-3
+                '>
+                  {item.tenSanPham}
+                </p>
+              <div
+                className='
+              bg-orange-500 w-fit px-4 text-white
+               border-orange-500 rounded-2xl py-3
+              '>
+                {item.giaNiemYet}đ
+              </div>
+            </a>
+         
+        ))}
+         </div>
+        {' '}
         */
         <>-------------------f--</> <br />
         <>{JSON.stringify(listProduct.data.ketQua)}</>
