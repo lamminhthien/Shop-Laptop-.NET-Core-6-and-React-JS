@@ -411,15 +411,15 @@ export default function ThemSanPham() {
           <div className={divStyle}>
             <label class={labelStyle}>Số lượng</label>
             <input {...register("soLuong", {
-              valueAsNumber: true,
               required: true,
               min: 1,
               max: 1000
             })}
-              className={inputStyle} />
+              className={inputStyle} type="number" />
             {errors?.soLuong?.type === "required" && <p className={errorStyle}> Số lượng bắt buộc phải nhập </p>}
             {errors?.soLuong?.type === "min" && <p className={errorStyle}> Số lượng không được dưới 1 </p>}
             {errors?.soLuong?.type === "max" && <p className={errorStyle}>Số lượng không được vượt quá 1000 </p>}
+            {errors?.soLuong?.type === "valueAsNumber" && <p className={errorStyle}>Không phải kiểu số</p>}
           </div>
           {/* Số lượng */}
 
