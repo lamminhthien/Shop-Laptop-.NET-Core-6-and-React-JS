@@ -8,34 +8,21 @@ function useQuery() {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 export default function ProductList() {
-  const [state, setState] = useState(ReceiveData.do('Đang tải dữ liệu', false));
-  let query = useQuery();
+  var page = 1;
+  const [listProduct, setListProduct] = useState([]);
+  const [pageState, setPageState] = useState(0);
   useEffect(() => {
-    if (query.get('category')) {
-      const id = query.get('category');
-      if (isNaN(id)) setState(ReceiveData.do("Mã loại sản phẩm không phù hợp",false))
-      TrangChuApi.getSanPhamByCategory(parseInt(id)).then(res => {
-        setState(ReceiveData.do(res,true))
-      }).catch(err => {
-        setState(ReceiveData.do(err,false))
-      })
-    }
+    TrangChuApi.getSanPhamByDefault(parseInt(page)).then(res => {
+      setPageState(1)
+      setListProduct(res)
+    }).catch(err => {
+      setPageState(-1)
+    })
   }, []);
-  console.log(state);
-  const fetchData = () => {
-    if (state.state === false) {
-      return (
-        <h1 className='text-red-500'>No data</h1>
-      )
-    }
-    if (state.state === true) {
-      return (
-        <>{JSON.stringify(state.data)}</>
-      )
-    }
-  }
-  return (
-    <>{fetchData()}</>
-    
-  );
+  const pageRender = () => {
+    if (pageState === 0) return <p className='text-2xl'>Đang tải dữ liệu</p>;
+    if (pageState === -1) return <p className='text-red-500 text-2xl'>Trang bạn yêu cầu có lỗi</p>;
+    return <>{JSON.stringify(listProduct)}</>
+  };
+  return <>{pageRender()}</>;
 }
