@@ -57,7 +57,7 @@ export default function ProductList() {
           <div className='flex flex-wrap justify-start'>
             {listProduct.data.ketqua.map(item => (
               <a
-                href={item.maSanPham}
+                href={`public/san-pham/${item.maSanPham}`}
                 className='h-fit
                     bg-white shadow-lg
                     rounded-md border-black border-0 w-60 flex

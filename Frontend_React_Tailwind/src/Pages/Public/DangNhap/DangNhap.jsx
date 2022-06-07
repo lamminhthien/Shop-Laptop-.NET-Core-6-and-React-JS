@@ -14,7 +14,7 @@ export default function DangNhapKH(props) {
       .post(`${base_url}/LoginKhachHang`, formData)
       .then(res => {
         localStorage.setItem('token', res.data);
-        window.location.href = '';
+        window.location.href = '/';
       })
       .catch(err => {
         setIsLogin('Sai tài khoản hoặc mật khẩu');

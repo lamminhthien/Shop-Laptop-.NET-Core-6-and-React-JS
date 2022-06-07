@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.IO;
-
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace ShopLaptop_EFCore.Controllers.KhachHangController
 {
     [Route("api/[controller]")]
@@ -21,7 +19,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         {
             _context = context;
         }
-
         [HttpPost("DangKyKhachHang")]
         public ActionResult<List<dynamic>> DangKyKhachHang(KhachHang kh)
         {
@@ -39,7 +36,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                 }
                 if (errMsg.Contains("username"))
                 {
-
                     return BadRequest("Username bị trùng");
                 }
                 if (errMsg.Contains("email"))
@@ -53,7 +49,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             }
             return Ok("Đăng ký tài khoản khách hàng thành công");
         }
-
         [HttpPost("BinhLuanSanPham")]
         public ActionResult<List<dynamic>> BinhLuanSanPham(BinhLuanSanPham binhLuan)
         {

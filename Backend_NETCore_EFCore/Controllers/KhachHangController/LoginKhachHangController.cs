@@ -71,17 +71,17 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             }
         }
         // Lấy thông tin tài khoản khách hàng từ JWT Token
-        private string GetCurrentUserInfo()
+        [HttpPost("GetCurrentUserInfo")]
+        public IActionResult GetCurrentUserInfo()
         {
             // Đọc các Claims từ Header của Request
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             // Nếu tồn tại, lấy tên của khách hàng
             if (identity != null)
             {
-                var userClaims = identity.Claims;
-                return userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Name)?.Value;
+                return Ok(identity.Claims);
             }
-            return null;
+            return NotFound("Không tìm thấy gì");
         }
     }
 }
