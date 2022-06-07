@@ -23,14 +23,16 @@ export default function ProductList() {
     let priceMin = query.get('price-min');
     let priceMax = query.get('price-max');
     let page = query.get('page');
+    let searchKey = query.get('searchKey');
     if (!isNaN(brand)) formData.append('maHangSanXuat', brand);
     if (!isNaN(category)) formData.append('maLoaiSanPham', category);
     if (!isNaN(priceMin)) formData.append('minPrice', priceMin);
     if (!isNaN(priceMax)) formData.append('maxPrice', priceMax);
     if (!isNaN(page)) formData.append('page', page);
+    formData.append('searchKey',searchKey);
     let params = `?`;
     for (const pair of formData.entries()) {
-      if (!isNaN(pair[1])) params = params + `${pair[0]}=${pair[1]}` + '&';
+      if (!isNaN(pair[1]) || (pair[0]==="searchKey")) params = params + `${pair[0]}=${pair[1]}` + '&';
     }
     params = params.slice(0, params.length - 1);
     TrangChuApi.getSanPhamByAdvanceSearch(params)
