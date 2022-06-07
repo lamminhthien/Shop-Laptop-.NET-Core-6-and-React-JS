@@ -34,13 +34,11 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
 
         // Route đăng nhập và lấy jwt token
         [AllowAnonymous]
-        [HttpPost("LoginKhachHang")]
-        public IActionResult LoginKhachHang([FromBody] UserLogin userLogin)
+        [HttpPost]
+        public IActionResult LoginKhachHang()
         {
-            // Lấy username và password từ request payload
-            var username = userLogin.Username;
-            var password = userLogin.Password;
-
+            var username = Request.Form["username"][0];
+            var password = Request.Form["password"][0];
             // Kiểm tra username và password có tồn tại trong database không?
             var currentUser = _context.KhachHangs.FirstOrDefault(o => o.Username == username && o.Password == password);
 

@@ -20,6 +20,7 @@ import ChiTietSanPhamPublic from './Pages/Public/ChiTietSanPham/index';
 import EditLoaiSanPham from './Pages/Admin/LoaiSanPham/EditLoaiSanPham';
 import EditHangSanXuat from './Pages/Admin/HangSanXuat/EditHangSanXuat';
 import DangKy from './Pages/Public/DangKy/DangKy';
+import DangNhapKH from './Pages/Public/DangNhap/DangNhap'
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -70,6 +71,8 @@ reactDom.render(
       <Route exact path='/public/trang-chu' children={<HomePage />} />
 
       <Route exact path='/public/dang-ky' children={<DangKy />} />
+
+      <Route exact path='/public/dang-nhap' children={<DangNhapKH />} />
 
       <Route exact path='/public/san-pham/:id' children={<ChiTietSanPhamPublic />} />
 
