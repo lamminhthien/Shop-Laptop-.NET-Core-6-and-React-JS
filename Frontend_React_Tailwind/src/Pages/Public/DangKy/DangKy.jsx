@@ -1,5 +1,6 @@
 import React from 'react';
 import { set, useForm } from 'react-hook-form';
+import DangKyTaiKhoan from '../../../Api/Public/DangKy';
 
 export default function DangKy() {
   const {
@@ -14,6 +15,8 @@ export default function DangKy() {
 
   const onSubmit = data => {
     alert(JSON.stringify(data));
+    data.gioiTinh = parseInt(data.gioiTinh)
+    DangKyTaiKhoan.dangKyTaiKhoan(data)
   };
 
   const inputStyle = `bg-gray-50 border border-gray-300
@@ -46,27 +49,22 @@ export default function DangKy() {
           className={inputStyle}
           {...register('diaChi', {
             required: true,
-            minLength: 30,
+            minLength: 20,
             maxLength: 50
           })}
         />
         {errors?.diaChi?.type === 'required' && <p className={errorStyle}>Địa chỉ bắt buộc nhập</p>}
-        {errors?.diaChi?.type === 'minLength' && <p className={errorStyle}>Địa chỉ tối thiểu 30 kí tự</p>}
+        {errors?.diaChi?.type === 'minLength' && <p className={errorStyle}>Địa chỉ tối thiểu 20 kí tự</p>}
         {errors?.diaChi?.type === 'maxLength' && <p className={errorStyle}>Địa chỉ tối đa 50 kí tự</p>}
         <br />
         <label className={labelStyle}>So Dien Thoai</label>
         <input
           className={inputStyle}
           {...register('soDienThoai', {
-            required: true,
-            minLength: 10,
-            maxLength: 10,
-            valueAsNumber: true
+            pattern:/^[0-9]{10}$/
           })}
         />
-        {errors?.soDienThoai?.type === 'required' && <p className={errorStyle}>Số điện thoại bắt buộc nhập</p>}
-        {errors?.soDienThoai?.type === 'maxLength' && <p className={errorStyle}>Số điện thoại phải 10 kí số</p>}
-        {errors?.soDienThoai?.type === 'valueAsNumber' && <p className={errorStyle}>Số điện thoại bắt buộc kiểu số</p>}
+        {errors?.soDienThoai?.type === 'pattern' && <p className={errorStyle}>Số điện thoại phải 10 số</p>}
         <br />
         <label className={labelStyle}>Gioi Tinh</label>
         <select
@@ -74,10 +72,10 @@ export default function DangKy() {
           {...register('gioiTinh', {
             required: true
           })}>
-          <option value='1' selected>
+          <option value={1} selected>
             Nam
           </option>
-          <option value='0'>Nữ</option>
+          <option value={0}>Nữ</option>
         </select>
         {errors?.gioiTinh?.type === 'required' && <p className={errorStyle}>Giới tính bắt buộc chọn</p>}
         <br />
@@ -130,7 +128,7 @@ export default function DangKy() {
         />
         {errors?.email?.type === 'required' && <p className={errorStyle}>Email bắt buộc nhập</p>}
         {errors?.email?.type === 'pattern' && <p className={errorStyle}>Email không đúng định dạng</p>}   
-        <input type='submit' value='Dang Ky' />
+        <input type='submit' value='Đăng ký' className="bg-cyan-600 p-3 rounded-xl m-3" />
       </form>
     </div>
   );
