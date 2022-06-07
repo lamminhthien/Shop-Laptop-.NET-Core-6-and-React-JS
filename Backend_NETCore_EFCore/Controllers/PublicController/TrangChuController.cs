@@ -198,7 +198,6 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
     public ActionResult<List<dynamic>> timKiemTheoNhieuTieuChi(int page = 1,
         int maLoaiSanPham = -9999, int maHangSanXuat = -9999, double minPrice = 0, double maxPrice = 999999999)
     {
-        var searchKey = Request.Query["searchKey"];
       double rowPerPage = 5;
       // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
       double productQuantity = _context.SanPhams.Count();
@@ -210,34 +209,69 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
         return NotFound();
       }
       var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
-      var listSanPham = (from a in _context.SanPhams
-                         join b in _context.ChiTietSanPhams
-                         on a.MaSanPham equals b.MaSanPham
-                         where (maLoaiSanPham != -9999 ? a.MaLoaiSp == maLoaiSanPham : 1 == 1)
-                         && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1 == 1)
-                         && (searchKey[0] != null ? a.TenSanPham.Contains(searchKey) : 1 == 1)
-                         select new
-                         {
-                           maSanPham = a.MaSanPham,
-                           tenSanPham = a.TenSanPham,
-                           giaNiemYet = (from d in _context.BienDongGia
-                                         where (d.MaSanPham == a.MaSanPham)
-                                         && (minPrice >= 0 ? d.GiaNhap >= minPrice : 1 == 1)
-                                         && (maxPrice <= 999999999 ? d.GiaNhap <= maxPrice : 1 == 1)
-                                         orderby d.LanThayDoiGia ascending
-                                         select d.GiaNhap * (1 + d.ChietKhau)).Last(),
-                           anhSanPham = (from e in _context.AnhSanPhams
-                                         where e.MaSanPham == a.MaSanPham
-                                         select imageURL + e.FileAnh.Trim()
-                                           ).First()
-                         }).Skip(5 * (page - 1)).Take(5);
-      return Ok(new
+      try
       {
-        tongSoSanPham = productQuantity,
-        soTrang = numberOfPageInteger,
-        ketqua = listSanPham,
-        searchKey=searchKey
-      });
+        var searchKey = Request.Query["searchKey"][0];
+        var listSanPham = (from a in _context.SanPhams
+                           join b in _context.ChiTietSanPhams
+                           on a.MaSanPham equals b.MaSanPham
+                           where (maLoaiSanPham != -9999 ? a.MaLoaiSp == maLoaiSanPham : 1 == 1)
+                           && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1 == 1)
+                           && (searchKey != null ? a.TenSanPham.Contains(searchKey) : 1 == 1)
+                           select new
+                           {
+                             maSanPham = a.MaSanPham,
+                             tenSanPham = a.TenSanPham,
+                             giaNiemYet = (from d in _context.BienDongGia
+                                           where (d.MaSanPham == a.MaSanPham)
+                                           && (minPrice >= 0 ? d.GiaNhap >= minPrice : 1 == 1)
+                                           && (maxPrice <= 999999999 ? d.GiaNhap <= maxPrice : 1 == 1)
+                                           orderby d.LanThayDoiGia ascending
+                                           select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                             anhSanPham = (from e in _context.AnhSanPhams
+                                           where e.MaSanPham == a.MaSanPham
+                                           select imageURL + e.FileAnh.Trim()
+                                             ).First()
+                           }).Skip(5 * (page - 1)).Take(5);
+        return Ok(new
+        {
+          tongSoSanPham = productQuantity,
+          soTrang = numberOfPageInteger,
+          ketqua = listSanPham,
+          searchKey = searchKey
+        });
+      }
+      catch (Exception)
+      {
+        var listSanPham = (from a in _context.SanPhams
+                           join b in _context.ChiTietSanPhams
+                           on a.MaSanPham equals b.MaSanPham
+                           where (maLoaiSanPham != -9999 ? a.MaLoaiSp == maLoaiSanPham : 1 == 1)
+                           && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1 == 1)
+                           select new
+                           {
+                             maSanPham = a.MaSanPham,
+                             tenSanPham = a.TenSanPham,
+                             giaNiemYet = (from d in _context.BienDongGia
+                                           where (d.MaSanPham == a.MaSanPham)
+                                           && (minPrice >= 0 ? d.GiaNhap >= minPrice : 1 == 1)
+                                           && (maxPrice <= 999999999 ? d.GiaNhap <= maxPrice : 1 == 1)
+                                           orderby d.LanThayDoiGia ascending
+                                           select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                             anhSanPham = (from e in _context.AnhSanPhams
+                                           where e.MaSanPham == a.MaSanPham
+                                           select imageURL + e.FileAnh.Trim()
+                                             ).First()
+                           }).Skip(5 * (page - 1)).Take(5);
+        return Ok(new
+        {
+          tongSoSanPham = productQuantity,
+          soTrang = numberOfPageInteger,
+          ketqua = listSanPham,
+
+        });
+
+      }
     }
   }
 
