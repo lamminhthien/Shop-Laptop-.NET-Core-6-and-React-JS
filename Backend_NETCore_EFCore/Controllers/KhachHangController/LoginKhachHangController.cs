@@ -59,7 +59,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                 var token = new JwtSecurityToken(_config["Jwt:Issuer"],
                   _config["Jwt:Audience"],
                   claims,
-                  expires: DateTime.Now.AddMinutes(30),
                   signingCredentials: credentials);
                 // Mã hóa thành chuỗi token và trả về status 200 kèm token để React lưu vào LocalStorage
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
@@ -71,6 +70,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             }
         }
         // Lấy thông tin tài khoản khách hàng từ JWT Token
+        [Authorize(Roles="Khách Hàng")]
         [HttpPost("GetCurrentUserInfo")]
         public IActionResult GetCurrentUserInfo()
         {
@@ -79,7 +79,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             // Nếu tồn tại, lấy tên của khách hàng
             if (identity != null)
             {
-                return Ok(identity.Claims);
+                return Ok(identity.Claims.FirstOrDefault(o=>o.Type == ClaimTypes.NameIdentifier)?.Value);
             }
             return NotFound("Không tìm thấy gì");
         }
