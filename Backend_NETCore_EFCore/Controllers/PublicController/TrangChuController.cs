@@ -150,7 +150,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
 
         // Tìm kiếm sản phẩm theo từ khóa
         [HttpGet("timKiemTheoTuKhoa")]
-        public ActionResult<List<dynamic>> timKiemTheoTuKhoa(int page=1,String searchKey="")
+        public ActionResult<List<dynamic>> timKiemTheoTuKhoa(int page=1,String? searchKey="")
         {
             double rowPerPage = 5;
             if (page < 0)
@@ -196,7 +196,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
         // Vừa hãng sản xuất, vừa loại sản phẩm, vừa phạm vi giá
         [HttpGet("timKiemTheoNhieuTieuChi")]
         public ActionResult<List<dynamic>> timKiemTheoNhieuTieuChi(int page=1,
-            int maLoaiSanPham=-9999, int maHangSanXuat=-9999,double minPrice=0, double maxPrice=999999999,String searchKey="")
+            int maLoaiSanPham=-9999, int maHangSanXuat=-9999,double minPrice=0, double maxPrice=999999999,String searchKey="    ")
         {
             double rowPerPage = 5;
             // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
@@ -214,7 +214,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                on a.MaSanPham equals b.MaSanPham
                                where (maLoaiSanPham != -9999 ? a.MaLoaiSp == maLoaiSanPham : 1==1)
                                && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1==1 )
-                               &&  a.TenSanPham.Contains(searchKey)
+                               && (searchKey.Trim() != "" ? a.TenSanPham.Contains(searchKey): 1==1)
                                select new
                                {
                                    maSanPham = a.MaSanPham,
