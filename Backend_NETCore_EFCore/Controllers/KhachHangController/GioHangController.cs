@@ -26,7 +26,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     // Xóa sản phẩm khỏi giỏ hàng
     [Authorize(Roles = "Khách Hàng")]
     [HttpPost("ThemGioHang")]
-    public ActionResult<List<dynamic>> ThemGioHang(int maSanPham = -1, int soLuong = 1)
+    public ActionResult<List<dynamic>> ThemGioHang(GioHang gh)
     {
       var identity = HttpContext.User.Identity as ClaimsIdentity;
       if (identity != null)
@@ -36,9 +36,10 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                            where a.Username == userName
                            select a.MaKhachHang
         ).FirstOrDefault();
+        gh.MaKhachHang = maKhachHang;
         // Nếu chưa có mã sản phẩm hoặc không tìm thấy sản phẩm
         var sanPham = (from a in _context.SanPhams
-                       where a.MaSanPham == maSanPham
+                       where a.MaSanPham == gh.MaSanPham
                        select a).FirstOrDefault();
         if (sanPham == null)
           return BadRequest("Sản phẩm này không tồn tại");
@@ -47,20 +48,19 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                          where a.MaKhachHang == maKhachHang
                          select a).FirstOrDefault();
         if (khachHang == null) return BadRequest("Khách hàng này không tồn tại");
-        if (soLuong <= 0)
+        if (gh.SoLuong <= 0)
           return BadRequest("Số lượng sản phẩm không phù hợp");
-        if (soLuong > 4)
+        if (gh.SoLuong > 4)
           return BadRequest("Bạn chỉ được phép đặt tối đa với số lượng là 4");
         var sanPhamExistedOnCart = (from a in _context.GioHangs
                                     where (a.MaKhachHang == maKhachHang) &&
-                                    (a.MaSanPham == maSanPham)
+                                    (a.MaSanPham == gh.MaSanPham)
                                     select a).FirstOrDefault();
         if (sanPhamExistedOnCart != null)
         {
-          var sanPhamOnCart = new GioHang(maKhachHang, maSanPham, soLuong);
           try
           {
-            _context.Entry(sanPhamOnCart).State = EntityState.Modified;
+            _context.Entry(gh).State = EntityState.Modified;
             _context.SaveChanges();
           }
           catch (Exception ex)
@@ -70,7 +70,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         }
         try
         {
-          _context.Add(new GioHang(maKhachHang, maSanPham, soLuong));
+          _context.Add(gh);
           _context.SaveChanges();
         }
         catch (Exception ex)
