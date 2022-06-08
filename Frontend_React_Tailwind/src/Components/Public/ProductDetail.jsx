@@ -38,7 +38,7 @@ export default function ProductDetail() {
     .then(res => {
       alert("Đã thêm vào giỏ hàng thành công")
     }).catch(err => {
-      alert(err.data)
+      alert(err.response.data);
     })
   };
 

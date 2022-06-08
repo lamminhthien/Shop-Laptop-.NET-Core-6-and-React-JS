@@ -51,7 +51,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         var khachHang = (from a in _context.KhachHangs
                          where a.MaKhachHang == maKhachHang
                          select a).FirstOrDefault();
-        if (khachHang == null) return BadRequest("Khách hàng này không tồn tại");
+        if (khachHang == null) return BadRequest("Khách hàng chưa đăng nhập");
         if (soLuong <= 0)
           return BadRequest("Số lượng sản phẩm không phù hợp");
         if (soLuong > 4)
