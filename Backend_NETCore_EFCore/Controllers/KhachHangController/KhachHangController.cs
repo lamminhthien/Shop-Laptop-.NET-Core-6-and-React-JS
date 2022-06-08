@@ -9,6 +9,7 @@ using System.IO;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 namespace ShopLaptop_EFCore.Controllers.KhachHangController
 {
+    [Authorize(Roles = "Khách Hàng")]
     [Route("api/[controller]")]
     [ApiController]
     public class KhachHangController : ControllerBase
@@ -50,18 +51,28 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             return Ok("Đăng ký tài khoản khách hàng thành công");
         }
         [HttpPost("BinhLuanSanPham")]
-        public ActionResult<List<dynamic>> BinhLuanSanPham(BinhLuanSanPham binhLuan)
+        public ActionResult<List<dynamic>> BinhLuanSanPham()
         {
-            try
-            {
-                _context.Add(binhLuan);
-                _context.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.InnerException.ToString());
-            }
-            return Ok("Hi");
+            int maKhachHang = Int16.Parse(Request.Form["maKhachHang"][0]);
+            int maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
+            var noiDung = Request.Form["noiDung"][0];
+            var trangThai = Request.Form["trangThai"][0];
+
+            // try
+            // {
+            //     _context.Add(binhLuan);
+            //     _context.SaveChanges();
+            // }
+            // catch (Exception e)
+            // {
+            //     return BadRequest(e.InnerException.ToString());
+            // }
+            return Ok(new {
+                maKhachHang = maKhachHang,
+                maSanPham = maSanPham,
+                noiDung = noiDung,
+                trangThai = trangThai
+            });
         }
     }
 }
