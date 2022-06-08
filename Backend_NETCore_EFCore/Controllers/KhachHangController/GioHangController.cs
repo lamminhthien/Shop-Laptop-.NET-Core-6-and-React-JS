@@ -51,17 +51,12 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
           return BadRequest("Số lượng sản phẩm không phù hợp");
         if (soLuong > 4)
           return BadRequest("Bạn chỉ được phép đặt tối đa với số lượng là 4");
-
-
-        // Check xem thử sản phẩm này ứng với giỏ hàng của khách hàng này đã thêm vào chưa?
-        // Nếu đã thêm rồi thì chỉ update số lượng sản phẩm
         var sanPhamExistedOnCart = (from a in _context.GioHangs
                                     where (a.MaKhachHang == maKhachHang) &&
                                     (a.MaSanPham == maSanPham)
                                     select a).FirstOrDefault();
         if (sanPhamExistedOnCart != null)
         {
-
           var sanPhamOnCart = new GioHang(maKhachHang, maSanPham, soLuong);
           try
           {
@@ -85,7 +80,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         return Ok("Hi");
       }
       return NotFound("Khách hàng chưa đăng nhập");
-
     }
   }
 }
