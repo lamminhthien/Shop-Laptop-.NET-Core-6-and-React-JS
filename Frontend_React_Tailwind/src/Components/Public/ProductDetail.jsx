@@ -31,11 +31,12 @@ export default function ProductDetail() {
   };
 
   const themGioHang = (id) => {
-    axios.get('https://localhost:7216/api/LoginKhachHang/GetMaKhachHang',configJWT)
+    axios.post('https://localhost:7216/api/LoginKhachHang/GetMaKhachHang',null,configJWT)
     .then(res => {
       alert(JSON.stringify(res))
+    }).catch(err => {
+      alert("Bạn hãy đăng nhập để dùng giỏ hàng")
     })
-    alert(`${id}`);
   };
 
   if (state.done) {
