@@ -31,13 +31,9 @@ export default function ProductDetail() {
   };
 
   const themGioHang = (id) => {
-
     axios.post('https://localhost:7216/api/LoginKhachHang/GetMaKhachHang',null,configJWT)
     .then(res => {
       alert(JSON.stringify(res.data))
-      let maKhachHang = res.data
-      let soLuong = 1
-      let maSanPham = id
     }).catch(err => {
       alert("Bạn hãy đăng nhập để dùng giỏ hàng")
     })
