@@ -30,7 +30,7 @@ export default function CommentForm(props) {
         alert("Cảm ởn bạn đã gửi ý kiến phản hồi, ý kiến của bạn sẽ được duyệt và phản hồi sớm")
       })
     }).catch(err => {
-      alert(err.response.message)
+      alert("Bạn chưa đăng nhập")
     })
   };
   return (
