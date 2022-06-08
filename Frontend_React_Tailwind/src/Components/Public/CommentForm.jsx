@@ -25,7 +25,7 @@ export default function CommentForm(props) {
       .then(res => {
         const formData = new FormData();
         formData.append('maKhachHang', res.data);
-        // formData.append('maSanPham', props.maSanPham);
+        formData.append('maSanPham', props.maSanPham);
         formData.append('noiDung', data.noiDung);
         formData.append('trangThai', "false");
         axios.post('https://localhost:7216/api/KhachHang/BinhLuanSanPham',formData,configJWT).then(res => {
