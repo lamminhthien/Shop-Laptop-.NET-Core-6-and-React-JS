@@ -33,6 +33,8 @@ namespace ShopLaptop_EFCore.Models
         [StringLength(60)]
         public string NoiDung { get; set; } = null!;
         [Column("trang_thai")]
+        [MinLength(70)]
+        [MaxLength(255)]
         public bool TrangThai { get; set; }
 
         [ForeignKey("MaKhachHang")]

@@ -15,17 +15,17 @@ export default function DangKy() {
 
   const onSubmit = data => {
     alert(JSON.stringify(data));
-    data.gioiTinh = parseInt(data.gioiTinh)
-    DangKyTaiKhoan.dangKyTaiKhoan(data)
+    data.gioiTinh = parseInt(data.gioiTinh);
+    DangKyTaiKhoan.dangKyTaiKhoan(data);
   };
 
   const inputStyle = `bg-gray-50 border border-gray-300
-  text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+  text-gray-900 text-sm rounded-lg focus:ring-blue-500
   focus:border-blue-500 block w-full p-2.5`;
   const labelStyle = `block mb-2 text-sm font-medium text-gray-900`;
   const errorStyle = `before:content-['⚠'] mt-2 text-sm text-red-600 `;
   const divStyle = `relative z-0 w-full mb-6 group`;
-  const formStyle = `mt-2 rounded-xl bg-gradient-to-r bg-white border 
+  const formStyle = `mt-2 rounded-xl bg-gradient-to-r bg-white border
  border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`;
 
   return (
@@ -61,7 +61,7 @@ export default function DangKy() {
         <input
           className={inputStyle}
           {...register('soDienThoai', {
-            pattern:/^[0-9]{10}$/
+            pattern: /^[0-9]{10}$/
           })}
         />
         {errors?.soDienThoai?.type === 'pattern' && <p className={errorStyle}>Số điện thoại phải 10 số</p>}
@@ -127,8 +127,8 @@ export default function DangKy() {
           })}
         />
         {errors?.email?.type === 'required' && <p className={errorStyle}>Email bắt buộc nhập</p>}
-        {errors?.email?.type === 'pattern' && <p className={errorStyle}>Email không đúng định dạng</p>}   
-        <input type='submit' value='Đăng ký' className="bg-cyan-600 p-3 rounded-xl m-3" />
+        {errors?.email?.type === 'pattern' && <p className={errorStyle}>Email không đúng định dạng</p>}
+        <input type='submit' value='Đăng ký' className='bg-cyan-600 p-3 rounded-xl m-3' />
       </form>
     </div>
   );

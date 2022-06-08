@@ -1,17 +1,16 @@
 import Footer from "../../../Components/Public/Footer";
 import Navbar from "../../../Components/Public/Navbar";
-import Comment from "../../../Components/Public/Comment";
+import CommentList from "../../../Components/Public/CommentList";
 import ProductDetail from "../../../Components/Public/ProductDetail";
+import CommentForm from '../../../Components/Public/CommentForm';
 
 export default function ChiTietSanPhamPublic() {
     return (
         <>
             <Navbar />
             <ProductDetail/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
+            <CommentForm/>
+            <CommentList/>
             <Footer/>
         </>
 
