@@ -33,7 +33,7 @@ export default function ProductDetail() {
   const themGioHang = (id) => {
     axios.post('https://localhost:7216/api/LoginKhachHang/GetMaKhachHang',null,configJWT)
     .then(res => {
-      alert(JSON.stringify(res))
+      alert(JSON.stringify(res.data))
     }).catch(err => {
       alert("Bạn hãy đăng nhập để dùng giỏ hàng")
     })
