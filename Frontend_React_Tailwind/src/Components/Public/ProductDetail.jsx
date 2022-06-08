@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import TrangChiTietSanPhamApi from '../../Api/Public/TrangChiTietSanPhamApi';
 import { useState, useEffect } from 'react';
 import axios  from 'axios';
+import CommentForm from './CommentForm';
 
 export default function ProductDetail() {
   let { id } = useParams();
@@ -44,6 +45,7 @@ export default function ProductDetail() {
 
   if (state.done) {
     return (
+      <>
       <section className='text-gray-600 body-font overflow-hidden'>
         <div className='container px-5 py-24 mx-auto'>
           <div className='flex flex-row'>
@@ -102,6 +104,9 @@ export default function ProductDetail() {
           </div>
         </div>
       </section>
+      <CommentForm maSanPham={id}/>
+      </>
+     
     );
   }
 }

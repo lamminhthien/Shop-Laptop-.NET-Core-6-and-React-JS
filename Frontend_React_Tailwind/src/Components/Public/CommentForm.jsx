@@ -3,7 +3,12 @@ import { useState } from 'react';
 import axios from 'axios';
 import { set, useForm } from 'react-hook-form';
 
-export default function CommentForm() {
+export default function CommentForm(props) {
+  const configJWT = {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  };
   const errorStyle = `before:content-['⚠'] mt-2 text-sm text-red-600 `;
   const {
     register,
@@ -14,14 +19,25 @@ export default function CommentForm() {
     mode: 'onChange',
     reValidateMode: 'onChange'
   });
-  const onSubmit = data => {
-    alert(JSON.stringify(data));
+  const onSubmit = noiDung => {
+    axios.post("https://localhost:7216/api/LoginKhachHang/GetMaKhachHang",null,configJWT).then(res => {
+      const formData = new FormData()
+      formData.append("maKhachHang",res.data)
+      formData.append("maSanPham",props.maSanPham)
+      formData.append("noiDung",noiDung)
+      formData.append("trangThai",0)
+      axios.post("https://localhost:7216/api/KhachHang/BinhLuanSanPham",formData).then(res => {
+        alert("Cảm ởn bạn đã gửi ý kiến phản hồi, ý kiến của bạn sẽ được duyệt và phản hồi sớm")
+      })
+    }).catch(err => {
+      alert(err.response.message)
+    })
   };
   return (
     <form className='pl-44 pr-44 mb-7 h-[200px]' onSubmit={handleSubmit(onSubmit)}>
       <div class='code-preview-wrapper'>
-        <div class='code-preview rounded-xl bg-gradient-to-r bg-white  border-gray-200 dark:border-gray-700 p-2 sm:p-6'>
-          <label for='message' class='block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400'>
+        <div class='code-preview rounded-xl bg-gradient-to-r bg-white  border-gray-200 p-2 sm:p-6'>
+          <label for='message' class='block mb-2 text-sm font-medium text-gray-900'>
             Bình luận sản phẩm
           </label>
           <textarea
