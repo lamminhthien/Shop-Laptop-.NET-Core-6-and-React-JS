@@ -45,6 +45,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                         orderby e.LanThayDoiGia descending
                                         select new
                                         {
+                                            maSanPham = a.MaSanPham,
                                             tenSanPham = a.TenSanPham,
                                             loaiSanPham = b.TenLoaiSp,
                                             hangSanXuat = c.TenHangSx,
