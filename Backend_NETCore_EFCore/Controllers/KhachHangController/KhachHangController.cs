@@ -57,16 +57,17 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             int maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
             var noiDung = Request.Form["noiDung"][0];
             var trangThai = Boolean.Parse(Request.Form["trangThai"][0]);
+            BinhLuanSanPham binhLuan = new BinhLuanSanPham(maKhachHang,maSanPham,noiDung,trangThai);
 
-            // try
-            // {
-            //     _context.Add(binhLuan);
-            //     _context.SaveChanges();
-            // }
-            // catch (Exception e)
-            // {
-            //     return BadRequest(e.InnerException.ToString());
-            // }
+            try
+            {
+                _context.Add(binhLuan);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.InnerException.ToString());
+            }
             return Ok(new {
                 maKhachHang = maKhachHang,
                 maSanPham = maSanPham,
