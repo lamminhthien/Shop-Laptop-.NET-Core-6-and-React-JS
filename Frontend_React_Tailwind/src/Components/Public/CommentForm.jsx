@@ -28,7 +28,7 @@ export default function CommentForm(props) {
         // formData.append('maSanPham', props.maSanPham);
         formData.append('noiDung', data.noiDung);
         formData.append('trangThai', "false");
-        axios.post('https://localhost:7216/api/KhachHang/BinhLuanSanPham', formData).then(res => {
+        axios.post('https://localhost:7216/api/KhachHang/BinhLuanSanPham',formData,configJWT).then(res => {
           alert('Cảm ởn bạn đã gửi ý kiến phản hồi, ý kiến của bạn sẽ được duyệt và phản hồi sớm');
         });
       })
@@ -37,7 +37,7 @@ export default function CommentForm(props) {
       });
   };
   return (
-    <form className='pl-44 pr-44 mb-7 h-[200px]' onSubmit={() => handleSubmit(onSubmit)}>
+    <form className='pl-44 pr-44 mb-7 h-[200px]' onSubmit={handleSubmit(onSubmit)}>
       <div class='code-preview-wrapper'>
         <div class='code-preview rounded-xl bg-gradient-to-r bg-white  border-gray-200 p-2 sm:p-6'>
           <label for='message' class='block mb-2 text-sm font-medium text-gray-900'>
