@@ -56,7 +56,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             int maKhachHang = Int16.Parse(Request.Form["maKhachHang"][0]);
             int maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
             var noiDung = Request.Form["noiDung"][0];
-            var trangThai = Request.Form["trangThai"][0];
+            var trangThai = Boolean.Parse(Request.Form["trangThai"][0]);
 
             // try
             // {

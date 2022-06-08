@@ -19,15 +19,15 @@ export default function CommentForm(props) {
     mode: 'onChange',
     reValidateMode: 'onChange'
   });
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     axios
       .post('https://localhost:7216/api/LoginKhachHang/GetMaKhachHang', null, configJWT)
       .then(res => {
         const formData = new FormData();
         formData.append('maKhachHang', res.data);
-        formData.append('maSanPham', props.maSanPham);
+        // formData.append('maSanPham', props.maSanPham);
         formData.append('noiDung', data.noiDung);
-        formData.append('trangThai', 0);
+        formData.append('trangThai', "false");
         axios.post('https://localhost:7216/api/KhachHang/BinhLuanSanPham', formData).then(res => {
           alert('Cảm ởn bạn đã gửi ý kiến phản hồi, ý kiến của bạn sẽ được duyệt và phản hồi sớm');
         });
@@ -37,7 +37,7 @@ export default function CommentForm(props) {
       });
   };
   return (
-    <form className='pl-44 pr-44 mb-7 h-[200px]' onSubmit={handleSubmit(onSubmit)}>
+    <form className='pl-44 pr-44 mb-7 h-[200px]' onSubmit={() => handleSubmit(onSubmit)}>
       <div class='code-preview-wrapper'>
         <div class='code-preview rounded-xl bg-gradient-to-r bg-white  border-gray-200 p-2 sm:p-6'>
           <label for='message' class='block mb-2 text-sm font-medium text-gray-900'>
@@ -56,11 +56,10 @@ export default function CommentForm(props) {
           {errors?.noiDung?.type === 'required' && <p className={errorStyle}>Nội dung bắt buộc nhập</p>}
           {errors?.noiDung?.type === 'minLength' && <p className={errorStyle}>Nội dung tối thiểu 70 kí tự</p>}
           {errors?.noiDung?.type === 'maxLength' && <p className={errorStyle}>Nội dung tối đa 255 kí tự</p>}
-          <button
+          <input
             type='submit'
-            class='mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'>
-            Gửi ý kiến
-          </button>
+            class='mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+            value="Gửi ý kiến"/>
         </div>
       </div>
     </form>
