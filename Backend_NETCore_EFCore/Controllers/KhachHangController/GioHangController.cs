@@ -26,8 +26,14 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     // Xóa sản phẩm khỏi giỏ hàng
     [Authorize(Roles = "Khách Hàng")]
     [HttpPost("ThemGioHang")]
-    public ActionResult<List<dynamic>> ThemGioHang(int maSanPham = -1, int soLuong = 1)
+    public ActionResult<List<dynamic>> ThemGioHang()
     {
+      int maSanPham= Int16.Parse(Request.Form["maSanPham"][0]);
+      int soLuong= Int16.Parse(Request.Form["soLuong"][0]);
+      // return Ok(new {
+      //   maSanPham = maSanPham,
+      //   soLuong = soLuong
+      // });
       var identity = HttpContext.User.Identity as ClaimsIdentity;
       if (identity != null)
       {
