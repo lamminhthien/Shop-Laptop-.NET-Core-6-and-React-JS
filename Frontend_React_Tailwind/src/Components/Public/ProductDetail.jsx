@@ -30,12 +30,15 @@ export default function ProductDetail() {
     }
   };
 
-  const themGioHang = (id) => {
-    axios.post('https://localhost:7216/api/LoginKhachHang/GetMaKhachHang',null,configJWT)
+  const themGioHang = (maSanPham) => {
+    const formData = new FormData()
+      formData.append("maSanPham",maSanPham)
+      formData.append("soLuong",1)
+    axios.post('https://localhost:7216/api/GioHang/ThemGioHang',formData,configJWT)
     .then(res => {
-      alert(JSON.stringify(res.data))
+      alert("Đã thêm vào giỏ hàng thành công")
     }).catch(err => {
-      alert("Bạn hãy đăng nhập để dùng giỏ hàng")
+      alert(err.data)
     })
   };
 

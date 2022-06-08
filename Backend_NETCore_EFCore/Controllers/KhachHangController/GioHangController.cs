@@ -24,7 +24,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     }
     //Sữa số lượng sản phẩm trong giỏ hàng
     // Xóa sản phẩm khỏi giỏ hàng
-    [Authorize(Roles = "Khách Hàng")]
     [HttpPost("ThemGioHang")]
     public ActionResult<List<dynamic>> ThemGioHang()
     {
