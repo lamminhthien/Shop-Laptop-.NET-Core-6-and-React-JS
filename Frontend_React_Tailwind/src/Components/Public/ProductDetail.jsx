@@ -23,8 +23,8 @@ export default function ProductDetail() {
       })
   }, [])
 
-  const themGioHang = () => {
-    alert("Test")
+  const themGioHang = (id) => {
+    alert(`${id}`)
   }
 
   if (state.done) {
@@ -69,7 +69,7 @@ export default function ProductDetail() {
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">Giá: {state.data.giaNiemYet} VND</span>
                 <button 
-                  onClick={()=>themGioHang()}
+                  onClick={()=>themGioHang(state.data.maSanPham)}
                   className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Thêm vào giỏ hàng</button>
               </div>
             </div>
