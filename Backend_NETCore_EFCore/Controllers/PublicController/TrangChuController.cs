@@ -217,7 +217,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                            on a.MaSanPham equals b.MaSanPham
                            where (maLoaiSanPham != -9999 ? a.MaLoaiSp == maLoaiSanPham : 1 == 1)
                            && (maHangSanXuat != -9999 ? a.MaHangSx == maHangSanXuat : 1 == 1)
-                           && (searchKey != null ? a.TenSanPham.Contains(searchKey) : 1 == 1)
+                           && (searchKey != "null" ? a.TenSanPham.Contains(searchKey) : 1 == 1)
                            select new
                            {
                              maSanPham = a.MaSanPham,
