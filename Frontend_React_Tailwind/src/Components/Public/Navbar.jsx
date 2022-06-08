@@ -11,7 +11,7 @@ export default function Navbar() {
     }
   };
   useEffect(() => {
-    axios.post('https://localhost:7216/api/LoginKhachHang/GetCurrentUserInfo',null,configJWT).then(res => {
+    axios.post('https://localhost:7216/api/LoginKhachHang/GetKhachHangName',null,configJWT).then(res => {
       setUserName(res.data);
       setIsLogin(true);
     });

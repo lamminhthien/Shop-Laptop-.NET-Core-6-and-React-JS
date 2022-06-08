@@ -72,8 +72,8 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         }
         // Lấy thông tin tài khoản khách hàng từ JWT Token
         [Authorize(Roles="Khách Hàng")]
-        [HttpPost("GetCurrentUserInfo")]
-        public IActionResult GetCurrentUserInfo()
+        [HttpPost("GetKhachHangName")]
+        public IActionResult GetKhachHangName()
         {
             // Đọc các Claims từ Header của Request
             var identity = HttpContext.User.Identity as ClaimsIdentity;
