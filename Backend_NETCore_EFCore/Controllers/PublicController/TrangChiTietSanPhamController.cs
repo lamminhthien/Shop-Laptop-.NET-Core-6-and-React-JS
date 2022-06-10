@@ -94,7 +94,6 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                           {
                               tenKhachHang = c.HoTen,
                               noiDung = b.NoiDung,
-
                           }).ToList();
         return Ok(ketqua);
     }
