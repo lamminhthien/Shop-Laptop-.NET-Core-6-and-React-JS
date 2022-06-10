@@ -7,18 +7,26 @@ export default function CommentList() {
   useEffect(()=>{
     axios.get("https://localhost:7216/api/TrangChiTietSanPham/ListBinhLuanSanPham?id=1").then((res)=>{
       console.log("%cThis is a green text", "color:green");
-      setListBinhLuan(res.data[0]);
+      setListBinhLuan(res.data);
       setState(true)
     }).catch(err => {
       console.log("%cThis is a red text", "color:red");
     })
   },[])
   const renderData = () => {
-    if (state === true) return (
-      <>
-        <p>{listBinhLuan.tenKhachHang}</p>
-        <p>{listBinhLuan.noiDung}</p>
-      </>
+    console.log(listBinhLuan);
+    if (state === true) {
+    return <div>
+      {listBinhLuan.map(item => 
+        <div className="div">
+          <p>{item.tenKhachHang}</p>
+          <p>{item.noiDung}</p>
+        </div>
+        )}
+    </div>
+     
+    } else return (
+      <>No data</>
     )
   }
 
