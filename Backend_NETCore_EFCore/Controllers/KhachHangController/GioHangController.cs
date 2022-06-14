@@ -27,8 +27,8 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     [HttpPost("ThemGioHang")]
     public ActionResult<List<dynamic>> ThemGioHang()
     {
-      int maSanPham= Int16.Parse(Request.Form["maSanPham"][0]);
-      int soLuong= Int16.Parse(Request.Form["soLuong"][0]);
+      int maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
+      int soLuong = Int16.Parse(Request.Form["soLuong"][0]);
       // return Ok(new {
       //   maSanPham = maSanPham,
       //   soLuong = soLuong
@@ -85,6 +85,31 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         return Ok("Hi");
       }
       return NotFound("Khách hàng chưa đăng nhập");
+    }
+
+    //Xem Giỏ hàng
+    [HttpPost("XemGioHang")]
+    public ActionResult<List<dynamic>> XemGioHang()
+    {
+      var identity = HttpContext.User.Identity as ClaimsIdentity;
+      if (identity != null)
+      {
+        var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
+        var maKhachHang = (from a in _context.KhachHangs
+                           where a.Username == userName
+                           select a.MaKhachHang
+        ).FirstOrDefault();
+        var itemCart = (from a in _context.GioHangs
+                          join b in _context.SanPhams
+                          on a.MaSanPham equals b.MaSanPham
+                          where a.MaKhachHang == maKhachHang
+                          select new {
+                            tenSanPham = b.TenSanPham,
+                            soLuong = a.SoLuong
+                          });
+                return Ok(itemCart);
+      }
+      else return NotFound("Khách Hàn chưa đăng nhập");
     }
   }
 }
