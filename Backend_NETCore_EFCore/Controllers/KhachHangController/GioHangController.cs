@@ -124,7 +124,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
 
     // Xóa vật phẩm trong giỏ hàng
     [HttpDelete("XoaGioHang/{id}")]
-    public ActionResult<List<dynamic>> XoaGioHang(int id)
+    public  ActionResult<List<dynamic>> XoaGioHang(int id)
     {
       try
       {
