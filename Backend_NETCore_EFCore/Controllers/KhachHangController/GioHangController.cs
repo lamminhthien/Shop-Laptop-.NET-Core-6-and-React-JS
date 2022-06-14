@@ -123,29 +123,35 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     }
 
     // Xóa vật phẩm trong giỏ hàng
-    [HttpPost("XoaGioHang")]
-    public ActionResult<List<dynamic>> XoaGioHang(int idSanPham)
+    [HttpDelete("XoaGioHang/{id}")]
+    public ActionResult<List<dynamic>> XoaGioHang(int id)
     {
-      var currentSanPham = (from a in _context.SanPhams where a.MaSanPham == idSanPham select a).First();
-      if (currentSanPham == null) return NotFound("Không tìm thấy sản phẩm này");
-      var identity = HttpContext.User.Identity as ClaimsIdentity;
-      var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
-      if (identity != null)
+      try
       {
-        var maKhachHang = (from a in _context.KhachHangs
-                           where a.Username == userName
-                           select a.MaKhachHang).FirstOrDefault();
-        var sanPhamToDelete = (from a in _context.GioHangs
-            where (a.MaSanPham == idSanPham )
-            where (a.MaKhachHang == maKhachHang)
-            select a
-        ).First();
-        if (sanPhamToDelete != null) {
-          _context.GioHangs.Remove(sanPhamToDelete);
-          return Ok("Xóa sản phẩm khỏi giỏ hàng thành công");
-        }  else return BadRequest("Xóa sản phẩm khỏi giỏ hàng thất bại");
+        var currentSanPham = (from a in _context.SanPhams where a.MaSanPham == id select a).First();
+        if (currentSanPham == null) return NotFound("Không tìm thấy sản phẩm này");
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
+        if (userName != null)
+        {
+          var maKhachHang = (from a in _context.KhachHangs
+                             where a.Username == userName
+                             select a.MaKhachHang).FirstOrDefault();
+          var sanPhamToDelete = (from a in _context.GioHangs
+                                 where (a.MaSanPham == id)
+                                 where (a.MaKhachHang == maKhachHang)
+                                 select a
+          ).First();
+          if (sanPhamToDelete != null)
+          {
+            _context.GioHangs.Remove(sanPhamToDelete);
+            return Ok("Xóa sản phẩm khỏi giỏ hàng thành công");
+          }
+          else return BadRequest("Xóa sản phẩm khỏi giỏ hàng thất bại");
+        }
+        else return NotFound("Khách Hàng chưa đăng nhập");
       }
-      else return NotFound("Khách Hàng chưa đăng nhập");
+      catch { return BadRequest("ID sản phẩm không hợp lệ hoặc không đúng form ?id=##"); }
     }
   }
 }
