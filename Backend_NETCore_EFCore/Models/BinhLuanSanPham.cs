@@ -30,7 +30,7 @@ namespace ShopLaptop_EFCore.Models
         [Column("ma_san_pham")]
         public int MaSanPham { get; set; }
         [Column("noi_dung")]
-        [StringLength(60)]
+        [StringLength(255)]
         public string NoiDung { get; set; } = null!;
         [Column("trang_thai")]
         [MinLength(70)]

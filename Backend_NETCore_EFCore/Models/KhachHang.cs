@@ -48,7 +48,7 @@ namespace ShopLaptop_EFCore.Models
         [StringLength(20)]
         public string Password { get; set; } = null!;
         [Column("email")]
-        [StringLength(20)]
+        [StringLength(50)]
         public string Email { get; set; } = null!;
 
         [InverseProperty("MaKhachHangNavigation")]

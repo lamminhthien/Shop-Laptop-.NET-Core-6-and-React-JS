@@ -16,7 +16,11 @@ export default function DangKy() {
   const onSubmit = data => {
     alert(JSON.stringify(data));
     data.gioiTinh = parseInt(data.gioiTinh);
-    DangKyTaiKhoan.dangKyTaiKhoan(data);
+    DangKyTaiKhoan.dangKyTaiKhoan(data).then((res)=> {
+      window.location.href = '/public/dang-nhap';
+    }).catch((err) => {
+      alert("Đăng ký tài khoản thất bại")
+    });
   };
 
   const inputStyle = `bg-gray-50 border border-gray-300
@@ -123,11 +127,13 @@ export default function DangKy() {
           className={inputStyle}
           {...register('email', {
             required: true,
+            maxLength:50,
             pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
           })}
         />
         {errors?.email?.type === 'required' && <p className={errorStyle}>Email bắt buộc nhập</p>}
         {errors?.email?.type === 'pattern' && <p className={errorStyle}>Email không đúng định dạng</p>}
+        {errors?.email?.type === 'maxLength' && <p className={errorStyle}>Email tối đa 50 kí tự</p>}
         <input type='submit' value='Đăng ký' className='bg-cyan-600 p-3 rounded-xl m-3' />
       </form>
     </div>

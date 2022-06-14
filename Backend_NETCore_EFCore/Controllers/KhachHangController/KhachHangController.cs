@@ -20,6 +20,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         {
             _context = context;
         }
+        [AllowAnonymous]
         [HttpPost("DangKyKhachHang")]
         public ActionResult<List<dynamic>> DangKyKhachHang(KhachHang kh)
         {
