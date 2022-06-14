@@ -1,7 +1,28 @@
 import React from 'react';
 import PrimarySearchAppBar from '../../Components/Public/Navbar';
 import Footer from '../../Components/Public/Footer';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 export default function GioHang() {
+  const [listItemGioHang, setListItemGioHang] = useState([]);
+  const [state, setState] = useState(false);
+  const configJWT = {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  };
+  useEffect(() => {
+    axios
+      .post(`https://localhost:7216/api/GioHang/XemGioHang`,null,configJWT)
+      .then(res => {
+        console.log('%cThis is a green text', 'color:green');
+        setListItemGioHang(res.data);
+        setState(true);
+      })
+      .catch(err => {
+        console.log('%cThis is a red text', 'color:red');
+      });
+  }, []);
   return (
     <div>
       <PrimarySearchAppBar />
