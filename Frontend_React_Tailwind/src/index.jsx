@@ -21,6 +21,7 @@ import EditLoaiSanPham from './Pages/Admin/LoaiSanPham/EditLoaiSanPham';
 import EditHangSanXuat from './Pages/Admin/HangSanXuat/EditHangSanXuat';
 import DangKy from './Pages/Public/DangKy/DangKy';
 import DangNhapKH from './Pages/Public/DangNhap/DangNhap'
+import  GioHang from './Pages/Customer/GioHang'
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -77,7 +78,7 @@ reactDom.render(
       <Route exact path='/public/san-pham/:id' children={<ChiTietSanPhamPublic />} />
 
       {/* Khách Hàng */}
-      {/* <Route exact path="/khach-hang/gio-hang" children=GioH  /> */}
+      <Route exact path="/khach-hang/gio-hang" children={<GioHang/>}  />
 
       <Route path='*' children={<NotFoundPage />} />
     </Switch>
