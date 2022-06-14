@@ -70,7 +70,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
           }
           catch (Exception ex)
           {
-            return BadRequest(ex.InnerException.ToString());
+            return BadRequest(ex.ToString());
           }
         }
         try
