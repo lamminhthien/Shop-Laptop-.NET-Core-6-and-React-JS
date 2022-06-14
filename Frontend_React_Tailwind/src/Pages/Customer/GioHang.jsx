@@ -38,7 +38,7 @@ export default function GioHang() {
               .delete(`https://localhost:7216/api/GioHang/XoaGioHang/${maSanPham}`, configJWT)
               .then(res => {
                 // Re-render data by trigger function
-                renderData();
+                window.location.href ="/khach-hang/gio-hang"
               })
               .catch(err => alert(err))
         },
