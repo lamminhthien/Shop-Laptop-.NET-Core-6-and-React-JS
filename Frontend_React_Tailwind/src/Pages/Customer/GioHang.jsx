@@ -51,12 +51,21 @@ export default function GioHang() {
               </div>
               <div className="shipping-fee mb-6">
                 <h2 className='text-lg font-medium'>Shipping Fee</h2>
-                <p className='text-3xl font-medium '>UPSP ($9.00)</p>
+                <p className='text-3xl font-medium '>
+                  <select className='w-full  h-16 text-center text text-3xl font-medium bg-[#D0D7DA] border-t-2 border-0 border-[#D0D7DA]-500 rounded-lg '>
+                    <option value="1">Ninh Hòa</option>
+                    <option value="">Nha Trang</option>
+                    <option value="">Vạn Giã</option>
+                    <option value="">Vạn Ninh</option>
+                    <option value="">Khánh Sơn</option>
+                    <option value="">Đắc Lắc</option>
+                  </select>
+                </p>
               </div>
               <div className="total-cost mb-12">
                 <h2 className='text-lg font-medium my-2'>Total Cost</h2>
                 <h2 className='text-3xl font-medium my-2'>$778.00</h2>
-                <button className='p-2 border-2 my-4 w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md'>Checkout</button>
+                <button className='p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md'>Checkout</button>
               </div>
             </div>
           </div>
