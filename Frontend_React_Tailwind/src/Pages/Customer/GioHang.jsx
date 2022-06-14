@@ -7,8 +7,8 @@ export default function GioHang() {
       <PrimarySearchAppBar />
       <div className='container  p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
         {/* Area List Item */}
-        <div className="inner border-2 border-white rounded-lg flex">
-          <div className='items-cart w-2/3 p-6 bg-white space-y-10 '>
+        <div className="inner border-2 border-white rounded-lg lg:flex">
+          <div className='items-cart w-full lg:w-2/3  p-6 bg-white space-y-10 '>
             <div className='title'>
               <p className='text-3xl font-medium leading-6'>Shopping Cart</p>
             </div>
@@ -42,7 +42,7 @@ export default function GioHang() {
             </div>
           </div>
           {/* Order Details */}
-          <div className='order-details pl-8 p-6  bg-[#F0F6F5] w-1/3 text-center'>
+          <div className='order-details pl-8 p-6  bg-[#F0F6F5] w-full lg:w-1/3 text-center'>
             <div className='title'>
               <p className='text-3xl font-medium leading-6 mb-12'>Order Details</p>
               <div className="subtotal mb-6">

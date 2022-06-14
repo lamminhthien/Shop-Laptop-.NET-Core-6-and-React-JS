@@ -91,6 +91,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     [HttpPost("XemGioHang")]
     public ActionResult<List<dynamic>> XemGioHang()
     {
+      var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
       var identity = HttpContext.User.Identity as ClaimsIdentity;
       if (identity != null)
       {
@@ -105,7 +106,10 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                           where a.MaKhachHang == maKhachHang
                           select new {
                             tenSanPham = b.TenSanPham,
-                            soLuong = a.SoLuong
+                            soLuong = a.SoLuong,
+                            anhSanPham = (from e in _context.AnhSanPhams
+                                         where e.MaSanPham == a.MaSanPham
+                                         select imageURL + e.FileAnh.Trim()).First()
                           });
                 return Ok(itemCart);
       }
