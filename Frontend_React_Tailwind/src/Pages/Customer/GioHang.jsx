@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function GioHang() {
   const [listItemGioHang, setListItemGioHang] = useState([]);
   const [state, setState] = useState(false);
+  var tongTien = 0
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -25,6 +26,9 @@ export default function GioHang() {
   }, []);
   const renderData = () => {
     console.log(listItemGioHang);
+    listItemGioHang.forEach(item => {
+      tongTien = tongTien + (item.soLuong * item.donGia)
+    });
     if (state === true) {
       return (
         <div>
@@ -42,10 +46,7 @@ export default function GioHang() {
                       {/* left */}
                       <div className='flex justify-start items-center name-and-image-product  pl-6 gap-x-6'>
                         <div className='w-[100px] '>
-                          <img
-                            src={item.anhSanPham}
-                            alt={item.tenSanPham}
-                          />
+                          <img src={item.anhSanPham} alt={item.tenSanPham} />
                         </div>
                         <h2 className='text-lg font-medium leading-5'>{item.tenSanPham}</h2>
                       </div>
@@ -77,18 +78,18 @@ export default function GioHang() {
                   <p className='text-3xl font-medium leading-6 mb-12'>Order Details</p>
                   <div className='subtotal mb-6'>
                     <h2 className='text-lg font-medium'>Subtotal</h2>
-                    <p className='text-3xl font-medium '>$76.00</p>
+                    <p className='text-3xl font-medium '>{tongTien}</p>
                   </div>
                   <div className='shipping-fee mb-6'>
                     <h2 className='text-lg font-medium'>Shipping Fee</h2>
                     <p className='text-3xl font-medium '>
                       <select className='w-full  h-16 text-center text text-3xl font-medium bg-[#D0D7DA] border-t-2 border-0 border-[#D0D7DA]-500 rounded-lg '>
                         <option value='1'>Ninh Hòa</option>
-                        <option value=''>Nha Trang</option>
-                        <option value=''>Vạn Giã</option>
-                        <option value=''>Vạn Ninh</option>
-                        <option value=''>Khánh Sơn</option>
-                        <option value=''>Đắc Lắc</option>
+                        <option value='2'>Nha Trang</option>
+                        <option value='3'>Vạn Giã</option>
+                        <option value='4'>Vạn Ninh</option>
+                        <option value='5'>Khánh Sơn</option>
+                        <option value='6'>Đắc Lắc</option>
                       </select>
                     </p>
                   </div>
@@ -107,11 +108,14 @@ export default function GioHang() {
           <Footer />
         </div>
       );
-    } else return <>
-      <PrimarySearchAppBar />
-      <p>Không có dữ liệu</p>
-      <Footer/>
-      </>;
+    } else
+      return (
+        <>
+          <PrimarySearchAppBar />
+          <p>Không có dữ liệu</p>
+          <Footer />
+        </>
+      );
   };
   return renderData();
 }
