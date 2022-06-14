@@ -38,10 +38,20 @@ export default function CommentList() {
   return (
     // renderData()
     <div className='container max-w-[1920px] p-20  m-auto h-[1200px]'>
-      <div className=' justify-between'>
-        <div className='title space-y-5 mb-16'>
-          <h1 className='text-3xl leading-6 font-semibold'>Our customer feedback </h1>
-          <p className='text-lg font-normal'>Don't take our word for it. Trust our customers</p>
+      <div className='justify-between'>
+        <div className="flex justify-between space-y-5 mb-16">
+          <div className='title-left '>
+            <h1 className='text-3xl leading-6 font-semibold'>Our customer feedback </h1>
+            <p className='text-lg font-normal'>Don't take our word for it. Trust our customers</p>
+          </div>
+          <div className='title-right flex gap-3'>
+            <a href="#">
+              <div className="button border-2 border-gray-400 p-2 rounded-2xl text-base">Previous</div>
+            </a>
+            <a href="#">
+              <div className="button border-2 border-gray-400 p-2 rounded-2xl text-base">Next</div>
+            </a>
+          </div>
         </div>
         <div className='comment-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-5'>
           <div className='comment-card border-2 border-gray-300  max-h-[283px] p-6 overflow-auto space-y-6'>
