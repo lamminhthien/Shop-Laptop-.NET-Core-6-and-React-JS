@@ -26,18 +26,21 @@ export default function GioHang() {
       });
   }, []);
 
-  const AlertAndRedirectToDelete = (maSanPham) => {
+  const AlertAndRedirectToDelete = maSanPham => {
     confirmAlert({
       title: 'Xác nhận trước khi xóa sản phẩm',
       message: 'Bạn có muốn xóa sản phẩm này',
       buttons: [
         {
           label: 'Có',
-          onClick: () => axios.delete(`https://localhost:7216/api/GioHang/XoaGioHang/${maSanPham}`,configJWT).then((res)=> {
-            // Re-render data by trigger function
-            renderData();
-            
-          }).catch((err)=> alert(err))
+          onClick: () =>
+            axios
+              .delete(`https://localhost:7216/api/GioHang/XoaGioHang/${maSanPham}`, configJWT)
+              .then(res => {
+                // Re-render data by trigger function
+                renderData();
+              })
+              .catch(err => alert(err))
         },
         {
           label: 'Không',
@@ -58,10 +61,12 @@ export default function GioHang() {
           <div className='container  p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
             {/* Area List Item */}
             <div className='inner border-2 border-white rounded-lg lg:flex'>
-              <div className='items-cart w-full lg:w-2/3  p-6 bg-white space-y-10 '>
-                <div className='title'>
+              <div className='items-cart relative w-full lg:w-2/3  p-6 bg-white space-y-10 '>
+                {/* title */}
+                <div className=' title'>
                   <p className='text-3xl font-medium leading-6'>Shopping Cart</p>
                 </div>
+                {/* list item */}
                 <div className='list_item'>
                   {listItemGioHang.map(item => (
                     <div className='inner grid grid-cols-2 px-8 py-4'>
@@ -86,7 +91,7 @@ export default function GioHang() {
                         <div className='total-money'>
                           <p className='text-lg font-bold leading-5'>{item.soLuong * item.donGia}</p>
                         </div>
-                        <div className='delete'>
+                        <div className=' delete'>
                           <button
                             className='text-lg font-bold text-red-500 leading-5'
                             onClick={() => {
@@ -98,6 +103,10 @@ export default function GioHang() {
                       </div>
                     </div>
                   ))}
+                </div>
+                {/* Cập nhật giỏ hàng */}
+                <div className='absolute bottom-0 right-0 mx-5 items-end'>
+                  <button className=' p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md'>Cập nhật giỏ hàng</button>
                 </div>
               </div>
               {/* Order Details */}
