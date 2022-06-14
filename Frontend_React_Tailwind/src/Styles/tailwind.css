@@ -1,4 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    opacity: 1;
+}
 
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: menuarrow;
+}

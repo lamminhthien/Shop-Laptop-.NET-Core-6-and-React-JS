@@ -49,6 +49,14 @@ export default function GioHang() {
       ]
     });
   };
+
+  const updateItemGioHang = (idSanPham,e) => {
+    const soLuong = e.target.value;
+    // Update quantity
+    listItemGioHang[listItemGioHang.findIndex((obj) => obj.maSanPham == idSanPham)].soLuong= parseInt(soLuong)
+    console.log(listItemGioHang);
+    
+  }
   const renderData = () => {
     console.log(listItemGioHang);
     listItemGioHang.forEach(item => {
@@ -58,10 +66,10 @@ export default function GioHang() {
       return (
         <div>
           <PrimarySearchAppBar />
-          <div className='container  p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
+          <div className='container  lg:p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
             {/* Area List Item */}
             <div className='inner border-2 border-white rounded-lg lg:flex'>
-              <div className='items-cart relative w-full lg:w-2/3  p-6 bg-white space-y-10 '>
+              <div className='items-cart relative w-full lg:w-2/3  lg:p-6 bg-white space-y-10 '>
                 {/* title */}
                 <div className=' title'>
                   <p className='text-3xl font-medium leading-6'>Shopping Cart</p>
@@ -80,13 +88,13 @@ export default function GioHang() {
                       {/* right */}
                       <div className='flex justify-end items-center function-control-each-items space-x-12'>
                         <div className='control-quantity space-x-4'>
-                          <button className='text-2xl font-bold'>-</button>
                           <input
                             type='number'
-                            className='w-[50px] border-2 border-gray-400 rounded-md'
+                            className='w-[70px] border-2 border-gray-400 rounded-md'
                             defaultValue={item.soLuong}
+                            min="1" max="4"
+                            onChange={(e) => updateItemGioHang(item.maSanPham,e)}
                           />
-                          <button className='text-2xl font-bold'>+</button>
                         </div>
                         <div className='total-money'>
                           <p className='text-lg font-bold leading-5'>{item.soLuong * item.donGia}</p>
