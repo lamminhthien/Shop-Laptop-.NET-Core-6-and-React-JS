@@ -145,6 +145,12 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
           if (sanPhamToDelete != null)
           {
             _context.GioHangs.Remove(sanPhamToDelete);
+            try {
+                _context.SaveChanges();
+              }
+            catch(Exception ex) {
+                return BadRequest(ex.ToString());
+            }
             return Ok("Xóa sản phẩm khỏi giỏ hàng thành công");
           }
           else return BadRequest("Xóa sản phẩm khỏi giỏ hàng thất bại");
