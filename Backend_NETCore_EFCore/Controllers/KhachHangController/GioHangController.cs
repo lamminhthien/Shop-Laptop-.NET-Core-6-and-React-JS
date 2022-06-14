@@ -101,23 +101,51 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                            select a.MaKhachHang
         ).FirstOrDefault();
         var itemCart = (from a in _context.GioHangs
-                          join b in _context.SanPhams
-                          on a.MaSanPham equals b.MaSanPham
-                          where a.MaKhachHang == maKhachHang
-                          select new {
-                            tenSanPham = b.TenSanPham,
-                            soLuong = a.SoLuong,
-                            donGia = (from d in _context.BienDongGia
-                                         where d.MaSanPham == a.MaSanPham
-                                         orderby d.LanThayDoiGia ascending
-                                         select d.GiaNhap * (1 + d.ChietKhau)).Last(),
-                            anhSanPham = (from e in _context.AnhSanPhams
-                                         where e.MaSanPham == a.MaSanPham
-                                         select imageURL + e.FileAnh.Trim()).First()
-                          });
-                return Ok(itemCart);
+                        join b in _context.SanPhams
+                        on a.MaSanPham equals b.MaSanPham
+                        where a.MaKhachHang == maKhachHang
+                        select new
+                        {
+                          maSanPham = a.MaSanPham,
+                          tenSanPham = b.TenSanPham,
+                          soLuong = a.SoLuong,
+                          donGia = (from d in _context.BienDongGia
+                                    where d.MaSanPham == a.MaSanPham
+                                    orderby d.LanThayDoiGia ascending
+                                    select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                          anhSanPham = (from e in _context.AnhSanPhams
+                                        where e.MaSanPham == a.MaSanPham
+                                        select imageURL + e.FileAnh.Trim()).First()
+                        });
+        return Ok(itemCart);
       }
       else return NotFound("Khách Hàn chưa đăng nhập");
+    }
+
+    // Xóa vật phẩm trong giỏ hàng
+    [HttpPost("XoaGioHang")]
+    public ActionResult<List<dynamic>> XoaGioHang(int idSanPham)
+    {
+      var currentSanPham = (from a in _context.SanPhams where a.MaSanPham == idSanPham select a).First();
+      if (currentSanPham == null) return NotFound("Không tìm thấy sản phẩm này");
+      var identity = HttpContext.User.Identity as ClaimsIdentity;
+      var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
+      if (identity != null)
+      {
+        var maKhachHang = (from a in _context.KhachHangs
+                           where a.Username == userName
+                           select a.MaKhachHang).FirstOrDefault();
+        var sanPhamToDelete = (from a in _context.GioHangs
+            where (a.MaSanPham == idSanPham )
+            where (a.MaKhachHang == maKhachHang)
+            select a
+        ).First();
+        if (sanPhamToDelete != null) {
+          _context.GioHangs.Remove(sanPhamToDelete);
+          return Ok("Xóa sản phẩm khỏi giỏ hàng thành công");
+        }  else return BadRequest("Xóa sản phẩm khỏi giỏ hàng thất bại");
+      }
+      else return NotFound("Khách Hàng chưa đăng nhập");
     }
   }
 }

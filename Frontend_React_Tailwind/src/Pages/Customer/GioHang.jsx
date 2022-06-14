@@ -3,10 +3,11 @@ import PrimarySearchAppBar from '../../Components/Public/Navbar';
 import Footer from '../../Components/Public/Footer';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { confirmAlert } from 'react-confirm-alert';
 export default function GioHang() {
   const [listItemGioHang, setListItemGioHang] = useState([]);
   const [state, setState] = useState(false);
-  var tongTien = 0
+  var tongTien = 0;
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -24,10 +25,31 @@ export default function GioHang() {
         console.log('%cThis is a red text', 'color:red');
       });
   }, []);
+
+  const AlertAndRedirectToDelete = (maSanPham) => {
+    confirmAlert({
+      title: 'Xác nhận trước khi xóa sản phẩm',
+      message: 'Bạn có muốn xóa sản phẩm này',
+      buttons: [
+        {
+          label: 'Có',
+          onClick: () => axios.post(`/api/GioHang/XoaGioHang/${maSanPham}`,null,configJWT).then((res)=> {
+            // Re-render data by trigger function
+            renderData();
+            
+          }).catch((err)=> alert(err))
+        },
+        {
+          label: 'Không',
+          onClick: () => alert('Click No')
+        }
+      ]
+    });
+  };
   const renderData = () => {
     console.log(listItemGioHang);
     listItemGioHang.forEach(item => {
-      tongTien = tongTien + (item.soLuong * item.donGia)
+      tongTien = tongTien + item.soLuong * item.donGia;
     });
     if (state === true) {
       return (
@@ -65,7 +87,13 @@ export default function GioHang() {
                           <p className='text-lg font-bold leading-5'>{item.soLuong * item.donGia}</p>
                         </div>
                         <div className='delete'>
-                          <button className='text-lg font-bold text-red-500 leading-5'>Delete</button>
+                          <button
+                            className='text-lg font-bold text-red-500 leading-5'
+                            onClick={() => {
+                              AlertAndRedirectToDelete(item.maSanPham);
+                            }}>
+                            Delete
+                          </button>
                         </div>
                       </div>
                     </div>
