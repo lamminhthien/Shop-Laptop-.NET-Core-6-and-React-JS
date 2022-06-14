@@ -61,7 +61,7 @@ export default function GioHang() {
                           <button className='text-2xl font-bold'>+</button>
                         </div>
                         <div className='total-money'>
-                          <p className='text-lg font-bold leading-5'>$229.0</p>
+                          <p className='text-lg font-bold leading-5'>{item.soLuong * item.donGia}</p>
                         </div>
                         <div className='delete'>
                           <button className='text-lg font-bold text-red-500 leading-5'>Delete</button>

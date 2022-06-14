@@ -107,6 +107,10 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                           select new {
                             tenSanPham = b.TenSanPham,
                             soLuong = a.SoLuong,
+                            donGia = (from d in _context.BienDongGia
+                                         where d.MaSanPham == a.MaSanPham
+                                         orderby d.LanThayDoiGia ascending
+                                         select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                             anhSanPham = (from e in _context.AnhSanPhams
                                          where e.MaSanPham == a.MaSanPham
                                          select imageURL + e.FileAnh.Trim()).First()
