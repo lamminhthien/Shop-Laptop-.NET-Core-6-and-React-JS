@@ -33,7 +33,7 @@ export default function GioHang() {
       buttons: [
         {
           label: 'Có',
-          onClick: () => axios.delete(`https://localhost:7216/api/GioHang/XoaGioHang/id=${maSanPham}`,null,configJWT).then((res)=> {
+          onClick: () => axios.delete(`https://localhost:7216/api/GioHang/XoaGioHang/${maSanPham}`,configJWT).then((res)=> {
             // Re-render data by trigger function
             renderData();
             
