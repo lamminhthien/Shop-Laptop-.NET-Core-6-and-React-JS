@@ -43,11 +43,11 @@ export default function GioHang() {
                       <div className='flex justify-start items-center name-and-image-product  pl-6 gap-x-6'>
                         <div className='w-[100px] '>
                           <img
-                            src='https://offautan-uc1.azureedge.net/-/media/images/off/ph/products-en/products-landing/landing/off_overtime_product_collections_large_2x.jpg?la=en-ph'
-                            alt=''
+                            src={item.anhSanPham}
+                            alt={item.tenSanPham}
                           />
                         </div>
-                        <h2 className='text-lg font-medium leading-5'>EarthQuaker Devices Afterneath</h2>
+                        <h2 className='text-lg font-medium leading-5'>{item.tenSanPham}</h2>
                       </div>
                       {/* right */}
                       <div className='flex justify-end items-center function-control-each-items space-x-12'>
@@ -56,7 +56,7 @@ export default function GioHang() {
                           <input
                             type='number'
                             className='w-[50px] border-2 border-gray-400 rounded-md'
-                            defaultValue={1}
+                            defaultValue={item.soLuong}
                           />
                           <button className='text-2xl font-bold'>+</button>
                         </div>
@@ -107,7 +107,11 @@ export default function GioHang() {
           <Footer />
         </div>
       );
-    } else return <>No data</>;
+    } else return <>
+      <PrimarySearchAppBar />
+      <p>Không có dữ liệu</p>
+      <Footer/>
+      </>;
   };
   return renderData();
 }
