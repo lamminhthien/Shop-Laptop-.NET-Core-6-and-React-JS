@@ -124,7 +124,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
 
     // Xóa vật phẩm trong giỏ hàng
     [HttpDelete("XoaGioHang/{id}")]
-    public  ActionResult<List<dynamic>> XoaGioHang(int id)
+    public ActionResult<List<dynamic>> XoaGioHang(int id)
     {
       try
       {
@@ -145,11 +145,13 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
           if (sanPhamToDelete != null)
           {
             _context.GioHangs.Remove(sanPhamToDelete);
-            try {
-                _context.SaveChanges();
-              }
-            catch(Exception ex) {
-                return BadRequest(ex.ToString());
+            try
+            {
+              _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+              return BadRequest(ex.ToString());
             }
             return Ok("Xóa sản phẩm khỏi giỏ hàng thành công");
           }
@@ -159,25 +161,38 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
       }
       catch { return BadRequest("ID sản phẩm không hợp lệ hoặc không đúng form ?id=##"); }
     }
-  
-  [HttpPost("CapNhatGioHang")]
-    public ActionResult<List<dynamic>> CapNhatGioHang() {
-      var soLuong = Int16.Parse(Request.Form["soLuong"][0]);
-      var maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
-      var identity = HttpContext.User.Identity as ClaimsIdentity;
-      if (identity != null){
-        var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
-        var maKhachHang = (from a in _context.KhachHangs
-                           where a.Username == userName
-                           select a.MaKhachHang
-        ).FirstOrDefault();
-        if (maKhachHang == 0) return BadRequest("Lỗi không xác định");
-        // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
-        var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == maSanPham)  select a).FirstOrDefault();
-        if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
-        return Ok(itemGioHangCheck==null);
-      } else
-      return BadRequest("Khách Hàng chưa đăng nhập");
+
+    [HttpPost("CapNhatGioHang")]
+    public ActionResult<List<dynamic>> CapNhatGioHang()
+    {
+      try
+      {
+        var soLuong = Int16.Parse(Request.Form["soLuong"][0]);
+        var maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        if (identity != null)
+        {
+          var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
+          var maKhachHang = (from a in _context.KhachHangs
+                             where a.Username == userName
+                             select a.MaKhachHang
+          ).FirstOrDefault();
+          if (maKhachHang == 0) return BadRequest("Lỗi không xác định");
+          // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
+          var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == maSanPham) select a).FirstOrDefault();
+          if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
+          // Lúc này cho cập nhật số lượng sản phẩm được nè
+          else
+          {
+            GioHang gh = new GioHang(maKhachHang, maSanPham, soLuong);
+          }
+          return Ok(itemGioHangCheck == null);
+        }
+        else
+          return BadRequest("Khách Hàng chưa đăng nhập");
+      } catch {
+        return BadRequest("Dữ liệu đầu vào không hợp lệ");
+      }
     }
   }
 }
