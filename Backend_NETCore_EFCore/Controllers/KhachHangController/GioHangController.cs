@@ -174,7 +174,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         if (maKhachHang == 0) return BadRequest("Lỗi không xác định");
         // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
         var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == maSanPham)  select a).FirstOrDefault();
-        // if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
+        if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
         return Ok(itemGioHangCheck==null);
       } else
       return BadRequest("Khách Hàng chưa đăng nhập");
