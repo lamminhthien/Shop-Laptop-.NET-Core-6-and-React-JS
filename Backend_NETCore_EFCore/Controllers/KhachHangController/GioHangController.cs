@@ -162,6 +162,12 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
   
   [HttpPost("CapNhatGioHang")]
     public ActionResult<List<dynamic>> CapNhatGioHang() {
+      var soLuong = Request.Form["soLuong"][0];
+      var maSanPham = Request.Form["maSanPham"][0];
+      return Ok(new {
+        soLuong = soLuong,
+        maSanPham = maSanPham
+      });
       var identity = HttpContext.User.Identity as ClaimsIdentity;
       if (identity != null){
         var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
