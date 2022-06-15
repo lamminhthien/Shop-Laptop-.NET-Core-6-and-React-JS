@@ -159,5 +159,22 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
       }
       catch { return BadRequest("ID sản phẩm không hợp lệ hoặc không đúng form ?id=##"); }
     }
+  
+  [HttpPost("CapNhatGioHang")]
+    public ActionResult<List<dynamic>> CapNhatGioHang() {
+      var identity = HttpContext.User.Identity as ClaimsIdentity;
+      if (identity != null){
+        var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
+        var maKhachHang = (from a in _context.KhachHangs
+                           where a.Username == userName
+                           select a.MaKhachHang
+        ).FirstOrDefault();
+        if (maKhachHang == 0) return BadRequest("Lỗi không xác định");
+        // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
+        var itemGioHangCheck = (from a in _context.GioHangs where a.MaKhachHang == maKhachHang select a).First();
+        return Ok(itemGioHangCheck);
+      } else 
+      return BadRequest("Khách Hàng chưa đăng nhập");
+    }
   }
 }
