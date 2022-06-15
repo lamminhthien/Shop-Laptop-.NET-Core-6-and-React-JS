@@ -164,10 +164,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
     public ActionResult<List<dynamic>> CapNhatGioHang() {
       var soLuong = Int16.Parse(Request.Form["soLuong"][0]);
       var maSanPham = Int16.Parse(Request.Form["maSanPham"][0]);
-      return Ok(new {
-        soLuong = soLuong,
-        maSanPham = maSanPham
-      });
       var identity = HttpContext.User.Identity as ClaimsIdentity;
       if (identity != null){
         var userName = identity.Claims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -177,9 +173,9 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         ).FirstOrDefault();
         if (maKhachHang == 0) return BadRequest("Lỗi không xác định");
         // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
-        var itemGioHangCheck = (from a in _context.GioHangs where a.MaKhachHang == maKhachHang select a).First();
-        // if ()
-        return Ok(itemGioHangCheck);
+        var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == maSanPham)  select a).FirstOrDefault();
+        // if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
+        return Ok(itemGioHangCheck==null);
       } else
       return BadRequest("Khách Hàng chưa đăng nhập");
     }
