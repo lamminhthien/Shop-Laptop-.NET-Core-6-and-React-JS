@@ -7,6 +7,7 @@ import {confirmAlert} from 'react-confirm-alert';
 export default function GioHang() {
   const [listItemGioHang, setListItemGioHang] = useState([]);
   const [state, setState] = useState(false);
+  const [error,setError] = useState([]);
   var tongTien = 0;
   const configJWT = {
     headers: {
@@ -64,13 +65,15 @@ export default function GioHang() {
       axios
         .post(`https://localhost:7216/api/GioHang/CapNhatGioHang`, formData, configJWT)
         .then(res => {
-          alert('Cập nhật giỏ hàng thành công');
+              ///
         })
         .catch(err => {
           console.log(err);
-          alert(err.data);
+          error[item.maSanPham] = err.response.data
         });
     });
+    console.log(`This is log for ---------------------- error`);
+    console.log(error);
   };
 
   const renderData = () => {
