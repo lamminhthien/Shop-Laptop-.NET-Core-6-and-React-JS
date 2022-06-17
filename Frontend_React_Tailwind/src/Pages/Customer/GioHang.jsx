@@ -1,9 +1,9 @@
 import React from 'react';
 import PrimarySearchAppBar from '../../Components/Public/Navbar';
 import Footer from '../../Components/Public/Footer';
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
-import { confirmAlert } from 'react-confirm-alert';
+import {confirmAlert} from 'react-confirm-alert';
 export default function GioHang() {
   const [listItemGioHang, setListItemGioHang] = useState([]);
   const [state, setState] = useState(false);
@@ -38,7 +38,7 @@ export default function GioHang() {
               .delete(`https://localhost:7216/api/GioHang/XoaGioHang/${maSanPham}`, configJWT)
               .then(res => {
                 // Re-render data by trigger function
-                window.location.href ="/khach-hang/gio-hang"
+                window.location.href = '/khach-hang/gio-hang';
               })
               .catch(err => alert(err))
         },
@@ -50,13 +50,29 @@ export default function GioHang() {
     });
   };
 
-  const updateItemGioHang = (idSanPham,e) => {
+  const updateStateItemGioHang = (idSanPham, e) => {
     const soLuong = e.target.value;
     // Update quantity
-    listItemGioHang[listItemGioHang.findIndex((obj) => obj.maSanPham == idSanPham)].soLuong= parseInt(soLuong)
-    console.log(listItemGioHang);
-    
-  }
+    listItemGioHang[listItemGioHang.findIndex(obj => obj.maSanPham == idSanPham)].soLuong = parseInt(soLuong);
+  };
+  const updateGioHang = e => {
+    listItemGioHang.forEach(item => {
+      var formData = new FormData();
+      console.log(item);
+      formData.append('soLuong', item.soLuong);
+      formData.append('maSanPham', item.maSanPham);
+      axios
+        .post(`https://localhost:7216/api/GioHang/CapNhatGioHang`, formData, configJWT)
+        .then(res => {
+          alert('Cập nhật giỏ hàng thành công');
+        })
+        .catch(err => {
+          console.log(err);
+          alert(err.data);
+        });
+    });
+  };
+
   const renderData = () => {
     console.log(listItemGioHang);
     listItemGioHang.forEach(item => {
@@ -92,8 +108,9 @@ export default function GioHang() {
                             type='number'
                             className='w-[70px] border-2 border-gray-400 rounded-md'
                             defaultValue={item.soLuong}
-                            min="1" max="4"
-                            onChange={(e) => updateItemGioHang(item.maSanPham,e)}
+                            min='1'
+                            max='4'
+                            onChange={e => updateStateItemGioHang(item.maSanPham, e)}
                           />
                         </div>
                         <div className='total-money'>
@@ -114,7 +131,11 @@ export default function GioHang() {
                 </div>
                 {/* Cập nhật giỏ hàng */}
                 <div className='absolute bottom-0 right-0 mx-5 items-end'>
-                  <button className=' p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md'>Cập nhật giỏ hàng</button>
+                  <button
+                    className=' p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md'
+                    onClick={() => updateGioHang()}>
+                    Cập nhật giỏ hàng
+                  </button>
                 </div>
               </div>
               {/* Order Details */}
