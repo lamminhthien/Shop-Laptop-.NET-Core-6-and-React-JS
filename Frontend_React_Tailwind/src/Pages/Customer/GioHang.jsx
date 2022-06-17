@@ -4,16 +4,18 @@ import Footer from '../../Components/Public/Footer';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {confirmAlert} from 'react-confirm-alert';
+
 export default function GioHang() {
   const [listItemGioHang, setListItemGioHang] = useState([]);
   const [state, setState] = useState(false);
-  const [error,setError] = useState([]);
+  const [error, setError] = useState([]);
   var tongTien = 0;
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
     }
   };
+
   useEffect(() => {
     axios
       .post(`https://localhost:7216/api/GioHang/XemGioHang`, null, configJWT)
@@ -65,11 +67,11 @@ export default function GioHang() {
       axios
         .post(`https://localhost:7216/api/GioHang/CapNhatGioHang`, formData, configJWT)
         .then(res => {
-              ///
+          ///
         })
         .catch(err => {
           console.log(err);
-          error[item.maSanPham] = err.response.data
+          setError(...error,err.response.data)
         });
     });
     console.log(`This is log for ---------------------- error`);
@@ -102,7 +104,10 @@ export default function GioHang() {
                         <div className='w-[100px] '>
                           <img src={item.anhSanPham} alt={item.tenSanPham} />
                         </div>
-                        <h2 className='text-lg font-medium leading-5'>{item.tenSanPham}</h2>
+                        <div className='inner'>
+                          {error[item.maSanPham] ? <h2 className='text-red-500'>This is error</h2> : ''}
+                          <h2 className='text-lg font-medium leading-5'>{item.tenSanPham}</h2>
+                        </div>
                       </div>
                       {/* right */}
                       <div className='flex justify-end items-center function-control-each-items space-x-12'>
@@ -113,13 +118,17 @@ export default function GioHang() {
                             defaultValue={item.soLuong}
                             min='1'
                             max='4'
-                            onChange={e => updateStateItemGioHang(item.maSanPham, e)}
+                            onChange={
+                              e => {
+                                updateStateItemGioHang(item.maSanPham, e)
+                              }
+                            }
                           />
                         </div>
                         <div className='total-money'>
                           <p className='text-lg font-bold leading-5'>{item.soLuong * item.donGia}</p>
                         </div>
-                        <div className=' delete'>
+                        <div className='delete'>
                           <button
                             className='text-lg font-bold text-red-500 leading-5'
                             onClick={() => {
