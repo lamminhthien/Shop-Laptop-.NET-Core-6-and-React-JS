@@ -177,20 +177,35 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                              where a.Username == userName
                              select a.MaKhachHang
           ).FirstOrDefault();
-          if (maKhachHang == 0) return BadRequest("Lỗi không xác định");
+          if (maKhachHang == 0) return BadRequest("Phiên đăng nhập của quý khách đã hết hạn");
           // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
           var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == maSanPham) select a).FirstOrDefault();
           if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
           // Lúc này cho cập nhật số lượng sản phẩm được nè
           else
           {
-            GioHang gh = new GioHang(maKhachHang, maSanPham, soLuong);
+            if (soLuong <= 0 || soLuong > 4) return BadRequest($"Sản phẩm {maSanPham} có số lượng không hợp lệ, nên nằm trong khoảng từ 1 đến 4");
+            try
+            {
+              itemGioHangCheck.MaSanPham = maSanPham;
+              itemGioHangCheck.MaKhachHang = maKhachHang;
+              itemGioHangCheck.SoLuong = soLuong;
+              _context.Entry(itemGioHangCheck).State = EntityState.Modified;
+              _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+
+            return Ok(itemGioHangCheck);
           }
-          return Ok(itemGioHangCheck == null);
         }
         else
           return BadRequest("Khách Hàng chưa đăng nhập");
-      } catch {
+      }
+      catch
+      {
         return BadRequest("Dữ liệu đầu vào không hợp lệ");
       }
     }
