@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShopLaptop_EFCore.Data;
+using ShopLaptop_EFCore.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -268,12 +269,21 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
           tongSoSanPham = productQuantity,
           soTrang = numberOfPageInteger,
           ketqua = listSanPham,
-
         });
-
       }
     }
+
+    [HttpGet("ListBanner")]
+    public ActionResult<Banner> ListBanner()
+    {
+      var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/Banner/";
+      var listBanner = (from a in _context.Banners
+                        select new
+                        {
+                          link = a.Link,
+                          image = imageURL + a.FileAnh.Trim()
+                        });
+      return Ok(listBanner);
+    }
   }
-
-
 }

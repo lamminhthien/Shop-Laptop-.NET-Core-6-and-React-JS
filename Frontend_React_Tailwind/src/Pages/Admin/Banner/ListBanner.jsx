@@ -1,7 +1,6 @@
 import React from 'react';
 import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
 import BannerApi from '../../../Api/Banner/BannerApi';
 import LoginCreateJWT from '../Login/Login';
 
@@ -11,8 +10,6 @@ export default function ListBanner() {
   const tableHeaders = ['Liên kết', 'Ảnh minh họa', 'Chức năng'];
   // Khởi tạo danh sách banner
   const [listBanner, set_listBanner] = useState([]);
-  // Khởi tạo tổng số trang để tạo menu phân trang
-  const [numberOfPages, set_numberOfPages] = useState(0);
   // Response status code
   const [statusCode, setStatusCode] = useState('');
 
