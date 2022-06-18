@@ -33,7 +33,6 @@ export default function TinhTrangDonHang() {
       {state ? (
         <div>
           <>
-            {JSON.stringify(objectDonHang.groupChiTietHoaDon[0])}
             <div className='container  lg:p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
               <div className='inner border-2 border-white rounded-lg'>
                 <div className='items-cart relative w-full   lg:p-6 bg-white space-y-10 '>
@@ -54,7 +53,7 @@ export default function TinhTrangDonHang() {
                             <div className='list_item_in_don_hang  space-y-4 pl-5'>
                               {item.chiTietHoaDonList.map(item_inner => (
                                 <div className='item flex space-x-9 justify-between'>
-                                  <img src={item_inner.anhSanPham} alt={item_inner.tenSanPham} />
+                                  <img className='w-[200px]' src={item_inner.anhSanPham} alt={item_inner.tenSanPham} />
                                   <h2>{item_inner.tenSanPham}</h2>
                                   <p>Số lượng: {item_inner.soLuong}</p>
                                   <p>Đơn giá: {item_inner.donGia}</p>
