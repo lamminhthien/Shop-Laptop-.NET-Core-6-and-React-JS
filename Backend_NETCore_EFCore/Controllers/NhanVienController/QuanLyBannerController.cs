@@ -30,14 +30,25 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         // Check xem request có rỗng file hay ko ?
         if (file.Length < 0) return BadRequest("Chưa upload bất cứ ảnh nào");
         if (!file.ContentType.Contains("image")) return BadRequest("Đây không phải file ảnh");
-        var fileName= "Banner" + "." + file.ContentType.Split('/')[1];
-        var fullPath = Path.Combine(pathToSave, fileName + "." + file.ContentType.Split('/')[1]);
+        var lastId = 0;
+        try
+        { lastId = _context.Banners.Max(x => x.MaBanner); }
+        catch (Exception e)
+        {
+          lastId = 1;
+        }
+        var fileName = "Banner" + lastId + "." + file.ContentType.Split('/')[1];
+        var fullPath = Path.Combine(pathToSave, fileName);
         await using (var stream = new FileStream(fullPath, FileMode.Create))
         {
           file.CopyTo(stream);
         }
         Banner banner = new Banner(fileName, noiDung);
-        return Ok(banner);
+        return Ok(new
+        {
+          banner = banner,
+          lastId = lastId
+        });
       }
       catch (Exception e)
       {
