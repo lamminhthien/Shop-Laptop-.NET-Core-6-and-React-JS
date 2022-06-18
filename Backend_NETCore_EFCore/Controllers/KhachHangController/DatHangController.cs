@@ -55,12 +55,14 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                                          select d.GiaNhap * (1 + d.ChietKhau)).Last();
           tongTien = tongTien + (item.soLuong*giaNiemYet);
         }
-        var nhanVienRandom = (from a in _context.NhanViens select a.MaNhanVien).ToList();
+        var nhanVienList = (from a in _context.NhanViens select a.TenNhanVien).ToList();
+        Random rand = new Random();
+        int nhanVienRandom = rand.Next(0,nhanVienList.Count);
         return Ok(new {
           tongTien = tongTien,
-          nhanVienRandom = nhanVienRandom
+          nhanVienRandom = nhanVienList[nhanVienRandom],
+          countTest = nhanVienList.Count()
         });
-
       }
       return NotFound("Khách hàng chưa đăng nhập");
     }
