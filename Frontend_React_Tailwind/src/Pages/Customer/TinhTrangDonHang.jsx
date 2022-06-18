@@ -52,12 +52,14 @@ export default function TinhTrangDonHang() {
                               <p>Tổng tiền: {item.tongTien}</p>
                             </div>
                             <div className='list_item_in_don_hang  space-y-4 pl-5'>
-                              <div className='item flex space-x-9 justify-between'>
-                                <h2>Ảnh</h2>
-                                <h2>Dell Alien Ware</h2>
-                                <p>Số lượng: 16</p>
-                                <p>Đơn giá: 2500</p>
-                              </div>
+                              {item.chiTietHoaDonList.map(item_inner => (
+                                <div className='item flex space-x-9 justify-between'>
+                                  <img src={item_inner.anhSanPham} alt={item_inner.tenSanPham} />
+                                  <h2>{item_inner.tenSanPham}</h2>
+                                  <p>Số lượng: {item_inner.soLuong}</p>
+                                  <p>Đơn giá: {item_inner.donGia}</p>
+                                </div>
+                              ))}
                             </div>
                           </div>
                         ))}
