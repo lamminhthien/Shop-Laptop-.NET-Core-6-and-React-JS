@@ -40,13 +40,15 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         List<dynamic> groupChiTietHoaDon = new List<dynamic>();
         foreach (var item in donHangIDList)
         {
-            var chiTietHoaDonList =   (from a in _context.ChiTietHoaDons join b in _context.HoaDons 
-                on a.MaHoaDon equals b.MaHoaDon where a.MaHoaDon == item select a ).ToList();    
-                groupChiTietHoaDon.Add(chiTietHoaDonList);
+            var chiTietHoaDonList =   (from a in _context.ChiTietHoaDons join b in _context.HoaDons
+                on a.MaHoaDon equals b.MaHoaDon where a.MaHoaDon == item select a ).ToList();
+                groupChiTietHoaDon.Add(new {
+                    soHoaDon = item,
+                    chiTietHoaDonList = chiTietHoaDonList
+                });
         }
         return Ok(new {
             tongDonHang = donHangCount,
-            list = donHangIDList,
             groupChiTietHoaDon = groupChiTietHoaDon
         });
         // return Ok($"Có {donHangCount} đơn hàng");
