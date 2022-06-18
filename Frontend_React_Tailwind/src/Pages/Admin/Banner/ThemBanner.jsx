@@ -2,10 +2,10 @@ import Sidebar from "../../../Components/Admin/Sidebar";
 import axios from "axios";
 import { set, useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import HangSanXuatApi from "../../../Api/HangSanXuat/HangSanXuatApi";
-import LoginCreateJWT from '../../Admin/Login/Login';
+import BannerApi from "../../../Api/Banner/BannerApi";
+import LoginCreateJWT from '../Login/Login';
 import validateJWT from '../../../Api/validateJWT'
-export default function ThemHangSanXuat() {
+export default function ThemBanner() {
      const [statusCode, setStatusCode] = useState('');
     const [previewPicture, setPreviewPicture] = useState();
     const [imageFormData, setImageFormData] = useState()
@@ -38,23 +38,23 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
         if (imageFormData) {
             alert(JSON.stringify(data));
             var formData = new FormData();
-            formData.append("tenHangSX",data.tenHangSX)
+            formData.append("link",data.link)
             formData.append("image",imageFormData)
             // Đưa dữ liệu từ form vô axios
-            HangSanXuatApi.themHangSanXuat(formData)
+            BannerApi.themBanner(formData)
                 .then((res) => {
-                    alert("Submitloại hãng sản xuất qua api thành công")
+                    alert("Tạo  banner  thành công")
                     alert(res.data.split(":")[1])
-                    // Chỉ khi thêm hãng sản xuất, chi tiết hãng sản xuất, biến động giá thành công thì mới up ảnh lên database
-                    // Upload ảnh cho mã hãng sản xuất mới tương ứng
+                    // Chỉ khi thêm banner, chi tiết banner, biến động giá thành công thì mới up ảnh lên database
+                    // Upload ảnh cho mã banner mới tương ứng
                 })
                 .catch((err) => {
-                    alert("Submitloại hãng sản xuất qua api không thành công")
-                    if (err.includes("hãng sản xuất bị trùng")) alert("Tên hãng sản xuất bị trùng")
+                    alert("Tạo  banner  không thành công")
+                    if (err.includes("liên kết trong banner bị trùng")) alert("Tên liên kết trong banner bị trùng")
                 })
         }
         else {
-            alert("You don't upload picture !!!")
+            alert("Bạn chưa upload ảnh nào !!!")
         }
     };
 
@@ -86,21 +86,21 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             <Sidebar />
             <div className="h-screen flex-1 p-7">
                 <div className="h-screen flex-1 p-7">
-                    <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm hãng sản xuất mới</h1></div>
+                    <div class="flex items-center"><h1 class="inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00">Thêm banner mới</h1></div>
                     <form className={formStyle} onSubmit={handleSubmit(onSubmit)}>
                         <div className="grid xl:grid-cols-2 xl:gap-6">
                             <div className={divStyle}>
-                                <label className={labelStyle}>Tên hãng sản xuất</label>
+                                <label className={labelStyle}>Đường link liên kết </label>
                                 <input
-                                    {...register("tenHangSX", {
+                                    {...register("link", {
                                         required: true,
-                                        minLength: 5,
+                                        minLength: 20,
                                         maxLength: 50
                                     })}
                                     className={inputStyle} />
-                                {errors?.tenHangSX?.type === "required" && <p className={errorStyle}>Tên hãng sản xuất bắt buộc nhập</p>}
-                                {errors?.tenHangSX?.type === "minLength" && <p className={errorStyle}>Tên hãng sản xuất tối thiếu 5 kí tự</p>}
-                                {errors?.tenHangSX?.type === "maxLength" && <p className={errorStyle}>Tên hãng sản xuất không được vượt quá 50 kí tự</p>}
+                                {errors?.link?.type === "required" && <p className={errorStyle}>Đường link liên kết  bắt buộc nhập</p>}
+                                {errors?.link?.type === "minLength" && <p className={errorStyle}>Đường link liên kết  tối thiếu 20 kí tự</p>}
+                                {errors?.link?.type === "maxLength" && <p className={errorStyle}>Đường link liên kết  không được vượt quá 50 kí tự</p>}
                             </div>
                             <div className={divStyle}>
                                 <label className={labelStyle}>Ảnh minh họa</label>

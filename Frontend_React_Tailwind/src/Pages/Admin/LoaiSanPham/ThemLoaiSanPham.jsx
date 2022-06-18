@@ -64,7 +64,6 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
         const imageData = e.target.files[0]
         // Validate image content type
         if (imageData['type'].split('/')[0] === "image") {
-            alert("This is valid picture")
             fileReader.readAsDataURL(imageData);
             fileReader.onload = () => {
                 setPreviewPicture(fileReader.result)
@@ -72,7 +71,7 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             setImageFormData(imageData);
 
         } else {
-            alert("This is not valid picture")
+            alert("Đây không phải là ảnh hợp lệ")
         }
     }
 

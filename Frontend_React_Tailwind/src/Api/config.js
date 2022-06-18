@@ -15,7 +15,8 @@ const backend_main_route = {
   khachHangBaseURL: 'QuanLyKhachHang',
   nhanVienBaseURL: 'QuanLyNhanVien',
   bienDongGiaCaBaseURL: 'BienDongGiaCa',
-  loginNhanVien: 'LoginNhanVien'
+  loginNhanVien: 'LoginNhanVien',
+  BannerBaseURL:'QuanLyBanner'
 };
 
 const testting = () => {

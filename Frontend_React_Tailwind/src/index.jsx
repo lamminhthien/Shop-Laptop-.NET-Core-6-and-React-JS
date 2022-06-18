@@ -22,6 +22,7 @@ import EditHangSanXuat from './Pages/Admin/HangSanXuat/EditHangSanXuat';
 import DangKy from './Pages/Public/DangKy/DangKy';
 import DangNhapKH from './Pages/Public/DangNhap/DangNhap'
 import  GioHang from './Pages/Customer/GioHang'
+import ThemBanner from './Pages/Admin/Banner/ThemBanner';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -67,6 +68,8 @@ reactDom.render(
 
       {/* Admin Quản lý biến động giá cả */}
       <Route exact path='/admin/list-bien-dong-gia-ca/:pageNumber' children={<ListLichSuGiaCa />} />
+      {/* Admin quản lý banner quảng cáo */}
+      <Route exact path='/admin/banner/them-banner' children={<ThemBanner/>}/>
 
       {/* Public */}
       <Route exact path='/public/trang-chu' children={<HomePage />} />

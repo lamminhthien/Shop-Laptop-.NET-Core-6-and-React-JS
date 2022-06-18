@@ -61,10 +61,10 @@ export default function EditSanPham() {
     // Đưa dữ liệu từ form vô axios
     SanPhamApi.editSanPham(id,data)
       .then((res) => {
-        alert("Submit dữ liệu qua api thành công")
+        alert("Tạo sản phẩm mới thành công")
       })
       .catch((err) => {
-        alert("Submit dữ liệu qua api không thành công")
+        alert("Tạo sản phẩm mới không thành công")
       })
   }; // your form submit function which will invoke after successful validation
   // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 

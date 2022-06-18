@@ -74,15 +74,12 @@ export default function ThemSanPham() {
       // Đưa dữ liệu từ form vô axios
       axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data,configJWT)
         .then((res) => {
-          alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api thành công")
-          alert(res.data.split(":")[1])
           // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
           // Upload ảnh cho mã sản phẩm mới tương ứng
           uploadImageToBackend(res.data.split(":")[1])
           window.location.href = "/admin/san-pham/1"
         })
         .catch((err) => {
-          alert("Submit dữ liệu sản phẩm, chi tiết sản phẩm, biến động giá qua api không thành công")
           if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
         })
     } else {
