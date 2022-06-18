@@ -63,7 +63,22 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         try {
           _context.Add(hoaDon);
           _context.SaveChanges();
-          return Ok("Tạo hóa đơn chung thành công");
+          var maHoaDon = hoaDon.MaHoaDon;
+          foreach (var item in itemGioHangs)
+          {
+            var giaNiemYet = (from d in _context.BienDongGia
+                                         where d.MaSanPham == item.maSanPham
+                                         orderby d.LanThayDoiGia ascending
+                                         select d.GiaNhap * (1 + d.ChietKhau)).Last();
+            ChiTietHoaDon cthd = new ChiTietHoaDon(maHoaDon,item.maSanPham,item.soLuong,item.soLuong*Convert.ToInt64(giaNiemYet));
+            try {
+              _context.Add(cthd);
+              _context.SaveChanges();
+            } catch (Exception e) {
+              return BadRequest("Có lỗi khi tạo chi tiết hóa đơn");
+            }
+          }
+          return Ok("Tạo hóa đơn và chi tiết hóa đơn thành công, mã hóa đơn cha là " + hoaDon.MaHoaDon);
         }catch (Exception e) {
           return BadRequest(e.Message);
         }
