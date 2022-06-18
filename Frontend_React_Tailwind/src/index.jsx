@@ -71,7 +71,7 @@ reactDom.render(
       <Route exact path='/admin/list-bien-dong-gia-ca/:pageNumber' children={<ListLichSuGiaCa />} />
       {/* Admin quản lý banner quảng cáo */}
       <Route exact path='/admin/list-banner' children={<ListBanner/>}/>
-      <Route exact path='/admin/banner/them-banner' children={<ThemBanner/>}/>
+      <Route exact path='/admin/them-banner' children={<ThemBanner/>}/>
 
       {/* Public */}
       <Route exact path='/public/trang-chu' children={<HomePage />} />

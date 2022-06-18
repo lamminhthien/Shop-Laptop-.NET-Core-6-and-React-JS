@@ -2,22 +2,14 @@ import React from 'react';
 import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import Paging from '../../../Components/Admin/Paging';
 import BannerApi from '../../../Api/Banner/BannerApi';
 import LoginCreateJWT from '../Login/Login';
 
 export default function ListBanner() {
   // Lấy url trang hiện tại
-  const { path, url } = useRouteMatch();
-
-  // Đọc số trang hiện tại
-  let { pageNumber } = useParams();
-
-  pageNumber == undefined ? (pageNumber = 1) : (pageNumber = pageNumber);
   // Table Headers
-  const tableHeaders = ['Mã hãng sản xuât', 'Tên hãng hãng sản xuất', 'Ảnh minh họa', 'Chức năng'];
-
-  // Khởi tạo danh sách hãng sản xuất
+  const tableHeaders = ['Tên hãng banner', 'Ảnh minh họa', 'Chức năng'];
+  // Khởi tạo danh sách banner
   const [listBanner, set_listBanner] = useState([]);
   // Khởi tạo tổng số trang để tạo menu phân trang
   const [numberOfPages, set_numberOfPages] = useState(0);
@@ -26,11 +18,10 @@ export default function ListBanner() {
 
   // Thực thi lúc bắt đầu trang web
   useEffect(() => {
-    // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
-    BannerApi.getListBanner(pageNumber)
+    // Lấy danh sách banner và tổng số trang cần phân trang
+    BannerApi.getListBanner()
       .then(res => {
-        set_listBanner(res.data.ketQua);
-        set_numberOfPages(res.data.tongSoTrang);
+        set_listBanner(res.data);
       })
       .catch(err => setStatusCode(err.response.status));
   }, []);
@@ -44,19 +35,17 @@ export default function ListBanner() {
   }
     return (
       <div className='flex'>
-        {/* Hiển thị danh sách hãng sản xuất lên */}
-        {listBanner.map(item => console.log(item.tenSanPham))}
         {/* Hiển thị cột sidebar */}
         <Sidebar />
         <div className='h-screen flex-1 p-7'>
           <button
             type='button'
-            class='hover:scale-125 ease-in-out duration-150 ease-in-out text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 '>
-            <a href='/admin/them-hang-san-xuat'>Thêm danh mục hãng sản xuất</a>
+            class='hover:scale-125 ease-in-out duration-150  text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2'>
+            <a href='/admin/them-banner'>Thêm quảng cáo</a>
           </button>
           <div class='flex items-center'>
             <h1 class='mb-3 inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00'>
-              Danh sách hãng sản xuất
+              Danh sách quảng cáo
             </h1>
           </div>
           <div class='relative overflow-x-auto shadow-2xl rounded-2xl'>
@@ -70,9 +59,6 @@ export default function ListBanner() {
                         type='checkbox'
                         class='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
                       />
-                      <label for='checkbox-all' class='sr-only'>
-                        checkbox
-                      </label>
                     </div>
                   </th>
                   {/* Hiển thị tên các cột  */}
@@ -96,21 +82,14 @@ export default function ListBanner() {
                          text-blue-600 bg-gray-100 border-gray-300 rounded
                           focus:ring-blue-500 dark:focus:ring-blue-600 '
                         />
-                        <label for='checkbox-table-1' class='sr-only'>
-                          checkbox
-                        </label>
                       </div>
                     </td>
-                    <th scope='row' class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'>
-                      {/* Riêng mã hãng sản xuất được in đậm in ra trước */}
-                      {item.maHangSx}
-                    </th>
-                    <td className='px-6 py-4'>{item.tenHangSx}</td>
+                    <td className='px-6 py-4'>{item.link}</td>
                     <td className='px-6 py-4 '>
                       <img
                         className='w-24 '
-                        src={`https://localhost:7216/Resources/Images/Banner/${item.logo}`}
-                        alt={item.tenHangSx}
+                        src={item.image}
+                        alt={item.image}
                       />
                     </td>
                     {
@@ -124,7 +103,7 @@ export default function ListBanner() {
                     }
                     <td class='px-5 py-4 text-left'>
                       <a
-                        href={'/admin/edit-hang-san-xuat/' + item.maHangSx}
+                        href={'/admin/edit-banner/' + item.maHangSx}
                         class='font-medium text-blue-600
  dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   '>
                         Sữa
@@ -132,13 +111,6 @@ export default function ListBanner() {
                     </td>
                   </tr>
                 ))}
-                <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
-                  {/* Tạo dải phân trang vơi pages là tổng số trang và currentPage là trang hiện tại (để đánh dấu màu sắc) */}
-                  <td class='w-4 p-4' colSpan={3}>
-                    {' '}
-                    <Paging pages={numberOfPages} currentPage={pageNumber} url={url} />
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>

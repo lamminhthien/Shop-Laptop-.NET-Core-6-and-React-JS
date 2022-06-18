@@ -73,7 +73,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         var listBanner = (from a in _context.Banners
         select new {
             link = a.Link,
-            anh = imageURL + a.FileAnh.Trim()
+            image = imageURL + a.FileAnh.Trim()
         });
       return Ok(listBanner);
     }
