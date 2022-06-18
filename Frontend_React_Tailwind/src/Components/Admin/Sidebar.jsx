@@ -9,7 +9,8 @@ import {
   FcShop,
   FcOrgUnit,
   FcCurrencyExchange,
-  FcButtingIn
+  FcButtingIn,
+  FcGallery
 } from 'react-icons/fc';
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
@@ -27,6 +28,7 @@ const Sidebar = (props) => {
     { title: "Khách hàng", icon: <FcConferenceCall size={30} />, href: "/admin/list-khach-hang/1" },
     { title: "Biến động giá sản phẩm", icon: <FcCurrencyExchange size={30} />, href: "/admin/list-bien-dong-gia-ca/1" },
     { title: "Nhân viên !!", icon: <FcButtingIn size={30} />, href: "/admin/list-nhan-vien/1" },
+    { title: "Quảng Cáo", icon: <FcGallery   size={30} />, href: "/admin/list-quang-cao/1" },
   ];
   // Auto close menu when on mobile
   const handleResize = () => {

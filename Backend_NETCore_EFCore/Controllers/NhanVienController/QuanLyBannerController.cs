@@ -43,13 +43,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         {
           file.CopyTo(stream);
         }
-        Banner banner = new Banner(fileName,link);
-        try {
-            _context.Add(banner);
-            _context.SaveChanges();
+        Banner banner = new Banner(fileName, link);
+        try
+        {
+          _context.Add(banner);
+          _context.SaveChanges();
         }
-        catch {
-            return BadRequest("File ảnh hoặc nội dung bị trùng lắp ");
+        catch
+        {
+          return BadRequest("File ảnh hoặc nội dung bị trùng lắp ");
         }
         return Ok(new
         {
@@ -61,6 +63,19 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       {
         return BadRequest("Thiếu ảnh hoặc đường link trong banner ");
       }
+    }
+
+    //Danh sách banner
+    [HttpGet("ListBanner")]
+    public ActionResult<Banner> ListBanner()
+    {
+        var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/Banner/";
+        var listBanner = (from a in _context.Banners
+        select new {
+            link = a.Link,
+            anh = imageURL + a.FileAnh.Trim()
+        });
+      return Ok(listBanner);
     }
   }
 }
