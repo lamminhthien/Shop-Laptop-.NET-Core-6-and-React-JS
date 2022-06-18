@@ -4,7 +4,7 @@ const { base_url, backend_main_route, configJWT } = require('../config')
 const mainURL = `${base_url}/${backend_main_route.bienDongGiaCaBaseURL}`
 class LichSuGiaCaApi {
     getListLichSuGiaCa = (pageNumber) => {
-        const chucNang = `ListBienDongGiaCa`
+        const chucNang = `ListBienDongGia`
         return axios.get(`${mainURL}/${chucNang}/${pageNumber}`, configJWT)
     }
 }

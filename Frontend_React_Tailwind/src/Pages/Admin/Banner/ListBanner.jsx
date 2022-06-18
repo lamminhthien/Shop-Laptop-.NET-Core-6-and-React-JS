@@ -8,7 +8,7 @@ import LoginCreateJWT from '../Login/Login';
 export default function ListBanner() {
   // Lấy url trang hiện tại
   // Table Headers
-  const tableHeaders = ['Tên hãng banner', 'Ảnh minh họa', 'Chức năng'];
+  const tableHeaders = ['Liên kết', 'Ảnh minh họa', 'Chức năng'];
   // Khởi tạo danh sách banner
   const [listBanner, set_listBanner] = useState([]);
   // Khởi tạo tổng số trang để tạo menu phân trang
@@ -92,15 +92,6 @@ export default function ListBanner() {
                         alt={item.image}
                       />
                     </td>
-                    {
-                      // Hiển thị thông tin các trường còn lại , có cùng style
-                      // [item.tenHangSx, item.logo]
-                      //     .map((element) =>
-                      //         <td class="px-6 py-4">
-                      //             {element}
-                      //         </td>
-                      //     )
-                    }
                     <td class='px-5 py-4 text-left'>
                       <a
                         href={'/admin/edit-banner/' + item.maHangSx}
