@@ -38,21 +38,36 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         var donHangCount = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a).Count();
         var donHangIDList = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a).ToList();
         List<dynamic> groupChiTietHoaDon = new List<dynamic>();
+        var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
         foreach (var item in donHangIDList)
         {
           var chiTietHoaDonList = (from a in _context.ChiTietHoaDons
                                    join b in _context.HoaDons
-              on a.MaHoaDon equals b.MaHoaDon
+                                   on a.MaHoaDon equals b.MaHoaDon
+                                   join c in _context.SanPhams
+                                   on a.MaSanPham equals c.MaSanPham
                                    where a.MaHoaDon == item.MaHoaDon
-                                   select a).ToList();
+                                   select new
+                                   {
+                                     maSanPham = a.MaSanPham,
+                                     tenSanPham = c.TenSanPham,
+                                     soLuong = a.SoLuong,
+                                     donGia = (from d in _context.BienDongGia
+                                               where d.MaSanPham == a.MaSanPham
+                                               orderby d.LanThayDoiGia ascending
+                                               select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                                     anhSanPham = (from e in _context.AnhSanPhams
+                                                   where e.MaSanPham == a.MaSanPham
+                                                   select imageURL + e.FileAnh.Trim()).First()
+                                   }).ToList();
           double tongTien = 0;
           foreach (var itemInCTHD in chiTietHoaDonList)
           {
             var giaNiemYet = (from d in _context.BienDongGia
-                              where d.MaSanPham == itemInCTHD.MaSanPham
+                              where d.MaSanPham == itemInCTHD.maSanPham
                               orderby d.LanThayDoiGia ascending
                               select d.GiaNhap * (1 + d.ChietKhau)).Last();
-            tongTien = tongTien + (itemInCTHD.SoLuong * giaNiemYet);
+            tongTien = tongTien + (itemInCTHD.soLuong * giaNiemYet);
           }
 
           groupChiTietHoaDon.Add(new
