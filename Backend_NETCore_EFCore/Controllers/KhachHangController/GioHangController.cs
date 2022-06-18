@@ -77,12 +77,12 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         {
           _context.Add(new GioHang(maKhachHang, maSanPham, soLuong));
           _context.SaveChanges();
+          return Ok("Đã thêm vào giỏ hàng thành công");
         }
         catch (Exception ex)
         {
           return BadRequest(ex.InnerException.ToString());
         }
-        return Ok("Hi");
       }
       return NotFound("Khách hàng chưa đăng nhập");
     }
