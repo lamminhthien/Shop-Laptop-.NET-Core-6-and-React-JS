@@ -82,6 +82,7 @@ export default function GioHang() {
     axios.post('https://localhost:7216/api/DatHang/TaoHoaDon',null,configJWT)
         .then(res => {
           alert("Đã đặt hàng thành công, đơn hàng của bạn sẽ được duyệt và giao trong thời gian sớm nhất")
+          window.location.href = "/"
         })
         .catch(err => {
           alert(err.response.data);
