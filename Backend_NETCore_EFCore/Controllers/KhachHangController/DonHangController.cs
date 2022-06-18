@@ -58,8 +58,8 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
           groupChiTietHoaDon.Add(new
           {
             soHoaDon = item,
-            chiTietHoaDonList = chiTietHoaDonList,
-            tongTien = tongTien
+            tongTien = tongTien,
+            chiTietHoaDonList = chiTietHoaDonList
           });
         }
         return Ok(new
