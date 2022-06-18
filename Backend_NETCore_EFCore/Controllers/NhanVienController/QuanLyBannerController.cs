@@ -23,6 +23,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     {
       try
       {
+        var link = Request.Form["link"][0];
         var file = Request.Form.Files[0];
         var folderName = Path.Combine("Resources", "Images", "Banner");
         var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -42,7 +43,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         {
           file.CopyTo(stream);
         }
-        Banner banner = new Banner(fileName);
+        Banner banner = new Banner(fileName,link);
         try {
             _context.Add(banner);
             _context.SaveChanges();
@@ -58,7 +59,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       }
       catch (Exception e)
       {
-        return BadRequest("Thiếu ảnh hoặc nội dung  banner ");
+        return BadRequest("Thiếu ảnh hoặc đường link trong banner ");
       }
     }
   }
