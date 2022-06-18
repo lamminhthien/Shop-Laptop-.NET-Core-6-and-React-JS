@@ -77,6 +77,15 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             } catch (Exception e) {
               return BadRequest("Có lỗi khi tạo chi tiết hóa đơn");
             }
+            // Xóa item trong giỏ hàng
+            try {
+              var itemGioHangToRemove = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) where(a.MaSanPham == item.maSanPham) select a).First();
+              _context.GioHangs.Remove(itemGioHangToRemove);
+              _context.SaveChanges();
+            }
+            catch (Exception e) {
+              return BadRequest(e.Message.ToString());
+            }
           }
           return Ok("Tạo hóa đơn và chi tiết hóa đơn thành công, mã hóa đơn cha là " + hoaDon.MaHoaDon);
         }catch (Exception e) {
