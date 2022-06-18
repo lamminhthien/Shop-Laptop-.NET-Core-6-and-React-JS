@@ -35,21 +35,37 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                            where a.Username == userName
                            select a.MaKhachHang).FirstOrDefault();
         if (maKhachHang == 0) return BadRequest("Khách hàng chưa đăng nhập");
-        var donHangCount =  (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a ).Count();
+        var donHangCount = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a).Count();
         var donHangIDList = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a.MaHoaDon).ToList();
         List<dynamic> groupChiTietHoaDon = new List<dynamic>();
         foreach (var item in donHangIDList)
         {
-            var chiTietHoaDonList =   (from a in _context.ChiTietHoaDons join b in _context.HoaDons
-                on a.MaHoaDon equals b.MaHoaDon where a.MaHoaDon == item select a ).ToList();
-                groupChiTietHoaDon.Add(new {
-                    soHoaDon = item,
-                    chiTietHoaDonList = chiTietHoaDonList
-                });
+          var chiTietHoaDonList = (from a in _context.ChiTietHoaDons
+                                   join b in _context.HoaDons
+              on a.MaHoaDon equals b.MaHoaDon
+                                   where a.MaHoaDon == item
+                                   select a).ToList();
+          double tongTien = 0;
+          foreach (var itemInCTHD in chiTietHoaDonList)
+          {
+            var giaNiemYet = (from d in _context.BienDongGia
+                              where d.MaSanPham == itemInCTHD.MaSanPham
+                              orderby d.LanThayDoiGia ascending
+                              select d.GiaNhap * (1 + d.ChietKhau)).Last();
+            tongTien = tongTien + (itemInCTHD.SoLuong * giaNiemYet);
+          }
+
+          groupChiTietHoaDon.Add(new
+          {
+            soHoaDon = item,
+            chiTietHoaDonList = chiTietHoaDonList,
+            tongTien = tongTien
+          });
         }
-        return Ok(new {
-            tongDonHang = donHangCount,
-            groupChiTietHoaDon = groupChiTietHoaDon
+        return Ok(new
+        {
+          tongDonHang = donHangCount,
+          groupChiTietHoaDon = groupChiTietHoaDon
         });
         // return Ok($"Có {donHangCount} đơn hàng");
       }
