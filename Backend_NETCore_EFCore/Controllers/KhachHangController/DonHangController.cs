@@ -35,8 +35,13 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                            where a.Username == userName
                            select a.MaKhachHang).FirstOrDefault();
         if (maKhachHang == 0) return BadRequest("Khách hàng chưa đăng nhập");
-        var donHang =  (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a ).Count();
-        return Ok($"Có {donHang} đơn hàng");
+        var donHangCount =  (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a ).Count();
+        var donHangIDList = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a.MaHoaDon).ToList();
+        return Ok(new {
+            tongDonHang = donHangCount,
+            list = donHangIDList
+        });
+        // return Ok($"Có {donHangCount} đơn hàng");
       }
       return BadRequest("Khách hàng chưa đăng nhập");
     }
