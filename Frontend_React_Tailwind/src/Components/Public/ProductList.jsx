@@ -69,7 +69,7 @@ export default function ProductList() {
                   className='
                 max-h-40 bg-center px-3 py-3
                 '>
-                  <img src='https://vatvostudio.vn/wp-content/uploads/2022/04/iPhone-12-hang-Nhat-ma-ja-ve-Viet-Nam-2.jpg' />
+                  <img src={item.anhSanPham} alt={item.tenSanPham}/>
                 </div>
                 <p
                   className='
