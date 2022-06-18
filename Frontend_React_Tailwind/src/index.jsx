@@ -24,6 +24,7 @@ import DangNhapKH from './Pages/Public/DangNhap/DangNhap'
 import  GioHang from './Pages/Customer/GioHang'
 import ThemBanner from './Pages/Admin/Banner/ThemBanner';
 import ListBanner from './Pages/Admin/Banner/ListBanner';
+import TinhTrangDonHang from './Pages/Customer/TinhTrangDonHang';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -84,6 +85,7 @@ reactDom.render(
 
       {/* Khách Hàng */}
       <Route exact path="/khach-hang/gio-hang" children={<GioHang/>}  />
+      <Route exact path="/khach-hang/don-hang" children={<TinhTrangDonHang/>}  />
 
       <Route path='*' children={<NotFoundPage />} />
     </Switch>
