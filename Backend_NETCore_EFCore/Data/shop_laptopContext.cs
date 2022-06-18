@@ -112,10 +112,10 @@ namespace ShopLaptop_EFCore.Data
                     .HasConstraintName("FK_ChiTietSanPham_SanPham");
             });
 
-            modelBuilder.Entity<GioHang>(entity =>
+             modelBuilder.Entity<GioHang>(entity =>
             {
                 entity.HasOne(d => d.MaSanPhamNavigation)
-                    .WithMany()
+                    .WithMany(p => p.GioHangs)
                     .HasForeignKey(d => d.MaSanPham)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_GioHang_SanPham");
