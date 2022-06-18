@@ -78,6 +78,16 @@ export default function GioHang() {
     console.log(error);
   };
 
+  const datHang = () => {
+    axios.post('https://localhost:7216/api/DatHang/TaoHoaDon',null,configJWT)
+        .then(res => {
+          alert("Đã đặt hàng thành công, đơn hàng của bạn sẽ được duyệt và giao trong thời gian sớm nhất")
+        })
+        .catch(err => {
+          alert(err.response.data);
+        })
+  }
+
   const renderData = () => {
     console.log(listItemGioHang);
     listItemGioHang.forEach(item => {
@@ -174,8 +184,8 @@ export default function GioHang() {
                   <div className='total-cost mb-12'>
                     <h2 className='text-lg font-medium my-2'>Total Cost</h2>
                     <h2 className='text-3xl font-medium my-2'>$778.00</h2>
-                    <button className='p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md'>
-                      Checkout
+                    <button className='p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md' onClick={() => datHang() }>
+                      Đặt hàng
                     </button>
                   </div>
                 </div>

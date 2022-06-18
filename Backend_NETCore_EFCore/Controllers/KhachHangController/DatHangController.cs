@@ -79,7 +79,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             }
             // Xóa item trong giỏ hàng
             try {
-              var itemGioHangToRemove = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) where(a.MaSanPham == item.maSanPham) select a).First();
+              var itemGioHangToRemove = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == item.maSanPham) && (a.SoLuong == item.soLuong) select a).First();
               _context.GioHangs.Remove(itemGioHangToRemove);
               _context.SaveChanges();
             }
