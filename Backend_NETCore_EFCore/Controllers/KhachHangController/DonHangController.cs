@@ -37,9 +37,17 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         if (maKhachHang == 0) return BadRequest("Khách hàng chưa đăng nhập");
         var donHangCount =  (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a ).Count();
         var donHangIDList = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a.MaHoaDon).ToList();
+        List<dynamic> groupChiTietHoaDon = new List<dynamic>();
+        foreach (var item in donHangIDList)
+        {
+            var chiTietHoaDonList =   (from a in _context.ChiTietHoaDons join b in _context.HoaDons 
+                on a.MaHoaDon equals b.MaHoaDon where a.MaHoaDon == item select a ).ToList();    
+                groupChiTietHoaDon.Add(chiTietHoaDonList);
+        }
         return Ok(new {
             tongDonHang = donHangCount,
-            list = donHangIDList
+            list = donHangIDList,
+            groupChiTietHoaDon = groupChiTietHoaDon
         });
         // return Ok($"Có {donHangCount} đơn hàng");
       }
