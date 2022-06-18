@@ -130,10 +130,6 @@ export default function ListSanPham() {
    dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-blue-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150 ">Chi tiết</a>
                     <a href={"/admin/edit-san-pham/" + item.maSanPham} class="font-medium text-blue-600
    dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-yellow-400 hover:border-2 space-x-3 hover:text-white hover:scale-170 ease-in-out duration-150   ">Sữa</a>
-                    <button
-                      onClick={() => { AlertAndRedirectToDelete(item.maSanPham) }}
-                      class="font-medium text-blue-600
-   dark:text-blue-500 p-2 border-2 rounded-xl hover:bg-red-400 hover:border-2 hover:text-white hover:scale-170 ease-in-out duration-150">Xóa</button>
                   </td>
 
                 </tr>
