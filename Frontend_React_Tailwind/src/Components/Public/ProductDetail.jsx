@@ -39,7 +39,7 @@ export default function ProductDetail() {
     .then(res => {
       alert("Đã thêm vào giỏ hàng thành công")
     }).catch(err => {
-      alert(err.response.data);
+      alert("Sản phẩm này đã tồn tại trong giỏ hàng");
     })
   };
 
