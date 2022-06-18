@@ -16,54 +16,42 @@ export default function TinhTrangDonHang() {
               <div className='inner px-8 py-4'>
                 <div className="don-hang space-y-10">
                   <div className="don-hang-1">
-                    <h2>Đơn hàng 1</h2>
+                    <div className="flex justify-between">
+                      <h2>Đơn hàng 1</h2>
+                      <p>Tổng tiền: 50000</p>
+                    </div>
                     <div className="list_item_in_don_hang  space-y-4 pl-5">
-                      <div className="item flex justify-between space-x-9">
+                      <div className="item flex space-x-9 justify-between">
                         <h2>Ảnh</h2>
                         <h2>Dell Alien Ware</h2>
-                        <p>16</p>
-                        <p>5000000</p>
-                        <p>Đang chờ duyệt đơn</p>
+                        <p>Số lượng: 16</p>
+                        <p>Đơn giá: 2500</p>
                       </div>
                       <div className="item flex space-x-9 justify-between">
                         <h2>Ảnh</h2>
                         <h2>Dell Alien Ware</h2>
-                        <p>16</p>
-                        <p>5000000</p>
-                        <p>Đang chờ duyệt đơn</p>
-                      </div>
-                      <div className="item flex space-x-9 justify-between">
-                        <h2>Ảnh</h2>
-                        <h2>Dell Alien Ware</h2>
-                        <p>16</p>
-                        <p>5000000</p>
-                        <p>Đang chờ duyệt đơn</p>
+                        <p>Số lượng: 16</p>
+                        <p>Đơn giá: 2500</p>
                       </div>
                     </div>
                   </div>
                   <div className="don-hang-2">
-                    <h2>Đơn hàng 2</h2>
+                  <div className="flex justify-between">
+                      <h2>Đơn hàng 1</h2>
+                      <p>Tổng tiền: 50000</p>
+                    </div>
                     <div className="list_item_in_don_hang  space-y-4 pl-5">
-                      <div className="item flex space-x-9 justify-between">
+                    <div className="item flex space-x-9 justify-between">
                         <h2>Ảnh</h2>
                         <h2>Dell Alien Ware</h2>
-                        <p>16</p>
-                        <p>5000000</p>
-                        <p>Đang chờ duyệt đơn</p>
+                        <p>Số lượng: 16</p>
+                        <p>Đơn giá: 2500</p>
                       </div>
                       <div className="item flex space-x-9 justify-between">
                         <h2>Ảnh</h2>
                         <h2>Dell Alien Ware</h2>
-                        <p>16</p>
-                        <p>5000000</p>
-                        <p>Đang chờ duyệt đơn</p>
-                      </div>
-                      <div className="item flex space-x-9 justify-between">
-                        <h2>Ảnh</h2>
-                        <h2>Dell Alien Ware</h2>
-                        <p>16</p>
-                        <p>5000000</p>
-                        <p>Đang chờ duyệt đơn</p>
+                        <p>Số lượng: 16</p>
+                        <p>Đơn giá: 2500</p>
                       </div>
                     </div>
                   </div>
