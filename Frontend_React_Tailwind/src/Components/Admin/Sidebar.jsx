@@ -28,7 +28,7 @@ const Sidebar = (props) => {
     { title: "Khách hàng", icon: <FcConferenceCall size={30} />, href: "/admin/list-khach-hang/1" },
     { title: "Biến động giá sản phẩm", icon: <FcCurrencyExchange size={30} />, href: "/admin/list-bien-dong-gia-ca/1" },
     { title: "Nhân viên !!", icon: <FcButtingIn size={30} />, href: "/admin/list-nhan-vien/1" },
-    { title: "Quảng Cáo", icon: <FcGallery   size={30} />, href: "/admin/list-quang-cao/1" },
+    { title: "Quảng Cáo", icon: <FcGallery   size={30} />, href: "/admin/list-banner" },
   ];
   // Auto close menu when on mobile
   const handleResize = () => {

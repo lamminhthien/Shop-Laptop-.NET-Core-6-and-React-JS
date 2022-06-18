@@ -3,10 +3,10 @@ import Sidebar from '../../../Components/Admin/Sidebar';
 import { useState, useEffect } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import Paging from '../../../Components/Admin/Paging';
-import HangSanXuatApi from '../../../Api/HangSanXuat/HangSanXuatApi';
+import BannerApi from '../../../Api/Banner/BannerApi';
 import LoginCreateJWT from '../Login/Login';
 
-export default function ListHangSanXuat() {
+export default function ListBanner() {
   // Lấy url trang hiện tại
   const { path, url } = useRouteMatch();
 
@@ -18,7 +18,7 @@ export default function ListHangSanXuat() {
   const tableHeaders = ['Mã hãng sản xuât', 'Tên hãng hãng sản xuất', 'Ảnh minh họa', 'Chức năng'];
 
   // Khởi tạo danh sách hãng sản xuất
-  const [listHangSanXuat, set_listHangSanXuat] = useState([]);
+  const [listBanner, set_listBanner] = useState([]);
   // Khởi tạo tổng số trang để tạo menu phân trang
   const [numberOfPages, set_numberOfPages] = useState(0);
   // Response status code
@@ -27,9 +27,9 @@ export default function ListHangSanXuat() {
   // Thực thi lúc bắt đầu trang web
   useEffect(() => {
     // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
-    HangSanXuatApi.getListHangSanXuat(pageNumber)
+    BannerApi.getListBanner(pageNumber)
       .then(res => {
-        set_listHangSanXuat(res.data.ketQua);
+        set_listBanner(res.data.ketQua);
         set_numberOfPages(res.data.tongSoTrang);
       })
       .catch(err => setStatusCode(err.response.status));
@@ -45,7 +45,7 @@ export default function ListHangSanXuat() {
     return (
       <div className='flex'>
         {/* Hiển thị danh sách hãng sản xuất lên */}
-        {listHangSanXuat.map(item => console.log(item.tenSanPham))}
+        {listBanner.map(item => console.log(item.tenSanPham))}
         {/* Hiển thị cột sidebar */}
         <Sidebar />
         <div className='h-screen flex-1 p-7'>
@@ -85,7 +85,7 @@ export default function ListHangSanXuat() {
               </thead>
               <tbody>
                 {/* Map từng dòng trong danh sách hãng sản xuất ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
-                {listHangSanXuat.map(item => (
+                {listBanner.map(item => (
                   <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
                     <td class='w-4 p-4'>
                       <div class='flex items-center'>
@@ -109,7 +109,7 @@ export default function ListHangSanXuat() {
                     <td className='px-6 py-4 '>
                       <img
                         className='w-24 '
-                        src={`https://localhost:7216/Resources/Images/HangSanXuat/${item.logo}`}
+                        src={`https://localhost:7216/Resources/Images/Banner/${item.logo}`}
                         alt={item.tenHangSx}
                       />
                     </td>

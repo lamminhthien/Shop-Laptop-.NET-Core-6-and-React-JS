@@ -69,7 +69,6 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                 setPreviewPicture(fileReader.result)
             }
             setImageFormData(imageData);
-
         } else {
             alert("Đây không phải là ảnh hợp lệ")
         }
