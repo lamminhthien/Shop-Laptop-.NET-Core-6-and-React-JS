@@ -23,7 +23,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     {
       try
       {
-        var noiDung = Request.Form["noiDung"][0];
         var file = Request.Form.Files[0];
         var folderName = Path.Combine("Resources", "Images", "Banner");
         var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -43,7 +42,14 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
         {
           file.CopyTo(stream);
         }
-        Banner banner = new Banner(fileName, noiDung);
+        Banner banner = new Banner(fileName);
+        try {
+            _context.Add(banner);
+            _context.SaveChanges();
+        }
+        catch {
+            return BadRequest("File ảnh hoặc nội dung bị trùng lắp ");
+        }
         return Ok(new
         {
           banner = banner,
@@ -54,7 +60,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       {
         return BadRequest("Thiếu ảnh hoặc nội dung  banner ");
       }
-      return Ok("Yes");
     }
   }
 }
