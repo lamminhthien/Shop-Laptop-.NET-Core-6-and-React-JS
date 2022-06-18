@@ -7,9 +7,7 @@ export default function ListNhanVien() {
      const [statusCode, setStatusCode] = useState('');
 
     // Table Headers
-    const tableHeaders = ["Mã nhân viên", "Tên  nhân viên", "Username",
-        "Số điện thoại", "Chức năng"
-    ]
+    const tableHeaders = ["Mã nhân viên", "Tên  nhân viên", "Username", "Số điện thoại"]
 
     // Khởi tạo danh sách nhân viên
     const [listNhanVien, set_listNhanVien] = useState([])
@@ -31,10 +29,6 @@ export default function ListNhanVien() {
   }
     return (
         <div className='flex'>
-            {/* Hiển thị danh sách nhân viên lên */}
-            {listNhanVien.map((item) =>
-                console.log(item.tenSanPham)
-            )}
             {/* Hiển thị cột sidebar */}
             <Sidebar />
             <div className='h-screen flex-1 p-7'>
@@ -46,12 +40,7 @@ export default function ListNhanVien() {
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr className='bg-slate-300'>
-                                <th scope="col" class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                        <label for="checkbox-all" class="sr-only">checkbox</label>
-                                    </div>
-                                </th>
+
                                 {/* Hiển thị tên các cột  */}
                                 {tableHeaders.map((item) =>
                                     <th scope="col" class="px-6 py-3">
@@ -64,23 +53,13 @@ export default function ListNhanVien() {
                             {/* Map từng dòng trong danh sách nhân viên ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
                             {listNhanVien.map((item) =>
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td class="w-4 p-4">
-                                        <div class="flex items-center">
-                                            <input id="checkbox-table-1" type="checkbox" class="w-4 h-4
-                         text-blue-600 bg-gray-100 border-gray-300 rounded
-                          focus:ring-blue-500 dark:focus:ring-blue-600 
-                          dark:ring-offset-gray-800 focus:ring-2 
-                          dark:bg-gray-700 dark:border-gray-600" />
-                                            <label for="checkbox-table-1" class="sr-only">checkbox</label>
-                                        </div>
-                                    </td>
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                         {/* Riêng mã nhân viên được in đậm in ra trước */}
                                         {item.maNhanVien}
                                     </th>
                                     {
                                         // Hiển thị thông tin các trường còn lại , có cùng style 
-                                        [item.tenNhanVien, item.username,
+                                        [item.tenNhanVien, item.userName,
                                          item.soDienThoai]
                                             .map((element) =>
                                                 <td class="px-6 py-4">
