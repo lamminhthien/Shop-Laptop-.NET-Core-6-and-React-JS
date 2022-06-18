@@ -351,7 +351,7 @@ export default function ThemSanPham() {
                   min:0.1,
                   max: 6
                 })}
-                className={inputStyle} />
+                className={inputStyle} type="number" />
               {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
               {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
               {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
@@ -375,6 +375,7 @@ export default function ThemSanPham() {
             <div className={divStyle}>
               <label className={labelStyle}> Giá nhập vào</label>
               <input
+              type="number"
                 className={inputStyle}
                 {...register("gia", {
                   valueAsNumber:true,
@@ -397,7 +398,7 @@ export default function ThemSanPham() {
                 min: 1,
                 max: 100
               })}
-                className={inputStyle} />
+                className={inputStyle} type="number" />
               {errors?.chietKhau?.type === "required" && <p className={errorStyle}> Chiết khấu bắt buộc phải nhập </p>}
               {errors?.chietKhau?.type === "min" && <p className={errorStyle}> Chiết khấu không được dưới 1% </p>}
               {errors?.chietKhau?.type === "max" && <p className={errorStyle}>Chiết khấu không được vượt quá 100% </p>}
