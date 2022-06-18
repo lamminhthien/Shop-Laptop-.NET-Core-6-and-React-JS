@@ -24,7 +24,7 @@ export default function ThemSanPham() {
 
 
   useEffect(() => {
-    setValue("tenSanPham", "abc")
+    setValue("tenSanPham", "Dell AlienWare m15 ")
     // Get Danh sách các hãng sản xuât
     axios.get("https://localhost:7216/api/QuanLyHangSanXuat/ListHangSanXuat?allRecord=true",configJWT)
       .then((res) => {
@@ -151,6 +151,7 @@ export default function ThemSanPham() {
         .catch(() => {
           alert(`Up ảnh thứ ${ind + 1} thất bại`)
         })
+        setTimeout(console.log("waiting for upload picture"),5000);
     })
   }
 

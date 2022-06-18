@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using ShopLaptop_EFCore.Models;
+using ShopLaptop_EFCore.Models2;
 
-namespace ShopLaptop_EFCore.Data
+namespace ShopLaptop_EFCore.Data2
 {
     public partial class shop_laptopContext : DbContext
     {
