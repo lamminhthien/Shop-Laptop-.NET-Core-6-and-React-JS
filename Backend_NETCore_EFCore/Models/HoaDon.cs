@@ -36,7 +36,7 @@ namespace ShopLaptop_EFCore.Models
     public int MaHoaDon { get; set; }
     [Column("ma_khach_hang")]
     public int MaKhachHang { get; set; }
-    [Column("ngay_chot_don", TypeName = "datetime")]
+    [Column("ngay_tao_don", TypeName = "datetime")]
     public DateTime NgayChotDon { get; set; }
     [Column("tinh_trang_giao_hang")]
     public int TinhTrangGiaoHang { get; set; }
