@@ -60,7 +60,13 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         int nhanVienRandom = rand.Next(0,nhanVienList.Count);
         // Tạo hóa đơn
         HoaDon hoaDon = new HoaDon(maKhachHang,DateTime.Now,0,Convert.ToInt64(tongTien),nhanVienList[nhanVienRandom]);
-        return Ok(hoaDon);
+        try {
+          _context.Add(hoaDon);
+          _context.SaveChanges();
+          return Ok("Tạo hóa đơn chung thành công");
+        }catch (Exception e) {
+          return BadRequest(e.Message);
+        }
         // return Ok(new {
         //   tongTien = tongTien,
         //   nhanVienRandom = nhanVienList[nhanVienRandom],
