@@ -88,7 +88,6 @@ export default function GioHang() {
           alert(err.response.data);
         })
   }
-
   const renderData = () => {
     console.log(listItemGioHang);
     listItemGioHang.forEach(item => {
