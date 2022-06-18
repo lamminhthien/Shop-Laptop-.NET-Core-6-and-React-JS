@@ -36,15 +36,25 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                            select a.MaKhachHang
         ).FirstOrDefault();
         if (maKhachHang==0) return BadRequest("Khách hàng chưa đăng nhập");
-        var tongTien = (from a in _context.GioHangs
+        var itemGioHangs = (from a in _context.GioHangs
         join b in _context.SanPhams on
-        a.MaSanPham equals b.MaSanPham 
+        a.MaSanPham equals b.MaSanPham
           where a.MaKhachHang == maKhachHang
           select new {
+            maSanPham = a.MaSanPham,
             tenSanPham = b.TenSanPham,
             soLuong = a.SoLuong
           }
         ).ToList();
+        double tongTien = 0;
+        foreach (var item in itemGioHangs)
+        {
+          var giaNiemYet = (from d in _context.BienDongGia
+                                         where d.MaSanPham == item.maSanPham
+                                         orderby d.LanThayDoiGia ascending
+                                         select d.GiaNhap * (1 + d.ChietKhau)).Last();
+          tongTien = tongTien + (item.soLuong*giaNiemYet);
+        }
         return Ok(tongTien);
       }
       return NotFound("Khách hàng chưa đăng nhập");
