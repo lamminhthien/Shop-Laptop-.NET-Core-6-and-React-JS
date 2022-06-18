@@ -55,14 +55,17 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                                          select d.GiaNhap * (1 + d.ChietKhau)).Last();
           tongTien = tongTien + (item.soLuong*giaNiemYet);
         }
-        var nhanVienList = (from a in _context.NhanViens select a.TenNhanVien).ToList();
+        var nhanVienList = (from a in _context.NhanViens select a.MaNhanVien).ToList();
         Random rand = new Random();
         int nhanVienRandom = rand.Next(0,nhanVienList.Count);
-        return Ok(new {
-          tongTien = tongTien,
-          nhanVienRandom = nhanVienList[nhanVienRandom],
-          countTest = nhanVienList.Count()
-        });
+        // Tạo hóa đơn
+        HoaDon hoaDon = new HoaDon(maKhachHang,DateTime.Now,0,Convert.ToInt64(tongTien),nhanVienList[nhanVienRandom]);
+        return Ok(hoaDon);
+        // return Ok(new {
+        //   tongTien = tongTien,
+        //   nhanVienRandom = nhanVienList[nhanVienRandom],
+        //   countTest = nhanVienList.Count()
+        // });
       }
       return NotFound("Khách hàng chưa đăng nhập");
     }
