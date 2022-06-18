@@ -1,0 +1,624 @@
+{
+	"info": {
+		"_postman_id": "e498aa97-bafd-4107-b458-3ebf09832305",
+		"name": "ShopLaptop .NET Core API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate JWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Username\":\"jason_admin\",\r\n    \"Password\":\"MyPass_w0rd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get AnhSanPham",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Page",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Image Test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "7",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/Image/gallery-dl/pixiv/12296581 6ka06/89019310_p0.jpg"
+						},
+						{
+							"key": "name",
+							"value": "124124",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/UploadAnh/ThemAnhSanPham",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"UploadAnh",
+						"ThemAnhSanPham"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4124",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QueryRequestBodyTest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "thien",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/UploadAnh/JsonBodyCustom",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"UploadAnh",
+						"JsonBodyCustom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddLoaiSanPham",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tenLoaiSP",
+							"value": "f412421",
+							"type": "default"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/lammi/Pictures/linux_terminal_wallpaper.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyDanhMucSanPham/ThemLoaiSanPham",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyDanhMucSanPham",
+						"ThemLoaiSanPham"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddHangSanXuat",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Sữa tên loại sản phẩm",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tenLoaiSP",
+							"value": "Quạt tản nhiệt",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyDanhMucSanPham/SuaTenLoaiSanPham/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyDanhMucSanPham",
+						"SuaTenLoaiSanPham",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sữa tên hãng sản xuất",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tenHangSX",
+							"value": "Brand 1421",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyHangSanXuat/SuaTenHangSanXuat/19",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyHangSanXuat",
+						"SuaTenHangSanXuat",
+						"19"
+					],
+					"query": [
+						{
+							"key": "tenHangSX",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sữa ảnh loại sản phẩm",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/Image/gallery-dl/imgur/Ub5Xo - Nagi no Asukara/imgur_Ub5Xo_005_viMDk04.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyDanhMucSanPham/SuaAnhLoaiSanPham/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyDanhMucSanPham",
+						"SuaAnhLoaiSanPham",
+						"10"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sữa ảnh hãng sản xuất",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/Image/WallaperAsus/1920x1080.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyHangSanXuat/SuaAnhHangSanXuat/18",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyHangSanXuat",
+						"SuaAnhHangSanXuat",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tìm kiếm theo nhiều tiêu chí",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "maLoaiSanPham",
+							"value": "15",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/TrangChu/timKiemTheoNhieuTieuChi",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"TrangChu",
+						"timKiemTheoNhieuTieuChi"
+					],
+					"query": [
+						{
+							"key": "maLoaiSanPham",
+							"value": "17",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginKhachHangJWT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "lamminha",
+							"description": "l",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "lamminha",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/LoginKhachHang",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"LoginKhachHang"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cập nhật giỏ hàng",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImxhbW1pbmhhICAgICAgICAgICAgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiIwODI4NTA0MzM4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkzDom0gQSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Iktow6FjaCBIw6BuZyIsImV4cCI6MTY1NTUwOTE3NCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzIvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzIvIn0.cTLKNKAs8dxhmmYmdJt6SB6dNcNABOGQB64ZzBVdWdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "soLuong",
+							"value": "24",
+							"type": "default"
+						},
+						{
+							"key": "maSanPham",
+							"value": "62\n",
+							"type": "default"
+						},
+						{
+							"key": "421",
+							"value": "rwqr",
+							"type": "default",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/GioHang/CapNhatGioHang",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"GioHang",
+						"CapNhatGioHang"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ThemBanner",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImxhbW1pbmh0aGllbiAgICAgICAgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiIwODI4NTA0MzM2ICIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJMw6JtIE1pbmggVGhp4buHbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik5ow6JuIFZpw6puIiwiZXhwIjoxNjU1NTQ3MzYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDM3Mi8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDM3Mi8ifQ.NHtlXd7jP6HrQmlkMopJnW1vM6DhAvLx0xoNjAGXm3w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/lammi/Desktop/banner laptop.png"
+						},
+						{
+							"key": "link",
+							"value": "https://fptshop.com.vn/may-tinh-xach-tay/mong-nhe",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyBanner/ThemBanner",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyBanner",
+						"ThemBanner"
+					],
+					"query": [
+						{
+							"key": "noiDung",
+							"value": "gaskhlaskfasf",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListBannerAdmin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImxhbW1pbmh0aGllbiAgICAgICAgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiIwODI4NTA0MzM2ICIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJMw6JtIE1pbmggVGhp4buHbiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Ik5ow6JuIFZpw6puIiwiZXhwIjoxNjU1NTQ3MzYzLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDM3Mi8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDM3Mi8ifQ.NHtlXd7jP6HrQmlkMopJnW1vM6DhAvLx0xoNjAGXm3w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/api/QuanLyBanner/ListBanner",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"QuanLyBanner",
+						"ListBanner"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Thêm sản phẩm vào giỏ hàng",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImxhbW1pbmhhICAgICAgICAgICAgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiIwODI4NTA0MzM4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkzDom0gQSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Iktow6FjaCBIw6BuZyIsImV4cCI6MTY1NTYyNzMyMSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzIvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzIvIn0.BhSWBCVlMtEE8vU16gg_hFyHjK-HAg_F9zjZfp-TMTw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "maSanPham",
+							"value": "66",
+							"type": "default"
+						},
+						{
+							"key": "soLuong",
+							"value": "3",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/GioHang/ThemGioHang?maSanPham=66&soLuong=3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"GioHang",
+						"ThemGioHang"
+					],
+					"query": [
+						{
+							"key": "maSanPham",
+							"value": "66"
+						},
+						{
+							"key": "soLuong",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tạo Hóa Đơn",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImxhbW1pbmhhICAgICAgICAgICAgIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiIwODI4NTA0MzM4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6IkzDom0gQSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6Iktow6FjaCBIw6BuZyIsImV4cCI6MTY1NTYyNzMyMSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzIvIiwiYXVkIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NDQzNzIvIn0.BhSWBCVlMtEE8vU16gg_hFyHjK-HAg_F9zjZfp-TMTw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://localhost:7216/api/DatHang/TaoHoaDon",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"api",
+						"DatHang",
+						"TaoHoaDon"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
