@@ -36,14 +36,14 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                            select a.MaKhachHang).FirstOrDefault();
         if (maKhachHang == 0) return BadRequest("Khách hàng chưa đăng nhập");
         var donHangCount = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a).Count();
-        var donHangIDList = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a.MaHoaDon).ToList();
+        var donHangIDList = (from a in _context.HoaDons where a.MaKhachHang == maKhachHang select a).ToList();
         List<dynamic> groupChiTietHoaDon = new List<dynamic>();
         foreach (var item in donHangIDList)
         {
           var chiTietHoaDonList = (from a in _context.ChiTietHoaDons
                                    join b in _context.HoaDons
               on a.MaHoaDon equals b.MaHoaDon
-                                   where a.MaHoaDon == item
+                                   where a.MaHoaDon == item.MaHoaDon
                                    select a).ToList();
           double tongTien = 0;
           foreach (var itemInCTHD in chiTietHoaDonList)
@@ -57,7 +57,9 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
 
           groupChiTietHoaDon.Add(new
           {
-            soHoaDon = item,
+            soHoaDon = item.MaHoaDon,
+            tinhTrang = (item.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" :
+             (item.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : "Đã giao thành công")),
             tongTien = tongTien,
             chiTietHoaDonList = chiTietHoaDonList
           });
