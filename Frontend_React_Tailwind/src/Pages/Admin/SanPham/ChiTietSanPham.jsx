@@ -52,9 +52,13 @@ export default function ChiTietSanPham() {
 
   useEffect(() => {
     // Hàm này dùng để render data đúng theo thư tự nhãn trong data Label
-
+    const configJWT = {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    };
     // Lấy dữ liệu chi tiết sản phẩm dựa theo id từ params, 
-    axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`)
+    axios.get(`https://localhost:7216/api/QuanLySanPham/DetailSanPham/${id}`,configJWT)
       .then(res => {
         // Tìm thấy thì lưu dữ liệu
         setDataChiTietSanPham(res.data.chiTietSanPham)
@@ -136,7 +140,6 @@ const setUpAnh = (data) => {
             {/*End of block Chỗ này xuât thông tin chi tiết sản phẩm thôi */}
           </div>
         </div>
-
         {/* //Kết thúc  Khu vực thông tin chi tiết sản phẩm */}
       </div>
     </div>

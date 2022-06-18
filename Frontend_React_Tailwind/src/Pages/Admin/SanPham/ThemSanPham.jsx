@@ -177,12 +177,6 @@ export default function ThemSanPham() {
   }
   // Khu vực render giao diện
   return (
-   <>Hello
-    <>{statusCode}</>
-    <br/>
-    <>   {JSON.stringify(maLoaiSpOption)}</>
-    <br/>
-    <>   {JSON.stringify(maHangSXOption)}</>
     <div className="flex">
       <Sidebar />
       <div className="h-screen flex-1 p-7">
@@ -354,12 +348,14 @@ export default function ThemSanPham() {
                 {...register("trongLuong", {
                   required: true,
                   valueAsNumber: true,
+                  min:0.1,
                   max: 6
                 })}
                 className={inputStyle} />
               {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
               {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
               {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
+              {errors?.trongLuong?.type === "min" && <p className={errorStyle}> Trọng lượng phải từ 0.1 kg trở lên</p>}
             </div>
             {/* Dung lượng RAM */}
             <div className={divStyle}>
@@ -381,11 +377,13 @@ export default function ThemSanPham() {
               <input
                 className={inputStyle}
                 {...register("gia", {
+                  valueAsNumber:true,
                   required: true,
                   min: 101000,
                   max: 1000000000
                 })} />
               {errors?.gia?.type === "required" && <p className={errorStyle}> Giá nhập vào không được để trống </p>}
+              {errors?.gia?.type === "valueAsNumber" && <p className={errorStyle}> Giá nhập vào phải là kiểu số </p>}
               {errors?.gia?.type === "min" && <p className={errorStyle}> Giá nhập vào không được dưới 101.000 </p>}
               {errors?.gia?.type === "max" && <p className={errorStyle}> Giá nhập vào không được vượt quá 1.000.000.000</p>}
             </div>
@@ -475,7 +473,6 @@ export default function ThemSanPham() {
       </div >
       <script src="./node_modules/flowbite/dist/flowbite.js"></script>
     </div >
-   </>
   );
 
 

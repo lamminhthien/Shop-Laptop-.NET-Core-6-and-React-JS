@@ -197,7 +197,6 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
             {
               return BadRequest(e.Message);
             }
-
             return Ok(itemGioHangCheck);
           }
         }
