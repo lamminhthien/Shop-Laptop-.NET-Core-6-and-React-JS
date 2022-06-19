@@ -79,6 +79,7 @@ export default function ThemSanPham() {
         .catch((err) => {
           alert(err.response.data)
         })
+        // window.location.href = "/admin/them-san-pham"
     } else {
       alert("Bạn chưa upload ảnh nào");
     }

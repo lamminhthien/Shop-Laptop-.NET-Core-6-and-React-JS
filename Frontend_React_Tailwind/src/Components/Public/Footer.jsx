@@ -6,7 +6,7 @@ export default function Footer() {
           <div className='md:max-w-md'>
             <a href='/' aria-label='Go home' title='Company' className='inline-flex items-center'>
             <img src='/logo.svg' className='mr-3 h-6 sm:h-9' alt='Flowbite Logo' />
-              <span className='ml-2 text-xl font-bold tracking-wide text-black uppercase'>Đức Thịnh Laptop</span>
+              <span className='ml-2 text-xl font-bold tracking-wide text-black uppercase'>ĐỨC THỊNH LAPTOP</span>
             </a>
           </div>
           <div className='grid grid-cols-2 justify-between gap-28  lg:col-span-3 md:grid-cols-3'>

@@ -93,12 +93,12 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                                 <input
                                     {...register("tenLoaiSp", {
                                         required: true,
-                                        minLength: 5,
+                                        minLength: 3,
                                         maxLength: 50
                                     })}
                                     className={inputStyle} />
                                 {errors?.tenLoaiSp?.type === "required" && <p className={errorStyle}>Tên loại sản phẩm bắt buộc nhập</p>}
-                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiếu 5 kí tự</p>}
+                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên loại loại sản phẩm tối thiếu 3 kí tự</p>}
                                 {errors?.tenLoaiSp?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm không được vượt quá 50 kí tự</p>}
                             </div>
                             <div className={divStyle}>

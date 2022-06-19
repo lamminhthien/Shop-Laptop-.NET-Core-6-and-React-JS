@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import TrangChuApi from '../../Api/Public/TrangChuApi';
 import {useState, useEffect} from 'react';
-import {useLocation, useParams} from 'react-router-dom';
+import {useLocation, useParams,useRouteMatch} from 'react-router-dom';
 import React from 'react';
-import ReceiveData from '../../Services/ReceiveData';
+import Paging from '../../Components/Public/Paging'
 
 export default function ProductList() {
   // init variable
@@ -12,9 +12,12 @@ export default function ProductList() {
     return React.useMemo(() => new URLSearchParams(search), [search]);
   }
   let query = useQuery();
-  var page = 1;
+  let { pageNumber } = useParams();
+
+  pageNumber == undefined ? pageNumber = 1 : pageNumber = pageNumber
   const [listProduct, setListProduct] = useState([]);
   const [pageState, setPageState] = useState(0);
+  const {path,url} = useRouteMatch();
   // Query handle
   const queryHandler = () => {
     const formData = new FormData();
@@ -24,6 +27,7 @@ export default function ProductList() {
     let priceMax = query.get('price-max');
     let page = query.get('page');
     let searchKey = query.get('searchKey');
+    
     if (!isNaN(brand)) formData.append('maHangSanXuat', brand);
     if (!isNaN(category)) formData.append('maLoaiSanPham', category);
     if (!isNaN(priceMin)) formData.append('minPrice', priceMin);
@@ -84,6 +88,7 @@ export default function ProductList() {
               </a>
             ))}
           </div>
+          <Paging pages={listProduct.data.soTrang} currentPage={pageNumber} url={url} />
         </div>
       );
   };

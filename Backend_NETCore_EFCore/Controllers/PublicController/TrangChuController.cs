@@ -199,7 +199,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
     public ActionResult<List<dynamic>> timKiemTheoNhieuTieuChi(int page = 1,
         int maLoaiSanPham = -9999, int maHangSanXuat = -9999, double minPrice = 0, double maxPrice = 999999999)
     {
-      double rowPerPage = 5;
+      double rowPerPage = 10;
       // Tính số trang cần phân chia dựa theo số lượng record của sản phẩm
       double productQuantity = _context.SanPhams.Count();
       double numberOfPage = productQuantity / rowPerPage;
@@ -233,7 +233,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                                            where e.MaSanPham == a.MaSanPham
                                            select imageURL + e.FileAnh.Trim()
                                              ).First()
-                           }).Skip(5 * (page - 1)).Take(5);
+                           }).Skip(10 * (page - 1)).Take(10);
         return Ok(new
         {
           tongSoSanPham = productQuantity,
