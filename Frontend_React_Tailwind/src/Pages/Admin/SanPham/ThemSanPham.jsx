@@ -65,21 +65,19 @@ export default function ThemSanPham() {
     // Khi nào vượt rào được thì mới xác nhận form hợp lệ
     // và hiện ra dữ liệu json  được chuỗi hóa
     // Đổi giá trị phần trăm chiết khấu sang số thực
-    if (previewPicture.length != 0) {
+    if (previewPicture.length !== 0) {
       data.chietKhau = (data.chietKhau) / 100;
       var sanPhamData = Object.assign(data, { trangThaiSp: 1 })
-
-      // Test hiển thị thử JSON data
-      alert(JSON.stringify(sanPhamData));
       // Đưa dữ liệu từ form vô axios
       axios.post("https://localhost:7216/api/QuanLySanPham/ThemSanPham", data,configJWT)
         .then((res) => {
           // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
           // Upload ảnh cho mã sản phẩm mới tương ứng
           uploadImageToBackend(res.data.split(":")[1])
+          alert('Thêm sản phẩm thành công')
         })
         .catch((err) => {
-          if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
+          alert(err.response.data)
         })
     } else {
       alert("Bạn chưa upload ảnh nào");
@@ -334,10 +332,10 @@ export default function ThemSanPham() {
             <div className={divStyle}>
               <label class={labelStyle}>Kích thước</label>
               <input {...register("kichThuoc", {
-                maxLength: 50
+                maxLength: 255
               })}
                 className={inputStyle} placeholder=""></input>
-              {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 100 kí tự</p>}
+              {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 255 kí tự</p>}
             </div>
             <div className={divStyle}>
               <label class={labelStyle}>Trọng lượng</label>

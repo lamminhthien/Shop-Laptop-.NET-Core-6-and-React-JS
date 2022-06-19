@@ -309,10 +309,10 @@ export default function EditSanPham() {
               <div className={divStyle}>
                 <label class={labelStyle}>Kích thước</label>
                 <input {...register("kichThuoc", {
-                  maxLength: 50
+                  maxLength: 255
                 })}
                   className={inputStyle} placeholder=""></input>
-                {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 100 kí tự</p>}
+                {errors?.kichThuoc?.type === "maxLength" && <p className={errorStyle}>Mô tả về kích thước không được vượt quá 255 kí tự</p>}
               </div>
               <div className={divStyle}>
                 <label class={labelStyle}>Trọng lượng</label>

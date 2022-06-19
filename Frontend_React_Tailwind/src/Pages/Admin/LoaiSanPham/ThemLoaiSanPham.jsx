@@ -43,13 +43,13 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
             // Đưa dữ liệu từ form vô axios
             LoaiSanPhamApi.themloaiSanPham(formData)
                 .then((res) => {
-                    alert("Thêm loại sản phẩm qua api thành công")
+                    alert("Thêm loại sản phẩm  thành công")
                     window.location.href = "/admin/them-danh-muc-san-pham"
                     // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
                     // Upload ảnh cho mã sản phẩm mới tương ứng
                 })
                 .catch((err) => {
-                    alert("Submitloại sản phẩm qua api không thành công")
+                    alert("Submit loại sản phẩm  không thành công")
                     if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
                 })
         }

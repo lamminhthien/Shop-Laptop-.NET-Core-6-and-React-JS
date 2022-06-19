@@ -46,7 +46,7 @@ namespace ShopLaptop_EFCore.Models
         [Column("man_hinh")]
         public double? ManHinh { get; set; }
         [Column("kich_thuoc")]
-        [StringLength(170)]
+        [StringLength(255)]
         public string? KichThuoc { get; set; }
         [Column("trong_luong")]
         [Required]
