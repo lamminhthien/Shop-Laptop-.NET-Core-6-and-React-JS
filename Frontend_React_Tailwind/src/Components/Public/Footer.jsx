@@ -41,12 +41,12 @@ export default function Footer  ()  {
               </a>
               <div className="mt-4 lg:max-w-sm">
                 <p className="text-sm text-deep-purple-50">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam.
+                 Đến với Shop Laptop Đức Thịnh, nơi chúng tôi cung cấp mọi sản phẩm, phụ kiện chất lượng cao, giá rẻ liên quan đến những chiếc 
+                 Laptop bạn đang sử dụng hằng ngày.
                 </p>
                 <p className="mt-4 text-sm text-deep-purple-50">
-                  Eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                  beatae vitae dicta sunt explicabo.
+                  Mọi vấn đề thắc mắc, góp ý khiếu nại dịch vụ (8h00-22h00)
+                  Liên hệ 1800 6616
                 </p>
               </div>
             </div>
@@ -227,7 +227,7 @@ export default function Footer  ()  {
           </div>
           <div className="flex flex-col justify-between pt-5 pb-10 border-t border-deep-purple-accent-200 sm:flex-row">
             <p className="text-sm text-gray-100">
-              © Copyright 2020 Lorem Inc. All rights reserved.
+              © Copyright 2022  All rights reserved.
             </p>
             <div className="flex items-center mt-4 space-x-4 sm:mt-0">
               <a
