@@ -32,7 +32,7 @@ if (state.done)
               <img className="h-28" src={item.anhLoaiSanPham} alt />
               <div className="p-2">
                 {/* Heading */}
-                <h2 className="mb-2 text-lg font-bold">{item.tenLoaiSanPham}</h2>
+                <h2 className="mb-2  font-bold">{item.tenLoaiSanPham}</h2>
               </div>
               {/* CTA */}
             </div>
