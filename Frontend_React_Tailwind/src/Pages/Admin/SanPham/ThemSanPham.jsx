@@ -16,11 +16,11 @@ export default function ThemSanPham() {
   const [previewPicture, setPreviewPicture] = useState([]);
   const [imageFormData, setImageFormData] = useState([])
   // Tạo dữ liệu cho các option trong thẻ select
-  const doPhanGiaiOption = ["HD+", "Full HD", "2K", "4K"]
-  const oCungOption = [128, 256, 512, 1024, 2048]
-  const heDieuHanhOption = ["Windows 8", "Windows 10", "Window 11", "Mac OS", "Ubuntu"]
-  const manHinhOption = [11.6, 12.3, 12.4, 13.3, 13.4, 14, 13, 15.6, 16, 16.1, 16.2, 17, 17.3]
-  const dungLuongRAMOption = [4, 6, 8, 12, 16, 32]
+  const doPhanGiaiOption = ["HD+", "Full HD", "2K", "4K",undefined]
+  const oCungOption = [128, 256, 512, 1024, 2048,undefined]
+  const heDieuHanhOption = ["Windows 8", "Windows 10", "Window 11", "Mac OS", "Ubuntu",undefined]
+  const manHinhOption = [11.6, 12.3, 12.4, 13.3, 13.4, 14, 13, 15.6, 16, 16.1, 16.2, 17, 17.3,undefined]
+  const dungLuongRAMOption = [4, 6, 8, 12, 16, 32,undefined]
 
 
   useEffect(() => {
@@ -77,7 +77,6 @@ export default function ThemSanPham() {
           // Chỉ khi thêm sản phẩm, chi tiết sản phẩm, biến động giá thành công thì mới up ảnh lên database
           // Upload ảnh cho mã sản phẩm mới tương ứng
           uploadImageToBackend(res.data.split(":")[1])
-          window.location.href = "/admin/san-pham/1"
         })
         .catch((err) => {
           if (err.includes("sản phẩm bị trùng")) alert("Tên sản phẩm bị trùng")
@@ -290,14 +289,14 @@ export default function ThemSanPham() {
             </div>
 
             <div className={divStyle}>
-              <label class={labelStyle}>Ổ cứng</label>
+              <label class={labelStyle}>Ổ cứng (GB)</label>
               <select
                 {...register("oCung", {
                   valueAsNumber: true
                 })}
                 class={inputStyle}>
                 {oCungOption.map((item) =>
-                  <option value={item}>{item} GB</option>
+                  <option value={item}>{item} </option>
                 )}
               </select>
               {errors?.oCung?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo Bạn đang cố chỉnh code cho value của select không phải là kiểu số</p>}
@@ -349,7 +348,7 @@ export default function ThemSanPham() {
                   min:0.1,
                   max: 6
                 })}
-                className={inputStyle} type="number" />
+                className={inputStyle} type="number" step="0.01" />
               {errors?.trongLuong?.type === "required" && <p className={errorStyle}> Trọng lượng không được để trống</p>}
               {errors?.trongLuong?.type === "valueAsNumber" && <p className={errorStyle}> Trọng lượng phải là kiểu số</p>}
               {errors?.trongLuong?.type === "max" && <p className={errorStyle}> Trọng lượng không được vượt quá 6 kg</p>}
@@ -357,14 +356,14 @@ export default function ThemSanPham() {
             </div>
             {/* Dung lượng RAM */}
             <div className={divStyle}>
-              <label class={labelStyle}>Dung lượng RAM</label>
+              <label class={labelStyle}>Dung lượng RAM (GB)</label>
               <select
                 {...register("ram", {
                   max: 32
                 })}
                 className={inputStyle}>
                 {dungLuongRAMOption.map((item) =>
-                  <option value={item}>{item} GB</option>
+                  <option value={item}>{item}</option>
                 )}
               </select>
               {errors?.ram?.type === "max" && <p className={errorStyle}> Dung lượng ram tối đa không vượt quá 32 GB</p>}
