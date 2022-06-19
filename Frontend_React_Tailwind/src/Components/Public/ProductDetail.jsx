@@ -7,7 +7,14 @@ import CommentForm from './CommentForm';
 export default function ProductDetail() {
   let { id } = useParams();
   const [state, setState] = useState({});
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
+    //Check NhanVien to block button thêm vào giỏ hàng
+    axios.get('https://localhost:7216/api/LoginNhanVien/validateToken', configJWT).then(res => {
+      setIsAdmin(true);
+    });
+
+    // Get chi tiet san pham
     TrangChiTietSanPhamApi.getChiTietSanPham(id)
       .then(res => {
         setState({
@@ -94,11 +101,11 @@ export default function ProductDetail() {
               </div>
               <div className='flex'>
                 <span className='title-font font-medium text-2xl text-gray-900'>Giá: {state.data.giaNiemYet} VND</span>
-                <button
+                {isAdmin ? "" :    <button
                   onClick={() => themGioHang(state.data.maSanPham)}
                   className='flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded'>
                   Thêm vào giỏ hàng
-                </button>
+                </button>}
               </div>
             </div>
           </div>
