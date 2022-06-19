@@ -21,7 +21,7 @@ export default function EditLoaiSanPham() {
             mode: 'onChange',
             reValidateMode: 'onChange',
         }
-    ); // Na ná cách dùng useState  
+    ); // Na ná cách dùng useState
 
 
  useEffect(() => {
@@ -31,7 +31,6 @@ export default function EditLoaiSanPham() {
             done: true
         });
         setValue("tenLoaiSp",res.data[0].tenLoaiSp)
-        
     })
         .catch(err => {
             console.log(err);
@@ -49,13 +48,12 @@ export default function EditLoaiSanPham() {
             const formData = new FormData()
             formData.append("tenLoaiSp",data.tenLoaiSp)
             LoaiSanPhamApi.suaTenLoaiSanPham(id,formData)
-        } 
+        }
         if (data.image !== undefined) {
             const imageFormData = new FormData()
             imageFormData.append("image",data.image[0])
             LoaiSanPhamApi.suaAnhLoaiSanPham(id,imageFormData)
         }
-        
     };
 
   if (statusCode === 403 ) {
