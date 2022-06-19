@@ -26,6 +26,7 @@ import ThemBanner from './Pages/Admin/Banner/ThemBanner';
 import ListBanner from './Pages/Admin/Banner/ListBanner';
 import TinhTrangDonHang from './Pages/Customer/TinhTrangDonHang';
 import ListDonHang from './Pages/Admin/DonHang/ListDonHang';
+import ThemNhanVien from './Pages/Admin/NhanVien/ThemNhanVien';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -62,11 +63,10 @@ reactDom.render(
       <Route exact path='/admin/edit-hang-san-xuat/:id' children={<EditHangSanXuat />} />
 
       {/* Admin Quản lý nhân viên */}
-
       <Route exact path='/admin/list-nhan-vien/:pageNumber' children={<ListNhanVien />} />
+      <Route exact path='/admin/them-nhan-vien' children={<ThemNhanVien />} />
 
       {/* Admin Quản lý khách hàng */}
-
       <Route exact path='/admin/list-khach-hang/:pageNumber' children={<ListKhachHang />} />
 
       {/* Admin Quản lý biến động giá cả */}
@@ -79,11 +79,8 @@ reactDom.render(
 
       {/* Public */}
       <Route exact path='/public/trang-chu' children={<HomePage />} />
-
       <Route exact path='/public/dang-ky' children={<DangKy />} />
-
       <Route exact path='/public/dang-nhap' children={<DangNhapKH />} />
-
       <Route exact path='/public/san-pham/:id' children={<ChiTietSanPhamPublic />} />
 
       {/* Khách Hàng */}

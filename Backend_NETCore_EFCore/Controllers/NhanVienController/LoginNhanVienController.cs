@@ -36,7 +36,7 @@ namespace ShopLaptop_EFCore.Controllers
                     new Claim(ClaimTypes.NameIdentifier, currentUser.Username),
                     new Claim(ClaimTypes.MobilePhone, currentUser.SoDienThoai),
                     new Claim(ClaimTypes.Name, currentUser.TenNhanVien),
-                    new Claim(ClaimTypes.Role, "Nhân Viên")
+                    new Claim(ClaimTypes.Role, username == "root" ? "Giám Đốc" : "Nhân Viên")
                  };
         var token = new JwtSecurityToken(_config["Jwt:Issuer"],
           _config["Jwt:Audience"],
@@ -51,7 +51,7 @@ namespace ShopLaptop_EFCore.Controllers
         return NotFound("Tài khoản nhân viên không hợp lệ");
       }
     }
-    [Authorize(Roles = "Nhân Viên")]
+    [Authorize(Roles = "Nhân Viên,Giám Đốc")]
     [HttpGet("validateToken")]
     public ActionResult<List<dynamic>> validateToken()
     {

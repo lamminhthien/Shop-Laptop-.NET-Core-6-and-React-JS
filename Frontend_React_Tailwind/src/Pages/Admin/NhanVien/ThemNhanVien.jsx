@@ -1,26 +1,29 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import DangKyTaiKhoan from '../../../Api/Public/DangKy';
+import {useForm} from 'react-hook-form';
+import NhanVienApi from '../../../Api/NhanVien/NhanVienApi';
 
-export default function DangKy() {
+export default function ThemNhanVien() {
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors }
+    formState: {errors}
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange'
   });
 
   const onSubmit = data => {
+    if (data.password !== data.retype_password)
+    alert("Mật khẩu nhập lại không khớp")
     alert(JSON.stringify(data));
-    data.gioiTinh = parseInt(data.gioiTinh);
-    DangKyTaiKhoan.dangKyTaiKhoan(data).then((res)=> {
-      window.location.href = '/public/dang-nhap';
-    }).catch((err) => {
-      alert("Đăng ký tài khoản thất bại")
-    });
+    // NhanVienApi.themnhanVien(data)
+    //   .then(res => {
+    //     window.location.href = '/admin/list-nhan-vien/1';
+    //   })
+    //   .catch(err => {
+    //     alert('Đăng ký tài khoản thất bại');
+    //   });
   };
 
   const inputStyle = `bg-gray-50 border border-gray-300
@@ -38,28 +41,15 @@ export default function DangKy() {
         <label className={labelStyle}>Ho va Ten</label>
         <input
           className={inputStyle}
-          {...register('hoTen', {
+          {...register('tenNhanVien', {
             required: true,
             minLength: 10,
             maxLength: 50
           })}
         />
-        {errors?.hoTen?.type === 'required' && <p className={errorStyle}>Tên khách hàng bắt buộc nhập</p>}
-        {errors?.hoTen?.type === 'minLength' && <p className={errorStyle}>Tên khách hàng tối thiểu 10 kí tự</p>}
-        {errors?.hoTen?.type === 'maxLength' && <p className={errorStyle}>Tên khách hàng tối đa 50 kí tự</p>}
-        <br />
-        <label className={labelStyle}>Dia Chi</label>
-        <input
-          className={inputStyle}
-          {...register('diaChi', {
-            required: true,
-            minLength: 20,
-            maxLength: 50
-          })}
-        />
-        {errors?.diaChi?.type === 'required' && <p className={errorStyle}>Địa chỉ bắt buộc nhập</p>}
-        {errors?.diaChi?.type === 'minLength' && <p className={errorStyle}>Địa chỉ tối thiểu 20 kí tự</p>}
-        {errors?.diaChi?.type === 'maxLength' && <p className={errorStyle}>Địa chỉ tối đa 50 kí tự</p>}
+        {errors?.tenNhanVien?.type === 'required' && <p className={errorStyle}>Tên khách hàng bắt buộc nhập</p>}
+        {errors?.tenNhanVien?.type === 'minLength' && <p className={errorStyle}>Tên khách hàng tối thiểu 10 kí tự</p>}
+        {errors?.tenNhanVien?.type === 'maxLength' && <p className={errorStyle}>Tên khách hàng tối đa 50 kí tự</p>}
         <br />
         <label className={labelStyle}>So Dien Thoai</label>
         <input
@@ -69,19 +59,6 @@ export default function DangKy() {
           })}
         />
         {errors?.soDienThoai?.type === 'pattern' && <p className={errorStyle}>Số điện thoại phải 10 số</p>}
-        <br />
-        <label className={labelStyle}>Gioi Tinh</label>
-        <select
-          className={inputStyle}
-          {...register('gioiTinh', {
-            required: true
-          })}>
-          <option value={1} selected>
-            Nam
-          </option>
-          <option value={0}>Nữ</option>
-        </select>
-        {errors?.gioiTinh?.type === 'required' && <p className={errorStyle}>Giới tính bắt buộc chọn</p>}
         <br />
         <label className={labelStyle}>Username</label>
         <input
@@ -122,18 +99,6 @@ export default function DangKy() {
         {errors?.retype_password?.type === 'minLength' && <p className={errorStyle}>Password tối thiểu 10 kí tự</p>}
         {errors?.retype_password?.type === 'maxLength' && <p className={errorStyle}>Password tối đa 20 kí tự</p>}
         <br />
-        <lable>Email</lable>
-        <input
-          className={inputStyle}
-          {...register('email', {
-            required: true,
-            maxLength:50,
-            pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-          })}
-        />
-        {errors?.email?.type === 'required' && <p className={errorStyle}>Email bắt buộc nhập</p>}
-        {errors?.email?.type === 'pattern' && <p className={errorStyle}>Email không đúng định dạng</p>}
-        {errors?.email?.type === 'maxLength' && <p className={errorStyle}>Email tối đa 50 kí tự</p>}
         <input type='submit' value='Đăng ký' className='bg-cyan-600 p-3 rounded-xl m-3' />
       </form>
     </div>

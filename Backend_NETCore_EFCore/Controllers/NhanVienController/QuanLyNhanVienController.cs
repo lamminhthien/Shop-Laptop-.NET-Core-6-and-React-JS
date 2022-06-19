@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
   [Route("api/[controller]")]
-  //[Authorize(Roles = "Nhân Viên")]
+  [Authorize(Roles = "Giám Đốc")]
   [ApiController]
   public class QuanLyNhanVienController : ControllerBase
   {
@@ -73,7 +73,6 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
 
     // Thêm nhân viên
     [HttpPost("ThemNhanVien")]
-    //[Authorize("Giam Doc")]
     public async Task<ActionResult<NhanVien>> ThemNhanVien(NhanVien nhanVien)
     {
       if (_context.NhanViens == null)

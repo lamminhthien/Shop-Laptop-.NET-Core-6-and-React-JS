@@ -8,7 +8,7 @@ export default function ListDonHang() {
       <Sidebar/>
         <div className="h-screen flex-1 p-7">
           <div className="div">
-            KH- Lâm Minh Thiện - 4 đơn
+            Nếu là đơn hàng chưa duyệt thì mã nhân viên là null
           </div>
         </div>
       </div>

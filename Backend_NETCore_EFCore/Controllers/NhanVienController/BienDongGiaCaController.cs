@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ShopLaptop_EFCore.Controllers.NhanVienController
 {
-    [Authorize(Roles = "Nhân Viên")]
+    [Authorize(Roles = "Nhân Viên,Giám Đốc")]
     [Route("api/[controller]")]
     [ApiController]
     public class BienDongGiaCaController : ControllerBase
