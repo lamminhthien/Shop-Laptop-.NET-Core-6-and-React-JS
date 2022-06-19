@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import TrangChuApi from '../../Api/Public/TrangChuApi';
-import { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import {useLocation, useParams} from 'react-router-dom';
 import React from 'react';
 import ReceiveData from '../../Services/ReceiveData';
 
 export default function ProductList() {
   // init variable
   function useQuery() {
-    const { search } = useLocation();
+    const {search} = useLocation();
     return React.useMemo(() => new URLSearchParams(search), [search]);
   }
   let query = useQuery();
@@ -29,10 +29,10 @@ export default function ProductList() {
     if (!isNaN(priceMin)) formData.append('minPrice', priceMin);
     if (!isNaN(priceMax)) formData.append('maxPrice', priceMax);
     if (!isNaN(page)) formData.append('page', page);
-    formData.append('searchKey',searchKey);
+    formData.append('searchKey', searchKey);
     let params = `?`;
     for (const pair of formData.entries()) {
-      if (!isNaN(pair[1]) || (pair[0]==="searchKey")) params = params + `${pair[0]}=${pair[1]}` + '&';
+      if (!isNaN(pair[1]) || pair[0] === 'searchKey') params = params + `${pair[0]}=${pair[1]}` + '&';
     }
     params = params.slice(0, params.length - 1);
     TrangChuApi.getSanPhamByAdvanceSearch(params)
@@ -65,11 +65,8 @@ export default function ProductList() {
                     rounded-md border-black border-0 w-60 flex
                     flex-wrap justify-center mx-4 my-4
                     '>
-                <div
-                  className='
-                max-h-40 bg-center px-3 py-3
-                '>
-                  <img src={item.anhSanPham} alt={item.tenSanPham}/>
+                <div className='bg-center px-3 py-3'>
+                  <img src={item.anhSanPham} alt={item.tenSanPham} />
                 </div>
                 <p
                   className='
