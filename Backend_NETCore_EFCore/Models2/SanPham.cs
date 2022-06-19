@@ -16,6 +16,7 @@ namespace ShopLaptop_EFCore.Models2
             BienDongGia = new HashSet<BienDongGium>();
             BinhLuanSanPhams = new HashSet<BinhLuanSanPham>();
             ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
+            GioHangs = new HashSet<GioHang>();
         }
 
         [Key]
@@ -47,5 +48,7 @@ namespace ShopLaptop_EFCore.Models2
         public virtual ICollection<BinhLuanSanPham> BinhLuanSanPhams { get; set; }
         [InverseProperty("MaSanPhamNavigation")]
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        [InverseProperty("MaSanPhamNavigation")]
+        public virtual ICollection<GioHang> GioHangs { get; set; }
     }
 }

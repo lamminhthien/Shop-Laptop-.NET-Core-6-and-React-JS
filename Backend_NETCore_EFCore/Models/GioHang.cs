@@ -7,18 +7,19 @@ using Microsoft.EntityFrameworkCore;
 namespace ShopLaptop_EFCore.Models
 {
     [Table("GioHang")]
-    [Index("MaKhachHang", Name = "UQ__GioHang__C9817AF76C6936FA", IsUnique = true)]
-    [Index("MaKhachHang", Name = "UQ__GioHang__C9817AF7CD6FD201", IsUnique = true)]
+    [Index("MaKhachHang", "MaSanPham", Name = "UQ__GioHang__10532367C2F79BCB", IsUnique = true)]
     public partial class GioHang
     {
-        public GioHang(int maKhachHang, int maSanPham, int soLuong)
-        {
-            MaKhachHang = maKhachHang;
-            MaSanPham = maSanPham;
-            SoLuong = soLuong;
-        }
+    public GioHang(int maKhachHang, int maSanPham, int soLuong)
+    {
+      MaKhachHang = maKhachHang;
+      MaSanPham = maSanPham;
+      SoLuong = soLuong;
+    }
 
-        [Key]
+    [Key]
+        [Column("id_gio_hang")]
+        public int IdGioHang { get; set; }
         [Column("ma_khach_hang")]
         public int MaKhachHang { get; set; }
         [Column("ma_san_pham")]

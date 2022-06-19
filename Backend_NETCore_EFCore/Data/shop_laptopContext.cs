@@ -104,15 +104,13 @@ namespace ShopLaptop_EFCore.Data
             {
                 entity.Property(e => e.MaSanPham).ValueGeneratedNever();
 
-                entity.Property(e => e.KichThuoc).IsFixedLength();
-
                 entity.HasOne(d => d.MaSanPhamNavigation)
                     .WithOne(p => p.ChiTietSanPham)
                     .HasForeignKey<ChiTietSanPham>(d => d.MaSanPham)
                     .HasConstraintName("FK_ChiTietSanPham_SanPham");
             });
 
-             modelBuilder.Entity<GioHang>(entity =>
+            modelBuilder.Entity<GioHang>(entity =>
             {
                 entity.HasOne(d => d.MaSanPhamNavigation)
                     .WithMany(p => p.GioHangs)

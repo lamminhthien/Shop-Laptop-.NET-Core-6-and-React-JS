@@ -30,7 +30,7 @@ namespace ShopLaptop_EFCore.Models2
         [Column("man_hinh")]
         public double? ManHinh { get; set; }
         [Column("kich_thuoc")]
-        [StringLength(100)]
+        [StringLength(255)]
         public string? KichThuoc { get; set; }
         [Column("trong_luong")]
         public double TrongLuong { get; set; }

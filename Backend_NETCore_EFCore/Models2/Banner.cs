@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ShopLaptop_EFCore.Models2
 {
     [Table("Banner")]
+    [Index("Link", Name = "UQ__Banner__A269238112A0D075", IsUnique = true)]
     public partial class Banner
     {
         [Key]
@@ -15,8 +16,8 @@ namespace ShopLaptop_EFCore.Models2
         [Column("file_anh")]
         [StringLength(50)]
         public string FileAnh { get; set; } = null!;
-        [Column("noi_dung")]
-        [StringLength(255)]
-        public string NoiDung { get; set; } = null!;
+        [Column("link")]
+        [StringLength(50)]
+        public string Link { get; set; } = null!;
     }
 }

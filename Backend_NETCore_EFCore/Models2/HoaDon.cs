@@ -20,15 +20,13 @@ namespace ShopLaptop_EFCore.Models2
         [Column("ma_khach_hang")]
         public int MaKhachHang { get; set; }
         [Column("ngay_tao_don", TypeName = "datetime")]
-        public DateTime? NgayChotDon { get; set; }
+        public DateTime? NgayTaoDon { get; set; }
         [Column("tinh_trang_giao_hang")]
         public int TinhTrangGiaoHang { get; set; }
         [Column("tong_tien")]
         public long TongTien { get; set; }
         [Column("ma_nhan_vien")]
         public int MaNhanVien { get; set; }
-        [Column("trang_thai")]
-        public bool TrangThai { get; set; }
 
         [ForeignKey("MaKhachHang")]
         [InverseProperty("HoaDons")]

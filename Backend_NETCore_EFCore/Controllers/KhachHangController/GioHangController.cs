@@ -207,5 +207,20 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         return BadRequest("Dữ liệu đầu vào không hợp lệ");
       }
     }
+  
+    [HttpDelete("XoaGioHangTest")]
+     public ActionResult<List<dynamic>> XoaGioHangTest()
+    {
+      var idKhachHang = 1;
+      var sanPhamToDelete = (from a in _context.GioHangs
+        where a.MaKhachHang == idKhachHang && a.MaSanPham == 79 && a.SoLuong == 1
+        select a
+      ).Single();
+      _context.GioHangs.Remove(sanPhamToDelete);
+      _context.SaveChanges();
+      return Ok("it is deleted");
+
+    }
+    
   }
 }

@@ -6,11 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ShopLaptop_EFCore.Models2
 {
-    [Keyless]
     [Table("GioHang")]
-    [Index("MaKhachHang", "MaSanPham", Name = "Unique_ma_khach_hang_ma_sp", IsUnique = true)]
+    [Index("MaKhachHang", "MaSanPham", Name = "UQ__GioHang__10532367C2F79BCB", IsUnique = true)]
     public partial class GioHang
     {
+        [Key]
+        [Column("id_gio_hang")]
+        public int IdGioHang { get; set; }
         [Column("ma_khach_hang")]
         public int MaKhachHang { get; set; }
         [Column("ma_san_pham")]
@@ -19,6 +21,7 @@ namespace ShopLaptop_EFCore.Models2
         public int SoLuong { get; set; }
 
         [ForeignKey("MaSanPham")]
+        [InverseProperty("GioHangs")]
         public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
     }
 }
