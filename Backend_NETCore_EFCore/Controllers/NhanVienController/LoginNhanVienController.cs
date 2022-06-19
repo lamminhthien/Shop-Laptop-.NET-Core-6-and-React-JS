@@ -55,7 +55,7 @@ namespace ShopLaptop_EFCore.Controllers
     [HttpGet("validateToken")]
     public ActionResult<List<dynamic>> validateToken()
     {
-      return Ok("You are login");
+      return Ok(GetCurrentUserInfo());
     }
 
     private string GetCurrentUserInfo()

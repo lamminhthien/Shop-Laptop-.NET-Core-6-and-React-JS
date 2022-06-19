@@ -1,20 +1,32 @@
-import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import {useForm} from 'react-hook-form';
+import {useEffect, useState} from 'react';
 import axios from 'axios';
 export default function Navbar() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isCustomer, setisCustomer] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLogin,setIsLogin] = useState(false);
   const [userName, setUserName] = useState('');
-  const { register } = useForm();
+  const {register} = useForm();
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
     }
   };
   useEffect(() => {
-    axios.post('https://localhost:7216/api/LoginKhachHang/GetKhachHangName',null,configJWT).then(res => {
-      setUserName(res.data);
-      setIsLogin(true);
-    });
+    axios
+      .post('https://localhost:7216/api/LoginKhachHang/GetKhachHangName', null, configJWT)
+      .then(res => {
+        setUserName(res.data);
+        setisCustomer(true);
+        setIsLogin(true)
+      })
+      .catch(err => {
+        axios.get('https://localhost:7216/api/LoginNhanVien/validateToken', configJWT).then(res => {
+          setUserName(res.data);
+          setIsAdmin(true);
+          setIsLogin(true)
+        });
+      });
   }, []);
   const checkLogin = () => {
     if (!isLogin)
@@ -39,28 +51,37 @@ export default function Navbar() {
     else
       return (
         <>
+          {isCustomer ? (
+            <>
+              <li>
+                <a
+                  href='/khach-hang/gio-hang'
+                  className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
+                  Giỏ hàng
+                </a>
+              </li>
+              <li>
+                <a
+                  href='/khach-hang/don-hang'
+                  className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
+                  Tình trạng đơn hàng
+                </a>
+              </li>
+            </>
+          ) : (
+            ''
+          )}
           <li>
-            <a
-              href='/khach-hang/gio-hang'
-              className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
-              Giỏ hàng
-            </a>
-          </li>
-          <li>
-              <a
-                href='/khach-hang/don-hang'
-                className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
-                Tình trạng đơn hàng
-              </a>
-            </li>
-          <li>
-            <p
-              className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
+            <p className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
               Xin chào {userName}
             </p>
           </li>
           <li>
-            <a href="/" onClick={()=>{localStorage.removeItem('token')}}
+            <a
+              href='/'
+              onClick={() => {
+                localStorage.removeItem('token');
+              }}
               className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
               Đăng xuất
             </a>
