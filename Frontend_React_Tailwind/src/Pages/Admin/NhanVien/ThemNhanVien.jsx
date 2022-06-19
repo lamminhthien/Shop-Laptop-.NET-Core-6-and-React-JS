@@ -14,16 +14,16 @@ export default function ThemNhanVien() {
   });
 
   const onSubmit = data => {
-    if (data.password !== data.retype_password)
-    alert("Mật khẩu nhập lại không khớp")
-    alert(JSON.stringify(data));
-    // NhanVienApi.themnhanVien(data)
-    //   .then(res => {
-    //     window.location.href = '/admin/list-nhan-vien/1';
-    //   })
-    //   .catch(err => {
-    //     alert('Đăng ký tài khoản thất bại');
-    //   });
+    if (data.password !== data.retype_password) alert('Mật khẩu nhập lại không khớp');
+    else {
+      NhanVienApi.themnhanVien(data)
+        .then(res => {
+          window.location.href = '/admin/list-nhan-vien/1';
+        })
+        .catch(err => {
+          alert('Thêm nhân viên thất bại');
+        });
+    }
   };
 
   const inputStyle = `bg-gray-50 border border-gray-300
