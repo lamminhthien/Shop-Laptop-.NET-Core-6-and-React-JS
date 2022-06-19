@@ -105,6 +105,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     [HttpGet("ListDonHang")]
     public ActionResult<List<dynamic>> ListDonHang()
     {
+      var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
       // Nhóm các chi tiết hóa đơn trong cùng 1 đơn
       List<dynamic> groupDonHang = new List<dynamic>();
       var ListDonHang = (from a in _context.HoaDons select a).ToList();
@@ -112,20 +113,43 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       {
 
         var chiTietHoaDonList = (from a in _context.ChiTietHoaDons
-                             join b in _context.HoaDons
-          on a.MaHoaDon equals b.MaHoaDon
-                             where a.MaHoaDon == hd.MaHoaDon
-                             select a
-        ).ToList();
+                                 join b in _context.HoaDons
+                                 on a.MaHoaDon equals b.MaHoaDon
+                                 join c in _context.SanPhams
+                                 on a.MaSanPham equals c.MaSanPham
+                                 where a.MaHoaDon == hd.MaHoaDon
+                                 select new
+                                 {
+                                   maSanPham = a.MaSanPham,
+                                   tenSanPham = c.TenSanPham,
+                                   soLuong = a.SoLuong,
+                                   donGia = (from d in _context.BienDongGia
+                                             where d.MaSanPham == a.MaSanPham
+                                             orderby d.LanThayDoiGia ascending
+                                             select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                                   anhSanPham = (from e in _context.AnhSanPhams
+                                                 where e.MaSanPham == a.MaSanPham
+                                                 select imageURL + e.FileAnh.Trim()).First()
+                                 }).ToList();
+        double tongTien = 0;
+        foreach (var itemInCTHD in chiTietHoaDonList)
+        {
+          var giaNiemYet = (from d in _context.BienDongGia
+                            where d.MaSanPham == itemInCTHD.maSanPham
+                            orderby d.LanThayDoiGia ascending
+                            select d.GiaNhap * (1 + d.ChietKhau)).Last();
+          tongTien = tongTien + (itemInCTHD.soLuong * giaNiemYet);
+        }
         groupDonHang.Add(new
         {
           soHoaDon = hd.MaHoaDon,
           tinhTrang = (hd.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" :
              (hd.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : "Đã giao thành công")),
+          tongTien = tongTien,
           chiTietHoaDonList = chiTietHoaDonList
         });
       }
-        return Ok(groupDonHang);
+      return Ok(groupDonHang);
     }
 
     private long tinhTienMoiSanPham(int idSanPham, int quantity)
