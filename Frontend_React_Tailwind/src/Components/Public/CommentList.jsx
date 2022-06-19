@@ -26,7 +26,7 @@ export default function CommentList() {
           <div className='justify-between'>
             <div className='flex justify-between space-y-5 mb-16'>
               <div className='title-left '>
-                <h1 className='text-3xl leading-6 font-semibold'>Our customer feedback </h1>
+                <h1 className='text-3xl leading-6 font-semibold'>Phản hồi của khách hàng</h1>
                 <p className='text-lg font-normal'>Don't take our word for it. Trust our customers</p>
               </div>
               <div className='title-right flex gap-3'>
