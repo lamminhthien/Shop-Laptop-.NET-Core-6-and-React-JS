@@ -130,7 +130,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
           .Where(o => o.MaHangSx == id).FirstOrDefaultAsync();
       if (hangSanXuatExist != null)
       {
-        var tenFileAnhCu = hangSanXuatExist.Logo;
+        var tenFileAnhCu = hangSanXuatExist.Logo.Trim();
         var ResourcesDir = Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images", "HangSanXuat");
         var fullPathAnhCu = Path.Combine(ResourcesDir, tenFileAnhCu);
         FileInfo file = new FileInfo(fullPathAnhCu);

@@ -45,7 +45,7 @@ export default function EditHangSanXuat() {
       HangSanXuatApi.editNameHangSanXuat(id, data.tenHangSx);
     }
     if (data.image !== undefined) {
-      HangSanXuatApi.editNameHangSanXuat(id, data.image[0]);
+      HangSanXuatApi.editImageHangSanXuat(id, data.image[0]);
     }
     
   };
