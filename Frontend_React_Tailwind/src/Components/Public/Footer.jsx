@@ -82,7 +82,7 @@ export default function Footer() {
           </div>
         </div>
         <div className='flex flex-col justify-between pt-5 pb-10 border-t border-deep-purple-accent-200 sm:flex-row'>
-          <p className='text-sm text-gray-600'>© Copyright 2022 All rights reserved.</p>
+          <p className='text-sm text-gray-600'>© Bản quyền website thuộc về Lâm Minh Thiện github.com/lamminhthien</p>
           <div className='flex items-center mt-4 space-x-4 sm:mt-0'>
             <a href='/' className='transition-colors duration-300 text-deep-purple-100 hover:text-teal-accent-400'>
               <svg viewBox='0 0 24 24' fill='currentColor' className='h-5'>
