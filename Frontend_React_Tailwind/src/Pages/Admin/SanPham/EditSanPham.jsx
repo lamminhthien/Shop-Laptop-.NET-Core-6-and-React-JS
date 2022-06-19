@@ -57,7 +57,7 @@ export default function EditSanPham() {
     // Đổi giá trị phần trăm chiết khấu sang số thực
     data.chietKhau = (data.chietKhau) / 100;
     // Test hiển thị thử JSON data
-    alert(JSON.stringify(data));
+    
     // Đưa dữ liệu từ form vô axios
     SanPhamApi.editSanPham(id,data)
       .then((res) => {

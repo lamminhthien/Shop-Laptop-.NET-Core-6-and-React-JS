@@ -36,7 +36,7 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
 
     const onSubmit = (data) => {
         if (imageFormData) {
-            alert(JSON.stringify(data));
+            
             var formData = new FormData();
             formData.append("link",data.link)
             formData.append("image",imageFormData)

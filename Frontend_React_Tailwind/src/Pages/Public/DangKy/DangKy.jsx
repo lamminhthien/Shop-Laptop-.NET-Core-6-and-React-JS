@@ -14,7 +14,7 @@ export default function DangKy() {
   });
 
   const onSubmit = data => {
-    alert(JSON.stringify(data));
+    
     data.gioiTinh = parseInt(data.gioiTinh);
     DangKyTaiKhoan.dangKyTaiKhoan(data).then((res)=> {
       window.location.href = '/public/dang-nhap';

@@ -55,7 +55,7 @@ export default function EditLoaiSanPham() {
             imageFormData.append("image",data.image[0])
             LoaiSanPhamApi.suaAnhLoaiSanPham(id,imageFormData)
         }
-        alert(JSON.stringify(data));
+        
     };
 
   if (statusCode === 403 ) {
@@ -80,12 +80,12 @@ export default function EditLoaiSanPham() {
                                 bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 "
                                     {...register("tenLoaiSp", {
                                         required: true,
-                                        minLength: 10,
+                                        minLength: 3,
                                         maxLength: 50
                                     })}
                                 />
                                 {errors?.tenLoaiSp?.type === "required" && <p className={errorStyle}>Tên sản phẩm bắt buộc nhập</p>}
-                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiểu 10 kí tự</p>}
+                                {errors?.tenLoaiSp?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm tối thiểu 3 kí tự</p>}
                                 {errors?.tenLoaiSp?.type === "maxLength" && <p className={errorStyle}>Tên sản phẩm tối đa 50 kí tự</p>}
                             </div>
                             <div className="mb-6">

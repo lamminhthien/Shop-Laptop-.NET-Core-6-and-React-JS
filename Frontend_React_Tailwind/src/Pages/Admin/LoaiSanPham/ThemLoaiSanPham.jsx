@@ -54,7 +54,7 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                 })
         }
         else {
-            alert("You don't upload picture !!!")
+            alert("Đây không phải là hình ảnh")
         }
     };
 

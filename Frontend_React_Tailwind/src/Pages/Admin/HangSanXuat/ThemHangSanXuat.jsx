@@ -36,25 +36,24 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
 
     const onSubmit = (data) => {
         if (imageFormData) {
-            alert(JSON.stringify(data));
             var formData = new FormData();
             formData.append("tenHangSX",data.tenHangSX)
             formData.append("image",imageFormData)
             // Đưa dữ liệu từ form vô axios
             HangSanXuatApi.themHangSanXuat(formData)
                 .then((res) => {
-                    alert("Submitloại hãng sản xuất qua api thành công")
-                    alert(res.data.split(":")[1])
+                    alert("Thêm hãng sản xuất thành công")
+                    window.location.href = "/admin/them-hang-san-xuat"
                     // Chỉ khi thêm hãng sản xuất, chi tiết hãng sản xuất, biến động giá thành công thì mới up ảnh lên database
                     // Upload ảnh cho mã hãng sản xuất mới tương ứng
                 })
                 .catch((err) => {
-                    alert("Submitloại hãng sản xuất qua api không thành công")
+                    alert("Thêm hãng sản xuất qua api không thành công")
                     if (err.includes("hãng sản xuất bị trùng")) alert("Tên hãng sản xuất bị trùng")
                 })
         }
         else {
-            alert("You don't upload picture !!!")
+            alert("Đây không phải là hình ảnh")
         }
     };
 
@@ -94,12 +93,12 @@ border-gray-200  p-2 sm:p-6  drop-shadow-2xl overscroll-contain`
                                 <input
                                     {...register("tenHangSX", {
                                         required: true,
-                                        minLength: 5,
+                                        minLength: 3,
                                         maxLength: 50
                                     })}
                                     className={inputStyle} />
                                 {errors?.tenHangSX?.type === "required" && <p className={errorStyle}>Tên hãng sản xuất bắt buộc nhập</p>}
-                                {errors?.tenHangSX?.type === "minLength" && <p className={errorStyle}>Tên hãng sản xuất tối thiếu 5 kí tự</p>}
+                                {errors?.tenHangSX?.type === "minLength" && <p className={errorStyle}>Tên hãng sản xuất tối thiếu 3 kí tự</p>}
                                 {errors?.tenHangSX?.type === "maxLength" && <p className={errorStyle}>Tên hãng sản xuất không được vượt quá 50 kí tự</p>}
                             </div>
                             <div className={divStyle}>

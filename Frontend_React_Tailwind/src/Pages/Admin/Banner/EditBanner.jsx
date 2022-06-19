@@ -47,7 +47,7 @@ export default function EditBanner() {
     if (data.image !== undefined) {
       BannerApi.editNameBanner(id, data.image[0]);
     }
-    alert(JSON.stringify(data));
+    
   };
 
 if (statusCode === 401) {
@@ -78,13 +78,13 @@ if (statusCode === 401) {
                                 bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 '
                   {...register('tenHangSx', {
                     required: true,
-                    minLength: 10,
+                    minLength: 3,
                     maxLength: 50
                   })}
                 />
                 {errors?.tenHangSx?.type === 'required' && <p className={errorStyle}>Tên sản phẩm bắt buộc nhập</p>}
                 {errors?.tenHangSx?.type === 'minLength' && (
-                  <p className={errorStyle}>Tên sản phẩm tối thiểu 10 kí tự</p>
+                  <p className={errorStyle}>Tên sản phẩm tối thiểu 3 kí tự</p>
                 )}
                 {errors?.tenHangSx?.type === 'maxLength' && <p className={errorStyle}>Tên sản phẩm tối đa 50 kí tự</p>}
               </div>
