@@ -24,7 +24,7 @@ if (state.done)
   
     <div>
         <h1 className="text-center text-fuchsia-500 text-3xl font-semibold mt-5 mb-5">Danh mục sản phẩm</h1>
-      <div class="flex flex-wrap place-content-center overflow-hidden">
+      <div class="flex flex-wrap place-content-center gap-4 overflow-hidden">
       
          {state.data !== null ? state.data.map((item) =>
           <a href={`?category=${item.maLoaiSanPham}`}>
