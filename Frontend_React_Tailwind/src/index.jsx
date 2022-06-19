@@ -25,6 +25,7 @@ import  GioHang from './Pages/Customer/GioHang'
 import ThemBanner from './Pages/Admin/Banner/ThemBanner';
 import ListBanner from './Pages/Admin/Banner/ListBanner';
 import TinhTrangDonHang from './Pages/Customer/TinhTrangDonHang';
+import ListDonHang from './Pages/Admin/DonHang/ListDonHang';
 
 // https://v5.reactrouter.com/web/example/basic React Router Example
 reactDom.render(
@@ -73,6 +74,8 @@ reactDom.render(
       {/* Admin quản lý banner quảng cáo */}
       <Route exact path='/admin/list-banner' children={<ListBanner/>}/>
       <Route exact path='/admin/them-banner' children={<ThemBanner/>}/>
+      {/* Admin Quản lý đơn hàng */}
+      <Route exact path="/admin/list-hoa-don/" children={<ListDonHang/>}/>
 
       {/* Public */}
       <Route exact path='/public/trang-chu' children={<HomePage />} />
