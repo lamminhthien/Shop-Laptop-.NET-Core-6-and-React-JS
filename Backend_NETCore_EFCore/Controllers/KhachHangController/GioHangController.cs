@@ -57,8 +57,8 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
         if (soLuong > 4)
           return BadRequest("Bạn chỉ được phép đặt tối đa với số lượng là 4");
         var sanPhamExistedOnCart = (from a in _context.GioHangs
-                                    where (a.MaKhachHang == maKhachHang) &&
-                                    (a.MaSanPham == maSanPham)
+                                    where (a.MaKhachHang == maKhachHang &&
+                                    a.MaSanPham == maSanPham)
                                     select a).FirstOrDefault();
         if (sanPhamExistedOnCart != null)
         {
@@ -138,10 +138,9 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
                              where a.Username == userName
                              select a.MaKhachHang).FirstOrDefault();
           var sanPhamToDelete = (from a in _context.GioHangs
-                                 where (a.MaSanPham == id)
-                                 where (a.MaKhachHang == maKhachHang)
+                                 where (a.MaSanPham == id && a.MaKhachHang == maKhachHang)
                                  select a
-          ).First();
+          ).FirstOrDefault();
           if (sanPhamToDelete != null)
           {
             _context.GioHangs.Remove(sanPhamToDelete);
@@ -179,7 +178,7 @@ namespace ShopLaptop_EFCore.Controllers.KhachHangController
           ).FirstOrDefault();
           if (maKhachHang == 0) return BadRequest("Phiên đăng nhập của quý khách đã hết hạn");
           // Check sản phẩm trong giỏ hàng đó phải của khách hàng đang đăng nhập hay ko
-          var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang) && (a.MaSanPham == maSanPham) select a).FirstOrDefault();
+          var itemGioHangCheck = (from a in _context.GioHangs where (a.MaKhachHang == maKhachHang && a.MaSanPham == maSanPham) select a).FirstOrDefault();
           if (itemGioHangCheck == null) return BadRequest("Quý khách không có sản phẩm này trong giỏ hàng");
           // Lúc này cho cập nhật số lượng sản phẩm được nè
           else
