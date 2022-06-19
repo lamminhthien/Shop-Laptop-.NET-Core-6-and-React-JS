@@ -105,7 +105,27 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     [HttpGet("ListDonHang")]
     public ActionResult<List<dynamic>> ListDonHang()
     {
-      return Ok("Đang suy nghĩ");
+      // Nhóm các chi tiết hóa đơn trong cùng 1 đơn
+      List<dynamic> groupDonHang = new List<dynamic>();
+      var ListDonHang = (from a in _context.HoaDons select a).ToList();
+      foreach (var hd in ListDonHang)
+      {
+
+        var chiTietHoaDonList = (from a in _context.ChiTietHoaDons
+                             join b in _context.HoaDons
+          on a.MaHoaDon equals b.MaHoaDon
+                             where a.MaHoaDon == hd.MaHoaDon
+                             select a
+        ).ToList();
+        groupDonHang.Add(new
+        {
+          soHoaDon = hd.MaHoaDon,
+          tinhTrang = (hd.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" :
+             (hd.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : "Đã giao thành công")),
+          chiTietHoaDonList = chiTietHoaDonList
+        });
+      }
+        return Ok(groupDonHang);
     }
 
     private long tinhTienMoiSanPham(int idSanPham, int quantity)
