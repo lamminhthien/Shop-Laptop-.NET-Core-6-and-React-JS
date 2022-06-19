@@ -19,7 +19,7 @@ export default function ChiTietSanPham() {
   // Mảng chứa label của các property trong chi tiết sản phẩm
   const dataLabel = [
     "Mã sản phẩm", "Tên sản phẩm",
-    "Tên loại sản phẩm", "Hãng sản xuất",
+    "Tên loại sản phẩm", "Thương hiệu",
     "Trạng thái", "CPU", "Card đồ họa", "Độ phân giải",
     "Ổ cưng", "Hệ điều hành", "Kích thước", " Màn hình",
     "Trọng lượng", "RAM", "Mô tả thêm","Giá niêm yết"

@@ -1,15 +1,15 @@
 const axios = require('axios')
 const {base_url,backend_main_route,configJWT} = require('../config')
-//TODO URL chính cho hãng sản xuất
+//TODO URL chính cho Thương hiệu
 const mainURL= `${base_url}/${backend_main_route.hangSanXuatBaseURL}`
 class HangSanXuatApi {
 
-     // TODO Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
+     // TODO Lấy danh sách Thương hiệu và tổng số trang cần phân trang
      getListHangSanXuat (pageNumber)  {
         const chucNang = 'ListHangSanXuat'
         return axios.get(`${mainURL}/${chucNang}?page=${pageNumber}`,configJWT)
      }
-     // TODO Thêm hãng sản xuất
+     // TODO Thêm Thương hiệu
      themHangSanXuat (formData) {
          const chucNang = `ThemHangSanXuat`
         return axios.post(`${mainURL}/${chucNang}`,formData,configJWT)
@@ -20,7 +20,7 @@ class HangSanXuatApi {
         return axios.get(`${mainURL}/${chucNang}`,configJWT)
      }
 
-     // TODO Sữa tên hãng sản xuất
+     // TODO Sữa tên Thương hiệu
      editNameHangSanXuat (id,name) {
         const chucNang = `SuaTenHangSanXuat`
         const formData = new FormData()
@@ -28,7 +28,7 @@ class HangSanXuatApi {
         return axios.put(`${mainURL}/${chucNang}/${id}`,formData,configJWT)
      }
 
-     //TODO Sữa ảnh hãng sản xuất
+     //TODO Sữa ảnh Thương hiệu
      editImageHangSanXuat (id,image) {
         const chucNang = `SuaAnhHangSanXuat`
         const formData = new FormData()
@@ -36,7 +36,7 @@ class HangSanXuatApi {
         return axios.put(`${mainURL}/${chucNang}/${id}`,formData,configJWT)
      }
 
-     //TODO Lấy cụ thể hãng sản xuất
+     //TODO Lấy cụ thể Thương hiệu
      getSingleHangSanXuat (id) {
         const chucNang = `GetSingleHangSanXuat`
         return axios.get(`${mainURL}/${chucNang}/?id=${id}`,configJWT)

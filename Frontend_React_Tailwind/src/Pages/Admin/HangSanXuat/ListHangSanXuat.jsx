@@ -15,9 +15,9 @@ export default function ListHangSanXuat() {
 
   pageNumber == undefined ? (pageNumber = 1) : (pageNumber = pageNumber);
   // Table Headers
-  const tableHeaders = ['Mã hãng sản xuât', 'Tên hãng hãng sản xuất', 'Ảnh minh họa', 'Chức năng'];
+  const tableHeaders = ['Mã hãng sản xuât', 'Tên hãng Thương hiệu', 'Ảnh minh họa', 'Chức năng'];
 
-  // Khởi tạo danh sách hãng sản xuất
+  // Khởi tạo danh sách Thương hiệu
   const [listHangSanXuat, set_listHangSanXuat] = useState([]);
   // Khởi tạo tổng số trang để tạo menu phân trang
   const [numberOfPages, set_numberOfPages] = useState(0);
@@ -26,7 +26,7 @@ export default function ListHangSanXuat() {
 
   // Thực thi lúc bắt đầu trang web
   useEffect(() => {
-    // Lấy danh sách hãng sản xuất và tổng số trang cần phân trang
+    // Lấy danh sách Thương hiệu và tổng số trang cần phân trang
     HangSanXuatApi.getListHangSanXuat(pageNumber)
       .then(res => {
         set_listHangSanXuat(res.data.ketQua);
@@ -44,7 +44,7 @@ export default function ListHangSanXuat() {
   }
     return (
       <div className='flex'>
-        {/* Hiển thị danh sách hãng sản xuất lên */}
+        {/* Hiển thị danh sách Thương hiệu lên */}
         {listHangSanXuat.map(item => console.log(item.tenSanPham))}
         {/* Hiển thị cột sidebar */}
         <Sidebar />
@@ -52,11 +52,11 @@ export default function ListHangSanXuat() {
           <button
             type='button'
             class='hover:scale-125 ease-in-out duration-150 ease-in-out text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 '>
-            <a href='/admin/them-hang-san-xuat'>Thêm danh mục hãng sản xuất</a>
+            <a href='/admin/them-hang-san-xuat'>Thêm danh mục Thương hiệu</a>
           </button>
           <div class='flex items-center'>
             <h1 class='mb-3 inline-block text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight 00'>
-              Danh sách hãng sản xuất
+              Danh sách Thương hiệu
             </h1>
           </div>
           <div class='relative overflow-x-auto shadow-2xl rounded-2xl'>
@@ -84,7 +84,7 @@ export default function ListHangSanXuat() {
                 </tr>
               </thead>
               <tbody>
-                {/* Map từng dòng trong danh sách hãng sản xuất ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
+                {/* Map từng dòng trong danh sách Thương hiệu ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
                 {listHangSanXuat.map(item => (
                   <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
                     <td class='w-4 p-4'>
@@ -102,7 +102,7 @@ export default function ListHangSanXuat() {
                       </div>
                     </td>
                     <th scope='row' class='px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap'>
-                      {/* Riêng mã hãng sản xuất được in đậm in ra trước */}
+                      {/* Riêng mã Thương hiệu được in đậm in ra trước */}
                       {item.maHangSx}
                     </th>
                     <td className='px-6 py-4'>{item.tenHangSx}</td>

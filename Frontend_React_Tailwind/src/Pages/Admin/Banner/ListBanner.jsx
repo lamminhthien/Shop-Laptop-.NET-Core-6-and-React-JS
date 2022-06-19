@@ -67,7 +67,7 @@ export default function ListBanner() {
                 </tr>
               </thead>
               <tbody>
-                {/* Map từng dòng trong danh sách hãng sản xuất ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
+                {/* Map từng dòng trong danh sách Thương hiệu ra, chú ý còn map cái item trong từng dòng ở dưới nữa*/}
                 {listBanner.map(item => (
                   <tr class='bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
                     <td class='w-4 p-4'>

@@ -54,7 +54,7 @@ reactDom.render(
 
       <Route exact path='/admin/sua-danh-muc-san-pham/:id' children={<EditLoaiSanPham />} />
 
-      {/* Admin Quản lý hãng sản xuất */}
+      {/* Admin Quản lý Thương hiệu */}
 
       <Route exact path='/admin/list-hang-san-xuat/:pageNumber' children={<ListHangSanXuat />} />
 

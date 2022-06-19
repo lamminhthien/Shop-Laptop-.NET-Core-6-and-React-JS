@@ -23,7 +23,7 @@ const Sidebar = (props) => {
     { title: "Sản phẩm", icon: <FcMultipleDevices size={30} />, href: "/admin/san-pham/1" },
     { title: "Loại sản phẩm", icon: <FcOrgUnit size={30} />, href: "/admin/danh-muc-san-pham/1" },
     { title: "Đơn hàng ", icon: <FcPaid size={30} />, href: "/admin/list-hoa-don/" },
-    { title: "Hãng sản xuất", icon: <FcShop size={30} />, href: "/admin/list-hang-san-xuat/1" },
+    { title: "Thương hiệu", icon: <FcShop size={30} />, href: "/admin/list-hang-san-xuat/1" },
     { title: "Khách hàng", icon: <FcConferenceCall size={30} />, href: "/admin/list-khach-hang/1" },
     { title: "Biến động giá sản phẩm", icon: <FcCurrencyExchange size={30} />, href: "/admin/list-bien-dong-gia-ca/1" },
     { title: "Nhân viên !!", icon: <FcButtingIn size={30} />, href: "/admin/list-nhan-vien/1" },

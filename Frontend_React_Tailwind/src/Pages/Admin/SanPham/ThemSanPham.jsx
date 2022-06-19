@@ -9,7 +9,7 @@ import validateJWT from '../../../Api/validateJWT'
 import {configJWT} from '../../../Api/config.js'
 export default function ThemSanPham() {
    const [statusCode, setStatusCode] = useState('');
-  // Khởi tạo dữ liệu về hãng sản xuất và danh mục sản phẩm
+  // Khởi tạo dữ liệu về Thương hiệu và danh mục sản phẩm
   const [maHangSXOption, setmaHangSXOption] = useState([])
   const [maLoaiSpOption, setmaLoaiSpOpton] = useState([])
   // Khởi tạo dữ liệu hình ảnh preview và ảnh(form data) để upload lên server
@@ -205,9 +205,9 @@ export default function ThemSanPham() {
               {errors?.tenSanPham?.type === "minLength" && <p className={errorStyle}>Tên sản phẩm ít nhất phải 10 kí tự</p>}
             </div>
 
-            {/* Hãng sản xuất */}
+            {/* Thương hiệu */}
             <div className={divStyle}>
-              <label class={labelStyle}>Hãng sản xuất</label>
+              <label class={labelStyle}>Thương hiệu</label>
               {/* Đăng ký react hook form */}
               <select {...register("maHangSX", {
                 //Các ràng buộc validation
@@ -220,7 +220,7 @@ export default function ThemSanPham() {
                   <option value={item.maHangSx}>{item.tenHangSx}</option>
                 )}
               </select>
-              {errors?.maHangSX?.type === "required" && <p className={errorStyle}>Hãng sản xuất băt buộc chọn</p>}
+              {errors?.maHangSX?.type === "required" && <p className={errorStyle}>Thương hiệu băt buộc chọn</p>}
               {errors?.maHangSX?.type === "valueAsNumber" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code value khác kiểu số</p>}
               {errors?.maHangSX?.type === "min" && <p className={errorStyle}>Cảnh báo, bạn đang cố sữa code, min cannot below 0</p>}
             </div>
