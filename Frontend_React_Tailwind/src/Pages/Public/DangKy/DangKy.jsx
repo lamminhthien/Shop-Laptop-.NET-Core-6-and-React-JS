@@ -40,12 +40,12 @@ export default function DangKy() {
           className={inputStyle}
           {...register('hoTen', {
             required: true,
-            minLength: 10,
+            minLength: 5,
             maxLength: 50
           })}
         />
         {errors?.hoTen?.type === 'required' && <p className={errorStyle}>Tên khách hàng bắt buộc nhập</p>}
-        {errors?.hoTen?.type === 'minLength' && <p className={errorStyle}>Tên khách hàng tối thiểu 10 kí tự</p>}
+        {errors?.hoTen?.type === 'minLength' && <p className={errorStyle}>Tên khách hàng tối thiểu 5 kí tự</p>}
         {errors?.hoTen?.type === 'maxLength' && <p className={errorStyle}>Tên khách hàng tối đa 50 kí tự</p>}
         <br />
         <label className={labelStyle}>Dia Chi</label>

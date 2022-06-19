@@ -43,12 +43,12 @@ export default function ThemNhanVien() {
           className={inputStyle}
           {...register('tenNhanVien', {
             required: true,
-            minLength: 10,
+            minLength: 5,
             maxLength: 50
           })}
         />
         {errors?.tenNhanVien?.type === 'required' && <p className={errorStyle}>Tên khách hàng bắt buộc nhập</p>}
-        {errors?.tenNhanVien?.type === 'minLength' && <p className={errorStyle}>Tên khách hàng tối thiểu 10 kí tự</p>}
+        {errors?.tenNhanVien?.type === 'minLength' && <p className={errorStyle}>Tên khách hàng tối thiểu 5 kí tự</p>}
         {errors?.tenNhanVien?.type === 'maxLength' && <p className={errorStyle}>Tên khách hàng tối đa 50 kí tự</p>}
         <br />
         <label className={labelStyle}>So Dien Thoai</label>

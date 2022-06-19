@@ -64,7 +64,7 @@ export default function CommentForm(props) {
             <textarea
               {...register('noiDung', {
                 required: true,
-                minLength: 10,
+                minLength: 5,
                 maxLength: 255
               })}
               id='message'
@@ -72,7 +72,7 @@ export default function CommentForm(props) {
               class='block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='Để lại bình luận, ý kiến về sản phẩm này'></textarea>
             {errors?.noiDung?.type === 'required' && <p className={errorStyle}>Nội dung bắt buộc nhập</p>}
-            {errors?.noiDung?.type === 'minLength' && <p className={errorStyle}>Nội dung tối thiểu 10 kí tự</p>}
+            {errors?.noiDung?.type === 'minLength' && <p className={errorStyle}>Nội dung tối thiểu 5 kí tự</p>}
             {errors?.noiDung?.type === 'maxLength' && <p className={errorStyle}>Nội dung tối đa 255 kí tự</p>}
             <input
               type='submit'

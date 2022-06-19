@@ -103,7 +103,7 @@ export default function GioHang() {
               <div className='items-cart relative w-full lg:w-2/3  lg:p-6 bg-white space-y-10 '>
                 {/* title */}
                 <div className=' title'>
-                  <p className='text-3xl font-medium leading-6'>Shopping Cart</p>
+                  <p className='text-3xl font-medium leading-6'>Giỏ Hàng</p>
                 </div>
                 {/* list item */}
                 <div className='list_item'>
@@ -111,8 +111,8 @@ export default function GioHang() {
                     <div className='inner grid grid-cols-2 px-8 py-4'>
                       {/* left */}
                       <div className='flex justify-start items-center name-and-image-product  pl-6 gap-x-6'>
-                        <div className='w-[100px] '>
-                          <img src={item.anhSanPham} alt={item.tenSanPham} />
+                        <div className=' '>
+                          <img src={item.anhSanPham} alt={item.tenSanPham}  className="w-[100px] h-[100px] object-contain"/>
                         </div>
                         <div className='inner'>
                           {error[item.maSanPham] ? <h2 className='text-red-500'>This is error</h2> : ''}
@@ -163,12 +163,12 @@ export default function GioHang() {
               {/* Order Details */}
               <div className='order-details pl-8 p-6  bg-[#F0F6F5] w-full lg:w-1/3 text-center'>
                 <div className='title'>
-                  <p className='text-3xl font-medium leading-6 mb-12'>Order Details</p>
+                  <p className='text-3xl font-medium leading-6 mb-12'>Thông tin chung</p>
                   <div className='subtotal mb-6'>
-                    <h2 className='text-lg font-medium'>Subtotal</h2>
-                    <p className='text-3xl font-medium '>{tongTien}</p>
+                    <h2 className='text-lg font-medium'>Tổng tiền</h2>
+                    <p className='text-3xl font-medium '>{tongTien} VND</p>
                   </div>
-                  <div className='shipping-fee mb-6'>
+                  {/* <div className='shipping-fee mb-6'>
                     <h2 className='text-lg font-medium'>Shipping Fee</h2>
                     <p className='text-3xl font-medium '>
                       <select className='w-full  h-16 text-center text text-3xl font-medium bg-[#D0D7DA] border-t-2 border-0 border-[#D0D7DA]-500 rounded-lg '>
@@ -180,10 +180,8 @@ export default function GioHang() {
                         <option value='6'>Đắc Lắc</option>
                       </select>
                     </p>
-                  </div>
+                  </div> */}
                   <div className='total-cost mb-12'>
-                    <h2 className='text-lg font-medium my-2'>Total Cost</h2>
-                    <h2 className='text-3xl font-medium my-2'>$778.00</h2>
                     <button className='p-2 border-2  w-full bg-[#6E7EA3] text-white text-lg font-medium my-2 rounded-md' onClick={() => datHang() }>
                       Đặt hàng
                     </button>
