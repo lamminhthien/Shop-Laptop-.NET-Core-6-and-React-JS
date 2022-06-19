@@ -60,24 +60,24 @@ export default function ProductList() {
             {listProduct.data.ketqua.map(item => (
               <a
                 href={`public/san-pham/${item.maSanPham}`}
-                className='h-fit
-                    bg-white shadow-lg
-                    rounded-md border-black border-0 w-60 flex
-                    flex-wrap justify-center mx-4 my-4
+                className='mx-4 my-4 flex 
+                 w-60 flex-wrap justify-center
+                  rounded-md border-0 border-black 
+                  bg-white shadow-lg  transform transition-all 
+                  hover:-translate-y-2 duration-300 hover:shadow-2xl
                     '>
-                <div className='bg-center px-3 py-3'>
-                  <img src={item.anhSanPham} alt={item.tenSanPham} />
+                <div className='bg-center px-2 py-2'>
+                  <img src={item.anhSanPham} alt={item.tenSanPham} className='h-[200px] object-cover' />
                 </div>
                 <p
                   className='
-                    font-bold text-sm text-black w-full text-center my-3
+                  my-3 w-full text-center text-sm font-bold text-black
                   '>
                   {item.tenSanPham}
                 </p>
                 <div
                   className='
-                bg-orange-500 w-fit px-4 text-white
-                 border-orange-500 rounded-2xl py-3
+                  w-fit rounded-2xl border-orange-500 bg-orange-500 px-4 py-3 text-white
                 '>
                   {item.giaNiemYet}đ
                 </div>
