@@ -35,11 +35,16 @@ export default function ChiTietDonHang() {
         console.log('%cThis is a red text', 'color:red');
       });
   }, [donHangStatus]);
-  const renderData = (donHangStatus) => {
-    // if (donHangStatus == 'Đang chờ duyệt')
-    // return (<>ABCDEF</>)
-    // if (state == true) return <>{donHangStatus}</>
-    if (state === true) return <>{`This is ${donHangStatus}`}</>
+  
+  const updateTrangThaiDonHang = (statusDonHang) => {
+    axios
+      .post(`https://localhost:7216/api/QuanLyDonHang/CapNhatTrangThaiDon?maHoaDon=${id}&trangThaiDon=${statusDonHang}`,null,configJWT)
+      .then(res =>  {
+        alert(res.data)
+      })
+      .catch (err => {
+        alert(err.response.data)
+      })
   }
 
   listHoaDon.forEach(item => {
@@ -92,13 +97,12 @@ export default function ChiTietDonHang() {
                           </div>
                           { donHangStatus == "Đang chờ duyệt" ? 
                           <div className='mt-4 text-white flex justify-center space-x-5'>
-                             <button className='bg-red-500 text-lg font-medium border-2 rounded-2xl p-3'>Hủy đơn hàng</button>
-                             <button className='bg-emerald-500 text-lg font-medium border-2 rounded-2xl p-3'>Tiến hành giao hàng</button>
+                             <button className='bg-red-500 text-lg font-medium border-2 rounded-2xl p-3' onClick={() => {updateTrangThaiDonHang(-1)}}>Hủy đơn hàng</button>
+                             <button className='bg-emerald-500 text-lg font-medium border-2 rounded-2xl p-3' onClick={() => {updateTrangThaiDonHang(2)}}>Tiến hành giao hàng</button>
                           </div>
                           : "" }
                         </div>
                       </div>
-                    
                     </div>
                   </div>
                 </div>
