@@ -9,7 +9,7 @@ export default function ListDonHang() {
   const [listHoaDon, setListHoaDon] = useState([]);
   const [state, setState] = useState(false);
   const [error, setError] = useState([]);
-  const [hoaDonStatus,setHoaDonStatus] = useState(0)
+  const [hoaDonStatus, setHoaDonStatus] = useState(0);
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -39,45 +39,51 @@ export default function ListDonHang() {
                   <div className=' title'>
                     <p className='text-3xl font-medium leading-6 py-2'>Danh sách đơn hàng</p>
                     <div className='flex gap-x-3 filter-don-hang'>
-                    <button className='bg-red-500 border-2 rounded-xl p-1 text-white' onClick={() => setHoaDonStatus(-1)}>
-                      Bị Hủy
+                      <button
+                        className='bg-red-500 border-2 rounded-xl p-1 text-white'
+                        onClick={() => setHoaDonStatus(-1)}>
+                        Bị Hủy
                       </button>
-                      <button className='bg-red-400 border-2 rounded-xl p-1 text-white' onClick={() => setHoaDonStatus(0)}>
+                      <button
+                        className='bg-red-400 border-2 rounded-xl p-1 text-white'
+                        onClick={() => setHoaDonStatus(0)}>
                         Chưa duyệt
                       </button>
-                      <button className='bg-yellow-500 border-2 rounded-xl p-1 text-white' onClick={() => setHoaDonStatus(1)}>
-                            Đang vận chuyển
+                      <button
+                        className='bg-yellow-500 border-2 rounded-xl p-1 text-white'
+                        onClick={() => setHoaDonStatus(1)}>
+                        Đang vận chuyển
                       </button>
-                      <button className='bg-green-500 border-2 rounded-xl p-1 text-white' onClick={() => {setHoaDonStatus(2)}}>
-                          Hoàn thành
+                      <button
+                        className='bg-green-500 border-2 rounded-xl p-1 text-white'
+                        onClick={() => {
+                          setHoaDonStatus(2);
+                        }}>
+                        Hoàn thành
                       </button>
                     </div>
                   </div>
                   <div class='list_don_hang'>
                     {listHoaDon.map(item => (
-                      <div class='inner px-8 py-4'>
-                        <div class='don-hang space-y-10'>
-                          <div class='flex justify-between don-hang-1 bg-slate-100'>
-                            <div class='don-hang-info'>
-                              <h2 class='text-2xl'>
-                                Mã đơn hàng 16 - <b class='text-red-500'>{item.tinhTrang}</b>
+                      <div class='inner px-8 py-4  space-y-10'>
+                        <div class='don-hang'>
+                          <div class='don-hang-1 bg-slate-100'>
+                            <div class='grid grid-cols-2 don-hang-info'>
+                              <h2 class='text-2xl col-span-2'>
+                                Mã đơn hàng {item.maHoaDon} - <b class='text-red-500'>{item.tinhTrang}</b>
                               </h2>
                               <p class='text-lg font-bold'>Tên khách hàng: {item.hoTen}</p>
                               <p class='text-lg font-bold'>Thời gian : {item.thoiGian.slice(0, 10)}</p>
                               <p class='text-lg font-bold'>Số lượng sản phẩm: {item.soLuongSanPham}</p>
                               <p class='text-lg font-bold'>Tổng tiền: {item.tongTien}</p>
                             </div>
-                            <div className="button-function">
-                            <button className='bg-red-500 border-2 rounded-xl lg:text-2xl p-1 lg:p-3 text-white' onClick={() => setHoaDonStatus(-1)}>
-                                Hủy đơn
-                             </button>
-                             <button className='bg-teal-500 border-2 rounded-xl lg:text-2xl p-1 lg:p-3 text-white' onClick={() => setHoaDonStatus(-1)}>
-                                Bắt đầu giao hàng
-                             </button>
-                             <button className='bg-green-500 border-2 rounded-xl lg:text-2xl p-1 lg:p-3 text-white' onClick={() => setHoaDonStatus(-1)}>
-                                Giao hàng hoàn tất
-                             </button>
-                            </div>
+                          </div>
+                          <div className='button-view-detail'>
+                            <a href={`/admin/chi-tiet-hoa-don/${item.maHoaDon}`}>
+                              <button className='bg-green-500 border-2 rounded-xl p-1 text-white'>
+                                Xem chi tiết đơn hàng
+                              </button>
+                            </a>
                           </div>
                         </div>
                       </div>
