@@ -1,9 +1,31 @@
 import React from 'react';
 import Sidebar from '../../../Components/Admin/Sidebar';
-import {FcExpand} from 'react-icons/fc'
-import { useState } from 'react';
+import {FcExpand} from 'react-icons/fc';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+import {confirmAlert} from 'react-confirm-alert';
 
 export default function ListDonHang() {
+  const [listHoaDon, setListHoaDon] = useState([]);
+  const [state, setState] = useState(false);
+  const [error, setError] = useState([]);
+  const configJWT = {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  };
+  useEffect(() => {
+    axios
+      .get(`https://localhost:7216/api/QuanLyDonHang/ListDonHang`, configJWT)
+      .then(res => {
+        console.log('%cThis is a green text', 'color:green');
+        setListHoaDon(res.data);
+        setState(true);
+      })
+      .catch(err => {
+        console.log('%cThis is a red text', 'color:red');
+      });
+  }, []);
   return (
     <div>
       <div className='flex'>
@@ -25,7 +47,7 @@ export default function ListDonHang() {
                           </h2>
                           <p className='text-lg font-bold'>Tổng tiền: 36059700</p>
                           <button onClick={() => console.log('nothing')}>
-                            <FcExpand size={30}/>
+                            <FcExpand size={30} />
                           </button>
                         </div>
                         <div className='list_item_in_don_hang hidden space-y-4 pl-10 border-4 border-b-emerald-400 border-t-emerald-400'>
