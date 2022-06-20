@@ -80,29 +80,29 @@ export default function ProductDetail() {
                 </div>
               </div>
               <div className='lg:basis-2/4 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0'>
-                <h2 className='text-sm title-font text-gray-500 tracking-widest'>{state.data.hangSanXuat}</h2>
-                <h1 className='text-gray-900 text-3xl title-font font-medium mb-1'>{state.data.tenSanPham}</h1>
+                <h2 className='title-font text-sm tracking-widest text-gray-500 font-bold italic'>{state.data.hangSanXuat}</h2>
+                <h1 className='title-font mb-1 text-3xl font-medium text-gray-900'>{state.data.tenSanPham}</h1>
                 <div className='flex mb-4'>
                   <span className='flex items-center'>
-                    <span className='text-indigo-500 ml-3'>{state.data.loaiSanPham}</span>
+                    <span className='ml-3 text-indigo-500 font-bold'>{state.data.loaiSanPham}</span>
                   </span>
                 </div>
-                <div className='leading-relaxed'>
-                  <ul class='list-disc list-inside text-slate-900 dark:text-slate-200'>
-                    <li>CPU: {state.data.cpu}</li>
-                    <li>Card đồ họa: {state.data.cardDoHoa}</li>
-                    <li>Độ phân giải: {state.data.doPhanGiai}</li>
-                    <li>Ổ cứng: {state.data.oCung}</li>
-                    <li>Hệ điều hành: {state.data.heDieuHanh}</li>
-                    <li>Kích Thước: {state.data.kichThuoc}</li>
-                    <li>Màn hình: {state.data.manHinh}</li>
-                    <li>Trọng lượng: {state.data.trongLuong}</li>
-                    <li>RAM: {state.data.ram}</li>
-                    <li>Mô tả thêm: {state.data.moTaThem}</li>
+                <div className='leading-relaxed px-3 border-x-2 border-y-4'>
+                  <ul class='list-inside  text-slate-900 divide-y-8'>
+                    <li className='p-3'>CPU: {state.data.cpu}</li>
+                    <li className='p-3'>Card đồ họa: {state.data.cardDoHoa}</li>
+                    <li className='p-3'>Độ phân giải: {state.data.doPhanGiai}</li>
+                    <li className='p-3'>Ổ cứng: {state.data.oCung}</li>
+                    <li className='p-3'>Hệ điều hành: {state.data.heDieuHanh}</li>
+                    <li className='p-3'>Kích Thước: {state.data.kichThuoc}</li>
+                    <li className='p-3'>Màn hình: {state.data.manHinh}</li>
+                    <li className='p-3'>Trọng lượng: {state.data.trongLuong}</li>
+                    <li className='p-3'>RAM: {state.data.ram}</li>
+                    <li className='p-3'>Mô tả thêm: {state.data.moTaThem}</li>
                   </ul>
                 </div>
-                <div className='flex'>
-                  <span className='title-font font-medium text-2xl text-gray-900'>
+                <div className='flex justify-center mt-3'>
+                  <span className='title-font text-red-500 font-semibold text-2xl'>
                     Giá: {state.data.giaNiemYet} VND
                   </span>
                   {isAdmin ? (
