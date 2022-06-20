@@ -10,6 +10,7 @@ export default function ChiTietDonHang() {
   let {id} = useParams();
   const [listHoaDon, setListHoaDon] = useState([]);
   const [state, setState] = useState(false);
+  var tongTien = 0;
   // Response status code
   const [statusCode, setStatusCode] = useState('');
   const configJWT = {
@@ -31,6 +32,9 @@ export default function ChiTietDonHang() {
         console.log('%cThis is a red text', 'color:red');
       });
   }, []);
+  listHoaDon.forEach(item => {
+    tongTien = tongTien + item.soLuong * item.donGia;
+  });
   if (statusCode === 401) {
     return <LoginCreateJWT />;
   }
@@ -58,21 +62,21 @@ export default function ChiTietDonHang() {
                         <div class='don-hang-1 bg-slate-100'>
                           <div class='flex justify-between'>
                             <h2 class='text-2xl'>
-                              Mã đơn hàng 16 - <b class='text-red-500'>Đang chờ duyệt</b>
+                              Mã đơn hàng {id} - <b class='text-red-500'>Đang chờ duyệt</b>
                             </h2>
-                            <p class='text-lg font-bold'>Tổng tiền: 36059700</p>
+                            <p class='text-lg font-bold'>Tổng tiền: {tongTien}</p>
                           </div>
                           <div class='list_item_in_don_hang space-y-4 border-4 border-b-emerald-400 border-t-emerald-400 pl-10'>
                             {listHoaDon.map(item => (
                               <div class='item flex justify-between space-x-9 text-xl'>
                                 <img
                                   class='h-[200px] self-center'
-                                  src='https://localhost:7216/Resources/Images/SanPham/SP81-1.jpeg'
-                                  alt='Laptop HP 240 G8'
+                                  src={item.anhSanPham}
+                                  alt={item.tenSanPham}
                                 />
-                                <h2 class='self-center text-gray-700'>Laptop HP 240 G8</h2>
-                                <p class='self-center font-bold text-red-500'>Số lượng: 1</p>
-                                <p class='self-center'>Đơn giá: 15750900.000000002</p>
+                                <h2 class='self-center text-gray-700'>{item.tenSanPham}</h2>
+                                <p class='self-center font-bold text-red-500'>Số lượng: {item.soLuong}</p>
+                                <p class='self-center'>Đơn giá: {item.donGia}</p>
                               </div>
                             ))}
                           </div>
