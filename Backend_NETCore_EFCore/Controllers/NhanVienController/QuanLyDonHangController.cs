@@ -144,8 +144,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                                  where e.MaSanPham == a.MaSanPham
                                                  select imageURL + e.FileAnh.Trim()).First()
                                  }).ToList();
+      var trangThaiDon = (from a in _context.HoaDons where a.MaHoaDon == maHoaDon select new {
+        trangThai = (a.TinhTrangGiaoHang == -1 ? "Bị hủy" : a.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" : "Giao hàng thành công" )
+      }).FirstOrDefault();
+        
       if (chiTietHoaDon.Count()==0) return BadRequest("Đơn hàng này không tồn tại");
-      return Ok(chiTietHoaDon);
+      return Ok(new {
+        trangThaiDon = trangThaiDon,
+        chiTietHoaDon = chiTietHoaDon
+      });
     }
 
     private long tinhTienMoiSanPham(int idSanPham, int quantity)

@@ -10,6 +10,7 @@ export default function ChiTietDonHang() {
   let {id} = useParams();
   const [listHoaDon, setListHoaDon] = useState([]);
   const [state, setState] = useState(false);
+  const [donHangStatus, setDonHangStatus] = useState(false);
   var tongTien = 0;
   // Response status code
   const [statusCode, setStatusCode] = useState('');
@@ -23,8 +24,9 @@ export default function ChiTietDonHang() {
       .get(`https://localhost:7216/api/QuanLyDonHang/ChiTietDonHang/${id}`, configJWT)
       .then(res => {
         console.log('%cThis is a green text', 'color:green');
-        setListHoaDon(res.data);
+        setListHoaDon(res.data.chiTietHoaDon);
         setState(true);
+        setDonHangStatus(res.data.trangThaiDon.trangThai)
       })
       .catch(err => {
         setState(false);
@@ -32,6 +34,7 @@ export default function ChiTietDonHang() {
         console.log('%cThis is a red text', 'color:red');
       });
   }, []);
+
   listHoaDon.forEach(item => {
     tongTien = tongTien + item.soLuong * item.donGia;
   });
@@ -62,7 +65,7 @@ export default function ChiTietDonHang() {
                         <div class='don-hang-1 bg-slate-100'>
                           <div class='flex justify-between'>
                             <h2 class='text-2xl'>
-                              Mã đơn hàng {id} - <b class='text-red-500'>Đang chờ duyệt</b>
+                              Mã đơn hàng {id} - <b class='text-red-500'>{donHangStatus}</b>
                             </h2>
                             <p class='text-lg font-bold'>Tổng tiền: {Math.round(tongTien)}</p>
                           </div>
@@ -82,8 +85,7 @@ export default function ChiTietDonHang() {
                           </div>
                         </div>
                       </div>
-                      <button className='text-white bg-green-500 rounded-2xl p-3 m-3'>Tiến hành giao hàng</button>
-                      <button className='text-white bg-red-500 rounded-2xl p-3 m-3'>Hủy đơn hàng</button>
+                    
                     </div>
                   </div>
                 </div>
