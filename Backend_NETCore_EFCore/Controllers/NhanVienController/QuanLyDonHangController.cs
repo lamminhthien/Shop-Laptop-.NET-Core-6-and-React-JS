@@ -144,7 +144,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                                  where e.MaSanPham == a.MaSanPham
                                                  select imageURL + e.FileAnh.Trim()).First()
                                  }).ToList();
-      if (chiTietHoaDon == null) return BadRequest("Đơn hàng này không tồn tại");
+      if (chiTietHoaDon.Count()==0) return BadRequest("Đơn hàng này không tồn tại");
       return Ok(chiTietHoaDon);
     }
 

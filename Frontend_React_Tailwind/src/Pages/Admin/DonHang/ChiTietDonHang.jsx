@@ -26,6 +26,7 @@ export default function ChiTietDonHang() {
         setState(true);
       })
       .catch(err => {
+        setState(false);
         setStatusCode(err.response.status);
         console.log('%cThis is a red text', 'color:red');
       });
@@ -62,36 +63,18 @@ export default function ChiTietDonHang() {
                             <p class='text-lg font-bold'>Tổng tiền: 36059700</p>
                           </div>
                           <div class='list_item_in_don_hang space-y-4 border-4 border-b-emerald-400 border-t-emerald-400 pl-10'>
-                            <div class='item flex justify-between space-x-9 text-xl'>
-                              <img
-                                class='h-[200px] self-center'
-                                src='https://localhost:7216/Resources/Images/SanPham/SP81-1.jpeg'
-                                alt='Laptop HP 240 G8'
-                              />
-                              <h2 class='self-center text-gray-700'>Laptop HP 240 G8</h2>
-                              <p class='self-center font-bold text-red-500'>Số lượng: 1</p>
-                              <p class='self-center'>Đơn giá: 15750900.000000002</p>
-                            </div>
-                            <div class='item flex justify-between space-x-9 text-xl'>
-                              <img
-                                class='h-[200px] self-center'
-                                src='https://localhost:7216/Resources/Images/SanPham/SP82-1.jpeg'
-                                alt='USB 3.0 Sandisk'
-                              />
-                              <h2 class='self-center text-gray-700'>USB 3.0 Sandisk</h2>
-                              <p class='self-center font-bold text-red-500'>Số lượng: 2</p>
-                              <p class='self-center'>Đơn giá: 259899.99999999997</p>
-                            </div>
-                            <div class='item flex justify-between space-x-9 text-xl'>
-                              <img
-                                class='h-[200px] self-center'
-                                src='https://localhost:7216/Resources/Images/SanPham/SP78-1.jpeg'
-                                alt='Laptop Lenovo IdeaPad Slim 5 15ITL05'
-                              />
-                              <h2 class='self-center text-gray-700'>Laptop Lenovo IdeaPad Slim 5 15ITL05</h2>
-                              <p class='self-center font-bold text-red-500'>Số lượng: 1</p>
-                              <p class='self-center'>Đơn giá: 19789000</p>
-                            </div>
+                            {listHoaDon.map(item => (
+                              <div class='item flex justify-between space-x-9 text-xl'>
+                                <img
+                                  class='h-[200px] self-center'
+                                  src='https://localhost:7216/Resources/Images/SanPham/SP81-1.jpeg'
+                                  alt='Laptop HP 240 G8'
+                                />
+                                <h2 class='self-center text-gray-700'>Laptop HP 240 G8</h2>
+                                <p class='self-center font-bold text-red-500'>Số lượng: 1</p>
+                                <p class='self-center'>Đơn giá: 15750900.000000002</p>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
@@ -107,11 +90,17 @@ export default function ChiTietDonHang() {
   }
   if (state === false) {
     return (
-      <div>
-        <div className='flex'>
-          <Sidebar />
-          <div className='h-screen flex-1 p-7'>
-            <h2 className='text-red-500 font-semibold leading-7'>Hóa đơn bạn đang truy cập không tồn tại</h2>
+      <div className='flex'>
+        <Sidebar />
+        <div className='h-screen flex-1 p-7'>
+          <div class='container mx-auto rounded-lg border-2 border-white bg-[#E2EEEC] lg:p-9'>
+            <div class='inner rounded-lg border-2 border-white'>
+              <div class='items-cart relative w-full space-y-10 bg-white lg:p-6'>
+                <div class='title'>
+                  <p class='text-3xl text-red-500 font-medium leading-6'>Đơn hàng này không tồn tại</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
