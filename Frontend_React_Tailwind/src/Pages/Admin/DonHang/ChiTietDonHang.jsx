@@ -91,7 +91,12 @@ export default function ChiTietDonHang() {
                               
                             ))}
                           </div>
-                          { donHangStatus == "Đang chờ duyệt" ? "ABC" : "No way" }
+                          { donHangStatus == "Đang chờ duyệt" ? 
+                          <div className='mt-4 text-white flex justify-center space-x-5'>
+                             <button className='bg-red-500 text-lg font-medium border-2 rounded-2xl p-3'>Hủy đơn hàng</button>
+                             <button className='bg-emerald-500 text-lg font-medium border-2 rounded-2xl p-3'>Tiến hành giao hàng</button>
+                          </div>
+                          : "" }
                         </div>
                       </div>
                     
