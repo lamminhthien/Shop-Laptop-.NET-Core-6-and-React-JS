@@ -72,7 +72,7 @@ export default function ChiTietDonHang() {
                         <div class='don-hang-1 bg-slate-100'>
                           <div class='flex justify-between'>
                             <h2 class='text-2xl'>
-                              Mã đơn hàng {id} - <b class='text-red-500'>{donHangStatus}</b>
+                              Mã đơn hàng {id} - <b class={donHangStatus == "Giao hàng thành công" ? "text-emerald-500" : donHangStatus == "Đang chờ duyệt" ? "text-amber-500" : "text-red-500"}>{donHangStatus}</b>
                             </h2>
                             <p class='text-lg font-bold'>Tổng tiền: {Math.round(tongTien)}</p>
                           </div>
@@ -88,7 +88,6 @@ export default function ChiTietDonHang() {
                                 <p class='self-center font-bold text-red-500'>Số lượng: {item.soLuong}</p>
                                 <p class='self-center'>Đơn giá: {Math.round(Math.round(item.donGia))}</p>
                               </div>
-                              
                             ))}
                           </div>
                           { donHangStatus == "Đang chờ duyệt" ? 
