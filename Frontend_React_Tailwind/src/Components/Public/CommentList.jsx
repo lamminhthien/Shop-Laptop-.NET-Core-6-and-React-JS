@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 export default function CommentList() {
   const [listBinhLuan, setListBinhLuan] = useState([]);
   const [state, setState] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  let { id } = useParams();
+  let {id} = useParams();
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -24,13 +24,14 @@ export default function CommentList() {
         console.log('%cThis is a red text', 'color:red');
       });
 
-      axios.get(`https://localhost:7216/api/LoginNhanVien/validateToken`,configJWT)
-        .then(res => {
-          setIsAdmin(true)
-        })
-        .catch(err => {
-          setIsAdmin(false)
-        })
+    axios
+      .get(`https://localhost:7216/api/LoginNhanVien/validateToken`, configJWT)
+      .then(res => {
+        setIsAdmin(true);
+      })
+      .catch(err => {
+        setIsAdmin(false);
+      });
   }, [isAdmin]);
   const renderData = () => {
     console.log(listBinhLuan);
@@ -66,11 +67,20 @@ export default function CommentList() {
                     <h2 className='text-2xl font-bold'>{item.tenKhachHang}</h2>
                   </div>
                   <div className='content break-all'>{item.noiDung}</div>
-                  {isAdmin ? <button className='text-white px-5 bg-blue-500 rounded-2xl' onClick={(e) => {
-                    console.log("This is log for event handleing")
-                    console.log(e.target);
-                      e.target.innerText = "Đổi text"
-                    }}>Phản hồi</button> : ""}
+                  {isAdmin ? (
+                    <button
+                      className='text-white px-5 bg-blue-500 rounded-2xl'
+                      onClick={e => {
+                        const scriptHTML = '<p class="text-red-500">Hello event target</p>';
+                        console.log('This is log for event handleing');
+                        console.log(e.target);
+                        e.target.innerHTML = scriptHTML
+                      }}>
+                      Phản hồi
+                    </button>
+                  ) : (
+                    ''
+                  )}
                 </div>
               ))}
             </div>
