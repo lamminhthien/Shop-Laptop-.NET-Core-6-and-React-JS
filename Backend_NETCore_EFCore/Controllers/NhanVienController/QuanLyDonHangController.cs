@@ -105,7 +105,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     [HttpGet("ListDonHang")]
     public ActionResult<List<dynamic>> ListDonHang()
     {
-      var ListDonHang = (from a in _context.HoaDons select a).ToList();
+      var ListDonHang = (from a in _context.HoaDons
+                         select new
+                         {
+                           maHoaDon = a.MaHoaDon,
+                           tinhTrang = (a.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" :
+             (a.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : "Đã giao thành công")),
+                          thoiGian = a.NgayChotDon,
+                          soLuongSanPham = (from aa in _context.ChiTietHoaDons where aa.MaHoaDon == a.MaHoaDon select a).Count(),
+                          tongTien = a.TongTien
+                         }).ToList();
       if (ListDonHang == null) return BadRequest("Chưa có đơn hàng nào");
       return Ok(ListDonHang);
     }

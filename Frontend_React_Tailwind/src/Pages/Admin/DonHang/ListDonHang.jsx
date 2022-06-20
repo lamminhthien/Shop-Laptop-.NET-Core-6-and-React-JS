@@ -45,12 +45,12 @@ export default function ListDonHang() {
                         <div class='don-hang-1 bg-slate-100'>
                           <div class=''>
                             <h2 class='text-2xl'>
-                              Mã đơn hàng 16 - <b class='text-red-500'>Đang chờ duyệt</b>
+                              Mã đơn hàng 16 - <b class='text-red-500'>{item.tinhTrang}</b>
                             </h2>
                             <p class='text-lg font-bold'>Tên khách hàng: Lâm Minh Thiện</p>
-                            <p class='text-lg font-bold'>Thời gian : 21/3/2022</p>
-                            <p class='text-lg font-bold'>Số lượng sản phẩm: 10</p>
-                            <p class='text-lg font-bold'>Tổng tiền: 36059700</p>
+                            <p class='text-lg font-bold'>Thời gian : {item.thoiGian.slice(0,10)}</p>
+                            <p class='text-lg font-bold'>Số lượng sản phẩm: {item.soLuongSanPham}</p>
+                            <p class='text-lg font-bold'>Tổng tiền: {item.tongTien}</p>
                           </div>
                         </div>
                       </div>
