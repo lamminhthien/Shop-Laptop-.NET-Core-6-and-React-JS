@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function Navbar() {
   const [isCustomer, setisCustomer] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isLogin,setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [userName, setUserName] = useState('');
   const {register} = useForm();
   const configJWT = {
@@ -18,13 +18,13 @@ export default function Navbar() {
       .then(res => {
         setUserName(res.data);
         setisCustomer(true);
-        setIsLogin(true)
+        setIsLogin(true);
       })
       .catch(err => {
         axios.get('https://localhost:7216/api/LoginNhanVien/validateToken', configJWT).then(res => {
           setUserName(res.data);
           setIsAdmin(true);
-          setIsLogin(true)
+          setIsLogin(true);
         });
       });
   }, []);
@@ -68,12 +68,20 @@ export default function Navbar() {
                 </a>
               </li>
             </>
+          ) : {isAdmin} ? (
+            <li>
+              <a
+                href='/admin'
+                className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
+                Trang quản lý
+              </a>
+            </li>
           ) : (
             ''
           )}
           <li>
             <p className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
-              Xin chào {userName}
+              Xin chào {isAdmin ? `${userName}` : `${userName} (Nhân viên)`} 
             </p>
           </li>
           <li>
@@ -122,7 +130,7 @@ export default function Navbar() {
           <ul className='flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-3 md:text-sm md:font-medium'>
             <li>
               <a
-                href='#'
+                href='/'
                 className='block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white'
                 aria-current='page'>
                 Trang chủ
@@ -130,7 +138,7 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href='#'
+                href='/'
                 className='block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 '>
                 Giới thiệu{' '}
               </a>

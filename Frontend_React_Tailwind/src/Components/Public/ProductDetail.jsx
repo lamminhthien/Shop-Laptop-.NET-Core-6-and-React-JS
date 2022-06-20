@@ -48,7 +48,8 @@ export default function ProductDetail() {
         alert('Đã thêm vào giỏ hàng thành công');
       })
       .catch(err => {
-        alert('Sản phẩm này đã tồn tại trong giỏ hàng');
+        if (err.response.data.includes("DbUpdateConcurrencyException")) alert("Sản phẩm này đã tồn tại trong giỏ hàng");
+        else alert(err.response.data)
       });
   };
 
