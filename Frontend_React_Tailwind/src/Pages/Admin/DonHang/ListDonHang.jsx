@@ -17,7 +17,7 @@ export default function ListDonHang() {
   };
   useEffect(() => {
     axios
-      .get(`https://localhost:7216/api/QuanLyDonHang/ListDonHang?status${hoaDonStatus}`, configJWT)
+      .get(`https://localhost:7216/api/QuanLyDonHang/ListDonHang?status=${hoaDonStatus}`, configJWT)
       .then(res => {
         console.log('%cThis is a green text', 'color:green');
         setListHoaDon(res.data);
