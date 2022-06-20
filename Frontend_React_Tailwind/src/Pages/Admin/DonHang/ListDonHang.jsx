@@ -9,7 +9,7 @@ export default function ListDonHang() {
   const [listHoaDon, setListHoaDon] = useState([]);
   const [state, setState] = useState(false);
   const [error, setError] = useState([]);
-  const defaultURL = '/admin/list-hoa-don';
+  const [hoaDonStatus,setHoaDonStatus] = useState(0)
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -17,7 +17,7 @@ export default function ListDonHang() {
   };
   useEffect(() => {
     axios
-      .get(`https://localhost:7216/api/QuanLyDonHang/ListDonHang`, configJWT)
+      .get(`https://localhost:7216/api/QuanLyDonHang/ListDonHang?status${hoaDonStatus}`, configJWT)
       .then(res => {
         console.log('%cThis is a green text', 'color:green');
         setListHoaDon(res.data);
@@ -26,7 +26,7 @@ export default function ListDonHang() {
       .catch(err => {
         console.log('%cThis is a red text', 'color:red');
       });
-  }, []);
+  }, [hoaDonStatus]);
   if (state === true) {
     return (
       <div>
@@ -39,17 +39,17 @@ export default function ListDonHang() {
                   <div className=' title'>
                     <p className='text-3xl font-medium leading-6 py-2'>Danh sách đơn hàng</p>
                     <div className='flex gap-x-3 filter-don-hang'>
-                    <button className='bg-red-500 border-2 rounded-xl p-1 text-white'>
-                        <a href={`${defaultURL}?status=-1`}>Bị hủy</a>
+                    <button className='bg-red-500 border-2 rounded-xl p-1 text-white' onClick={() => setHoaDonStatus(-1)}>
+                      Bị Hủy
                       </button>
-                      <button className='bg-red-400 border-2 rounded-xl p-1 text-white'>
-                        <a href={`${defaultURL}?status=0`}>Chưa duyệt</a>
+                      <button className='bg-red-400 border-2 rounded-xl p-1 text-white' onClick={() => setHoaDonStatus(0)}>
+                        Chưa duyệt
                       </button>
-                      <button className='bg-yellow-500 border-2 rounded-xl p-1 text-white'>
-                      <a href={`${defaultURL}?status=1`}>Đang vận chuyển</a>
+                      <button className='bg-yellow-500 border-2 rounded-xl p-1 text-white' onClick={() => setHoaDonStatus(1)}>
+                            Đang vận chuyển
                       </button>
-                      <button className='bg-green-500 border-2 rounded-xl p-1 text-white'>
-                      <a href={`${defaultURL}?status=2`}>Hoàn thành</a>
+                      <button className='bg-green-500 border-2 rounded-xl p-1 text-white' onClick={() => {setHoaDonStatus(2)}}>
+                          Hoàn thành
                       </button>
                     </div>
                   </div>

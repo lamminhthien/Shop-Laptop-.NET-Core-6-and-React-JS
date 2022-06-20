@@ -103,9 +103,10 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     }
 
     [HttpGet("ListDonHang")]
-    public ActionResult<List<dynamic>> ListDonHang()
+    public ActionResult<List<dynamic>> ListDonHang(int status=0)
     {
       var ListDonHang = (from a in _context.HoaDons
+                          where a.TinhTrangGiaoHang == status
                          select new
                          {
                            maHoaDon = a.MaHoaDon,
