@@ -66,9 +66,8 @@ export default function CommentList() {
                     <h2 className='text-2xl font-bold'>{item.tenKhachHang}</h2>
                   </div>
                   <div className='content break-all'>{item.noiDung}</div>
-                  {isAdmin ? "Có admin ở đây" : ""}
+                  {isAdmin ? <button className='text-white px-5 bg-blue-500 rounded-2xl' onClick={() => alert("Admin đang phản hồi bạn")}>Phản hồi</button> : ""}
                 </div>
-                
               ))}
             </div>
           </div>
