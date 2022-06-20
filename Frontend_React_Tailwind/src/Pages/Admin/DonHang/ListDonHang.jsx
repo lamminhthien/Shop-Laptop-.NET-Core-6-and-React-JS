@@ -24,7 +24,7 @@ export default function ListDonHang() {
                             Mã đơn hàng 16 - <b className='text-red-500'>Đang chờ duyệt</b>
                           </h2>
                           <p className='text-lg font-bold'>Tổng tiền: 36059700</p>
-                          <button onClick={() => }>
+                          <button onClick={() => console.log('nothing')}>
                             <FcExpand size={30}/>
                           </button>
                         </div>
