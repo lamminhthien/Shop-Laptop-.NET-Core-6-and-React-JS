@@ -124,7 +124,26 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
     [HttpGet("ChiTietDonHang/{maHoaDon}")]
     public ActionResult<List<dynamic>> ChiTietDonHang(int maHoaDon)
     {
-      var chiTietHoaDon = (from a in _context.HoaDons join b in _context.ChiTietHoaDons on a.MaHoaDon equals b.MaHoaDon select a).ToList();
+      var imageURL = Request.Scheme + "://" + Request.Host.Value + "/" + "Resources/Images/SanPham/";
+      var chiTietHoaDon = (from a in _context.ChiTietHoaDons
+                                 join b in _context.HoaDons
+                                 on a.MaHoaDon equals b.MaHoaDon
+                                 join c in _context.SanPhams
+                                 on a.MaSanPham equals c.MaSanPham
+                                 where a.MaHoaDon == maHoaDon
+                                 select new
+                                 {
+                                   maSanPham = a.MaSanPham,
+                                   tenSanPham = c.TenSanPham,
+                                   soLuong = a.SoLuong,
+                                   donGia = (from d in _context.BienDongGia
+                                             where d.MaSanPham == a.MaSanPham
+                                             orderby d.LanThayDoiGia ascending
+                                             select d.GiaNhap * (1 + d.ChietKhau)).Last(),
+                                   anhSanPham = (from e in _context.AnhSanPhams
+                                                 where e.MaSanPham == a.MaSanPham
+                                                 select imageURL + e.FileAnh.Trim()).First()
+                                 }).ToList();
       if (chiTietHoaDon == null) return BadRequest("Đơn hàng này không tồn tại");
       return Ok(chiTietHoaDon);
     }
