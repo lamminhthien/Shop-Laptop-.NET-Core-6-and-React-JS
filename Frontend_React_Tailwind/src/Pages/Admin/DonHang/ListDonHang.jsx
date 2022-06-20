@@ -36,7 +36,7 @@ export default function ListDonHang() {
               <div className='inner border-2 border-white rounded-lg'>
                 <div className='items-cart relative w-full   lg:p-6 bg-white space-y-10 '>
                   <div className=' title'>
-                    <p className='text-3xl font-medium leading-6'>Tình trạng đơn hàng</p>
+                    <p className='text-3xl font-medium leading-6'>Danh sách đơn hàng</p>
                   </div>
                   <div class='list_don_hang'>
                   {listHoaDon.map(item => (
@@ -47,7 +47,7 @@ export default function ListDonHang() {
                             <h2 class='text-2xl'>
                               Mã đơn hàng 16 - <b class='text-red-500'>{item.tinhTrang}</b>
                             </h2>
-                            <p class='text-lg font-bold'>Tên khách hàng: Lâm Minh Thiện</p>
+                            <p class='text-lg font-bold'>Tên khách hàng: {item.hoTen}</p>
                             <p class='text-lg font-bold'>Thời gian : {item.thoiGian.slice(0,10)}</p>
                             <p class='text-lg font-bold'>Số lượng sản phẩm: {item.soLuongSanPham}</p>
                             <p class='text-lg font-bold'>Tổng tiền: {item.tongTien}</p>

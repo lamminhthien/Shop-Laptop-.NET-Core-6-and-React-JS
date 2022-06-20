@@ -109,11 +109,12 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                          select new
                          {
                            maHoaDon = a.MaHoaDon,
+                           hoTen = (from a2 in _context.HoaDons join b2 in _context.KhachHangs on a2.MaKhachHang equals b2.MaKhachHang select b2.HoTen ).First(),
                            tinhTrang = (a.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" :
              (a.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : "Đã giao thành công")),
-                          thoiGian = a.NgayChotDon,
-                          soLuongSanPham = (from aa in _context.ChiTietHoaDons where aa.MaHoaDon == a.MaHoaDon select a).Count(),
-                          tongTien = a.TongTien
+                           thoiGian = a.NgayChotDon,
+                           soLuongSanPham = (from aa in _context.ChiTietHoaDons where aa.MaHoaDon == a.MaHoaDon select a).Count(),
+                           tongTien = a.TongTien
                          }).ToList();
       if (ListDonHang == null) return BadRequest("Chưa có đơn hàng nào");
       return Ok(ListDonHang);
