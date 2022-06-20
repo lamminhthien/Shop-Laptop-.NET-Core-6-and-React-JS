@@ -9,6 +9,7 @@ export default function ListDonHang() {
   const [listHoaDon, setListHoaDon] = useState([]);
   const [state, setState] = useState(false);
   const [error, setError] = useState([]);
+  const defaultURL = '/admin/list-hoa-don';
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -38,9 +39,18 @@ export default function ListDonHang() {
                   <div className=' title'>
                     <p className='text-3xl font-medium leading-6 py-2'>Danh sách đơn hàng</p>
                     <div className='flex gap-x-3 filter-don-hang'>
-                      <button className='bg-red-500 border-2 rounded-xl p-1 text-white'>Chưa duyệt</button>
-                      <button className='bg-yellow-500 border-2 rounded-xl p-1 text-white'>Đang vận chuyển</button>
-                      <button className='bg-green-500 border-2 rounded-xl p-1 text-white'>Hoàn thành</button>
+                    <button className='bg-red-500 border-2 rounded-xl p-1 text-white'>
+                        <a href={`${defaultURL}?status=-1`}>Bị hủy</a>
+                      </button>
+                      <button className='bg-red-400 border-2 rounded-xl p-1 text-white'>
+                        <a href={`${defaultURL}?status=0`}>Chưa duyệt</a>
+                      </button>
+                      <button className='bg-yellow-500 border-2 rounded-xl p-1 text-white'>
+                      <a href={`${defaultURL}?status=1`}>Đang vận chuyển</a>
+                      </button>
+                      <button className='bg-green-500 border-2 rounded-xl p-1 text-white'>
+                      <a href={`${defaultURL}?status=2`}>Hoàn thành</a>
+                      </button>
                     </div>
                   </div>
                   <div class='list_don_hang'>
