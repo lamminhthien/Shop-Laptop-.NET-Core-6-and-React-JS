@@ -66,7 +66,11 @@ export default function CommentList() {
                     <h2 className='text-2xl font-bold'>{item.tenKhachHang}</h2>
                   </div>
                   <div className='content break-all'>{item.noiDung}</div>
-                  {isAdmin ? <button className='text-white px-5 bg-blue-500 rounded-2xl' onClick={() => alert("Admin đang phản hồi bạn")}>Phản hồi</button> : ""}
+                  {isAdmin ? <button className='text-white px-5 bg-blue-500 rounded-2xl' onClick={(e) => {
+                    console.log("This is log for event handleing")
+                    console.log(e.target);
+                      e.target.innerText = "Đổi text"
+                    }}>Phản hồi</button> : ""}
                 </div>
               ))}
             </div>
