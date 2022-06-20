@@ -84,30 +84,25 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                         where a.Username == userNameNhanVien
                         select a.MaNhanVien
       ).FirstOrDefault();
-      return Ok(maNhanVien);
-      // var hoaDon = (from a in _context.HoaDons
-      //               where a.MaHoaDon == maHoaDon
-      //               select a).FirstOrDefault();
-      // if (hoaDon == null) return BadRequest("Không tìm thấy hóa đơn ");
-      // var nhanVien = (from a in _context.NhanViens
-      //                 where a.MaNhanVien == maNhanVien
-      //                 select a).FirstOrDefault();
-      // if (nhanVien == null) return BadRequest("Không tìm thấy nhân viên ");
-      // if (trangThaiDon > 1 && trangThaiDon < -1) return BadRequest("Trạng thái đơn hàng cần cập nhật không hợp lệ");
-      // hoaDon.NgayChotDon = System.DateTime.Now;
-      // hoaDon.TinhTrangGiaoHang = trangThaiDon;
-      // _context.Entry(hoaDon).State = EntityState.Modified;
-      // try
-      // {
-      //   _context.SaveChanges();
+      var hoaDon = (from a in _context.HoaDons
+                    where a.MaHoaDon == maHoaDon
+                    select a).FirstOrDefault();
+      if (hoaDon == null) return BadRequest("Không tìm thấy hóa đơn ");
+      if (maNhanVien == 0) return BadRequest("Không tìm thấy nhân viên ");
+      if (trangThaiDon > 2 && trangThaiDon < -1) return BadRequest("Trạng thái đơn hàng cần cập nhật không hợp lệ");
+      hoaDon.NgayChotDon = System.DateTime.Now;
+      hoaDon.TinhTrangGiaoHang = trangThaiDon;
+      _context.Entry(hoaDon).State = EntityState.Modified;
+      try
+      {
+        _context.SaveChanges();
 
-      // }
-      // catch (Exception ex)
-      // {
-      //   return BadRequest(ex.InnerException.ToString());
-      // }
-      // return Ok("Đã cập nhật trạng thái đơn hàng thành công");
-
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(ex.InnerException.ToString());
+      }
+      return Ok("Đã cập nhật trạng thái đơn hàng thành công");
     }
 
     [HttpGet("ListDonHang")]
