@@ -1,7 +1,45 @@
 import React from 'react';
 import Sidebar from '../../../Components/Admin/Sidebar';
+import { useState,useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import LoginCreateJWT from '../../Admin/Login/Login';
+import axios from 'axios';
+import { Identity } from '@mui/base';
 
 export default function ChiTietDonHang() {
+  let { id } = useParams();
+  const [listHoaDon, setListHoaDon] = useState([]);
+  const [state, setState] = useState(false);
+    // Response status code
+    const [statusCode, setStatusCode] = useState('');
+  const configJWT = {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+  };
+  useEffect(() => {
+    axios
+      .get(`https://localhost:7216/api/QuanLyDonHang/ChiTietDonHang/${id}`, configJWT)
+      .then(res => {
+        console.log('%cThis is a green text', 'color:green');
+        setListHoaDon(res.data);
+        setState(true);
+      })
+      .catch(err => {
+        setStatusCode(err.response.status)
+        console.log('%cThis is a red text', 'color:red');
+      });
+  }, []);
+  if (statusCode === 401) {
+    return <LoginCreateJWT/>
+} 
+  if (statusCode === 403 ) {
+    return <LoginCreateJWT expire="1" />;
+  }
+  if (statusCode === 401) {
+      return <LoginCreateJWT login="0" />
+  }
+
   return (
     <>
       <div className='flex'>
