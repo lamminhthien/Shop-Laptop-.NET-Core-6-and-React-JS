@@ -23,9 +23,12 @@ console.log(props);
   // Render form
     return (
       <div
-        class='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 bg-gradient-to-r
-      from-indigo-600
-      to-blue-400'>
+        class='body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0 bg-cover bg-no-repeat'  style={{
+          backgroundImage: ` linear-gradient(
+          rgba(0, 0, 0, 0.3), 
+          rgba(0, 0, 0, 0.3)
+        ), url(/images/bg-admin-login.jpg)`
+        }}>
         <main class='bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl'>
           <section>
             {props.expire? <h3 className='text-red-600'>Phiên đăng nhập hết hạn</h3> :
@@ -61,7 +64,7 @@ console.log(props);
                 />
               </div>
               <button
-                class='bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200'
+                class='bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200'
                 type='submit'>
                 Đăng nhập
               </button>

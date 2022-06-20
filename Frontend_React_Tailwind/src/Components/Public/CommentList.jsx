@@ -71,10 +71,11 @@ export default function CommentList() {
                     <button
                       className='text-white px-5 bg-blue-500 rounded-2xl'
                       onClick={e => {
-                        const scriptHTML = '<p class="text-red-500">Hello event target</p>';
+                        const scriptHTML =
+                          '<div class=`code-preview rounded-xl bg-gradient-to-r bg-white  border-gray-200 p-2 sm:p-6"><label for="message" class="block mb-2 text-sm font-medium text-gray-900">Bình luận sản phẩm</label><textarea name="noiDung" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Để lại bình luận, ý kiến về sản phẩm này"></textarea><input type="submit" class="mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" value="Gửi ý kiến"></div>';
                         console.log('This is log for event handleing');
                         console.log(e.target);
-                        e.target.innerHTML = scriptHTML
+                        e.target.innerHTML = scriptHTML;
                       }}>
                       Phản hồi
                     </button>
