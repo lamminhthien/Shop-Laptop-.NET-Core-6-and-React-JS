@@ -10,7 +10,7 @@ export default function ChiTietDonHang() {
   let {id} = useParams();
   const [listHoaDon, setListHoaDon] = useState([]);
   const [state, setState] = useState(false);
-  const [donHangStatus, setDonHangStatus] = useState(false);
+  const [donHangStatus, setDonHangStatus] = useState("");
   var tongTien = 0;
   // Response status code
   const [statusCode, setStatusCode] = useState('');
@@ -27,13 +27,20 @@ export default function ChiTietDonHang() {
         setListHoaDon(res.data.chiTietHoaDon);
         setState(true);
         setDonHangStatus(res.data.trangThaiDon.trangThai)
+        console.log(`------------------ ${donHangStatus}`);
       })
       .catch(err => {
         setState(false);
         setStatusCode(err.response.status);
         console.log('%cThis is a red text', 'color:red');
       });
-  }, []);
+  }, [donHangStatus]);
+  const renderData = (donHangStatus) => {
+    // if (donHangStatus == 'Đang chờ duyệt')
+    // return (<>ABCDEF</>)
+    // if (state == true) return <>{donHangStatus}</>
+    if (state === true) return <>{`This is ${donHangStatus}`}</>
+  }
 
   listHoaDon.forEach(item => {
     tongTien = tongTien + item.soLuong * item.donGia;
@@ -81,8 +88,10 @@ export default function ChiTietDonHang() {
                                 <p class='self-center font-bold text-red-500'>Số lượng: {item.soLuong}</p>
                                 <p class='self-center'>Đơn giá: {Math.round(Math.round(item.donGia))}</p>
                               </div>
+                              
                             ))}
                           </div>
+                          { donHangStatus == "Đang chờ duyệt" ? "ABC" : "No way" }
                         </div>
                       </div>
                     
