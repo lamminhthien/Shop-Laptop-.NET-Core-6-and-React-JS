@@ -26,44 +26,36 @@ export default function ListDonHang() {
         console.log('%cThis is a red text', 'color:red');
       });
   }, []);
-  return (
-    <div>
-      <div className='flex'>
-        <Sidebar />
-        <div className='h-screen flex-1 p-7'>
-          <div className='container  lg:p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
-            <div className='inner border-2 border-white rounded-lg'>
-              <div className='items-cart relative w-full   lg:p-6 bg-white space-y-10 '>
-                <div className=' title'>
-                  <p className='text-3xl font-medium leading-6'>Tình trạng đơn hàng</p>
-                </div>
-                <div className='list_don_hang'>
-                  <div className='inner px-8 py-4'>
-                    <div className='don-hang space-y-10'>
-                      <div className='don-hang-1 bg-slate-100'>
-                        <div className='flex justify-between'>
-                          <h2 className='text-2xl'>
-                            Mã đơn hàng 16 - <b className='text-red-500'>Đang chờ duyệt</b>
-                          </h2>
-                          <p className='text-lg font-bold'>Tổng tiền: 36059700</p>
-                          <button onClick={() => console.log('nothing')}>
-                            <FcExpand size={30} />
-                          </button>
-                        </div>
-                        <div className='list_item_in_don_hang hidden space-y-4 pl-10 border-4 border-b-emerald-400 border-t-emerald-400'>
-                          <div className='text-xl item flex space-x-9 justify-between'>
-                            <img
-                              className='h-[200px] self-center'
-                              src='https://localhost:7216/Resources/Images/SanPham/SP81-1.jpeg'
-                              alt='Laptop HP 240 G8'
-                            />
-                            <h2 className=' text-gray-700 self-center'>Laptop HP 240 G8</h2>
-                            <p className='font-bold text-red-500 self-center'>Số lượng: 1</p>
-                            <p className='self-center '>Đơn giá: 15750900.000000002</p>
+  if (state === true) {
+    return (
+      <div>
+        <div className='flex'>
+          <Sidebar />
+          <div className='h-screen flex-1 p-7'>
+            <div className='container  lg:p-9 mx-auto border-2 bg-[#E2EEEC] border-white rounded-lg'>
+              <div className='inner border-2 border-white rounded-lg'>
+                <div className='items-cart relative w-full   lg:p-6 bg-white space-y-10 '>
+                  <div className=' title'>
+                    <p className='text-3xl font-medium leading-6'>Tình trạng đơn hàng</p>
+                  </div>
+                  <div class='list_don_hang'>
+                  {listHoaDon.map(item => (
+                    <div class='inner px-8 py-4'>
+                      <div class='don-hang space-y-10'>
+                        <div class='don-hang-1 bg-slate-100'>
+                          <div class=''>
+                            <h2 class='text-2xl'>
+                              Mã đơn hàng 16 - <b class='text-red-500'>Đang chờ duyệt</b>
+                            </h2>
+                            <p class='text-lg font-bold'>Tên khách hàng: Lâm Minh Thiện</p>
+                            <p class='text-lg font-bold'>Thời gian : 21/3/2022</p>
+                            <p class='text-lg font-bold'>Số lượng sản phẩm: 10</p>
+                            <p class='text-lg font-bold'>Tổng tiền: 36059700</p>
                           </div>
                         </div>
                       </div>
                     </div>
+                  ))}
                   </div>
                 </div>
               </div>
@@ -71,6 +63,18 @@ export default function ListDonHang() {
           </div>
         </div>
       </div>
+    );
+  }
+  if (state === false) {
+    return (
+      <div>
+      <div className='flex'>
+        <Sidebar />
+        <div className='h-screen flex-1 p-7'>
+         <h2 className='text-red-500 font-semibold leading-7'>Chưa có hóa đơn nào</h2>
+        </div>
+      </div>
     </div>
-  );
+    )
+  }
 }
