@@ -96,9 +96,9 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
             {
                 return BadRequest("Không có nhân viên phản hồi");
             }
-            if (noiDung.Length < 50 || noiDung.Length > 255)
+            if (noiDung.Length < 10 || noiDung.Length > 255)
             {
-                return BadRequest("Nội dung phải nằm trong khoảng từ 50 đến 255 kí tự");
+                return BadRequest("Nội dung phải nằm trong khoảng từ 10 đến 255 kí tự");
             }
             try
             {
