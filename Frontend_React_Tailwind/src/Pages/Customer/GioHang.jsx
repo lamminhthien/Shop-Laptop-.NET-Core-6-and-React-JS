@@ -166,7 +166,7 @@ export default function GioHang() {
                   <p className='text-3xl font-medium leading-6 mb-12'>Thông tin chung</p>
                   <div className='subtotal mb-6'>
                     <h2 className='text-lg font-medium'>Tổng tiền</h2>
-                    <p className='text-3xl font-medium '>{tongTien} VND</p>
+                    <p className='text-3xl font-medium '>{Math.round(tongTien)} VND</p>
                   </div>
                   {/* <div className='shipping-fee mb-6'>
                     <h2 className='text-lg font-medium'>Shipping Fee</h2>

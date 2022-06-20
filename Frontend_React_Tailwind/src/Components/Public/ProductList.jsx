@@ -83,7 +83,7 @@ export default function ProductList() {
                   className='
                   w-fit rounded-2xl border-orange-500 bg-orange-500 px-4 py-3 text-white
                 '>
-                  {item.giaNiemYet}đ
+                  {Math.round(item.giaNiemYet)} VND
                 </div>
               </a>
             ))}

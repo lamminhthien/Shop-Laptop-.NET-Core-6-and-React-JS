@@ -64,7 +64,7 @@ export default function ChiTietDonHang() {
                             <h2 class='text-2xl'>
                               Mã đơn hàng {id} - <b class='text-red-500'>Đang chờ duyệt</b>
                             </h2>
-                            <p class='text-lg font-bold'>Tổng tiền: {tongTien}</p>
+                            <p class='text-lg font-bold'>Tổng tiền: {Math.round(tongTien)}</p>
                           </div>
                           <div class='list_item_in_don_hang space-y-4 border-4 border-b-emerald-400 border-t-emerald-400 pl-10'>
                             {listHoaDon.map(item => (
@@ -76,12 +76,14 @@ export default function ChiTietDonHang() {
                                 />
                                 <h2 class='self-center text-gray-700'>{item.tenSanPham}</h2>
                                 <p class='self-center font-bold text-red-500'>Số lượng: {item.soLuong}</p>
-                                <p class='self-center'>Đơn giá: {item.donGia}</p>
+                                <p class='self-center'>Đơn giá: {Math.round(Math.round(item.donGia))}</p>
                               </div>
                             ))}
                           </div>
                         </div>
                       </div>
+                      <button className='text-white bg-green-500 rounded-2xl p-3 m-3'>Tiến hành giao hàng</button>
+                      <button className='text-white bg-red-500 rounded-2xl p-3 m-3'>Hủy đơn hàng</button>
                     </div>
                   </div>
                 </div>
