@@ -57,8 +57,8 @@ export default function ListDonHang() {
                     {listHoaDon.map(item => (
                       <div class='inner px-8 py-4'>
                         <div class='don-hang space-y-10'>
-                          <div class='don-hang-1 bg-slate-100'>
-                            <div class=''>
+                          <div class='flex justify-between don-hang-1 bg-slate-100'>
+                            <div class='don-hang-info'>
                               <h2 class='text-2xl'>
                                 Mã đơn hàng 16 - <b class='text-red-500'>{item.tinhTrang}</b>
                               </h2>
@@ -66,6 +66,17 @@ export default function ListDonHang() {
                               <p class='text-lg font-bold'>Thời gian : {item.thoiGian.slice(0, 10)}</p>
                               <p class='text-lg font-bold'>Số lượng sản phẩm: {item.soLuongSanPham}</p>
                               <p class='text-lg font-bold'>Tổng tiền: {item.tongTien}</p>
+                            </div>
+                            <div className="button-function">
+                            <button className='bg-red-500 border-2 rounded-xl lg:text-2xl p-1 lg:p-3 text-white' onClick={() => setHoaDonStatus(-1)}>
+                                Hủy đơn
+                             </button>
+                             <button className='bg-teal-500 border-2 rounded-xl lg:text-2xl p-1 lg:p-3 text-white' onClick={() => setHoaDonStatus(-1)}>
+                                Bắt đầu giao hàng
+                             </button>
+                             <button className='bg-green-500 border-2 rounded-xl lg:text-2xl p-1 lg:p-3 text-white' onClick={() => setHoaDonStatus(-1)}>
+                                Giao hàng hoàn tất
+                             </button>
                             </div>
                           </div>
                         </div>
