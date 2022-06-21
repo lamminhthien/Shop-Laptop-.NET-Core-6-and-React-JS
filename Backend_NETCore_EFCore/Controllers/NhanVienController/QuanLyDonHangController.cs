@@ -90,6 +90,22 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       if (hoaDon == null) return BadRequest("Không tìm thấy hóa đơn ");
       if (maNhanVien == 0) return BadRequest("Không tìm thấy nhân viên ");
       if (trangThaiDon > 2 && trangThaiDon < -1) return BadRequest("Trạng thái đơn hàng cần cập nhật không hợp lệ");
+      // Nếu  có 1 sản phẩm không đủ số lượng (tức là dưới 4,3,2,1) để đặt cho khách thì báo lỗi ngay 
+      // Check từng món trong hóa đơn đó
+      var listChiTietHoaDon = (from cthds in _context.ChiTietHoaDons where cthds.MaHoaDon == maHoaDon select cthds).ToList();
+      foreach (var cthd in listChiTietHoaDon)
+      {
+        var kiemTraSpTrongKho = (from ctsp in _context.ChiTietSanPhams
+              join sp in _context.SanPhams on ctsp.MaSanPham equals sp.MaSanPham
+              where ctsp.MaSanPham == cthd.MaSanPham select new {
+                soLuong = ctsp.SoLuong,
+                tenSp = sp.TenSanPham
+              }).FirstOrDefault();
+        // So sánh với số lượng  trong chi tiết hóa đơn đó
+        if (cthd.SoLuong > kiemTraSpTrongKho?.soLuong) {
+          return BadRequest("Sản phẩm " + kiemTraSpTrongKho.tenSp + " Không đủ số lượng để tiến hành đặt hàng");
+        }
+      }
       hoaDon.NgayChotDon = System.DateTime.Now;
       hoaDon.TinhTrangGiaoHang = trangThaiDon;
       _context.Entry(hoaDon).State = EntityState.Modified;

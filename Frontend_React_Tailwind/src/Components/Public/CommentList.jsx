@@ -7,6 +7,22 @@ export default function CommentList() {
   const [state, setState] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   let {id} = useParams();
+
+  const loadPhanHoiBinhLuan = (id) => {
+    console.log('inside load phan hoi binh luan');
+    const promise = axios.get(`https://localhost:7216/api/TrangChiTietSanPham/ListPhanHoiBinhLuanSanPham?id=${id}`)
+
+    const dataPromise = promise.then((response) => response.data)
+
+    console.log(dataPromise.length);
+    // if (dataPromise.length >0) return <>
+    //  {/* {dataPromise.map((item) => 
+    //   <p>{item.tenNhanVien}</p>
+    //  )} */}
+    // </>
+    
+  }
+  
   const configJWT = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -54,7 +70,7 @@ export default function CommentList() {
               </div>
             </div>
             {/* Comment List */}
-            <div className='comment-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-5'>
+            <div className='comment-list py-4'>
               {listBinhLuan.map(item => (
                 <div className='comment-card border-2 border-gray-300  min-h-[283px] p-6 overflow-auto space-y-6'>
                   <div className='avatar rounded-full border-4 w-[60px] h-[60px] bg-gradient-to-t'>
@@ -73,14 +89,20 @@ export default function CommentList() {
                       onClick={e => {
                         console.log('This is log for event handleing');
                         console.log(e);
-                        let noiDung = prompt("Nhập nôi dung phản hồi bình luận, tối thiểu 10 ký tự, tối đa 255 ky")
+                        let noiDung = prompt('Nhập nôi dung phản hồi bình luận, tối thiểu 10 ký tự, tối đa 255 ky');
                         if (noiDung != null) {
-                          axios.post(`https://localhost:7216/api/QuanLyBinhLuanSanPham/PhanHoiBinhLuanSP?maBinhLuan=${item.maBinhLuan}&noiDung=${noiDung}`,null,configJWT)
-                          .then(res => {
-                            alert(res.data)
-                          }).catch(err => {
-                            alert(err.response.data)
-                          })
+                          axios
+                            .post(
+                              `https://localhost:7216/api/QuanLyBinhLuanSanPham/PhanHoiBinhLuanSP?maBinhLuan=${item.maBinhLuan}&noiDung=${noiDung}`,
+                              null,
+                              configJWT
+                            )
+                            .then(res => {
+                              alert(res.data);
+                            })
+                            .catch(err => {
+                              alert(err.response.data);
+                            });
                         }
                       }}>
                       Phản hồi

@@ -83,21 +83,35 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
     }
 
     [HttpGet("ListBinhLuanSanPham")]
-    public async Task<ActionResult<List<dynamic>>> ListBinhLuanSanPham(int id){
-        var ketqua = (from a in _context.SanPhams
-                          join b in _context.BinhLuanSanPhams on
-                          a.MaSanPham equals b.MaSanPham
-                          join c in _context.KhachHangs
-                          on b.MaKhachHang equals c.MaKhachHang
-                          where a.MaSanPham == id
-                          select new
-                          {
-                              maBinhLuan = b.MaBinhLuan,
-                              tenKhachHang = c.HoTen,
-                              noiDung = b.NoiDung,
-                          }).ToList();
-        return Ok(ketqua);
+    public async Task<ActionResult<List<dynamic>>> ListBinhLuanSanPham(int id)
+    {
+      var ketqua = (from a in _context.SanPhams
+                    join b in _context.BinhLuanSanPhams on
+                    a.MaSanPham equals b.MaSanPham
+                    join c in _context.KhachHangs
+                    on b.MaKhachHang equals c.MaKhachHang
+                    where a.MaSanPham == id
+                    select new
+                    {
+                      maBinhLuan = b.MaBinhLuan,
+                      tenKhachHang = c.HoTen,
+                      noiDung = b.NoiDung,
+                    }).ToList();
+      return Ok(ketqua);
     }
 
+    [HttpGet("ListPhanHoiBinhLuanSanPham")]
+    public async Task<ActionResult<List<dynamic>>> ListPhanHoiBinhLuanSanPham(int id)
+    {
+      var ketQua = (from a in _context.PhanHoiBinhLuanSps
+                    join b in _context.NhanViens on a.MaNhanVien equals b.MaNhanVien
+                    where a.MaBinhLuan == id
+                    select new
+                    {
+                      tenNhanVien = b.TenNhanVien,
+                      noiDung = a.NoiDung
+                    }).ToList();
+      return Ok(ketQua);
     }
+  }
 }
