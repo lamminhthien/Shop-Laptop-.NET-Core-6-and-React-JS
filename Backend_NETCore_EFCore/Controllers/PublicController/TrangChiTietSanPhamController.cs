@@ -92,6 +92,7 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                           where a.MaSanPham == id
                           select new
                           {
+                              maBinhLuan = b.MaBinhLuan,
                               tenKhachHang = c.HoTen,
                               noiDung = b.NoiDung,
                           }).ToList();

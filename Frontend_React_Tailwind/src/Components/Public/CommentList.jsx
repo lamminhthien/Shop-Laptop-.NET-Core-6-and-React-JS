@@ -37,7 +37,7 @@ export default function CommentList() {
     console.log(listBinhLuan);
     if (state === true) {
       return (
-        <div className='container max-w-[1920px] p-20  m-auto h-[1200px]'>
+        <div className='container p-20 m-auto'>
           <div className='justify-between'>
             <div className='flex justify-between space-y-5 mb-16'>
               <div className='title-left '>
@@ -71,11 +71,17 @@ export default function CommentList() {
                     <button
                       className='text-white px-5 bg-blue-500 rounded-2xl'
                       onClick={e => {
-                        const scriptHTML =
-                          '<div class=`code-preview rounded-xl bg-gradient-to-r bg-white  border-gray-200 p-2 sm:p-6"><label for="message" class="block mb-2 text-sm font-medium text-gray-900">Bình luận sản phẩm</label><textarea name="noiDung" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Để lại bình luận, ý kiến về sản phẩm này"></textarea><input type="submit" class="mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" value="Gửi ý kiến"></div>';
                         console.log('This is log for event handleing');
-                        console.log(e.target);
-                        e.target.innerHTML = scriptHTML;
+                        console.log(e);
+                        let noiDung = prompt("Nhập nôi dung phản hồi bình luận, tối thiểu 10 ký tự, tối đa 255 ky")
+                        if (noiDung != null) {
+                          axios.post(`https://localhost:7216/api/QuanLyBinhLuanSanPham/PhanHoiBinhLuanSP?maBinhLuan=${item.maBinhLuan}&noiDung=${noiDung}`,null,configJWT)
+                          .then(res => {
+                            alert(res.data)
+                          }).catch(err => {
+                            alert(err.response.data)
+                          })
+                        }
                       }}>
                       Phản hồi
                     </button>
