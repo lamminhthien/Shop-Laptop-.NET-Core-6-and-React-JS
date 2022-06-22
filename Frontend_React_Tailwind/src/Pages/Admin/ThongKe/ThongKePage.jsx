@@ -20,7 +20,7 @@ export default function ThongKePage() {
             <div className='row text-white'>
               <div className='grid grid-cols-6 lg:grid-cols-8 gap-x-6'>
                 <div className='md:col-span-3 lg:col-span-2 col-span-6'>
-                  <div className='small-box flex justify-between rounded shadow block  bg-[#17a2b8] mb-5'>
+                  <div className='small-box px-5 py-3 flex justify-between rounded shadow   bg-[#17a2b8] mb-5'>
                     <div className='inner p-[10px]'>
                       <h3 className='text-4xl font-bold mb-[10px] whitespace-nowrap'>150</h3>
                       <p className='mb-4 text-base'>Đơn hàng đã lập</p>
@@ -61,26 +61,115 @@ export default function ThongKePage() {
                   </div>
                 </div>
                 <div className='md:col-span-3 lg:col-span-2 col-span-6'>
-                  <div className='small-box rounded shadow block  bg-[#28a745] mb-5'>
+                  <div className='small-box px-5 py-3 flex justify-between rounded shadow  bg-[#28a745] mb-5'>
                     <div className='inner p-[10px]'>
                       <h3 className='text-4xl font-bold mb-[10px] whitespace-nowrap'>4</h3>
                       <p className='mb-4 text-base'>Sản phẩm đang bán</p>
                     </div>
-                  </div>
-                </div>
-                <div className='md:col-span-3 lg:col-span-2 col-span-6'>
-                  <div className='small-box rounded shadow block  bg-[#ffc107] mb-5'>
-                    <div className='inner p-[10px]'>
-                      <h3 className='text-4xl font-bold mb-[10px] whitespace-nowrap'>2</h3>
-                      <p className='mb-4 text-base'>Khách hàng đã đăng ký</p>
+                    <div className='icon'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        xmlnsXlink='http://www.w3.org/1999/xlink'
+                        version='1.1'
+                        id='Capa_1'
+                        x='0px'
+                        y='0px'
+                        viewBox='0 0 490 490'
+                        style={{height: 95, width: 57, enableBackground: 'new 0 0 490 490', fill: 'black'}}
+                        xmlSpace='preserve'>
+                        <path d='M451.719,366.941V101.285c0-14.807-12.02-26.858-26.797-26.858H65.078c-14.777,0-26.797,12.051-26.797,26.858v265.657H0  v16.216l24.5,32.417h441l24.5-32.417v-16.216H451.719z M68.906,105.036h352.187v261.905H68.906V105.036z' />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                      </svg>
                     </div>
                   </div>
                 </div>
                 <div className='md:col-span-3 lg:col-span-2 col-span-6'>
-                  <div className='small-box rounded shadow block  bg-[#dc3545] mb-5'>
+                  <div className='small-box px-5 py-3 flex justify-between rounded shadow  bg-[#ffc107] mb-5'>
+                    <div className='inner p-[10px]'>
+                      <h3 className='text-4xl font-bold mb-[10px] whitespace-nowrap'>2</h3>
+                      <p className='mb-4 text-base'>Khách hàng đã đăng ký</p>
+                    </div>
+                    <div className='icon'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        xmlnsXlink='http://www.w3.org/1999/xlink'
+                        width='32px'
+                        height='32px'
+                        viewBox='0 0 32 32'
+                        enableBackground='new 0 0 32 32'
+                        id='Stock_cut'
+                        version='1.1'
+                        xmlSpace='preserve'
+                        style={{width: 50, height: 95, fill: 'white'}}>
+                        <desc />
+                        <g style={{fill: 'white'}}>
+                          <circle
+                            cx={16}
+                            cy={16}
+                            fill='none'
+                            r={15}
+                            stroke='#000000'
+                            strokeLinejoin='round'
+                            strokeMiterlimit={10}
+                            strokeWidth={2}
+                          />
+                          <path
+                            d='M26,27L26,27   c0-5.523-4.477-10-10-10h0c-5.523,0-10,4.477-10,10v0'
+                            fill='none'
+                            stroke='#000000'
+                            strokeLinejoin='round'
+                            strokeMiterlimit={10}
+                            strokeWidth={2}
+                          />
+                          <circle
+                            cx={16}
+                            cy={11}
+                            fill='none'
+                            r={6}
+                            stroke='#000000'
+                            strokeLinejoin='round'
+                            strokeMiterlimit={10}
+                            strokeWidth={2}
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div className='md:col-span-3 lg:col-span-2 col-span-6'>
+                  <div className='small-box px-5 py-3 flex justify-between rounded shadow  bg-[#dc3545] mb-5'>
                     <div className='inner p-[10px]'>
                       <h3 className='text-4xl font-bold mb-[10px] whitespace-nowrap'>88</h3>
                       <p className='mb-4 text-base'>Lượt truy cập</p>
+                    </div>
+                    <div className='icon pt-[25px] w-14'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        xmlnsXlink='http://www.w3.org/1999/xlink'
+                        version='1.1'
+                        viewBox='0 0 512 512'
+                        enableBackground='new 0 0 512 512'>
+                        <g>
+                          <g>
+                            <path d='m251.6,185.7c-36.9,0-67,31.5-67,70.3 0,38.7 30,70.3 67,70.3 36.9,0 67-31.5 67-70.3 0-38.7-30.1-70.3-67-70.3z' />
+                            <path d='m251.6,367.1c-59.4,0-107.8-49.8-107.8-111.1 0-61.3 48.4-111.1 107.8-111.1s107.8,49.8 107.8,111.1c0,61.3-48.4,111.1-107.8,111.1zm246.3-121.9c-63.8-102.4-149.8-158.8-241.9-158.8-92.1,0-178.1,56.4-241.9,158.8-4.1,6.6-4.1,15 0,21.6 63.8,102.4 149.8,158.8 241.9,158.8 92.1,0 178-56.4 241.9-158.8 4.1-6.6 4.1-15 0-21.6z' />
+                          </g>
+                        </g>
+                      </svg>
                     </div>
                   </div>
                 </div>
