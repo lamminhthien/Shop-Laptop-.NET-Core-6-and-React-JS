@@ -288,8 +288,11 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
 
     [HttpGet("ViewCount")]
     public ActionResult viewCount(){
-      string[] lines = { "First line", "Second line", "Third line" };
-      return Ok("5");
+      var currentCount = (from a in _context.LuotTruyCaps select a).FirstOrDefault();
+      currentCount.ViewCount = currentCount.ViewCount + 1;
+      _context.Entry(currentCount).State = EntityState.Modified;
+       _context.SaveChanges();
+      return Ok(currentCount.ViewCount);
     }
   }
 }
