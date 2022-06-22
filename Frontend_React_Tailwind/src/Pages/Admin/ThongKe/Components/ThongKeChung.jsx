@@ -1,6 +1,17 @@
 import React from 'react';
+import axios from 'axios';
+import { useEffect,useState } from 'react';
 
 export default function ThongKeChung() {
+  const [viewCount,setViewCount] = useState(0);
+  const [loadingDone,setLoadingDone] = useState(false);
+  useEffect(() => {
+      axios.get(`https://localhost:7216/api/TrangChu/ViewCount`)
+        .then((res) => {
+          setViewCount(viewCount)
+          setLoadingDone(true)
+        })
+  },[loadingDone])
   return (
     <>
       <div className='content-header pt-4 pr-2'>
