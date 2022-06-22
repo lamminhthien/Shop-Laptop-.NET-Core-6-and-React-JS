@@ -115,11 +115,31 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       try
       {
         _context.SaveChanges();
-
       }
       catch (Exception ex)
       {
-        return BadRequest(ex.InnerException.ToString());
+        return BadRequest("Có lỗi không xác định khi cập nhật trạng thái của đơn hàng");
+      }
+      // Cập nhật lại số lượng sản phẩm trong kho nếu đơn hàng này giao hoàn thành
+      if (trangThaiDon == 2)
+      {
+        foreach (var cthd in listChiTietHoaDon)
+        {
+          var spCanCapNhatSoLuong = (from a in _context.ChiTietSanPhams
+                                     where a.MaSanPham == cthd.MaSanPham
+                                     select a).FirstOrDefault();
+          // Tiến hành cập nhật lại số lượng từng sản phẩm trong kho
+          spCanCapNhatSoLuong.SoLuong = spCanCapNhatSoLuong.SoLuong - cthd.SoLuong;
+          _context.Entry(spCanCapNhatSoLuong).State = EntityState.Modified;
+          try
+          {
+            _context.SaveChanges();
+          }
+          catch (Exception ex)
+          {
+            return BadRequest("Không thể cập nhật lại số lượng sản phẩm trong kho sau khi giao hàng thành công");
+          }
+        }
       }
       return Ok("Đã cập nhật trạng thái đơn hàng thành công");
     }
