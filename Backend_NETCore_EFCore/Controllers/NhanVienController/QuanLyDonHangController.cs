@@ -96,13 +96,16 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
       foreach (var cthd in listChiTietHoaDon)
       {
         var kiemTraSpTrongKho = (from ctsp in _context.ChiTietSanPhams
-              join sp in _context.SanPhams on ctsp.MaSanPham equals sp.MaSanPham
-              where ctsp.MaSanPham == cthd.MaSanPham select new {
-                soLuong = ctsp.SoLuong,
-                tenSp = sp.TenSanPham
-              }).FirstOrDefault();
+                                 join sp in _context.SanPhams on ctsp.MaSanPham equals sp.MaSanPham
+                                 where ctsp.MaSanPham == cthd.MaSanPham
+                                 select new
+                                 {
+                                   soLuong = ctsp.SoLuong,
+                                   tenSp = sp.TenSanPham
+                                 }).FirstOrDefault();
         // So sánh với số lượng  trong chi tiết hóa đơn đó
-        if (cthd.SoLuong > kiemTraSpTrongKho?.soLuong) {
+        if (cthd.SoLuong > kiemTraSpTrongKho?.soLuong)
+        {
           return BadRequest("Sản phẩm " + kiemTraSpTrongKho.tenSp + " Không đủ số lượng để tiến hành đặt hàng");
         }
       }
@@ -131,7 +134,7 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                            maHoaDon = a.MaHoaDon,
                            hoTen = (from a2 in _context.HoaDons join b2 in _context.KhachHangs on a2.MaKhachHang equals b2.MaKhachHang select b2.HoTen).First(),
                            tinhTrang = (a.TinhTrangGiaoHang == 0 ? "Đang chờ duyệt" :
-             (a.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : "Đã giao thành công")),
+             (a.TinhTrangGiaoHang == 1 ? "Đang vận chuyển" : a.TinhTrangGiaoHang == 2 ? "Đã giao hàng thành công" : "Bị hủy")),
                            thoiGian = a.NgayChotDon,
                            soLuongSanPham = (from aa in _context.ChiTietHoaDons where aa.MaHoaDon == a.MaHoaDon select a).Count(),
                            tongTien = a.TongTien
@@ -161,7 +164,15 @@ namespace ShopLaptop_EFCore.Controllers.NhanVienController
                                        select d.GiaNhap * (1 + d.ChietKhau)).Last(),
                              anhSanPham = (from e in _context.AnhSanPhams
                                            where e.MaSanPham == a.MaSanPham
-                                           select imageURL + e.FileAnh.Trim()).First()
+                                           select imageURL + e.FileAnh.Trim()).First(),
+                             conHangTrongKho = (from sp in _context.SanPhams
+                                                join
+                               ctsp in _context.ChiTietSanPhams on sp.MaSanPham equals ctsp.MaSanPham
+                                                where sp.MaSanPham == a.MaSanPham
+                                                select new
+                                                {
+                                                  khaNangDatHang = (a.SoLuong > ctsp.SoLuong ? "Không đủ số lượng để giao" : "")
+                                                }).FirstOrDefault()
                            }).ToList();
       var trangThaiDon = (from a in _context.HoaDons
                           where a.MaHoaDon == maHoaDon

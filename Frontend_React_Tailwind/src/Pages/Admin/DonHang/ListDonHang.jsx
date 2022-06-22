@@ -70,7 +70,7 @@ export default function ListDonHang() {
                           <div class='don-hang-1 bg-slate-100'>
                             <div class='grid grid-cols-2 don-hang-info'>
                               <h2 class='text-2xl col-span-2'>
-                                Mã đơn hàng {item.maHoaDon} - <b class='text-red-500'>{item.tinhTrang}</b>
+                                Mã đơn hàng {item.maHoaDon} - <b class='text-black'>{item.tinhTrang}</b>
                               </h2>
                               <p class='text-lg font-bold'>Tên khách hàng: {item.hoTen}</p>
                               <p class='text-lg font-bold'>Thời gian : {item.thoiGian.slice(0, 10)}</p>

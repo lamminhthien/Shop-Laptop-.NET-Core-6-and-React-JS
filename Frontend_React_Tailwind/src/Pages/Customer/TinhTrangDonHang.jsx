@@ -57,6 +57,7 @@ export default function TinhTrangDonHang() {
                                   <h2 className=' text-gray-700 self-center'>{item_inner.tenSanPham}</h2>
                                   <p className='font-bold text-red-500 self-center'>Số lượng: {item_inner.soLuong}</p>
                                   <p className='self-center '>Đơn giá: {item_inner.donGia}</p>
+                                  <p className='self-center text-red-500 font-bold'>{item.conHangTrongKho}</p>
                                 </div>
                               ))}
                             </div>
