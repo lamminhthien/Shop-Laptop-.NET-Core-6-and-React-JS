@@ -28,6 +28,7 @@ namespace ShopLaptop_EFCore.Data
         public virtual DbSet<HoaDon> HoaDons { get; set; } = null!;
         public virtual DbSet<KhachHang> KhachHangs { get; set; } = null!;
         public virtual DbSet<LoaiSanPham> LoaiSanPhams { get; set; } = null!;
+        public virtual DbSet<LuotTruyCap> LuotTruyCaps { get; set; } = null!;
         public virtual DbSet<NhanVien> NhanViens { get; set; } = null!;
         public virtual DbSet<PhanHoiBinhLuanSp> PhanHoiBinhLuanSps { get; set; } = null!;
         public virtual DbSet<SanPham> SanPhams { get; set; } = null!;

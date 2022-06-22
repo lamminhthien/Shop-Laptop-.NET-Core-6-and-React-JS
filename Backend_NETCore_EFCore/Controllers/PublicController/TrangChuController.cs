@@ -285,5 +285,11 @@ namespace ShopLaptop_EFCore.Controllers.PublicController
                         });
       return Ok(listBanner);
     }
+
+    [HttpGet("ViewCount")]
+    public ActionResult viewCount(){
+      string[] lines = { "First line", "Second line", "Third line" };
+      return Ok("5");
+    }
   }
 }
