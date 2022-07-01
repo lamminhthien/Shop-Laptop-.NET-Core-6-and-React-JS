@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className='relative mt-16 bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500'>
+    <div className='relative bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500'>
       <div className='px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8'>
         <div className='grid  row-gap-10 mb-8 lg:grid-cols-3'>
           <div className='md:max-w-md'>
